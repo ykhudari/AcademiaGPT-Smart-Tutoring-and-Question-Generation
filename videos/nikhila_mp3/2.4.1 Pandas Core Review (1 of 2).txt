@@ -1,0 +1,323 @@
+Hello, this is Spencer Lyon and today we will be doing a review of pandas by
+a way of example. What we'll be looking at today is an example data set called
+the MovieLens data set and we're going to be using this to learn a few things.
+So first we're going to be learning how to use the request library in pandas,
+which is a very popular library for handling interactions with web services.
+Second part of this will be downloading a file that's contained in a zip archive
+and so we're going to learn how to allow pandas to operate on these zip files but
+we'll do so entirely in memory without having to write the file out to a hard drive.
+And finally we're going to practice merging data sets so that we can do a more
+complete analysis on a variety of data sets. Just a note that you will need
+Internet access if you'd follow along in running this notebook because we
+will be downloading a file from the Internet. And also this was originally
+created a few years ago by a team led by Dave Backus, Dr. Coleman and myself as
+well as one of our teaching assistants Brian the Blanc for a course that we
+taught at NYU Stern in the data bootcamp course. And we've taken this notebook
+and it's been modified for today's purposes but this was when the content was
+originally developed. Okay so we're going to start by importing some packages.
+So first we're going to make sure that our plots are going to show up then we're
+going to do our standard imports of pandas and matplotlib. We also have a new
+import of date time as GT and then a handful of new imports down at the bottom
+where we're going to import the OS package requests IO zip file and SSU tool.
+Don't worry too much about these now we will go over what they are but we'll
+run these now and we'll be ready to go when we get later on. Okay so a little
+background on the data set that we're going to be using. So there is a group out
+of the University of Minnesota called the group lens team and this team has
+gone and put together and collected a number of data sets that are now
+publicly available for academic use and one of which is called the movie lens
+data set. So this contains millions of movie ratings by users of the movie
+lens website. That's where the data set gets its name and we're going to be
+using a small subset of this data set that contains a 100,000 ratings. This is
+down from about 27 million that are contained within the full data set. So the
+data itself comes in a zip file that we could download from the group lens
+data site and inside the zip file there will be a few different CSV files
+containing different parts of the data as well as a handy readme file. We've
+gone ahead and we've downloaded the zip file and looked inside of it and we've
+read the readme and here are some details about the different data files that are
+in the zip archive. So first there's a ratings.csv file and here each line in the
+file is going to have the rating a user gave for a particular film at a
+particular time. Next we have the tags.csv and this would include a number of
+tags for a specific film that a user applied. Maybe it would be a tag to say I
+watched this within a particular individual or a tag to put it in some sort of
+list. These are kind of defined by the users. We won't be using these but it
+does exist in case you're interested. Third is the movies.csv file. Here each
+line in the file is a movie name and then we also have is each line
+represents a movie and the columns are going to be the movie ID the title and
+the genres and the genres are going to be mushed together in a single string
+each separated by a pipe or a vertical bar and then finally there's a link
+.csv and this would provide links to external websites if you wanted to get more
+information about the movies. Our analysis today will focus on the ratings and
+the movies files. So we would like to be able to download the file from the
+internet and read them ratings.csv and movies.csv into a pandas data frame and
+there are at least two ways of doing this. One is kind of what we'll call the
+more manual approach where we could go we could use our internet browser
+navigate to the movie length site click the link to download the file put it on
+our hard drive then we could extract the zip archive put the file somewhere
+and finally go back to our Jupyter session and use pd.csv. That option is
+comfortable and something that we may have done a lot in the past but there's
+also a second option. So the second option is to have Python automate the whole
+process. So Python will go it will request a zip file it'll download it it'll
+start opening it up and it will prepare these two files for pandas to to read.
+Of these two options the first is likely easier at first glance because it's
+something we're familiar with however the second is going to be a lot more
+powerful and so we're going to choose that option for our work today. So why do
+we do it the hard way? Well first of all it builds character and if you haven't
+done things that build character you're welcome we're going to do this today.
+Secondly and more seriously one major benefit of doing it through the second
+option is that the entire analysis can be self-contained in the notebook and
+what this means is that there's no need for the user of the notebook to do
+anything quote by hand. They don't have to open up a particular website make
+sure that the zip archive gets extracted into a particular place so we can
+hand somebody our notebook and they can run the whole process. And finally once
+we learn how to use these tools we can apply them to other data sets as it's
+almost inevitable that will come across an archived or compressed version of
+data at some point be it through a zip file or a tar file and being able to
+handle these directly in our Python code will give us an extra tool in our
+belt that will likely need going forward. So how do we actually get a bit go
+about this? First we're going to start by defining very clearly what we want to
+accomplish. So in words what we want is to create pandas data frames from the
+ratings.csv and movies.csv files that are contained in the zip archive that
+we could download from the group lens website. So let's take it one step at a
+time and try to map out what needs to happen to fulfill our want. So first we
+need to download the file and our strategy for doing this will be to lean on and
+use the request package. Second once we've downloaded the file we need to be
+able to unpack this the contents that were downloaded and treat them as a file
+and there's going to be some special handling we'll talk more about that but to
+do this step we're going to use a built-in Python module called the IO module.
+Next once we are able to get our hands on the file we need to then recognize and
+treat this file as a zip archive that itself contains multiple files. Again we're
+going to use this with a built-in tool and Python called the zip file module.
+And then finally once we've been able to identify the csv's within the zip file
+we need to use the pandas.readcsv function to construct our data frames. That's
+the outline. We're going to go through these things one step at a time and we'll
+make sure that we provide a bit more detail on how they work when we get to each
+of them. Before we get there there's a couple digressions. First and we felt that
+this was important. The request documentation states the following. Recreation
+or use of other HTTP libraries may result in dangerous side effects including security
+vulnerability, verbose code, reinventing the wheel, constantly reading documentation,
+depression, headaches or even death. This is a bit like hard but we totally agree.
+The request package of library is by far the easiest way to interact with
+websites that we found in Python. So we're going to be learning a bit more about
+it today and I'm certain that as you continue in your programming careers you'll
+be continued to use it. Second digression is when we are constructing the solution. We
+knew what we wanted and we did our homework and Google around for a solution that
+could work and we ended up finding a particularly helpful stack overflow thread that let us piece
+together our solution. Okay, so let's get started. So remember our first step is to use
+the request library to download the file. So here's how we do this. In code first we
+have a variable called URL that just contains a string that points to the URL where we can
+download our file. Once we've defined this we can use the request.get function and pass
+that our URL is an argument. We'll store the output as a variable called res which is short
+for response. And I may use the term res or response interchangeably as we go forward.
+And once we've done that we'll just print out a few things contained within this response
+object to see what it looks like. So we'll go ahead and run that. And so we see here that we
+got a response status code. So the HTTP or web language has a set of principles or standards
+defined in it. And one of these is called the status code. So when you your browser Python
+attempts to make a request over HTTP to a different web service that service will do its
+operations and then return something. If everything was successful the convention is to return
+the code 200. And this just means you asked me for something. I was able to find it and I gave
+it to you. So that's great. Second we want to look at the type of this response object.
+And sure enough it's a class implemented in the request module called response. And that's
+where we get its name. Each of these requests responses has what's called a content field.
+And this is where the actual data that is sent back from the external web server is contained.
+And when we look at this we can see that this is a bytes object. So in Python we typically work
+with textual data as a string. But there's also a way to have Python interpret characters or text
+as bytes. And this is kind of the native way to represent or encode files. So in this case the
+content of our response has class bytes. And then finally we can look at the headers. Heathers are
+another part of the HTTP standard for a way of communicating extra information about the request.
+Here we are able to see things like content length. This header tells us how long in bytes the
+response.content field is. There are other things like when the file was last modified what the
+content type is. And notice here that we have content type is application slash zip. Which is
+again another convention for demonstrating to us the consumer of this web URL that the content,
+the bytes contained within it represent a zip file. So this all looks good. It's what we are expecting.
+And it's nice to see that returned in the response object.
+So step two is to read the file as a bytes object that Python can work with. So we've talked about
+a few different file formats in the past. CSV would be a plain text file. You can open it up in any
+text editor and you can actually read the characters that are there and it's human readable.
+We talked about other file formats like feather or parquet or excel that are not human readable.
+They are binary file formats. Well the zip archive is another binary file format. So in order to
+work with this we're going to actually take the content that we just obtained. And we're going to
+wrap it inside of an instance of the IO.Bytes.io class. So to do this it's one line of code. We imported
+the IO module that was built into Python up at the top of our notebook. And now we're just going
+to create a new variable called bytes that is the IO.Bytes.io instance formed by the content of our
+response. So we execute that. Everything worked okay for us. Now we need to move on to step three.
+So where we are now is we've downloaded the file and we've interpreted it as a binary source.
+But we actually have more information. This isn't just any arbitrary binary blob of data.
+It's actually a file with a very particular format called the zip file file format.
+Python knows how to handle zip files intrinsically. And there's a built-in zip file module for doing this.
+So the next step will be to have Python understand we'll be able to tell Python or communicate to it
+that our bytes IO object has data that represents a zip file. And once we do that we'll be able to do
+common zip archive operations on our data. So here we're going to pass our bytes object into the
+zf which is short for zip file. Zip file class. And we're going to return back something called zip.
+And this zip file is an object that has class zip file. So that's great. Again what we were expecting.
+So now that we have a zip file we need to take a look at what's inside.
+So the zip file class and all move out of the way here.
+The zip file class has a handy method called name list. Now this method it will list all the
+different files and folders that are contained within the zip archive. So let's go ahead and take a look
+at what these contents are for our file. So we have our zip object and we're going to call the name list
+method. And we see here that there must be one folder called ml-latest-small. And then inside that
+folder there are a number of files. There's a readme and then there's those four CSV files we
+talked about earlier. Now we notice that the ratings.csv and the movies csv.files are in there.
+And in order to actually have pandas read this data we need to give it that full path. We need to
+give it ml-latest-small-radings.csv and the same for movies. Now we could just write that text out
+but we're actually going to just search through that list for any of the file names that includes
+the string movies and since there's only one that will be our movies the path to our movies file
+and will repeat the same for our ratings. So that's what we're doing just down here.
+And we'll see here that it did correctly find the path to our movies file.
+Okay finally we're ready to let pandas read in our CSV file. I'll move back over here to be more
+centered. So we're going to use our friend pandpd.readcsv and the only extra step here is that we need to
+call on our zip file object. We need to call the open method and passing it the path to the file
+we'd like to open. So here we want to open the movie file, open the ratings file and that will
+allow us to read these two CSV files into a data frame. So we'll run that. Again everything
+executed without error and let's take a look at the data and see what we got.
+So first we'll print out the info which will tell us what the columns are and then we'll look at
+the first few rows. So here it looks like the movies dataset has three columns one being movie
+ID which is an integer and then it has two string columns one for the title of the movie and then one
+for the genre. It looks also like there are 9,742 rows and each of the three columns has a non-null value
+for all those rows. So we don't have any missing data which is very helpful. We'll do the same for
+the ratings dataset and here we have a user ID, a movie ID, a rating and a timestamp. The two ID
+columns as well as the timestamp are all integers right now and then the rating is a floating,
+a float 64. Okay so we've just seen how the ratings dataset has a movie ID column but not
+a the title of the movie. Let's think about why this is. So the reason for this is a concept called
+normalization. Let's think this through. Storing the movie names directly in the rating data frame
+would potentially cause each movie name to be repeated many times because for every movie there
+may be many different users who have reviewed the movie. So one of the movie names we've seen so far
+is called grumpy or old men parentheses 1995. Now thinking about this this takes up a whole lot more room
+than the integer three if we were to save this as a CSV file. We have many characters instead of
+just one. So for this reason and others the group lens team decided to store the movie names and
+genres in the movies.csv file alongside an integer movie ID. Now this is unique for every row of that
+CSV file and this movie ID is then used throughout all the other files as a way to refer to a
+specific movie. This is an example of a relational database technique called normalization and
+pardon the typo in the word example there. So you might be thinking well why would we normalize?
+If we're just trying to save space and this is only a couple megabytes it's probably not that big
+a deal. Well there are other examples where instead of having a hundred thousand rows as we do
+in our ratings data set there may be millions or billions of rows and at that point it really does
+matter trying to optimize storage space. But there's a second reason for why we would normalize that
+may be even more compelling. So for the second point let's consider a scenario where the group lens
+team wanted to add an additional column of information about each movie. They wanted to add the
+director or perhaps the producer of the movie. So in their current structure in order to do this
+they would go through that 9000 line movies CSV file they would add a director column and then for
+each movie they would add a director. There would be no duplication of movie director pairs because
+each movie only shows up one time and in one row. Now contrast this with a different version of the
+data set that has the movie title and genre in the same CSV file as the ratings. If we wanted to
+add a director column to this file what we would have to do is we would go through the 100,000
+different ratings we would look at what the movie title is and add the director. Now if there were
+50 users for example who rated a single movie we would repeat that director's name 50 times
+just as we're repeating the title of the movie 50 times. This process of finding every single row
+that goes to a particular movie could be more cumbersome and time consuming than adding a single
+row or adding the director column to just a single row of the movie's data frame. In this sense adding
+new features or richness to the movie's data set was much easier when it was self-contained and
+isolated instead of having it be already combined and mixed in with the ratings.
+So for our analysis however we want to be able to analyze the ratings for specific movies the
+ID the movie ID that integer doesn't really mean much to ask and we would like to see the title of
+the movie because it has a bit more context. So we need a way to bring in the movie title into the
+ratings data frame and as you're probably thinking to yourself given what we learned a few weeks ago
+this is the perfect use case for the merge functionality that pandas offers.
+To understand how this is going to work we're going to do just a small example looking at the first
+three rows of ratings of the ratings data set. So here's what it looks like. In the first three rows we
+have a the user ID column is filled entirely with integer one. This means that the same user rated
+three different movies. The movie that was rated was movie with ID one ID three and ID six.
+Each of these movies was given a rating of four by user with ID one and then we have the timestamp.
+So let's see taking just these three rows let's see what happens when we merge in the
+movies data set on the movie ID column. We see here that the first four columns are exactly the same
+as what we had. However we have an additional two columns we have the title and the list of genres
+for this particular movie. Here's a breakdown of what happened. For each of the three rows in
+ratings.head three pandas went and it found the value in the movie ID column. Now we can think of
+pandas storing that in memory or keeping a record of what the current movie ID is. Once it has this
+it goes to the movies data frame and it searches the movie ID column for all of the rows that have
+a matching movie ID. Once it finds one it brings over any columns from movies that aren't found in
+ratings in this case title and genres and it brings them into the output alongside the existing
+columns for this particular movie ID. It would then go to the next row find the movie ID for ratings
+look up the corresponding rows inside movies and bring over the data and we'll do this one row at a
+time. The output then has all of the columns found in either ratings or movies.
+Now that we've kind of understood how that works with just the first few rows let's look at what
+happens when we do this on the entire data set. So I'll move to the site here so we can see all of the
+rows that are being displayed. So what we've done is we've called the pd.merge function pasted the
+ratings data frame first and then the movies and then we set two arguments. One we set how
+it equal to left and then on equal movie ID. Now as you remember the how equal left argument
+says that the output should contain all rows found in the left or first data frame passed to the
+merge function. In this case that would be ratings so the output needs to have every movie ID that
+can discontinue in the ratings data frame. The on keyword argument here says that when we're trying
+to match up the rows of ratings with the rows of movies we need to be looking at the value of the
+movie ID column from both the ratings data frame and then from the movies one. Once we've done this
+merge we print out the shapes of our three data frames now the combined one the ratings and the
+movies as well as show the first 20 rows of our movie of our combined data set. Looking at the
+dimensions we see that the number of rows in the ratings data frame and the new combined data frame
+is equal. This is what happened for two reasons. One is that we called how equal left we passed that
+argument when how is left all of the ratings that appear or movie IDs that appeared in the ratings
+data set are going to show up in the output. Reason number two is that each of those movie IDs
+showed up in only one row of our movies data frame. I'll repeat that the reason the rows are the
+same are one which shows how equal left so every row of ratings is represented in the output and then
+second each movie ID from ratings shows up only once and exactly once in the movies data frame.
+Had the movie ID number one appeared two times in the movies data frame we would have actually
+seen that the first rating would be repeated we'd have user one movie one rating four
+and then we'd have the title of genre from the first match in the movies column in this case it's
+toy story and then if it was actually a duplicate movie ID in the movies data frame we would repeat
+the first four columns that came from ratings and then we'd have the new title in genre that
+appeared in movies. That's not the case here we have a perfect one-to-one mapping between the movie
+ID in the ratings data frame and the movie ID in the movies data frame.
+Finally the number of columns here is going to be the first four columns that come from the
+ratings data frame plus all of the non-movie ID columns from movies in this case that's going to
+be two and so we end up with six columns. So at this point now that we have our combined data frame
+we're ready to do a little bit of analysis and this is going to be the last part of this
+section of the pandage review and we want to do this exercise together. So some of the things
+we're going to ask you to do you already have the tools for but some of them you don't quite yet
+have the tools and the reason we're doing this is we're trying to motivate one of the concepts we're
+going to be talking about next week when we go into what are called group bi operations you'll see
+here soon but we'd like to do now is pause the video we want to work through and talk through
+these things together be able to ask questions and answer them. Okay welcome back I've moved myself
+both physically and on the screen so that I can be a bit closer to my keyboard. So let's go
+ahead and we'll work through each of these examples one of the time. So in order to get the
+average rating across all movies and all users we'll be able to use the mean method on the rating column.
+When we do this we see that the answer is three and a half which on a scale from one to five makes
+a lot of sense it's fairly in the average of that range. So next we were asked to find and try to
+understand the distribution of ratings and the way we want to do this for our answer was to compute
+or to display a histogram of the data of how many ratings fell in each bin and what we're going
+to do here is at the top we have a map plot lib version of this and at the bottom we have a
+plotly version. So these are going to be the same graph effectively but they're going to be using
+two different libraries and we're just going to show you this for variety. So the first thing to
+notice here is that we have the bins that we're creating and this is going to be equally space
+starting at 0.25 going all the way to 5.25. So when we do this we're telling pandas and map plot
+lib to count the number of ratings that occurred in each of these intervals that are each half a
+rating wide. So this very first interval would be from 0.25 to one and then so on.
+Now we see here that there is kind of a peak that it seems like the mode or the most likely
+most common rating is a four and there are also kind of other peaks at five and then again just
+below three. And the way I might think of this is if a user is going to go and write a review it
+seems more likely that they're going to write a review about movies that they like.
+There seem to be a handful of movies that get rated as top ratings by a lot of people and then
+fewer ratings just beneath that bar. So once you've crossed the threshold of going past four
+it's more likely to get to five than you stop at four and a half. And then the idea that the
+average rating would be a four again reinforces the idea that there are more users willing to
+rate movies that they enjoy than ones that they didn't. So let's take another look at the same
+graph but this time using the plotly plotting library. So now it's going to be the same thing but
+here we'll see that it's interactive we consume we can scroll we can hover over things and it
+tells us that there were 26,000 people who rated between four and four and a half for example.
+Okay so third is we were asked to find the average rating of each movie. So now one way we might
+do this is we would first use our indexing knowledge to say okay if we wanted to look at same
+movie 31 we would get all rows that are corresponding to movie 31 we could take the rating column
+and compute the mean and when we do this we see that for this movie the average rating is about
+3.18 however instead of having to repeat this either in a loop or by hand for every different
+movie idea all 9,000 of them we would actually wait till that pandas do this for us and this is
+utilizing something called group by. This is something we haven't learned yet and we'll cover in
+detail in the next two lectures on pandas so don't worry just for now be a consumer of this and just
+be when I first saw it marvel at how great this is so what happens is we can look at just the rating
+column and then we're going to group by the movie ID column and compute the mean and what pandas does
+is it will say for all it'll collect moving one by one through all the different movie IDs it will
+collect all rows with that particular movie ID then it will grab the rating column and compute the
+average of just those rows very similar to what we did up here for movie 31 but pandas is doing this
+letting movie ID vary from one all the way to the very last movie ID which appears to be
+193,609 so in a matter of a couple seconds or less than a second let's see how long it took pandas
+on my machine in a matter of four milliseconds pandas was able to compute to figure out which rows
+belong to each group of movie IDs and then compute the average of rating for only those rows and
+it did that for all 9,724 movie IDs the group by functionality in pandas is almost a superpower
+and it's something that we're very excited to teach you but we couldn't resist showing it off a
+little bit here the last question was similar to the one just before it so here we asked you to count
+the number of ratings for each movie so to do this it's the same code except we're going to replace
+the movie or sorry the mean method with count so here we're going to look for a single movie
+we're going to look at the rating column and count how many ratings there were except there were 38
+and then we're going to use this magical group by and instead of calling the mean method we'll
+call the count method and we see that we get back a data frame with all the rows one for each movie
+ID and then the number of times that movie was rated hopefully this wet your appetite a bit for
+the group by concept and we're going to be talking about it in much more detail in future lectures
+the last note we'll offer here is there are more resources for learning how to do merging and
+cleaning data sets the pandas docs are fairly good but there are better guides out there we recommend
+one by data carpentry if you follow this link you can see that there thank you

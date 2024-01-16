@@ -1,0 +1,1192 @@
+1
+00:00:00,000 --> 00:00:06,000
+Okay, so we want to compute the average duration of employment.
+
+2
+00:00:06,000 --> 00:00:10,000
+Well, that's going to be easy.
+
+3
+00:00:10,000 --> 00:00:14,000
+If we do basically a version of the same calculation that we did before,
+
+4
+00:00:14,000 --> 00:00:20,000
+we're going to find the average duration of staying employed is now one over beta.
+
+5
+00:00:21,000 --> 00:00:32,000
+It's exactly the same that we did before, except in this case p is going to be beta.
+
+6
+00:00:32,000 --> 00:00:38,000
+So in our in our in our in our lake model, we have that one over alpha is the average
+
+7
+00:00:39,000 --> 00:00:45,000
+average duration of unemployment.
+
+8
+00:00:45,000 --> 00:00:57,000
+And one over beta is the average duration of employment.
+
+9
+00:00:57,000 --> 00:01:07,000
+And we got that from the from just the parameters that define the transition model.
+
+10
+00:01:07,000 --> 00:01:16,000
+Just mentioned another example, which is a classic example of a mark off chain.
+
+11
+00:01:16,000 --> 00:01:23,000
+So quite a famous paper by James Hamilton for using US unemployment data.
+
+12
+00:01:23,000 --> 00:01:28,000
+So he was looking at unemployment data too.
+
+13
+00:01:28,000 --> 00:01:31,000
+He estimated a stochastic matrix.
+
+14
+00:01:31,000 --> 00:01:35,000
+Now you know what that is from our definition.
+
+15
+00:01:35,000 --> 00:01:39,000
+So he estimated this econometrically.
+
+16
+00:01:39,000 --> 00:01:46,000
+Later on we'll talk about how you might go around estimating this.
+
+17
+00:01:46,000 --> 00:01:53,000
+So he estimated with monthly data and he had three states.
+
+18
+00:01:53,000 --> 00:01:58,000
+He had what he called a normal growth state.
+
+19
+00:01:59,000 --> 00:02:06,000
+A mild recession and a severe recession.
+
+20
+00:02:06,000 --> 00:02:10,000
+He estimated this some time ago.
+
+21
+00:02:10,000 --> 00:02:18,000
+Before he actually had data on what we in the United States now regard as severe recessions.
+
+22
+00:02:18,000 --> 00:02:25,000
+So you know what the these transition probabilities are interesting because they tell you like.
+
+23
+00:02:25,000 --> 00:02:31,000
+Well when when you're in normal growth we can just read this.
+
+24
+00:02:31,000 --> 00:02:37,000
+When you're normal growth they usually just stay in the most likely thing is you'll stay in normal growth.
+
+25
+00:02:37,000 --> 00:02:43,000
+But with the small probability you'll go into like we growth.
+
+26
+00:02:43,000 --> 00:02:50,000
+So you know if you're in we growth.
+
+27
+00:02:50,000 --> 00:02:54,000
+So you'll you'll stay there for an experience.
+
+28
+00:02:54,000 --> 00:03:02,000
+You might go back to normal growth but there's a very small probability that you'll go to a very bad growth state.
+
+29
+00:03:02,000 --> 00:03:03,000
+Big recession.
+
+30
+00:03:03,000 --> 00:03:11,000
+And if you have the unfortunate to get to a bad growth state you're never going back from there to.
+
+31
+00:03:11,000 --> 00:03:16,000
+To high growth right away.
+
+32
+00:03:16,000 --> 00:03:22,000
+You might you might transit to a.
+
+33
+00:03:22,000 --> 00:03:26,000
+Well if you're not I'm reading it wrong.
+
+34
+00:03:26,000 --> 00:03:32,000
+If you're if you're in a very bad growth state.
+
+35
+00:03:32,000 --> 00:03:40,000
+You you might recover to a slightly less bad growth state but you won't go all the way back you won't go back here.
+
+36
+00:03:40,000 --> 00:03:46,000
+So these things that I was just struggling to explain.
+
+37
+00:03:46,000 --> 00:03:50,000
+People write down what's called a directed graph.
+
+38
+00:03:50,000 --> 00:03:56,000
+And a directed graph has a consists of nodes.
+
+39
+00:03:56,000 --> 00:03:58,000
+And edges.
+
+40
+00:03:58,000 --> 00:04:02,000
+It's a very nice way to describe a mark off chain.
+
+41
+00:04:02,000 --> 00:04:06,000
+If you wake a pdf you'll find that.
+
+42
+00:04:06,000 --> 00:04:09,000
+So let's see what it looks like.
+
+43
+00:04:09,000 --> 00:04:15,000
+So this is a typical directed graph to to show Hamilton's.
+
+44
+00:04:15,000 --> 00:04:17,000
+This is Hamilton's.
+
+45
+00:04:17,000 --> 00:04:24,000
+Model for mark off model for unemployment.
+
+46
+00:04:24,000 --> 00:04:28,000
+So this is normal growth.
+
+47
+00:04:28,000 --> 00:04:33,000
+So what this arrow means is with probably.
+
+48
+00:04:34,000 --> 00:04:41,000
+With this arrow means is you'll you'll just stay next period one the arrows are one step transition probability transitions.
+
+49
+00:04:41,000 --> 00:04:45,000
+And the labels are the probabilities so you'll stay here.
+
+50
+00:04:45,000 --> 00:04:47,000
+You might go here.
+
+51
+00:04:47,000 --> 00:04:52,000
+You notice there's no there's no arrow like this.
+
+52
+00:04:52,000 --> 00:04:54,000
+That would be a different mark off chain.
+
+53
+00:04:54,000 --> 00:04:57,000
+There's nowhere like this if you want to get.
+
+54
+00:04:57,000 --> 00:05:00,000
+If you want to get to three to step third state.
+
+55
+00:05:00,000 --> 00:05:06,000
+You're going to have to go through the intermediate state and so on.
+
+56
+00:05:06,000 --> 00:05:09,000
+Okay.
+
+57
+00:05:09,000 --> 00:05:12,000
+So just moving ahead.
+
+58
+00:05:12,000 --> 00:05:16,000
+So you know just summarize what a mark off chain is going to be a.
+
+59
+00:05:16,000 --> 00:05:17,000
+It's going to be a pair.
+
+60
+00:05:17,000 --> 00:05:19,000
+It's going to be a stochastic matrix.
+
+61
+00:05:19,000 --> 00:05:23,000
+And an initial.
+
+62
+00:05:23,000 --> 00:05:27,000
+A marginal distribution over.
+
+63
+00:05:27,000 --> 00:05:29,000
+The time zero state.
+
+64
+00:05:29,000 --> 00:05:37,000
+It's the marginal distribution over the time zero state.
+
+65
+00:05:37,000 --> 00:05:41,000
+Okay.
+
+66
+00:05:41,000 --> 00:05:44,000
+So here's this is kind of a key.
+
+67
+00:05:44,000 --> 00:05:46,000
+This is going to be a key sentence.
+
+68
+00:05:46,000 --> 00:05:52,000
+So one way to study questions about mark off chains is just a simulator.
+
+69
+00:05:52,000 --> 00:05:56,000
+And big parts of statistics actually do this.
+
+70
+00:05:56,000 --> 00:06:00,000
+They take mark off chains and they simulate them to learn things.
+
+71
+00:06:00,000 --> 00:06:04,000
+Actually about the chain.
+
+72
+00:06:04,000 --> 00:06:06,000
+So.
+
+73
+00:06:06,000 --> 00:06:08,000
+This.
+
+74
+00:06:08,000 --> 00:06:11,000
+We're going to spend some time talking about this bullet point.
+
+75
+00:06:11,000 --> 00:06:16,000
+There's a lot in here to approximate the probability of an event e.
+
+76
+00:06:16,000 --> 00:06:19,000
+What you can do is you can run a simulation many times.
+
+77
+00:06:19,000 --> 00:06:24,000
+And then you count fractions.
+
+78
+00:06:24,000 --> 00:06:30,000
+Okay. So do you remember we spent some time talking about what this probability mean.
+
+79
+00:06:30,000 --> 00:06:37,000
+So what a frequent is thinks that what probability means is the.
+
+80
+00:06:37,000 --> 00:06:40,000
+Fraction.
+
+81
+00:06:40,000 --> 00:06:45,000
+That can be anticipated in a very large sample.
+
+82
+00:06:45,000 --> 00:06:50,000
+And that's being exploited right here.
+
+83
+00:06:50,000 --> 00:06:54,000
+Here's some advertisement.
+
+84
+00:06:54,000 --> 00:06:56,000
+There's.
+
+85
+00:06:56,000 --> 00:06:57,000
+We if you go to.
+
+86
+00:06:57,000 --> 00:06:58,000
+Quanty.
+
+87
+00:06:58,000 --> 00:07:02,000
+We've written python programs that.
+
+88
+00:07:02,000 --> 00:07:10,000
+That make it very easy for you to study and simulate mark off chains.
+
+89
+00:07:10,000 --> 00:07:13,000
+So what we're going to what this.
+
+90
+00:07:13,000 --> 00:07:16,000
+This.
+
+91
+00:07:16,000 --> 00:07:18,000
+So the quantity.
+
+92
+00:07:18,000 --> 00:07:20,000
+Content did to work for you there.
+
+93
+00:07:20,000 --> 00:07:23,000
+But it's actually mark off chains are so.
+
+94
+00:07:23,000 --> 00:07:26,000
+Fun and interesting to get your hands on it.
+
+95
+00:07:26,000 --> 00:07:29,000
+What this lecture does is it backs up and actually.
+
+96
+00:07:29,000 --> 00:07:31,000
+From scratch using numpy.
+
+97
+00:07:31,000 --> 00:07:33,000
+It's going to.
+
+98
+00:07:33,000 --> 00:07:37,000
+It's going to generate some.
+
+99
+00:07:38,000 --> 00:07:44,000
+It's going to show you how to simulate a mark off chain.
+
+100
+00:07:44,000 --> 00:07:47,000
+So.
+
+101
+00:07:47,000 --> 00:07:50,000
+So let's spend a little time talking about that.
+
+102
+00:07:50,000 --> 00:07:52,000
+And then in your time.
+
+103
+00:07:52,000 --> 00:07:53,000
+I think.
+
+104
+00:07:53,000 --> 00:07:58,000
+This is a great way to learn python and build your confidence is.
+
+105
+00:07:58,000 --> 00:08:01,000
+Do this to.
+
+106
+00:08:01,000 --> 00:08:04,000
+And do some examples.
+
+107
+00:08:05,000 --> 00:08:08,000
+So here's how to make your own.
+
+108
+00:08:08,000 --> 00:08:10,000
+The first thing we need.
+
+109
+00:08:10,000 --> 00:08:12,000
+The first thing we need is.
+
+110
+00:08:12,000 --> 00:08:14,000
+We have to have a mark off chain.
+
+111
+00:08:14,000 --> 00:08:15,000
+So.
+
+112
+00:08:15,000 --> 00:08:16,000
+So.
+
+113
+00:08:16,000 --> 00:08:18,000
+What we call what I called.
+
+114
+00:08:18,000 --> 00:08:21,000
+Pys zero here we're going to call this.
+
+115
+00:08:21,000 --> 00:08:22,000
+Going to change no.
+
+116
+00:08:22,000 --> 00:08:25,000
+Going to call this.
+
+117
+00:08:25,000 --> 00:08:27,000
+Whatever that word is.
+
+118
+00:08:27,000 --> 00:08:30,000
+So a mark off chain is going to be a p.
+
+119
+00:08:30,000 --> 00:08:33,000
+So that's the time zero probability.
+
+120
+00:08:33,000 --> 00:08:36,000
+That's the time zero marginal.
+
+121
+00:08:36,000 --> 00:08:41,000
+And that's the transition matrix.
+
+122
+00:08:41,000 --> 00:08:42,000
+So if you give me.
+
+123
+00:08:42,000 --> 00:08:46,000
+Those two you define a mark off chain.
+
+124
+00:08:46,000 --> 00:08:49,000
+And then here's how one simulate.
+
+125
+00:08:49,000 --> 00:08:50,000
+Here's what I want.
+
+126
+00:08:50,000 --> 00:08:53,000
+Simulates.
+
+127
+00:08:53,000 --> 00:08:56,000
+Using random numbers at time t zero.
+
+128
+00:08:57,000 --> 00:09:00,000
+We're going to draw.
+
+129
+00:09:00,000 --> 00:09:03,000
+A random state.
+
+130
+00:09:03,000 --> 00:09:07,000
+From the marginal distribution at time zero.
+
+131
+00:09:07,000 --> 00:09:10,000
+And then every subsequent time period.
+
+132
+00:09:10,000 --> 00:09:11,000
+We're going to draw.
+
+133
+00:09:11,000 --> 00:09:12,000
+The new state.
+
+134
+00:09:12,000 --> 00:09:15,000
+From the transition probability matrix.
+
+135
+00:09:15,000 --> 00:09:18,000
+So this is the initial.
+
+136
+00:09:18,000 --> 00:09:20,000
+And this is transitions.
+
+137
+00:09:20,000 --> 00:09:23,000
+And that's how we're going to use it.
+
+138
+00:09:23,000 --> 00:09:28,000
+So.
+
+139
+00:09:28,000 --> 00:09:32,000
+You know, to make to make this go, we need one more thing.
+
+140
+00:09:32,000 --> 00:09:34,000
+We need a p a psi.
+
+141
+00:09:34,000 --> 00:09:37,000
+And we need a random number generator.
+
+142
+00:09:37,000 --> 00:09:39,000
+So.
+
+143
+00:09:39,000 --> 00:09:42,000
+And we're going to use.
+
+144
+00:09:42,000 --> 00:09:44,000
+We're going to use a.
+
+145
+00:09:44,000 --> 00:09:46,000
+Something from quantity.
+
+146
+00:09:46,000 --> 00:09:49,000
+So.
+
+147
+00:09:49,000 --> 00:09:54,000
+So.
+
+148
+00:09:54,000 --> 00:09:57,000
+So this.
+
+149
+00:09:57,000 --> 00:09:58,000
+So this.
+
+150
+00:09:58,000 --> 00:10:04,000
+So code is actually describing how that's done.
+
+151
+00:10:04,000 --> 00:10:09,000
+And example would be.
+
+152
+00:10:09,000 --> 00:10:18,000
+Here's here's here's the language.
+
+153
+00:10:18,000 --> 00:10:22,000
+Here's the language.
+
+154
+00:10:22,000 --> 00:10:23,000
+Here's the language.
+
+155
+00:10:23,000 --> 00:10:26,000
+This.
+
+156
+00:10:26,000 --> 00:10:30,000
+I think it's really good to slowly read Python code.
+
+157
+00:10:30,000 --> 00:10:32,000
+It's good for your character.
+
+158
+00:10:32,000 --> 00:10:34,000
+It's good for mind.
+
+159
+00:10:34,000 --> 00:10:37,000
+That's a line that says that generates a.
+
+160
+00:10:37,000 --> 00:10:40,000
+A distribution that I want.
+
+161
+00:10:40,000 --> 00:10:42,000
+So we talked about this earlier.
+
+162
+00:10:42,000 --> 00:10:45,000
+Like if I give you a probability distribution.
+
+163
+00:10:45,000 --> 00:10:52,000
+How can you generate a random draw from it?
+
+164
+00:10:52,000 --> 00:10:55,000
+Well, this is how quantity comes going to do it.
+
+165
+00:10:55,000 --> 00:11:00,000
+So I start with a probability distribution psi right here.
+
+166
+00:11:00,000 --> 00:11:02,000
+And then that's what I want.
+
+167
+00:11:02,000 --> 00:11:06,000
+I want a cumulative distribution function.
+
+168
+00:11:06,000 --> 00:11:09,000
+So what.
+
+169
+00:11:09,000 --> 00:11:12,000
+I'm now going to just that's just a.
+
+170
+00:11:12,000 --> 00:11:14,000
+A numpy command.
+
+171
+00:11:14,000 --> 00:11:17,000
+I'm going to compute the cumulative distribution.
+
+172
+00:11:17,000 --> 00:11:20,000
+And then what quantity kind of do is.
+
+173
+00:11:20,000 --> 00:11:25,000
+Quant quantity kind of random dot draw CDF of.
+
+174
+00:11:25,000 --> 00:11:31,000
+I'm going to draw from this CDF random draw and it tells me give me five numbers.
+
+175
+00:11:31,000 --> 00:11:34,000
+And my five numbers is going to give me well there.
+
+176
+00:11:34,000 --> 00:11:35,000
+I drew a.
+
+177
+00:11:35,000 --> 00:11:38,000
+Success success success failure.
+
+178
+00:11:38,000 --> 00:11:40,000
+So I drew.
+
+179
+00:11:41,000 --> 00:11:43,000
+Okay, so that's we're going to use that.
+
+180
+00:11:43,000 --> 00:11:44,000
+So we have our three things.
+
+181
+00:11:44,000 --> 00:11:46,000
+We have a p.
+
+182
+00:11:46,000 --> 00:11:49,000
+We have a psi and we have a random number generator.
+
+183
+00:11:49,000 --> 00:11:53,000
+And now we're all dressed up and ready to go.
+
+184
+00:11:53,000 --> 00:11:55,000
+So we're going to.
+
+185
+00:11:55,000 --> 00:11:57,000
+This quantity kind code in this little thing.
+
+186
+00:11:57,000 --> 00:12:00,000
+We're going to write us to casting matrix p.
+
+187
+00:12:00,000 --> 00:12:05,000
+We're going to need an initial state.
+
+188
+00:12:05,000 --> 00:12:08,000
+And we're going to take a sample size.
+
+189
+00:12:09,000 --> 00:12:11,000
+So.
+
+190
+00:12:11,000 --> 00:12:16,000
+What I want you to do is.
+
+191
+00:12:16,000 --> 00:12:21,000
+Study this on your own because now we're.
+
+192
+00:12:21,000 --> 00:12:23,000
+Quote in quote rolling our own.
+
+193
+00:12:23,000 --> 00:12:24,000
+We're writing.
+
+194
+00:12:24,000 --> 00:12:26,000
+Python function.
+
+195
+00:12:26,000 --> 00:12:28,000
+That's going to.
+
+196
+00:12:28,000 --> 00:12:31,000
+That's going to generate a.
+
+197
+00:12:31,000 --> 00:12:35,000
+A sample path.
+
+198
+00:12:36,000 --> 00:12:37,000
+Of length.
+
+199
+00:12:37,000 --> 00:12:39,000
+Well, you're going to make this up.
+
+200
+00:12:39,000 --> 00:12:43,000
+Because there's these key word arguments.
+
+201
+00:12:43,000 --> 00:12:45,000
+We're going to make this up.
+
+202
+00:12:45,000 --> 00:12:49,000
+We're going to input a p and we're going to input a.
+
+203
+00:12:49,000 --> 00:12:51,000
+An initial condition.
+
+204
+00:12:51,000 --> 00:12:53,000
+An initial distribution.
+
+205
+00:12:53,000 --> 00:12:55,000
+And then we're going to do a.
+
+206
+00:12:55,000 --> 00:12:57,000
+As.
+
+207
+00:12:57,000 --> 00:12:59,000
+A sample size.
+
+208
+00:12:59,000 --> 00:13:00,000
+So here we go.
+
+209
+00:13:00,000 --> 00:13:02,000
+So.
+
+210
+00:13:03,000 --> 00:13:06,000
+So here's our we here's how this works.
+
+211
+00:13:06,000 --> 00:13:12,000
+Just just an example would take this mark off chain.
+
+212
+00:13:12,000 --> 00:13:14,000
+Um.
+
+213
+00:13:14,000 --> 00:13:18,000
+Here's a claim.
+
+214
+00:13:18,000 --> 00:13:23,000
+That's what does probability mean again.
+
+215
+00:13:23,000 --> 00:13:27,000
+We're cycling back to that idea.
+
+216
+00:13:27,000 --> 00:13:29,000
+And this this is a claim.
+
+217
+00:13:29,000 --> 00:13:32,000
+A reminder and a claim that this is going to be verified.
+
+218
+00:13:32,000 --> 00:13:35,000
+Um.
+
+219
+00:13:35,000 --> 00:13:37,000
+So.
+
+220
+00:13:37,000 --> 00:13:39,000
+Well, we're going to verify very soon.
+
+221
+00:13:39,000 --> 00:13:40,000
+That's the claim.
+
+222
+00:13:40,000 --> 00:13:43,000
+What does probability mean?
+
+223
+00:13:43,000 --> 00:13:46,000
+That's a classic question.
+
+224
+00:13:46,000 --> 00:13:47,000
+Um.
+
+225
+00:13:47,000 --> 00:13:50,000
+So what we're going to do is we're going to use this code.
+
+226
+00:13:50,000 --> 00:13:52,000
+Create.
+
+227
+00:13:52,000 --> 00:13:53,000
+So X is going to be.
+
+228
+00:13:53,000 --> 00:13:56,000
+We're going to generate how many a hundred thousand.
+
+229
+00:13:56,000 --> 00:13:59,000
+You should try that on your machine.
+
+230
+00:13:59,000 --> 00:14:01,000
+There's our mark off chain.
+
+231
+00:14:01,000 --> 00:14:06,000
+We're going to try with from this initial distribution.
+
+232
+00:14:06,000 --> 00:14:08,000
+And.
+
+233
+00:14:08,000 --> 00:14:10,000
+And.
+
+234
+00:14:10,000 --> 00:14:14,000
+And we're going to generate a very long chain.
+
+235
+00:14:14,000 --> 00:14:19,000
+And then the claim here in this lectures that.
+
+236
+00:14:19,000 --> 00:14:25,000
+The sample the sample mean is going to be.
+
+237
+00:14:25,000 --> 00:14:29,000
+The sample a mean for this for a very long sample is going to be around .25.
+
+238
+00:14:29,000 --> 00:14:31,000
+And notice when we.
+
+239
+00:14:31,000 --> 00:14:32,000
+Um.
+
+240
+00:14:32,000 --> 00:14:35,000
+We generated this and then we used numpy.
+
+241
+00:14:35,000 --> 00:14:37,000
+Um.
+
+242
+00:14:37,000 --> 00:14:38,000
+To.
+
+243
+00:14:38,000 --> 00:14:41,000
+To actually to actually compute the.
+
+244
+00:14:41,000 --> 00:14:50,000
+I mean and it it turns out to be very close to .25.
+
+245
+00:14:50,000 --> 00:15:00,000
+Now.
+
+246
+00:15:00,000 --> 00:15:01,000
+Let me make a claim.
+
+247
+00:15:01,000 --> 00:15:03,000
+It's going to make us somewhat clear.
+
+248
+00:15:03,000 --> 00:15:06,000
+Serious claim before I kind of pause this.
+
+249
+00:15:06,000 --> 00:15:09,000
+What we're talking about.
+
+250
+00:15:09,000 --> 00:15:11,000
+I claim.
+
+251
+00:15:11,000 --> 00:15:13,000
+That if you compute.
+
+252
+00:15:13,000 --> 00:15:15,000
+The.
+
+253
+00:15:15,000 --> 00:15:17,000
+Left.
+
+254
+00:15:18,000 --> 00:15:19,000
+I can.
+
+255
+00:15:19,000 --> 00:15:22,000
+Vectors.
+
+256
+00:15:22,000 --> 00:15:27,000
+Of this matrix that matrix left I can vector.
+
+257
+00:15:27,000 --> 00:15:35,000
+Associated I'll put a I'm going to take the left I can vector of that matrix associated.
+
+258
+00:15:35,000 --> 00:15:37,000
+With.
+
+259
+00:15:37,000 --> 00:15:40,000
+The unit.
+
+260
+00:15:40,000 --> 00:15:43,000
+I can value.
+
+261
+00:15:43,000 --> 00:15:46,000
+I'm so I'm claiming that this matrix.
+
+262
+00:15:46,000 --> 00:15:50,000
+As a unit I can value.
+
+263
+00:15:50,000 --> 00:15:54,000
+You could do this in exercise if you take the left I can vector of that.
+
+264
+00:15:54,000 --> 00:15:59,000
+And you normalize it.
+
+265
+00:15:59,000 --> 00:16:02,000
+Then.
+
+266
+00:16:02,000 --> 00:16:04,000
+You.
+
+267
+00:16:04,000 --> 00:16:07,000
+Will compute.
+
+268
+00:16:07,000 --> 00:16:10,000
+I'm going to say something called.
+
+269
+00:16:10,000 --> 00:16:20,000
+The.
+
+270
+00:16:20,000 --> 00:16:23,000
+The.
+
+271
+00:16:23,000 --> 00:16:26,000
+The.
+
+272
+00:16:26,000 --> 00:16:31,000
+The.
+
+273
+00:16:31,000 --> 00:16:35,000
+The.
+
+274
+00:16:35,000 --> 00:16:37,000
+The.
+
+275
+00:16:37,000 --> 00:16:43,000
+The.
+
+276
+00:16:43,000 --> 00:16:47,000
+The.
+
+277
+00:16:47,000 --> 00:16:53,000
+The.
+
+278
+00:16:53,000 --> 00:16:57,000
+The.
+
+279
+00:16:57,000 --> 00:17:01,000
+The.
+
+280
+00:17:01,000 --> 00:17:11,000
+The.
+
+281
+00:17:11,000 --> 00:17:16,000
+The.
+
+282
+00:17:16,000 --> 00:17:19,000
+The.
+
+283
+00:17:19,000 --> 00:17:21,000
+The.
+
+284
+00:17:21,000 --> 00:17:25,000
+The.
+
+285
+00:17:25,000 --> 00:17:27,000
+The.
+
+286
+00:17:28,000 --> 00:17:32,000
+The.
+
+287
+00:17:32,000 --> 00:17:37,000
+The.
+
+288
+00:17:37,000 --> 00:17:41,000
+The.
+
+289
+00:17:41,000 --> 00:17:45,000
+The.
+
+290
+00:17:45,000 --> 00:17:50,000
+The.
+
+291
+00:17:50,000 --> 00:17:54,000
+The.
+
+292
+00:17:54,000 --> 00:17:59,000
+The.
+
+293
+00:17:59,000 --> 00:18:01,000
+The.
+
+294
+00:18:01,000 --> 00:18:04,000
+The.
+
+295
+00:18:04,000 --> 00:18:06,000
+The.
+
+296
+00:18:06,000 --> 00:18:10,000
+The.
+
+297
+00:18:10,000 --> 00:18:17,000
+The.
+
+298
+00:18:17,000 --> 00:18:21,000
+The.
+

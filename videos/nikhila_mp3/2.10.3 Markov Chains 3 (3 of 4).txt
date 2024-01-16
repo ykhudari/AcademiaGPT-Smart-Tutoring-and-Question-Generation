@@ -1,0 +1,205 @@
+Okay, so we want to compute the average duration of employment.
+Well, that's going to be easy.
+If we do basically a version of the same calculation that we did before,
+we're going to find the average duration of staying employed is now one over beta.
+It's exactly the same that we did before,
+except in this case, p is going to be beta.
+So in our lake model, we have that one over alpha is the average duration of unemployment.
+And one over beta is the average duration of employment.
+And we got that from just the parameters that define the transition model.
+Just mention another example, which is a classic example of a Markov chain.
+It's a quite a famous paper by James Hamilton.
+For using US unemployment data, so he was looking at unemployment data too.
+He estimated a stochastic matrix.
+Now you know what that is from our definition.
+So he estimated this econometrically.
+Later on, we'll talk about how you might go around estimating this.
+So he estimated with monthly data, and he had three states.
+He had what he called a normal growth state, a mild recession, and a severe recession.
+He estimated this some time ago before he actually had data on what we in the United States now regard as severe recessions.
+So you know what these transition probabilities are interesting because they tell you like, well, when you're in normal growth, we can just read this.
+When you're in normal growth, you usually just stay in the most likely thing is you'll stay in normal growth.
+But with a small probability, you'll go into like weak growth.
+So you know, if you're in weak growth, the probability is that you'll stay there for next period.
+You might go back to normal growth, but there's a very small probability that you'll go to a very bad growth state, big recession.
+And if you have the unfortunate to get to a bad growth state, you're never going back from there to high growth right away.
+You might transit to a...
+Well, if you're not... I'm reading it wrong.
+If you're in a very bad growth state, you might recover to a slightly less bad growth state, but you won't go all the way back.
+You won't go back here.
+So these things that I was just struggling to explain, people write down what's called a directed graph.
+And a directed graph has consists of nodes and edges.
+It's a very nice way to describe a Markov chain. If you wake up idiot, you'll find that.
+So let's see what it looks like.
+So this is a typical directed graph to show Hamilton's.
+This is Hamilton's model for Markov model for unemployment.
+So this is normal growth.
+So what this arrow means is with probably...
+What this arrow means is you'll just stay next period.
+The arrows are one step transition probability, transitions, and the labels are the probabilities.
+So you'll stay here. You might go here.
+You notice there's no arrow like this.
+That would be a different Markov chain.
+If you want to get to third state, you're going to have to go through the intermediate state and so on.
+Okay.
+So just moving ahead.
+So to summarize what a Markov chain is going to be a pair.
+It's going to be a stochastic matrix.
+And initial, a marginal distribution over the time zero state.
+It's the marginal distribution over the time zero state.
+Okay.
+So here's... this is kind of a key...
+This is going to be a key sentence.
+So one way to study questions about Markov chains is just to simulate them.
+And big parts of statistics actually do this.
+They take Markov chains and they simulate them to learn things actually about the chain.
+So this...
+We're going to spend some time talking about this bullet point.
+There's a lot in here.
+To approximate the probability of an event E.
+What you can do is you can run a simulation many times and then you count fractions.
+Okay. So do you remember...
+We spent some time talking about what this probability mean.
+So what a frequentist thinks that what probability means is the fraction that can be anticipated in a very large sample.
+And that's being exploited right here.
+Here's some advertisement.
+If you go to Quanticon, we've written Python programs that make it very easy for you to study and simulate Markov chains.
+So what we're going to...
+So the Quanticon team did the work for you there.
+But it's actually... Markov chains are so fun and interesting to get your hands on.
+What this lecture does is it backs up and actually from scratch using NumPy, it's going to...
+It's going to generate some...
+It's going to show you how to simulate a Markov chain.
+So let's spend a little time talking about that.
+And then in your time, I think this is a great way to learn Python and build your confidence.
+Do this too and do some examples.
+So here's how to make your own.
+The first thing we need is we have to have a Markov chain.
+What I called Pi0 here, we're going to call this...
+Whatever that word is psi.
+So a Markov chain is going to be a P psi pair.
+That's time zero probability.
+That's the time zero marginal.
+And that's the transition matrix.
+So if you give me those two, you define a Markov chain.
+And then here's how one simulates.
+Here's how one simulates.
+Using random numbers.
+At time T0, we're going to draw a random state
+from the marginal distribution at time zero.
+And in every subsequent time period, we're going to draw the new state
+from the transition probability matrix.
+So this is the initial.
+And this is transitions.
+And that's how we're going to use it.
+So to make this go, we need one more thing.
+We need a P psi and we need a random number generator.
+And we're going to use something from Quanticon.
+So...
+So...
+So this cell code is actually describing how that's done.
+An example would be...
+Here's the language.
+Here's the language.
+I think it's really good to slowly read Python code.
+It's good for your character.
+It's good for mine.
+That's a line that says that generates a distribution that I want.
+So we talked about this earlier.
+Like if I give you a probability distribution, how can you generate a random draw from it?
+Well, this is how Quanticon is going to do it.
+So I start with the probability distribution psi right here.
+And then that's what I want.
+I want a cumulative distribution function.
+So what...
+I'm now going to just...
+That's just a numpy command.
+I'm going to compute the cumulative distribution.
+And then what Quanticon do is...
+Quanticon.random.draw.
+I'm going to draw from this CDF a random draw.
+And it tells me give me five numbers.
+And my five numbers is going to give me...
+Well, there I drew.
+I drew success, success, success, success failure.
+So that I drew.
+Okay, so we're going to use that.
+So we have our three things.
+We have a P.
+We have a psi.
+And we have a random number generator.
+And now we're all dressed up and ready to go.
+So we're going to...
+This Quanticon code in this little thing.
+We're going to write a stochastic matrix P.
+We're going to need an initial state.
+And we're going to take a sample size.
+So what I want you to do is...
+Study this on your own.
+Because now we're quote unquote rolling our own.
+We're writing Python function that's going to...
+That's going to generate a sample path of length.
+Well, you're going to make this up.
+Because there's these key word arguments.
+We're going to make this up.
+We're going to input a P.
+And we're going to input an initial condition.
+An initial distribution.
+And then we're going to do a sample size.
+So here we go.
+So here's how this works.
+Just an example.
+We'll take this Markov chain.
+Here's a claim.
+That's what does probability mean again?
+We're cycling back to that idea.
+And this is a claim.
+This is a reminder.
+And a claim that this is going to be verified.
+So, well, we're going to verify it very soon.
+That's the claim.
+What does probability mean?
+That's a classic question.
+So what we're going to do is we're going to use this code.
+Create a...
+So X is going to be...
+We're going to generate how many?
+100,000.
+You should try that on your machine.
+There's our Markov chain.
+We're going to try from this initial distribution.
+And we're going to generate a very long chain.
+And then the claim here in this lecture is that the sample mean is going to be...
+A mean for this for a very long sample is going to be around 0.25.
+And notice when we generated this,
+and then we used numpy to actually compute the mean.
+And it turns out to be very close to 0.25.
+Now, let me make a claim.
+It's going to make a somewhat serious claim before I kind of pause this...
+What we're talking about.
+I claim that if you compute the left eigenvectors of this matrix,
+left eigenvector,
+I'm going to take the left eigenvector of that matrix associated with the unit eigenvalue.
+So I'm claiming that this matrix has a unit eigenvalue.
+You could do this in the next size.
+If you take the left eigenvector of that, and you normalize it,
+then you will compute...
+I'm going to say something called the stationary distribution of the chain.
+Now, this is kind of mysterious.
+And then I could take the stationary distribution.
+I haven't told you what a stationary distribution is yet.
+When I'm telling you take this matrix, take the left eigenvector associated with the unit eigenvalue.
+The left eigenvalue, that's equal to the right eigenvector of the matrix P transpose.
+So if you take that and you normalize it, meaning the probability is sum to 1.
+So it sums to 1.
+Normalize it so it sums to 1.
+You're going to get something that I'm going to call the stationary distribution,
+which I haven't defined.
+And then if you compute the mean of x at the stationary distribution,
+that's going to be equal to 0.25.
+At this point, we could kind of leave this as an exercise, maybe for me and maybe for you.
+So what do we need to do?
+We have to use numpy linear algebra to compute the eigenvalues and eigenvectors.
+And then we're just about done to verify this.
+Okay, we're going to pause, take a break for a little bit now.
+Thank you.

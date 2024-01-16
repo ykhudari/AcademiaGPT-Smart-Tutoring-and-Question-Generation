@@ -1,0 +1,852 @@
+1
+00:00:00,000 --> 00:00:05,760
+Okay, so great news now that we've talked about APIs and we've talked about earlier
+
+2
+00:00:05,760 --> 00:00:10,280
+kind of some of the definitions of labor statistics, we're going to actually use the data
+
+3
+00:00:10,280 --> 00:00:16,080
+that we've downloaded from the BLS API and explore what's been happening into the labor
+
+4
+00:00:16,080 --> 00:00:19,120
+markets in the United States.
+
+5
+00:00:19,120 --> 00:00:23,560
+So the first thing we're going to do is we're going to take the two data sets that we
+
+6
+00:00:23,560 --> 00:00:32,720
+just downloaded from the BLS API and we're just going to read them in as raw data.
+
+7
+00:00:32,720 --> 00:00:37,400
+The first thing we need to do is if we checked what data.detives told us, we would notice
+
+8
+00:00:37,400 --> 00:00:47,120
+that everything was of type object when clearly the values, if we did data.head, the value
+
+9
+00:00:47,120 --> 00:00:50,680
+column should have a numeric type.
+
+10
+00:00:50,680 --> 00:00:57,000
+So the first thing we're going to do is just convert that to a numeric type.
+
+11
+00:00:57,000 --> 00:01:03,160
+Next, again, if we look at data.detives, we'll notice that we have a column a year and
+
+12
+00:01:03,160 --> 00:01:08,320
+then this column a period name has the name of a month.
+
+13
+00:01:08,320 --> 00:01:12,200
+So September August, which corresponds with period.
+
+14
+00:01:12,200 --> 00:01:17,760
+So we have date information and the right thing to do is to put this date information
+
+15
+00:01:17,760 --> 00:01:20,520
+into a date time object.
+
+16
+00:01:20,520 --> 00:01:28,640
+So what we're going to use is our apply function and we're going to use it row by row.
+
+17
+00:01:28,640 --> 00:01:34,200
+And once it's going to take a row and it's going to put a string, it's going to return
+
+18
+00:01:34,200 --> 00:01:44,720
+a string that has one the month name and then the year name and then we're going to pass
+
+19
+00:01:44,720 --> 00:01:46,000
+that to the date time.
+
+20
+00:01:46,000 --> 00:01:55,560
+So in this first row, it would return one September 2020, then one August 2020, etc.
+
+21
+00:01:55,560 --> 00:01:56,840
+etc.
+
+22
+00:01:56,840 --> 00:02:01,640
+Once we've done that, we can drop any of the information related to the date other
+
+23
+00:02:01,640 --> 00:02:03,320
+than the new column we've created.
+
+24
+00:02:03,320 --> 00:02:08,480
+So we'll go ahead and drop year, period, period, name and latest.
+
+25
+00:02:08,480 --> 00:02:13,520
+Then we're going to sort the values by their series ID and their date time.
+
+26
+00:02:13,760 --> 00:02:17,000
+This is just going to reorder the columns.
+
+27
+00:02:17,000 --> 00:02:18,000
+Voila.
+
+28
+00:02:18,000 --> 00:02:24,120
+So now we have series ID, date time and value.
+
+29
+00:02:24,120 --> 00:02:30,120
+And next, we're going to rename the CPS Labor Force status columns.
+
+30
+00:02:30,120 --> 00:02:35,920
+So in particular, we're going to take employed and map it to the lower case word employed,
+
+31
+00:02:35,920 --> 00:02:38,360
+unemployed to unemployed.
+
+32
+00:02:38,360 --> 00:02:41,880
+Now we're going to take all of the labor force flows columns.
+
+33
+00:02:41,880 --> 00:02:45,680
+So labor force flows, labor force flows, labor force flows.
+
+34
+00:02:45,680 --> 00:02:49,120
+And these are the rates, transition rates that we talked about before.
+
+35
+00:02:49,120 --> 00:02:56,340
+So we have the E to E rate, which is employed to employed, E to U, U to E and U to
+
+36
+00:02:56,340 --> 00:02:58,040
+U.
+
+37
+00:02:58,040 --> 00:03:08,240
+And in the replace column, so if you read the metadata.replace documentation, it actually
+
+38
+00:03:08,240 --> 00:03:13,480
+tells us that if we pass a dictionary, we can do a couple of different things with it.
+
+39
+00:03:13,480 --> 00:03:19,920
+But if we pass a dictionary that has column names and then passes in a new dictionary,
+
+40
+00:03:19,920 --> 00:03:25,680
+so this would be a column name and this would be a current value and this would be the
+
+41
+00:03:25,680 --> 00:03:27,920
+value you'd like to replace it with.
+
+42
+00:03:27,920 --> 00:03:30,880
+We can replace just values in a particular column.
+
+43
+00:03:30,880 --> 00:03:37,000
+So what we're doing here is we're saying, look at the metadata.
+
+44
+00:03:37,000 --> 00:03:39,520
+Oh, let's only look at two.
+
+45
+00:03:39,520 --> 00:03:43,360
+Look at the metadata frame.
+
+46
+00:03:43,360 --> 00:03:52,160
+Take the CPS Labor Force status column and use this dictionary to replace the values here with
+
+47
+00:03:52,160 --> 00:03:53,880
+the values in the dictionary.
+
+48
+00:03:53,880 --> 00:04:00,320
+So it's going to map this employed to the lower case employed, et cetera, et cetera.
+
+49
+00:04:00,320 --> 00:04:05,360
+We can see that that worked.
+
+50
+00:04:05,360 --> 00:04:12,720
+The next thing we're going to do is we're just going to dump all of the extra information.
+
+51
+00:04:12,720 --> 00:04:20,160
+So in addition to the CPS Labor Force statuses, we have information on the demographics
+
+52
+00:04:20,160 --> 00:04:27,320
+and the race, gender, marital statuses, et cetera.
+
+53
+00:04:27,320 --> 00:04:32,080
+So all we're going to do is we're just going to keep the most basic information.
+
+54
+00:04:32,080 --> 00:04:35,000
+So we're only going to look at all industries, all occupations.
+
+55
+00:04:35,000 --> 00:04:38,360
+We're going to look at them not seasonally adjusted data.
+
+56
+00:04:38,360 --> 00:04:44,000
+We're going to look at all races, both sexes.
+
+57
+00:04:44,000 --> 00:04:47,480
+So we're going to apply that in this query.
+
+58
+00:04:47,480 --> 00:04:52,640
+And then we're only going to look at the values that are associated with a value from
+
+59
+00:04:52,680 --> 00:04:58,760
+the CPS Labor Force status column is associated with a value from our dictionary from
+
+60
+00:04:58,760 --> 00:05:03,320
+the previous slide.
+
+61
+00:05:03,320 --> 00:05:05,160
+And so this will give us.
+
+62
+00:05:05,160 --> 00:05:10,680
+So you see it dumped a bunch of before they were employed, employed.
+
+63
+00:05:10,680 --> 00:05:13,640
+The difference was this had min for employed.
+
+64
+00:05:13,640 --> 00:05:17,960
+And so now we've dumped that because we only take both sexes and we ended up with an
+
+65
+00:05:17,960 --> 00:05:22,280
+EE as our second element.
+
+66
+00:05:22,280 --> 00:05:28,920
+Okay, so next we're going to merge our two data frames together.
+
+67
+00:05:28,920 --> 00:05:34,040
+So we have the data frame, data frame.
+
+68
+00:05:34,040 --> 00:05:39,800
+And then we have the metadata, LF data frame for Labor Force.
+
+69
+00:05:39,800 --> 00:05:44,040
+And from this data frame, we only care about the series ID, which we need to do the
+
+70
+00:05:44,040 --> 00:05:45,280
+merge.
+
+71
+00:05:45,280 --> 00:05:49,120
+And these new variable names that we're going to use.
+
+72
+00:05:49,120 --> 00:05:54,080
+Additionally, we're going to specify the how equals right because we only want to keep
+
+73
+00:05:54,080 --> 00:06:01,400
+observations from data where the series ID corresponds to a value in our restricted metadata
+
+74
+00:06:01,400 --> 00:06:02,920
+data frame.
+
+75
+00:06:02,920 --> 00:06:05,960
+And we're merging on series ID.
+
+76
+00:06:05,960 --> 00:06:12,360
+Additionally, we're going to rename the CPS Labor Force status column as variable.
+
+77
+00:06:12,360 --> 00:06:18,960
+And then we're only going to keep variable, date time, and value.
+
+78
+00:06:18,960 --> 00:06:19,960
+Perfect.
+
+79
+00:06:19,960 --> 00:06:22,320
+Okay, great.
+
+80
+00:06:22,320 --> 00:06:28,480
+So now what we're going to do is we're going to want to be able to generate kind of plots
+
+81
+00:06:28,480 --> 00:06:34,280
+of the data that start at a particular date and allow us to compare two time periods to
+
+82
+00:06:34,280 --> 00:06:36,120
+each other.
+
+83
+00:06:36,120 --> 00:06:45,080
+So what this function is going to do is it's going to give us, oops.
+
+84
+00:06:45,080 --> 00:06:51,400
+So it's going to take a data frame as an input, a start date, and a number of days.
+
+85
+00:06:51,400 --> 00:06:56,600
+And it's going to give us out a data frame that's going to be a copy of this original
+
+86
+00:06:56,600 --> 00:06:57,760
+data frame.
+
+87
+00:06:57,760 --> 00:07:03,200
+And it's only going to have values that start after start date.
+
+88
+00:07:03,200 --> 00:07:09,880
+And it's only going to keep the dates that are within end days of that start date.
+
+89
+00:07:09,880 --> 00:07:11,400
+So let's see how that works.
+
+90
+00:07:11,400 --> 00:07:15,520
+So the first thing we do is compute days from.
+
+91
+00:07:15,520 --> 00:07:20,400
+So say for example, this was January 1st, 2007.
+
+92
+00:07:20,400 --> 00:07:25,840
+If start date was January 1st, 2007, then this would be equal to zero.
+
+93
+00:07:25,840 --> 00:07:29,760
+So this is we're going to do this on a whole series, but we're going to talk about it as
+
+94
+00:07:29,760 --> 00:07:32,080
+a state where a state or example.
+
+95
+00:07:32,080 --> 00:07:40,040
+But if the start date were still January 1st, 2007, and the date were February 1st, 2007,
+
+96
+00:07:40,040 --> 00:07:43,800
+and this would give us 31.
+
+97
+00:07:43,800 --> 00:07:49,200
+So then we're only going to keep days that come after a k-a are greater than or equal
+
+98
+00:07:49,200 --> 00:07:51,000
+to zero.
+
+99
+00:07:51,000 --> 00:07:52,520
+The start date.
+
+100
+00:07:52,520 --> 00:07:58,160
+And we're not going to go so far in the future because we're going to limit it to being
+
+101
+00:07:58,160 --> 00:08:01,680
+less than end days in the future.
+
+102
+00:08:01,680 --> 00:08:04,520
+Then we're going to create a copy of our data frame.
+
+103
+00:08:04,520 --> 00:08:07,600
+We're going to save this days from into our data frame.
+
+104
+00:08:07,600 --> 00:08:12,880
+And then we're only going to keep the dates that we've specified below.
+
+105
+00:08:12,880 --> 00:08:17,160
+Okay, so let's go ahead and see what this function does.
+
+106
+00:08:17,160 --> 00:08:24,680
+So when we apply this, notice we now only have values, dates starting at 2012.
+
+107
+00:08:24,680 --> 00:08:32,320
+And if we asked for the maximum, it shouldn't be more than five years in advance.
+
+108
+00:08:32,320 --> 00:08:37,360
+So we have 2012, 2013, 2014, 2015, and all of 2016.
+
+109
+00:08:37,360 --> 00:08:39,520
+So five years.
+
+110
+00:08:39,520 --> 00:08:42,000
+So it does what we said.
+
+111
+00:08:42,000 --> 00:08:47,520
+And I think it becomes even easier to see what this function does by looking at a pivot table.
+
+112
+00:08:47,520 --> 00:08:51,440
+So what we're going to do is we're going to put the dates on the index.
+
+113
+00:08:51,440 --> 00:08:54,080
+We're going to put our different variables.
+
+114
+00:08:54,080 --> 00:08:58,800
+So these EE employed, unemployed, EU, etc.
+
+115
+00:08:58,800 --> 00:08:59,800
+On the columns.
+
+116
+00:08:59,800 --> 00:09:02,200
+And then we're going to fill it with the values.
+
+117
+00:09:02,200 --> 00:09:05,000
+We'll create a new column called labor force.
+
+118
+00:09:05,000 --> 00:09:13,080
+And then we're going to modify our EE, EU, EU rates to be percent of employed, unemployed.
+
+119
+00:09:13,080 --> 00:09:15,560
+And then we'll look at this data frame.
+
+120
+00:09:15,560 --> 00:09:25,040
+Okay, so again, if we look at PTNT.tale, we can see it ends in 2016.
+
+121
+00:09:25,040 --> 00:09:29,080
+So our data starts in 2012 and goes to 2016.
+
+122
+00:09:29,080 --> 00:09:34,880
+And we have EE is now the percent of employed individuals who continue to be employed.
+
+123
+00:09:34,880 --> 00:09:40,120
+The EU is the percent of employed individuals who become unemployed.
+
+124
+00:09:40,120 --> 00:09:44,840
+EU is the percent of unemployed individuals who become employed.
+
+125
+00:09:44,840 --> 00:09:51,840
+And EU is the percent of unemployed individuals who become who continue unemployed.
+
+126
+00:09:51,840 --> 00:09:55,440
+And the reason these don't quite add up to 100%.
+
+127
+00:09:55,440 --> 00:10:02,280
+It's because we're ignoring the possibility of transitioning out of the labor force.
+
+128
+00:10:02,320 --> 00:10:10,520
+So any difference between EU and one is one that would be UN.
+
+129
+00:10:10,520 --> 00:10:14,800
+So transitioning from unemployed to not in the labor force.
+
+130
+00:10:14,800 --> 00:10:18,600
+Okay, so let's go ahead and make a plot.
+
+131
+00:10:18,600 --> 00:10:27,240
+So what we're plotting here is kind of, so we view 2012 to 2016 as a relatively normal economic
+
+132
+00:10:27,240 --> 00:10:28,240
+time.
+
+133
+00:10:28,240 --> 00:10:34,600
+And so it's a very common time in which the United States is not experiencing any recession.
+
+134
+00:10:34,600 --> 00:10:37,600
+Rather it had slow sustained growth.
+
+135
+00:10:37,600 --> 00:10:45,680
+So you can see the unemployed to employed rate is roughly 20% of the unemployed.
+
+136
+00:10:45,680 --> 00:10:48,480
+We're finding jobs in a given month.
+
+137
+00:10:48,480 --> 00:10:51,360
+So that's relatively good.
+
+138
+00:10:51,360 --> 00:10:58,160
+And the employment to unemployment transition rate was kind of in the one to two percent.
+
+139
+00:10:58,160 --> 00:11:00,840
+And it moved around too much.
+
+140
+00:11:00,840 --> 00:11:06,120
+So this gives us a benchmark of what kind of these rates should look like during a normal
+
+141
+00:11:06,120 --> 00:11:07,840
+times.
+
+142
+00:11:07,840 --> 00:11:11,880
+So what we're going to do now is let's go ahead and look at some turbulent times.
+
+143
+00:11:11,880 --> 00:11:16,440
+So we're going to start our plots of turbulent times.
+
+144
+00:11:16,440 --> 00:11:20,080
+One year prior to the trough of unemployment.
+
+145
+00:11:20,080 --> 00:11:23,400
+So we did this approximately.
+
+146
+00:11:23,400 --> 00:11:28,080
+But actually writing code to find the trough would be a great exercise if you're
+
+147
+00:11:28,120 --> 00:11:30,240
+looking for some pandas practice.
+
+148
+00:11:30,240 --> 00:11:38,320
+So we're going to start our plots in March 2019 and February 2007.
+
+149
+00:11:38,320 --> 00:11:42,800
+And so we're going to only keep, and we're going to keep five years.
+
+150
+00:11:42,800 --> 00:11:47,760
+So obviously for COVID, this won't, we only have a year and a half of data that we can
+
+151
+00:11:47,760 --> 00:11:50,360
+plot.
+
+152
+00:11:50,360 --> 00:11:56,880
+This assign is just equivalent to doing something like the F COVID EE is equal to the
+
+153
+00:11:56,880 --> 00:12:02,280
+F COVID.Eval EE divided by employed.
+
+154
+00:12:02,280 --> 00:12:06,840
+But it allows us just to kind of continue our chain approach.
+
+155
+00:12:06,840 --> 00:12:10,040
+So that's why we did that.
+
+156
+00:12:10,040 --> 00:12:11,040
+Great.
+
+157
+00:12:11,040 --> 00:12:16,960
+So this is exactly what we did to our normal times data frame.
+
+158
+00:12:16,960 --> 00:12:23,200
+So let's go ahead and look at just kind of the raw changes in employment and unemployment.
+
+159
+00:12:23,200 --> 00:12:30,040
+So prior to this year, the great recession had been one of the most devastating economic
+
+160
+00:12:30,040 --> 00:12:35,520
+events in kind of US history for a long time.
+
+161
+00:12:35,520 --> 00:12:44,520
+And what you see is remember, so the event is going to start about 365 days after the
+
+162
+00:12:44,520 --> 00:12:46,560
+plot starts.
+
+163
+00:12:46,560 --> 00:12:57,920
+So what you see is kind of at its worst, the total number of unemployed was about 15 million
+
+164
+00:12:57,920 --> 00:13:01,080
+during the great recession.
+
+165
+00:13:01,080 --> 00:13:04,440
+And that kind of, it took us approximately.
+
+166
+00:13:04,440 --> 00:13:09,520
+So one, so approximately two years after the recession started, we hit the peak number
+
+167
+00:13:09,520 --> 00:13:11,480
+of unemployed people.
+
+168
+00:13:11,480 --> 00:13:18,000
+And it's just so striking to see kind of, so we'll call this the start date.
+
+169
+00:13:18,000 --> 00:13:25,600
+And if in a matter of two months, we saw a significantly larger increase in the unemployment.
+
+170
+00:13:25,600 --> 00:13:31,480
+So reaching kind of about 20 million people unemployed.
+
+171
+00:13:31,480 --> 00:13:37,120
+And what you're seeing is we're now seeing a relatively quick, I guess we'll call it a recovery
+
+172
+00:13:37,120 --> 00:13:40,200
+and we're seeing lots of people returning to work.
+
+173
+00:13:40,200 --> 00:13:43,480
+And that could be because they're being called back to work from a job they were temporarily
+
+174
+00:13:43,480 --> 00:13:48,840
+laid off on, or maybe there's new jobs being created.
+
+175
+00:13:48,840 --> 00:13:51,520
+But there's still kind of a long ways to go.
+
+176
+00:13:51,520 --> 00:14:00,960
+So we're still a long ways away from our original level of unemployment.
+
+177
+00:14:00,960 --> 00:14:05,480
+And so this plot is going to be more comparable to what we just saw for the normal times
+
+178
+00:14:05,520 --> 00:14:06,840
+a second ago.
+
+179
+00:14:06,840 --> 00:14:12,480
+And we're going to plot the employment to unemployment transition rate and the unemployment
+
+180
+00:14:12,480 --> 00:14:14,800
+to employment transition rate.
+
+181
+00:14:14,800 --> 00:14:22,240
+So during normal times, again, roughly 2% of the unemployed find a job.
+
+182
+00:14:22,240 --> 00:14:29,440
+So this is just the mean from that last plot that included the data from 2012 to 2016.
+
+183
+00:14:29,440 --> 00:14:35,280
+And what you see was during the great recession, there was kind of a period of
+
+184
+00:14:35,280 --> 00:14:39,280
+prolonged decrease in job finding.
+
+185
+00:14:39,280 --> 00:14:50,000
+So notice it's below the normal times level for kind of years afterwards.
+
+186
+00:14:50,000 --> 00:14:59,000
+And what we're seeing here, so again, so this should be we're experiencing growth prior
+
+187
+00:14:59,000 --> 00:15:00,240
+to both of these events.
+
+188
+00:15:00,240 --> 00:15:07,360
+So we're seeing initially these rates this U to E rate was higher in both cases.
+
+189
+00:15:07,360 --> 00:15:15,240
+And then what you see in the kind of COVID recession is you see a really large drop in
+
+190
+00:15:15,240 --> 00:15:18,560
+finding jobs for just a couple of months.
+
+191
+00:15:18,560 --> 00:15:22,240
+And we've actually seen, so it jumped down.
+
+192
+00:15:22,240 --> 00:15:29,680
+But now we've actually seen an increased rate of job finding, which I think is really interesting.
+
+193
+00:15:29,680 --> 00:15:34,760
+And I think this is probably something that we've seen in many places all over the world.
+
+194
+00:15:34,760 --> 00:15:38,120
+And then the other plot is kind of this employed to unemployed.
+
+195
+00:15:38,120 --> 00:15:42,120
+So what percentage of the employed were losing their jobs?
+
+196
+00:15:42,120 --> 00:15:50,280
+So again, during the great recession, this actually, so prior to this, this graph, prior
+
+197
+00:15:50,280 --> 00:15:55,400
+to the COVID experience, this graph looked much more striking because what you saw was effectively
+
+198
+00:15:55,440 --> 00:16:02,840
+the employment to unemployment transition rate increased by 150%.
+
+199
+00:16:02,840 --> 00:16:08,120
+And what you see is kind of people were losing their jobs at a slightly higher rate for a
+
+200
+00:16:08,120 --> 00:16:11,160
+very long time.
+
+201
+00:16:11,160 --> 00:16:17,880
+But kind of a slightly higher rate does not look like basically a six, five or six times
+
+202
+00:16:17,880 --> 00:16:18,880
+increase.
+
+203
+00:16:18,880 --> 00:16:20,280
+So this is five or six hundred percent.
+
+204
+00:16:20,280 --> 00:16:24,120
+People are losing their jobs at the peak of the COVID recession.
+
+205
+00:16:24,120 --> 00:16:31,280
+And effectively a six hundred percent higher rate than they were during normal times.
+
+206
+00:16:31,280 --> 00:16:37,720
+But what you've seen is actually a lot of the firing has stopped.
+
+207
+00:16:37,720 --> 00:16:44,480
+So as long as things continue to go well, we actually kind of should expect things to slowly
+
+208
+00:16:44,480 --> 00:16:49,760
+return to normal because we're seeing higher than normal transitions from unemployment
+
+209
+00:16:49,840 --> 00:16:55,960
+to employment and approximately normal transitions from employment to unemployment.
+
+210
+00:16:55,960 --> 00:17:00,920
+So I would say kind of in the long term, these numbers are encouraging.
+
+211
+00:17:00,920 --> 00:17:05,600
+And the thing that will be fun is next week will use a model that will allow us to talk
+
+212
+00:17:05,600 --> 00:17:10,440
+about how fast you might expect things to return to normal or other things.
+
+213
+00:17:10,440 --> 00:17:14,640
+But we hope you enjoyed this discussion of labor statistics and we'll see you soon.
+

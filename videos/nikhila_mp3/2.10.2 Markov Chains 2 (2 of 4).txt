@@ -1,0 +1,167 @@
+Okay, so now we are ready for our lead example of a Markov chain, something that we really
+want to talk about, the economics and statistics of.
+So this is going to be a version of a famous model called the Lake Model of, in our instance,
+unemployment, but it could be some, a lake model of other things.
+So we are going to consider a worker who at any given time T is either unemployed and
+we will call that state zero, if he is unemployed, or is employed state one.
+So, employed means he or she has a job, unemployed means doesn't have a job, but is looking
+for a job.
+And suppose that over one month, if you are an unemployed worker, you find a job with
+probability alpha.
+So alpha equals the probability that an unemployed worker finds a job with his next draw.
+But an employed worker could become, so basically we have an unemployed worker could switch
+to become an employed worker with a probability alpha.
+But an employed worker sometimes becomes unemployed with probability beta.
+So in terms of our Markov model, we are going to have the state space, here we go.
+S equals zero one, there we go.
+The transition probability, we go from zero to one with probability alpha.
+We go from one to zero with probability beta.
+And then because the row sums have to sum to one, we automatically can fill in the whole
+matrix.
+So this is our first stochastic matrix.
+And if I supplement that with some probability of your employment state, let's call the
+employment state, x t, if I supplement at times zero, if I supplement that with a probability
+of distribution, which would look like this, let's say, I'll just make this up.
+I'll call it pi zero, it's just a matrix.
+So let's say it's a 20% chance you're unemployed and 80% chance that you're employed at times
+zero, I'm just making this up.
+Then the pair, pi zero, that is a Markov chain.
+And that Markov chain generates a probability distribution over our entire sequence, an entire
+infinite sequence of the random variable employed versus unemployed.
+So our random variable would take two values, zero or one.
+And so a history of a person might look like starts out at times zero being unemployed,
+unemployed, finds a job, stays in the job, stays in the job, stays in the job, stays in the
+job, gets fired, stays unemployed.
+So this sequence, going on forever, describes the life history of the worker.
+So if we know the values of alpha and beta, we can ask all sorts of questions.
+We could ask what's the average duration of unemployment?
+We could ask over a long horizon, what's the fraction of time that a worker finds yourself
+unemployed?
+We could say conditional unemployment, what is the probability of becoming unemployed, at
+least once, over the next 12 months?
+That's a complicated event, but we could figure that out.
+And that's going to be useful.
+I want to take a little detour now and show you some properties of a geometric
+distribution, an important distribution.
+So here's why we do this in a minute.
+The geometric distribution is, this is going to be a random variable.
+And we're going to let p be the probability of what we're going to call success.
+And one minus p be the probability of failure.
+This is actually one to Bernoulli trial.
+That's all this is.
+And now what we're going to do is we're just going to repeat.
+We're going to take a sequence of independent Bernoulli trials.
+And we're going to form a certain random variable, which I'm going to tell you about.
+And the random variable we're interested is this.
+It's the times in a sequence of Bernoulli trials.
+It's the time before we get one success.
+So I'm going to take a sequence of draws.
+And I want to know the probability of k failures, the probability of k failures, before the
+first success.
+And k is going to be go from 0, 1, 2, onto infinity.
+And I'm going to let yi be the value of the random variable success of failure in the
+Ith trial.
+So if I just take a sequence of Bernoulli trials, I'm just going to get a sequence of 0s or
+1s.
+So I want to compute this probability.
+So here goes.
+Let's compute it.
+Well, I want to compute, I just go, I do not skip steps.
+I write down what I want to compute.
+I want this, the probability that y equals 0, y1 equals 0, y1 equals 0, yk1 minus 1 equals
+0.
+Finally, this is my first one occurs at the kth trial.
+I want to compute the probability of this.
+This is what I want to compute.
+And I know that my draws are independent.
+They're independent.
+Why?
+Because I'm assuming it.
+OK, so now I just write down, I use independence.
+The probability of this is of that, that's a joint distribution.
+No, that's a joint distribution.
+I want to compute, that's a probability that comes from the joint distribution.
+I now use independence.
+So the joint distribution is just the product of the marginal distributions.
+That's independence.
+So I write that down.
+So that's just the probability y0 equals 0, probability y1 equals 0, dot, dot, dot, probability
+yk minus 1 equals 0.
+Finally, times probability yk equals 1.
+Now I just copy.
+Well, this is equal to 1 minus p, where I got that from here.
+This is equal to 1 minus p again, 1 minus p k times, and then finally, p.
+Get that from here.
+Isn't that beautiful?
+And then I just collect.
+So that's equal to this, 1 minus p k times p.
+So when I set up the draws like that, how long do I have to wait?
+That's the probability.
+So this is a probability, that's a probability distribution.
+And it's a waiting time.
+It's called a waiting time.
+It's a time to my first success.
+And it is called a geometric distribution.
+Well, why?
+Why is it called a geometric distribution?
+Well, it's because of this factor, 1 minus p raised to the k.
+That's a geometric series.
+That's a geometric series.
+So this is called a geometric series.
+And then it's just normalized so the probabilities add up to 1.
+So we'll note this.
+You calculate summation 1 minus p to the k times p.
+Sum that up.
+Use your high school knowledge of geometric series.
+We get 1.
+So now we could calculate the expected time to first success.
+And this has a name, expected time to first success.
+This is called expected waiting time.
+We're going to use this in a minute in this lecture, in a really fun way.
+So if you just calculate that now, this is a little tricky to calculate.
+Well, we calculate the expected time.
+I'm just going to calculate the mean.
+How do I calculate a mean?
+I take summation k, goes from 0 to infinity.
+Those are all the values.
+I multiply the values of the random variable times the probability, which I just
+read off from my probability distribution.
+If you sum those up, I'm not going to derive this here.
+But if you sum this up, you can check it on a computer.
+This is just equal to 1 over p.
+So 1 over p is the expected waiting time for a geometric distribution.
+And we're going to see why I did that right now.
+So let's return to where we were before.
+And we have this quote unquote lake model we were talking about.
+We have this Markov chain.
+And the probability, if we come back up here,
+the probability that an unemployed worker moves into employment
+is in any given period, the probability of success, the probability of a success,
+is alpha.
+I will call that a success.
+We'll call the failure as the person stays unemployed.
+So what we can read right from this is the expected waiting time.
+Here is just 1 over alpha.
+That's 1 over alpha.
+So that's the expected duration.
+That's the average duration of unemployment.
+That's the average duration of unemployment for an unemployed worker who
+fits this model.
+And now we can come up here as success is just a definition.
+We have an employed worker going the other way.
+An employed worker here, a quote unquote success.
+It's a bad word now in this sense.
+Success is the employed worker becomes unemployed.
+Well, we have a waiting time distribution.
+So if we do a calculation, what's the average duration of employment?
+Well, this will turn out to be, it won't be this.
+We could figure that out.
+So the average duration of, yeah.
+So I'm going to ask you to figure that out as an exercise.
+Maybe I'll stop this now and ask what's the average duration of employment.
+How long do you keep a job?
+That's an interesting number.
+It's going to depend on data.
+And we'll be able to calculate that.
+So why don't you work on that?
+And I'll work on it for a minute.

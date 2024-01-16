@@ -1,0 +1,541 @@
+This notebook is going to be about data visualizations and it's going to talk
+about some rules and guidelines. Whereas our previous discussion was focused on
+how to create a graph. This discussion will be focused on creating the right
+graph or creating a compelling graph. This material I'd like to preface was
+co-authored with Paul Schrimff who's at UBC and what we're going to do is we're
+going to understand what steps go into creating a visualization. We'll
+identify when is the right time to use each of the core types of plots and we'll
+introduce the ability to make effective visualizations. And so we'll start by
+doing our normal imports and we'll start. So an economist or a data scientist
+job goes beyond simply learning new things using data and theory. Learning
+new things is actually a way to help economists or data scientists communicate
+these ideas to others. And the medium in which these ideas are communicated is
+typically an academic paper or a business meeting. And the most effective way
+to communicate ideas is via well done visualizations. Well done visualizations
+allow you to communicate through two main channels. The first is something that
+psychology researchers call pictures superiority. And what this is is in
+work in psychology they've found that individuals are able to identify
+pictures they had previously studied for approximately 500 milliseconds each
+with 75 to 85% accuracy but when they ran the same experiment with words
+individuals could only identify things that they had previously seen with a
+55 to 65% accuracy. So you're seeing an ability what they want to convey here is
+that pictures stay in an individual's mind better than words. Additionally
+data visualizations are a way to help people walk through the logic that you
+used to build your chart. And this allows them to reason through the argument
+you're presenting. And it makes your claim more convincing because now you're
+not telling them all you're doing them is showing them the data and they
+arrive at the conclusion you wanted to make on their own. So throughout this
+lecture we're going to discuss the process of creating a data data visualization
+and we'll communicate some of the best ways to ensure that you can successfully
+communicate your ideas. Along the way we'll be introduced to many additional
+features of MATPLATLIB that have not been previously discussed. Obviously we
+won't be able to discuss all of these features but we encourage you to go back
+and continue to read and study the MATPLATLIB online documentation. So before
+we begin discussing specific recommendations we'd like to start by doing two
+things. The first is let's re-emphasize what the goal of data visualization is
+and the second is let's develop a process by which we can create compelling
+data visualizations. So the purpose of a data visualization is to facilitate the
+communication of a message or idea. So the whole purpose for which we create
+graphs is to help communicate things that we know that someone else may not know.
+And the steps by which we find our most effective are to do the following four
+things. You start by identifying what is the message that you would like to
+communicate. Second, you should describe to yourself in words the ideas that
+should be communicated by your visualization. So you should say things like I'd
+like to have dots that show the relationship between x and y and the fact that
+they are increasing means x. Three, you should create a draft of your
+visualization and this actually gives you a chance to verify your data and to
+verify that the story you're trying to tell is in your data. Finally, you
+fine tune the visualization details and remove any information or any piece of
+graph or color or line that will distract from the message that you're trying
+to tell. We typically think that a graph should be focused on one message and
+not on many. Now obviously prior to doing steps 1, 2, 3 and 4, you're going to
+have done a significant amount of time exploring the data and thinking about
+your message. And in fact, you're going to find that during the research step
+which we call step zero, you will actually almost certainly produce visualizations
+to help yourself understand the data. These visualizations are great because
+they'll allow you to highlight outliers or unlikely combinations. So the steps
+we've presented are going to be helpful also in your research process but we're
+going to focus on kind of creating visualization after you know the story that
+you're going to tell. So let's start by working through an example and the
+example we're going to start with is actually it comes from research done by
+an economist at MIT named David Otter and his co-authors but it was based and
+kind of motivated by a New York Times article that was about the research being
+done by Dr. Otter. So this particular research investigates the
+observable changes over time between work opportunities in rural and urban
+locations. So it turns out that earlier in the 20th century in the 1950s or so
+there was a wage premium for both college and non-college educated workers. So
+this means that the wage paid to college workers and the wage paid to
+non-college workers was higher if you were in a more dense area. So more
+recently we've observed that the city wage premium is still apparent for
+those with college educations but for those without a college education the
+wage premium for living in an urban area has disappeared. So the first step
+for creating this visualization is going to be identify the message. So think
+about what questions someone should be able to answer after observing your
+graph. So in our example we'd like someone to be able to say what happens to
+the rural slash urban wage gap for non-college educated workers since the
+1950s and the thing that makes this answer unique is that the wage gap
+changes are different for non-college educated workers and college
+educated workers and we'd like to highlight this difference. So step two
+is to visualize. So choosing the type of visualization that will best
+illustrate your point is a skill that can only be developed with lots of
+practice. Using the wrong type of visualization will actually can actually
+inhibit the flow of information from the graph to your audience's brain. And so
+in our case one of the most effective ways to demonstrate the relationship of
+two variables is using a scatter plot. And so we want to place so now we're
+going to describe our visualization words. We're going to place the log of
+population density on the x-axis and the log of wages on the y-axis. And what we
+should see and we're going to plot this four times. We're going to plot this for
+the 1950s, 1960s and so on. And we're going to see how this relationship
+changes over time for the college and non-college educated workers. So now we
+will we've kind of described in words the graph that we'd like to create. And so
+now we should go about and create an early draft. So sometimes you're going to
+get and I think this has been a theme in lots of the the processes that we've
+discussed. So you're going to get to this step of visualizing your draft and a
+lot of times after you've drafted a version of your graph you're going to
+realize that you need to go back to step one or step two. It's okay to scrap what
+you have and restart. And in fact in our own work we found that it's not uncommon
+to discard ten or more versions of a graph before we settle on a draft that
+we're happy with. So you're getting the benefit of other people have done this
+research and drafted this plot for us. But here is our first version of this
+graph. So what you see is in 1950 we have the log of population density. So the
+higher this is is the more urban a particular area is. So this is you know
+something like New York City which is the most dense location in the United States.
+And we're also plotting on the y-axis the log of wages. So the higher the log of
+wages is the more the average college or non-college worker is paid in that
+area. And the blues are college and the red are non-college. Again this is a
+draft so we internally know that and that's good enough. And you'll see in 1980
+there is still some kind of urban pre a city premium. So if you live in more
+denser locations you're going to be paid more. And in 2000 it's still there but
+it starts flattening a little bit. And in 2015 it's continued to flatten but it's
+still there for college workers. So this is our draft. And so we're not going to
+do this exercise in class today but we'd encourage you to come back to this
+notebook after class and to create a draft of this plot but organizing time and
+education differently. And we think this draft will tell a different story
+probably so we might have two plots instead of four where we have non-college
+workers on the left and college workers on the right and we could just plot these
+slopes. So each subplot would then have four graphs but we'd like you to come
+back and do this on your own. And then once you've done that you should think
+about why Dr. Otter and his co-authors chose to organize the information the
+way they did with one plot per year. And so why did they do it this way and what
+story would the other plot tell? Okay so up until this point we've confirmed
+that the decisions we've made have made sense. So the last step is to clean up
+the graph and to ensure that nothing distracts from our message. Almost the
+entirety of the rest of the lecture is going to be dedicated to fine tuning so
+we're not going to talk about the details but this code here creates the plot
+that we're going to see below. So what we have is two colors so notice we've
+continued to highlight the education levels using different colors. We've now
+labeled using the same text college educated workers and non-college
+educated workers. We've changed the x-axis so you'll remember on the previous
+slide it just was called a density log and it was to values two four six eight
+and wages log and values 1.8 2.0 dot dot 3.2. And now we've actually converted
+this into average wage rather than log wages but we've plotted them in log
+scale and we've done the same thing with population density. So you can actually
+see you know nowhere in the United States has 10,000 individuals per square
+mile but there's some places that come kind of close. Okay so we've worked
+through kind of our process for one graph and we're now going to proceed and
+talk about some of the different visualization types and what they and what
+types of situations that you would use them. We've found Duke libraries data
+visualization guide to be a fantastic resource for thinking about this. So we're
+only going to talk about kind of three to five visualization types today but you
+can see probably 20 or 30 in this visualization guide and talk they talk about
+when they're appropriate to use why you might use them and how they can be used.
+So the first one we'll talk about is scatter plots and the reason we're
+actually talking about this first is that Edward Tuft once estimated that more
+than 70% of all charts in scientific publications are scatter plots. And why
+do they do this is because scatter plots are used to show how two variables are
+related to one another and to compare various these various observations based
+on the two variables. The core strength of a scatter plot is that it's pure
+simplicity because you're getting one point per observation just allows the
+data to speak for itself. So a plot of two variables will allow viewers to
+immediately see whether the variables are linear related, quadratically related,
+or maybe not related at all. So we'll demonstrate in another example and
+so we have right here a scatter plot of unemployment rates and wages in the
+United States and it's kind of tough to see whether there's a relationship. You
+think potentially the lower the wage, the higher the unemployment there might be
+kind of a downward slope to it. I guess the story there would be in places with
+high unemployment they have relatively weak labor markets and so the
+average wage at which people are paid is potentially lower. So economically that
+kind of makes sense but you get lots of outliers that really I think we can
+that story. One thing you'll find that we do to lots of our plots is we actually
+turn off the top and right spines. They returned off here anyways probably by...
+let's try actively turning them on. So we often find that these lines are
+somewhat repetitive here they're not so bad but when you have just a big
+black square around your data sometimes it's distracting. We have these lines
+across the graph that are used for comparison so it doesn't look so out of
+place here. Here I think we could use true or false and not run into too much
+trouble. The other thing we had previously talked about using annotations and
+so we've annotated each of our cities and we've kind of done this by hand. So we
+said San Francisco we'd like to move 35 points to the left and 10.5 points down
+Atlanta, Phoenix and Madison we're going to move down and to the left a little bit.
+Otherwise we're going to move it up into the right a little bit so that's
+places like Seattle and we chose not to use any arrows or anything but you're
+able to see you know using the scatter plot the data. So the next type of
+plot we'll discuss are line plots and so line plots are best used to show how a
+variable evolves over time or it can also be used like a scatter plot to
+demonstrate the relationship between variables and it's important to note
+that it's going to differ from how a scatter plot displays this information
+because it's not very practical to draw a line between all of your data points.
+So if we go back to this plot if we tried to represent this with a line plot
+you would get something that looked slightly funny. It's actually so in the
+paper and in his slides Dr. Otter and his co-authors actually draw a least
+squares line representing the best fit and they use both the scatter plot and
+the line plot to convey their the relationship between the two variables. So let's
+go ahead and see right and so we've now replicated this by we're placing the
+lines on the plot by running this regression and what you're seeing is that now
+you can physically see that the line is getting more and more shallow for the
+non-college educated workers and it's not getting any less steep and
+probably getting steeper for the college educated workers. Next we're going to
+talk about bar plots. So bar plots are used to display differences for a
+variable between groups. So it's really about kind of how does group one
+compared to group two. It can also be used to show how variable changes over time
+which you know changes over time is just you know a difference as grouped by
+time. So that's a subset of what we previously said. So bar charts use the
+differences show the differences by using the length of each bar and this makes
+comparing different groups very straightforward. So in this plot below we're
+going to show the unemployment rate in different US cities and we've sorted it
+on our own so that the cities are sorted but if it was not sorted you would be
+able to quickly identify whether Detroit or New York had higher unemployment
+simply by comparing the length of these lines and so you can see Detroit's line
+is slightly longer it goes slightly above four and New York's line is slightly
+below four so you can tell that Detroit has a higher unemployment rate than New
+York. And histograms are the last type of visualization that we'll talk about.
+So histograms try to display the distribution of a single variable. So we think
+that histograms are particularly important when your variable is not
+normally distributed because typically you know when we think of means and
+variances we're thinking about a normal distribution. So our plot below is
+going to show US GDP growth from 1948 to 2019 and we're going to plot the GDP
+growth the distribution of GDP growth. So what you'll see is that the average is
+kind of in the high ones to 2% or so but you actually have kind of a long tail
+of high growth and a left tail that can start to get fat. So but you can see
+very clearly what this distribution looks like. And so we can change so here we've
+plotted with 23 bins we could increase this to 50 and that gives us a slightly
+different plot and so the number of bins that goes into your histogram will
+affect what your graph looks like and there's some recommendations that people
+have made about what's the right number of bins to use for different data sets.
+Okay so those are the different plots that one can use and now we're going to
+talk about how to choose colors for your plots and we really like what Edward
+Tufft has to say about this. So he says avoiding catastrophe becomes the first
+principle in bringing color to information above all do no harm. So the question
+is how do we do no harm. So to talk about how to do no harm we're first
+going to introduce a way in which we can reason about colors and this
+paradigm to reason about colors is called the hue saturation value paradigm. So I
+don't know how you would have previously been introduced to colors but lots of
+times on a computer they're represented by red, green and blue values and they
+call these RGB values and the reason they do this is that in color theory
+theoretically all colors can be created by combining red, green and blue.
+Kind of that is a great theory in kind of theory land but practically it
+actually creates lots of difficulties on a computer and so we'll introduce
+you to what hue saturation value discusses colors. So the first is hue and this
+is going to represent the share of each primary color as angles around a
+circle. So red will begin at zero degrees, green begins at 120 degrees and
+blue begins at 240 degrees. Matt Platt lib so in practice is going to convert
+these back to numbers between zero and one by dividing by 360. And so different
+angles between these colors are going to be different mixes of primary colors.
+Satya race is going to describe how rich a color is also using the numbers
+between zero and one. Saturation one which one would call full saturation the
+color is as rich as possible. Saturation the color has no color and is an
+approximately a projection of the color into grayscale. This isn't exactly true
+but it's a good way to reason about this and then value is going to be how dark
+a color is. It's also represented with numbers from zero to one and you should
+think about this is how much black has been added to the color. So if a color
+has value zero then it is as dark as possible aka the color black and if the
+color has a value one then it's had no black added to the color and it's just
+the original color. So let's look at the following demonstrate at the
+following figure. We can see moving around this circle so this would be
+somewhere around here would approximately be zero degrees and so it starts as
+red as we move we wind up at 120 degrees which is blue and as we continue
+going around our circle we would end up here at 240 degrees and so this part
+that's cut out would be our greens and then we'd complete our circle and we'd
+come back to 360 which is zero degrees. Now the saturation is kind of how rich
+this color is so notice that if we completely desaturate the color and we have
+no black added to the color right here at the top center is the color white and
+then as we move the value to one we end up at a very black color and lots of
+these along along here is we move along what I'll call pure grays which are
+colors which are grays that have no color added to them so they're they have
+no red they have no blue they have no green and so and then we can see kind of
+we've already discussed this but value is the lower we go in value moving
+towards zero is the more black the color is in so when value is set to zero it's
+all black and we can see that in this very bottom section of our of our
+little image so next let's go ahead and demonstrate this so we've created a
+little function here called color swatches and it's going to create a bunch of
+colors and then plot them and what we're going to do is we're going to very
+different pieces of the HSV's the hue saturation values and convert them to
+RGB's and then we're going to plot them so here we're going to set the
+saturation and the value to one so there will be no black added and it will be
+as rich of a color as possible and we'll move from zero to 360 in six steps we
+could potentially do more steps and you'll see that we see these colors
+so we can just see the circular nature that as we change hue it goes from red to
+green to blue to red so let's now fix for a particular color so let's set it to
+zero which is going to be red and let's plot some varying saturation so when
+our saturation is zero there's no color in that particular color so it's
+right and as we add red we get kind of a richer and richer red we could do
+this for green which is at 0.33 or blue which is at 0.66 and we see the same
+thing that as we add saturation we get a richer and richer color next as you
+might guess we can also vary value so we'll start at zero and so there has been
+no zero is going to be black and as we increase the value we're adding less
+and less black to our color so this red should be the same as this red which
+is the same as these reds but now it's moving as we change value from black to
+red and we could also do this with green or blue and we see the same thing
+okay so now that we understand kind of how color works let's think about what
+kind of color palettes are going to help us emphasize information in a
+data visualization so if we're thinking about qualitatively different groups
+where we just want to identify separate groups but we don't want to describe a
+quantitative relationship between them you could fix a saturation and draw
+and evenly spaced values from hewspac so all you need is that the different
+groups have different colors you could also think about what happens if you
+want to show that a particular color maybe color does matter in your plot
+then you might want to vary the saturation so as you make your red darker maybe
+that's a higher and higher value so lots of times you'll see chloroplyph maps
+that have this so you can see so map plot lib and other Python packages actually
+have lots of different color palettes for you to choose from so again
+referring to map plot lib documentation we can talk about some of the different
+ways that color maps are used so sequential will be incrementally changing the
+lightness and often the saturation of the color so this is used to
+represent information that has some kind of ordering so this is what I was
+saying that we could make a value darker and darker in order to display that
+one place has a higher value than another you could have a diverging so this
+should be used when information being plotted has some kind of a critical
+middle value so again this is if you think about a chloroplyph map if you want
+to see which states have had in the United States which states have positive GDP
+growth and which states have negative GDP growth you might make the middle
+color zero and then as you become more negative it becomes more red and it
+becomes more positive it might become blue or green
+cyclic is going to change the lightness of two different colors that meet in
+the middle and beginning at the beginning slash end at an unsaturated color so
+this is going to be information that wraps around at its end points such as
+phase angles or wind direction also time of day and then qualitative are just
+miscellaneous colors that are going to not represent any ordering but rather
+just allow you to create groups most of the examples we've used so far have
+just used qualitative color maps because they're simply meant to distinguish
+between different observations and the color is not meant to say anything about
+how they differ so there's three excellent sources of information on colors
+and colors pallets we think seaborne which is another Python plotting package
+that builds on matplotlib is a great place their documentation is a great place
+to talk about colors this talk given at the sci-fi conference in 2015 by
+Nathaniel Smith is actually one of my favorite discussions of colors and is
+one of the things that really forced me to think carefully about the colors
+that I'm using in my plots and then this last is a website that was literally
+put together by rock and scientists at NASA who felt it was important enough
+that other people at NASA were using colors the right way and so they developed a
+website that described how it should be used okay so we've now kind of put
+forward some background on colors and we can use this as a common language and
+proceed with discussing how to use color effectively so this is do no harm so one
+of the first things we'd like to emphasize is sometimes value varying value
+which is the darkness of a particular color is more effective than hue so this
+example actually comes from the NASA site that we linked to previously and
+let's just look at this plot so this is a plot that has a bunch of words and
+lines it has you can see the word important second order not important but it's
+kind of hard to distinguish between all of these so one thing that someone might
+choose to do is they might try to make this more readable by varying the color so
+now everything that's important is red everything that second order is green
+and everything that's not important is blue well yeah and so I'm not sure I'm
+not sure using color here actually makes this graph any better I I can probably
+read the first graph better than I can the second there's green in particular I
+feel like was a very ineffective choice but the last way that we could use colors
+is instead of using just pure black or varying the hue we could vary the value and
+so what we're going to do now is the most important information will make a
+dark color and then the second order information we make slightly less dark and
+the information that's not important we make the lightest and at least me
+personally I found that this last graph of these three is the most readable and
+so again we want to emphasize that the point of this exercise is not to not
+use color in your plots but we want to encourage you to think about whether
+hue or value will be more effective in communicating your message and in this
+case for this particular plot value was a better way to highlight what was
+important and what was not important okay the next thing we'll talk about is
+that being careless with values can actually make grayscale impossible to read so
+lots of the plots that you produce whether that be kind of an annual report that
+goes out from a particular business or an academic paper will eventually be
+printed and the majority of printing happens in black and white and so if you're
+not careful in choosing your colors they're going to have the same projected
+values and once they've been converted to grayscale they'll be unidentifiable
+so this code is based on an example from the matplotlib documentation I think
+we we change the color so we can see here we have a purple for men and an orange
+for women and if we convert that image to grayscale we end up with the
+following graph and so you quickly see kind of what the problem was is these two
+colors were too close to one another and so again very different in terms of
+hue but their values were very close together and so when you converted it to
+grayscale you ended up with a gray that was very close to one to another and
+so you can't tell in this graph what the difference between men and women is
+because you don't know which line which bark responds to which and so so you
+say it kind of who would do this and the answer is that in a in a pretty
+prominent newspaper the editor happened to review all of their graphs in black
+and white and they printed this graph talking about the US elections in 2012 so
+these are supposed to be some kind of a red and blue I'm sure but when they
+converted to grayscale they all look the same color and so no one knows what
+this what this graph is saying and this actually comes from on a side note a
+blog called flowing data we also encourage you to read pieces of this blog they
+have some great posts and some great examples of what not to do so please
+don't do this whatever you do we feel we will feel like we have failed you if
+you ever produce a graph that looks like this okay so the next point we'd like
+to talk about is you should use color to draw attention so if you're displaying
+information about various groups but you're really only interested in how one
+group differs from the remain from all the others then you should just choose
+some close together hues to represent all of the less important groups and a
+distinct color to display the group of interest so we're going to start with
+this plot and obviously we have the group of interest is going to be red and
+we're going to plot the others in kind of various shades of green and blue so
+that's pretty good so we'll talk about how we can improve a graph like this in
+a couple of slides but you can see that this makes it clear what we're trying to
+study so the next thing next bullet point we'd like to talk about is don't use
+color to differentiate small objects so color is a great differentiator when
+there's enough of the color to see but if it ever becomes too small it just
+becomes really difficult so here's the same plot we showed on the previous
+graph but we've now made the dot size much smaller and so I think here you can
+kind of make out where this is you can still see the group of interest but it
+becomes much harder to read so there is a lesson to be learned here I don't
+know if you could have told me that this was a red color but because it's so much
+darker than some of the other colors you can still separate out that group so
+keep that in mind as you produce graphs the next thing we'd like to talk about
+is that certain colors have connotations so for example red is typically
+denoted to represent losses and black is denoted to represent profits so
+choosing red to be denote positive profits in black to denote negative
+profits would be a very bad would be a bad choice because this you know should
+just feel a little bit weird if you're looking at profits in red the same
+plot I think becomes much more intuitive if you just make the losses red and
+the others black the last thing we'd like to say about color is that nearly one
+and ten men have some form of color blindness the most prevalent form of color
+blindness actually makes differentiating between red and green difficult so
+besides making your plots feel Christmas themed using red and green to
+illustrate differences in a plot will often make your visualization difficult to
+follow for some of your audience there are Python libraries that allow you to
+simulate different forms of color blindness and we recommend reading about this
+on the documentation for color spacious and Viz cm so we've now discussed some
+guidelines for color and what we're going to do now is discuss some guidelines
+for what elements to include and how to structure your graphs we think these are
+very much guidelines in the sense that they can and should be violated
+sometimes but you should be able to explain why you violated each of these
+particular rules the main theme of these guidelines is to keep your plot as
+simple as possible in an attempt to make your plot eye catching lots of people
+destroy the message that's contained in the graph so again we're going to
+focus on some guidelines that we feel are the most abused but there have been
+lots of good books and blogs that have been written on this we've already linked
+to these books in the previous notebook on plotting but you should also check
+out the following blogs flowing data in particular is a favorite of mine and
+so as you begin to create visualizations you'll see examples either in news
+articles or on these blogs and we actually recommend kind of storing this
+information away because seeing how others display information ensures that
+kind of in the future when you run into a similar problem that you have something
+to call on that you can say oh I've seen a plot that does something like this
+let me see if I can find it one friend of ours actually takes this very
+seriously he has a organized binder of graphics organized by topics and type
+of graph and when he's creating presentations he'll actually sit with this
+binder and his drafts of plots and he'll just flip through the binder for hours
+and he'll find graphs that he thought were well done and that's a way that he
+prepares his presentations a couple more links are just a couple more links
+about creating good visualizations this financial times article is great this
+article we've linked to on towards data science is an it doesn't accept
+a job at redesigning graphics that were originally done very poorly and then
+we'll link again to this data this Duke library data visualization guide they
+have a few concise rules that are also worth reviewing so let's look at some
+recommendations for bar plots so Donna Wong in her Wall Street's guide for
+visualization advises against zebra patterns and instead she proposes that you
+use different shades of the same color ordered from lightest to darkest so in
+this plot we're using different shades of blue starting in a very light shade
+and moving to a darker shade in alphabetical order in this case and we've
+then put a legend at the top to associate each bar with a particular country
+and again and additionally the general consensus is that starting a bar plot at
+any number beside zero is a misrepresentation of the data because it's going to
+make the relative lengths of different bars look differently so let's look at
+a plot that originally came from the flowing data blog and this was a plot
+that a news organization in the United States published in you know I think
+it was 20 20 they wrote this article in 2012 and so they compared the bush
+tax cuts so they tax rate that the highest income tax an individual could pay
+was going to move from 35% to 39% but if you look at this bar plot it actually
+looks like the tax rate was going to increase by you know 500% because it was
+going to go up so much if you make this same plot but you start at zero you
+actually notice that while this is a non-trivial increase you know we're seeing
+a 5 to 10% increase in our tax rates it does not look like a 500% increase and
+we'll actually come back this graphic that was originally published had all
+kinds of terrible things and additionally we what voiced them now but we have
+opinions about what type of person uses all caps in their graphs they're not
+good opinions I'll say that the next rule and you may or may not have heard
+this before but you actually should just generally avoid pie plots and the
+reason is that when you're comparing groups it's much easier for a reader to
+compare the height on a bar chart than it is to compare the size of different
+angles in a pie chart so let's see an example so on the left we have a bar
+plot and on the right we have a pie chart in both cases you can clearly tell
+that Charlie ate the most and we've helped emphasize this by adding different
+colors to Charlie but if we are trying to figure out whether Alice Bob or Susan
+ate more I can't really tell I think maybe Susan had the most and then then
+bought yeah I just I think it's it's pretty tough to tell in any case except
+for the most obvious so if you were making the case that Charlie ate too much of
+the pie and should pay more than his and equal split split the pie chart can
+help you make this point the bar plot also makes that point so in general avoid
+pie charts when you create line charts you should try and avoid fitting too much
+information into a single line plot we see lots of people do this and the thing
+that we think is important that a visualization should have one main message and
+you should not dilute or pollute your message with extra information so in an
+example below we're going to come back and revisit our age dependency ratio and
+this is going to be the number of individuals aged 65 plus divided by the
+number of individuals who are aged 15 to 64 so if you have a high age dependency
+ratio the government will have a smaller tax base to collect from but will have
+higher health and pension expenditures to pay from the old so we download the
+data and we create the plot so this is kind of every developed country in the
+world and we've plotted their age dependency ratios from 1960 to 2015 and I
+guess you can see that Japan does have the highest age dependency ratio it also
+looks like lots of other countries are increasing except for whatever this one
+is down here but there's lots of colors and I just think this isn't a very good
+graph so yeah our particular message gets hidden or polluted by so much noise
+so if we wanted to illustrate that Japan is different than any of the other
+developed countries we might plot Japan in dark red and notice we've also made
+this line thicker and we've plotted all of the other developed countries in a
+light gray line so you can see that they're there but they're not emphasized so
+much so this is clearly an improvement but we think it can be better so
+again placing this many lines is definitely an exception to our rule and we
+think it looks okay here but we could also make this point by simply plotting a
+few different lines so here we see that Japan diverges drastically from the
+UK US China and India but again we think it's distracting to have so many
+different types of line styles and so now we can just do a slightly different
+version where all of these countries are in the same color to kind of visually
+group them together we've labeled them with text so you know what's being
+plotted and then we plot Japan on its own and we think of the plots either this
+plot or this plot are the most effective at conveying how Japan's age
+dependency ratio is different than other developed countries it's important to
+use easy to interpret increments so here we're going to create the same plot
+twice but in one case we're going to use tick increments of 0, 3, 6, 9, 12 on the
+other we'll use 0, 5, 10, 15 if you're trying to figure out where this line crossed
+four here you'd see it happened just after 15 and maybe in the 16 range here it
+looks like it happens also in the 16 range but it just it looks a little
+weird to have something that's not relatively even there there's there's
+basically no reason to ever use a background color in your visualization lots of
+research has shown that white or very light graze provide the best contrast so
+we'll revisit our favorite plot and again you can't you can't make up some
+of the colors that have been chosen but in this case you know we've now moved
+it's at least 0 starting at 0 so the change doesn't feel too big but just the
+blue I think really distracts your eyes and it takes away from looking at the
+bar charts and I think this graph is much more compelling when you remove the
+background color you just it takes up you don't get distracted by what's
+happening around the data you just immediately are drawn to what was the data
+now and what is the data on January 1st 2013
+so here's one that some people will find a bit controversial so it turns out
+that people use legends quite frequently but many visualization experts advise
+you not to use them so the first so the first person that really conveyed this
+to me was a professor at NYU named Dave Bacchus and we were working on a
+paper together and every time I created a graph with legends he would send it
+back to me and with just the words take out legends and then I'll look at it
+and so so I didn't quite understand it but over time I've understood why
+legends have particular weaknesses so when you rely solely on like line color
+the black and white version of your plot becomes somewhat useless because you
+don't know whether the colors will be distinguishable in grayscale legends are
+going to require people to distinguish between small samples of color so when
+you have lines on a line plot you don't get a really good you know thick sample
+of what that color is and so someone with a weak eyesight or with color blindness
+this makes interpreting the graph very difficult and the third point is that
+it adds distance between the data and its description and so this is going to
+force people to look at a line and then look back at the legend and then look
+at the line and look at the legend and this I think distracts from their
+ability to digest the story quickly and succinctly whereas if you simply
+labeled your lines you're observing the information all at once and you're
+not having to look back and forth across different pieces of the graph so so we're
+going to go back to our plot from before our Japan's aging population plot and
+when we add a legend this is what it looks like and when we just use labels it
+looks like this and I think this is a much more structured plot you can see
+what's happening in the UK and the US and here you know first of all all these
+lines are the same color so you have no idea where they line up and then except
+for Japan I don't know this is just an objectively better plot we want to
+continue to emphasize this so we just we wanted to put this in its own bullet
+point but you should limit the amount of information you provide in any single
+plot don't provide your audience with an information overload and then our
+last guideline is that we encourage you to talk with others about your
+visualization the best way to determine whether other people understand your
+message is to show them and talk to them about it

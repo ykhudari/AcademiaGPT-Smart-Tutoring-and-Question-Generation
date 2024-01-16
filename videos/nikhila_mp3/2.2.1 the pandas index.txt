@@ -1,0 +1,446 @@
+Hello, this is Spencer Lyon and today we're going to be continuing to learn more about data analysis in Python using the Pandas library.
+And today we're going to focus on understanding the index.
+Our goals for today will be to understand how we can use the index to make sure that observations and data points are aligned when we do certain operations.
+We'll learn how we can set the index to something different as well as reset it to get back where we started.
+We'll take a closer look at how we can select subsets of the data by slicing and extracting values according to the index or row labels as well as the column labels.
+And finally, we'll point out that for a data frame, the column names are also used to align data.
+And this will become very clear shortly.
+Our outline for today will be to do a high level overview of what the index is and talk about how we can set, reset the index.
+We'll have some examples throughout. Then we'll have a few words of advice for how you should choose which columns or which variables go on the index and we'll finish with some exercises.
+We'll start by importing pandas as PD and NMP like we normally do so that we're prepared to use those libraries going forward.
+So let's take a step back and try to understand what the index is.
+As we've told you before and as we've become a little familiar with every series and data frame has an index.
+And we have been referring to those as the row labels for the data.
+We didn't lie, this is still true.
+The index and pandas is a lot more powerful and meaningful than just labeling the rows.
+And the purpose of our lecture today will be to help us understand these other properties and behaviors of the index for a series or data frame.
+So the pandas documentation reads that data alignment is intrinsic.
+The link between labels and data will not be broken unless done so explicitly by you.
+In lighter words, this means that the index and the column names are going to be used to make sure that the data is always properly aligned whenever you're operating on multiple data frames.
+This concept of pandas aligning data for us using the index and column names is a little abstract.
+So we'll load up some real data that will hopefully help us visualize and understand what's happening.
+The data set will be using comes from the world bank and it is part of their world development indicators data set.
+And we have extracted and prepared a subset of that data that includes a few countries over a number of years and then some of the components of the expenditure form of GDP.
+So here we have columns country year government expenditure consumption exports imports and GDP.
+We'll just show the first few rows so that you can get a sense of what the data looks like.
+We also want to be able to visualize operation as a whole and to do so we'll want to have some smaller data frames that we can kind of keep track of a little bit easier.
+So df small is just going to be the first five rows of our original data frame.
+And then df tiny is going to be four of those rows.
+But the but the rows will be a little bit out of order. So you'll see here that I selected rows zero first and then three to four.
+Whereas in df small it's in the proper order zero one two three four.
+Finally we will make another data set where we're going to start with the first five rows from df small.
+And then we'll only keep the columns imports and exports.
+Okay. So now let's take a look at what happens when we try to add the import export data frame to a copy of itself.
+If we look back at what we had each of these numbers was less than one.
+It was somewhere between 0.5 and one. And now all the numbers are between one and two.
+What happened was when we asked pandas to add these two data frames it went and it added them element wise.
+It would look up the zero row and import entry of the first data frame and add it to the zero row import column of the second data frame.
+And it did this for each of these 10 numbers.
+And we find ourselves what df tiny looks like and relative to just the import export one notice a few things.
+There's not a row labeled one here in df tiny.
+And the rows that do appear zero three two four are not in the same order in the I am in the import export data frame.
+So there are two numerical sorted order but here in df tiny they're not.
+Also there are extra columns that appear in df tiny.
+That don't appear in the other data frame for example the government expenditure consumption GDP.
+And the two columns that do overlap imports and exports are in different order.
+So basically we have similar data in these two data frames but they're definitely not in the same order structure.
+Now let's see what happens when we try to add the df tiny to the import export data frame.
+We'll execute this cell and we'll notice that relative to adding the import export data frame to itself things are quite different here in this output.
+The first thing to point out which is summarized on the slide following this for reference when you come back to this is that for all entries in this table where the row label or index value and the column value appear in both df tiny and import export.
+The output cell contains the sum of the two numbers.
+This is similar to what we saw when we were adding import export data frame to itself.
+But now it's surrounded by a bunch of other things.
+So this same operation of looking up the row index and the column index for the first data frame and adding that to the exact same row index and column index for the second data frame was repeated for all eight of these operations.
+And I want to point out that this happened this type of aligning happened even though the rows were in different order from df tiny and the import export data frame and the columns were in different order.
+This is exactly what we mean by pandas aligning the data for us.
+It wasn't our job to make sure that the rows were in the same position or order pandas handled that took care of it for us.
+And if you're familiar with spreadsheets, this example might help.
+So let's think through how we might do something like this using excel or a different spreadsheet program.
+So first the tiny data frame as well as the import export one would probably be in different sheets of our excel workbook.
+Then the index would be the first row of each sheet and the column names would be the first column.
+I'm sorry, the first row and the index would be the first column, forgive my misstakes there.
+We would need to have a third sheet that can hold the output of our summation operation.
+Then here's the tricky part. We populate that third sheet by looking at every label in the first column of either the df tiny sheet or the import export sheet.
+Then we'll do an if else to see if the same label appears in the other sheet.
+And then we'll need to do a V look up to extract the associated values.
+That gave me a headache just thinking through it.
+And the nice thing is we'll ever have to think through that again now that we know pandas.
+And pandas this all happens for us automatically behind the scenes.
+And it's extremely efficient. It's very well implemented and happens very fast.
+So the handling and of the aligning rows and columns is one part of this operation. But there's also a second part.
+Notice here that every entry in the row label of one as well as columns consumption, GDP government expenditure country and year.
+Have this kind of a tooth looking entry N a N.
+This is the computer science speak for not a number.
+And it's how pandas chooses to represent missing data.
+So the reason why pandas would note that these cells are missing is because when it was trying to look up the associated value for anything in row one inside of df tiny, it came up empty.
+If tiny does not have a row labeled one, that data is missing from the data frame.
+Similarly, when I was trying to look at any of these other columns that were not imports or exports, it couldn't find it in the import export data frame.
+So because one half of this plus or addition operation was missing for each of these columns and row one pandas was forced to say that the operation.
+Tiny data frame plus import export data frame resulted in not a number or a missing observation for those rows and columns.
+We want to give you a chance to understand a little more how pandas will treat missing data by working through this exercise.
+I'll pause here for a few seconds. And then we can look at it together.
+Okay, let's regroup here and take a look at this exercise together.
+So let's look at what happens when we do the import export data frame, tiny virgin and ask for the mean.
+So what we get here is that for any column that was completely filled with nands, the result of the mean will also be nand this happens for everything except imports and exports.
+However, even though row labeled one had a missing value for exports, pandas still computer the number here.
+So let's try to understand what pandas did for us. So one thing we might look at.
+This is what the hint said is what if we look at the sum of that row.
+And then we'll also look at shape. We understand how many rows. So here it tells us that the data frame import exports had five rows and seven columns.
+But when we ask for the mean of exports.
+It gives us a number a little bit greater than one.
+And then the sum here it says that the sum of exports was 4.44.
+And if you just do the arithmetic quickly in your head and divide 4.44 divided by five, the total number of rows, you would get something less than one.
+His four is less than five.
+So what pandas is really doing behind the scenes is it will compute the sum of all non missing data points and then divide by the number of non missing data points.
+And then we want to see if we can find the numbers we want from five total rows to only four that had data in them.
+So in this case, if we divided the 4.44 by four, we'd end up with 1.1.
+So when pandas is dealing with missing data, it almost skips over it as if it doesn't exist.
+It doesn't count in the total number of meaningful rows.
+It's not included in the additions when you're computing this.
+We'll see more examples of missing data going forward, but this was just to get you thinking about how pandas may be doing things behind the scenes.
+And we've seen how the index can help us align data and do certain operations.
+And the next natural step would be okay, well, what if we need to align based on certain properties or columns of the data, for example, maybe we would want to be able to align our entries based on the year.
+If we wanted to set the year is the index, we would call the set index method on our data frame, and we can pass it year, either as a string, where is the only item in a list.
+What happens now is that pandas has gotten rid of the 01234 labels on the left.
+And now the role labels are actually coming from the year column.
+We can also notice that the printed output looks slightly different than it used to before the year column was right up a little bit higher next to all these other column labels.
+Now it's down and a little bit to the left and it may be a little subtle to see on my computer.
+But if you're able to zoom in on yours, you'll see that the year column now has both numbers indicating that these are labels all the cell values in between are all in normal font face, whereas the column labels and the role labels are all given a bold font.
+Now that we have the year on the index, we can use the dot lock accessor to extract data using values from the index, for example, we can extract all the data for the year 2010.
+By doing df year dot lock 2010 notice here that the index value for each of these rows is indeed 2010.
+But now we have the observation for Canada, Germany, United Kingdom and the United States.
+Another thing that we might want to do is be able to compute the difference in the average variable across these countries for the year 2009 with those same values from year 2008.
+This would show us the change. This shows us here that on average when you consider these four countries without any type of waiting government expenditures went up slightly in 2009 relative to their levels in 2008.
+Each of these other variables went down.
+As an economist, you might start thinking, well, why would this happen? And if you remember late 2008 is when the financial crisis or the great recession took place or started where the US housing market and banks started to need a little bit of assistance from the government.
+But we quickly entered into a global recession afterwards, which will have pushed the other components of GDP down.
+So let's take a step back and we'll notice a few things after we compute the mean.
+If you remember right we end up with a series whose index or these labels over here on the left are the former column names that came from the data frame.
+So when we compute just the first half we'll comment this out so we can take a look.
+Let's see here we have a series.
+All of names from the former data frame are now on the index.
+So then when we do the minus on this side, pandas is actually going to be doing more data alignment.
+It's going to be looking for on this term right here that I've highlighted.
+The government expenditure column, it will take that term from the first that row from the first term and subtract that same row from the second term.
+And that's how it gave us that 0.03.
+Again, this data alignment and the importance of being aware of what is on the index, it will continue to surface over and over again as we work through examples and as you work through other things using pandas.
+So now let's do an exercise or think of an example.
+Suppose that somebody came to you knowing that you are a a studious and skilled data user and they asked what was the GDP in the United States for 2010.
+Well, if we wanted to do that using the DF year data frame that we have, here's how we might do it.
+So first, we'll use the dot lock.
+And the first thing we'll do is we'll filter out all of the rows where country is equal to United States.
+And we'll grab only the GDP column.
+Now that that's done and we're left with only observations of US GDP, we'll use dot lock a second time to extract the 2010 value from the index.
+And here we can see that in these units, it was 14.99.
+It's kind of a lot of work to answer a fairly simple question or to get back a single number.
+So now suppose that they asked you, well, what about the GDP of Germany or the United Kingdom in 2010.
+And then to answer this question, we might say, okay, let's do a similar operation where we're first going to filter all the rows that belong to either the United Kingdom or Germany, as well as the GDP column.
+And then we will extract the using the index will extract just the observations that apply to the 2010.
+This, what we'll see here is instead of the number, we get back a series because we asked for more than one row.
+But this time the index has the year 2010 and 2010.
+It's somewhat ambiguous if the first row corresponds to the United Kingdom or to Germany.
+You might think that the first row, the value equal to 3.41 corresponds to the United Kingdom because that's what came first in our list here.
+But it's uncertain. If we go back and we check, we get all the data for you 2010, we'll see that it was indeed Germany's GDP that had a value of 3.41 in 2010, where that of the UK was only 2.45.
+So we see here that it was insufficient to only have the year on the index.
+We needed a little bit more information to answer that question.
+Let's drive this point home a little bit further.
+And now suppose that you are asked to use this data set to get an approximation for net exports, as well as investment in the year 2009 for these four countries.
+And we'll remind you as a buddy and economist that the expenditure formula for GDP can be written GDP or why as it's often written in textbooks is equal to consumption plus investment plus government expenditure plus net exports.
+We can rearrange this expression or equation to get an expression for investment, which would be GDP minus consumption minus government expenditures and minus net exports.
+And we'll just make a note that net exports would be total exports minus total imports.
+So now our want again is to compute net exports and investment using the columns of our data frame, we can directly compute net exports.
+And then once we have that, we can use this expression here to compute investment.
+So here we go. Let's look at just net exports. We're going to use this DF year exports minus the DF year imports.
+And we'll look at the first few rows.
+The reason I chose 19 was we have 18 years worth of data for each country. So I wanted to show you that we went through 2017 back to 2000 for the first country. And now we're starting over at 2017.
+So suppose that we had a bug in our code and somehow the rows got out of order for Canada and Germany and their net exports in 2017.
+This example is completely contrived as you'll see by the code down here. But if you're having a more complicated problem or more code involved in your analysis, this type of issue can become more and more likely.
+If you notice that the last row added to 0.26, whereas the first one had a minus 0.01, we're just going to swap those two.
+So now the last row has a small negative number, whereas the first row has a positive 0.26.
+So now if we add back in this net exports as a column of the data frame, we can also add a column for investment by evaluating that expression, GDP minus consumption minus government spending minus exports.
+Now if we look at this data frame, pandas, computes everything without any problems, but because we didn't align our data on both the year and the country, we would have overstated Canada's investment by 281 billion dollars and understated Germany's by the same amount.
+So this one small issue led to a quarter of a trillion dollar difference in our statement of Germany versus Canada's GDP, sorry, in net investment in near 2017.
+So really to try to make this type of operation easier for us, it would have been nice if pandas were to align both on the year and on the country.
+So pandas aligns the rows of our data and our operations using the index. So really to get the year and the country to be identifying a single observation, we need to put both year and country on the index.
+And then pandas allow us to do that. And when you have multiple columns in an index, it's known as a hierarchical or multi index.
+So there are some situations where this might be necessary. One is when we want to extract data from more than one column and a second is when we need alignment, we'll work through both of these right after this.
+So to get started, let's first set the index to be the country and the year.
+And once we've done this, you'll notice again that the columns are now just these five components of GDP or the four components plus GDP.
+And just below that visually, you'll see that pandas has separated the two levels of our index on the outer or left or first, if you read left to right index, you have the country.
+Here we'll see that Canada is the country for the first 18 rows on the second level of the index, you have the year and this changes from 2017 down to 2000, like it has before.
+We'll refer to the country level as either the left level of the index because it appears left of year or as the outer level of the index.
+Conversely, year would be referred to as the right level or the inner most level.
+When we have a data frame such as this, again pandas documentation and things you may find online, if you're looking for help or refer to this either as a multi index or a hierarchical index.
+So now, remember when our friend asked us, hey, what was the GDP of the United States in 2010? Well, now that we have a multi index, this is quite a bit easier.
+What we can do is we can use dot lock and then remember how we have country on the left and then the year will pass these as a tuple and then we'll get the GDP column and doing this gives us back that 14.99 number.
+We did relatively more work to get earlier.
+And also correctly answer our friends follow up question about the GDP of the UK and Germany.
+Here, what we'll do is we'll have a tuple where the first item, this is where we put the selection for the country, we'll have a list of United Kingdom and Germany.
+The second item of our tuple is the year 2010 and then we'll be selecting the GDP column.
+When we execute this, we get back a series that has these two layers on the index and then this one column representing GDP.
+But now it's very unambiguous that the 2.45 corresponds to the United Kingdom and not Germany.
+So as we just saw, we can use the dot lock accessor with our multi index to WDI data frame to get different slices of our national accounts data.
+It was very easy for us to extract data for both a country and a year.
+And this is a principle that holds more generally using dot lock with a high arc client X data frame is very powerful.
+And it's similar to how we've used dot lock previously, however, the rules are a bit more subtle and elaborate.
+Now that we have a little more structure to our data, we'll go through and we'll talk about a couple main over arching concepts.
+And then we'll get through and walk through what each of the rules are for how pandas will interpret the expression given to dot lock for a multi index data frame.
+And then we'll take a picture to follow up each of these different rules with an example that will happen in the exercise.
+So first let's review some slicing rules or cover them one of the important distinctions to be aware of when you're reading or writing pandas code is the distinction between a list or a tuple.
+As you remember a tuple is an ordered collection in Python where you create this using parentheses on either side and the items are separated by commas.
+List have a very similar structure, but they are created using square brackets instead of parentheses.
+This is very important distinction because pandas interprets these two data structures very differently.
+First, a tuple when you're doing row slicing will be used to denote a single hierarchical index and you must include one tuple item for each level in your index.
+For example, what we just saw was that we had the WDI dot lock.
+We opened the square bracket here and the row specification was a tuple where we passed United States comma 2010.
+This instructed pandas that we wanted the single row that corresponded to the country United States and the year 2010.
+We then closed within specified we'd like the GDP column and closed the dot lock accessor.
+Notice here that the tuple has kind of an implicit and connotation to it.
+We have a row where the country is United States and the year is 2010.
+And when we're using a list with a dot lock expression, this will act as an or operation.
+And this is going to choose where choose rows where any of the items in the list is satisfied.
+Let's look back at our example.
+We have our WDI data frame. We did dot lock just an opening square bracket.
+And here we again, we have a tuple telling pandas that we would like to specify two items one for the country and the second for the year because those are the levels of our index.
+This time, however, instead of just reporting the string United States, the first item of our tuple is the list United Kingdom and Germany.
+Now, this is telling pandas that we would like any row in the data frame where the country is either the United Kingdom or Germany.
+We're still going to be looking for year equal to 2010 and country equal the GDP.
+But now we're going to get back any row where the country is either United Kingdom or Germany.
+And pandas did this because it saw that we passed in a list here.
+So with those two rules in mind, we're going to go over the specific rules for how you can access data inside of a hierarchy, click date, index data frame.
+I'll give a little warning at this point. These rules can be a little obtuse and I encourage you to pause the video as needed and to study these as well as experiment with the examples in the exercise following this discussion so that you can really tend to understand how they work.
+Well, this playam here. I'll talk through them once, but I encourage you again to study these materials later on.
+So first, if I were to do WDI dot lock and pass only a string pandas would interpret this as I'm doing a selection based on the rows.
+And I only want to look for rows where the first level or the outer most level of my index is equal to the United States.
+So in our example, this would return a data frame that is 17 by five or by seven because there are 17 years between 2000 and 2017.
+And we had seven different variables in our data frame.
+I believe there were seven if there's not the number of columns would be equal to the number of columns of WDI.
+And we've already kind of talked through this one at least partially if we were to pass the two poll United States comma 2010.
+So give us all rows where the outer most level of the index or the left most index is equal to United States.
+And the inner level of the index or the right level is equal to 2010.
+So we don't have a second item within the square brackets. So this would give us all rows.
+Whereas before we had a comma GDP here, which gave us just GDP.
+So we have a tuple we're looking for United States and 2010 on the levels of the index.
+We can pass a list as the first item in dot lock.
+And this will tell pandas that we would like all rows were the first level of the index or the left most level is equal to either the United States or Canada.
+Here's where it gets a little trickier. If we were to pass a tuple, this is going to tell pandas we're going to provide one item per level of our index for the first level we want all rows were country or the outer level of the index is either United States or Canada.
+And the second level of our index is either 2010 or 2011.
+So we get the or behavior happening both at the country level and then again at the year level and then we get the and behavior from this tuple where we combine the two.
+So if we were to do this, the number of rows in the output here would be four.
+We would have one row for United States 2010, another row for United States 2011.
+And then we would have those same two rows for Canada.
+Okay, here we go. So now notice here that we begin the dot lock with a list instead of beginning with the tuple.
+This tells pandas that we should be looking for any rows that satisfy any of the items in the list.
+The list items is itself a tuple where we pass one item for the first level of the index and a second item for the second level.
+Here this expression will tell pandas to extract all the rows where we have the United States and 2010 on the first and second level of the index.
+The number of rows in the output of this expression would be equal to two.
+One for this inside of this tuple and a second one for this tuple.
+You can see here how the interplay between a list and a tuple is significant and really influences what we get back.
+And again, I strongly encourage you to look back on these do some practice to some study.
+And I'll note that any of the things that we've done on the rows, we can also do for the columns.
+So if we use dot lock, whatever we happen to be doing for rows, we can use just one string, GDP, and we'll get that column or we could use a list.
+And we get back both the GDP and consumption columns.
+We'll see examples of this later on, but just note that we explained all five of these rules within the context of filtering out rows.
+But you could also use it to filter out columns by passing it as the second argument inside of dot lock.
+Okay, here's an exercise. I'm going to go ahead and pause here. You should pause the video also as you work through these exercises.
+And we strongly encourage you as you look at each of them to try to understand what is returned by these and then put in writing what the answer is and kind of defend your thinking.
+I'll go ahead and stop now. Please pause your video and attempt the exercise.
+Okay, welcome back.
+So let's work through this together.
+Let's evaluate what I will do is I will first all evaluate this cell and then we'll talk through what's happening. I'll write it in a comment.
+So first, what we see here is if we do dot lock, we pass it a list with United States and Canada.
+This is giving us all rows where outer index is either United States or Canada.
+Now, I'm going to go ahead and I hope that you did this on your own. I'm going to go ahead and attempt to guess what will happen before we evaluate just to see if I'm understanding what's going on.
+So here we have a tuple where we're passing in the United States and Canada as the first item and 2011 or 10, 11 and 12 as the second item.
+This will be all rows where outer index is either US or Canada and inner index is one of 2010.
+2011, 2012. So my hunch is that we'll get six rows back from this operation.
+Looks like here we have rows where the outer level is Canada or the United States, just as we specified.
+As well as the year is one of 2010, 11 or 12 and indeed there are six rows.
+So great. This next one, this will give us all rows where outer index level is the United States.
+Notice here something interesting happened.
+Pandas chose to drop the first or left most level of the index because each of these observations has is uniquely identified only using the year.
+We've told pandas that we want to work with only data for country equal United States.
+And now the year is sufficient to disambiguate what each of these rows means.
+You might seem a little off putting if you think about it in this way. However, it's actually quite helpful.
+So if we were to want to compare directly the level of these valuable variables for the United States and say Germany.
+We can now do this directly because this data frame only has year on the index as well as this data frame.
+And now pandas can use just the year to align each of the rows and then the columns.
+They still align up so it's able to compute a number for each of these.
+I will point out that if we were to pass a list here instead of just the string, if we were to pass a list with only United States, it will keep this second level of the index.
+And now if we were to try to repeat our same operation, we would see that we just get a bunch of nands because the first data frame.
+Didn't have anything where the country was Germany and years 2000.
+Or anything 2000 or 2017.
+So anytime that it. One of these rows occurred the first item was missing. So it has to give us a nan output.
+And then on the other hand, the second item didn't have anything where the outer layer of the index was equal to United States.
+So for every item in this data frame, there was not a corresponding item in the second one again resulting in a man.
+So this automatic dropping of the index level.
+When the secondary levels of the index are sufficient is actually quite useful in some circumstances, but you just need to be aware of what's going on.
+Okay, moving on to the next example here we have a tuple here and a list here.
+This will give us the single row for United States in 2010.
+And it will give us both the GDP and net exports columns. So one row for US in 2010 and two columns for GDP and exports.
+We get a series back because we only have one row and we have two items in this series.
+Here, this will just be a number or a series for all variables for US into other 10.
+Okay, fun. It starts with the list. So now we're going to say two rows one for US in 2010 and second, give the title for Canada in 2015.
+This will be all rows for all rows with US or Canada as country.
+So all 17 years for both.
+Only GDP column.
+Finally, this will give us series with only year on the index and values of US GDP.
+The reason we knew that we would get back a single index, state of frame is because if we select everything for the United States in the first level, the year is now sufficient to be unambiguous.
+So it dropped the country level for us, whereas above, we needed the country level because we need to know whether or not, whether these rows correspond to Canada or to the United States.
+Okay, you might want to take a break again now, both to let your mind relax and to have time to study and review the things that we just talked about.
+Being able to dissect and extract exactly the right data is almost a panda's superpower that we hope that you can develop and internalize and that will become part of your everyday tool belt, but it takes practice.
+So please put the time in to practice and to study it will be well worthwhile.
+Okay, let's just focus now on the notion of data alignment, but also when we have a multi index and we're mostly going to leave this to you.
+So we will have an exercise right here at this point where we like you to create a new data frame using some subset of our rows and then do some operations on it, see what happens and we'll regroup here in a few minutes.
+So please pause at this point and attempt the exercise.
+Okay, welcome back. Let's go ahead and work through this together. So first we'll create a variable my DF and for me, let's just do the rows.
+Let's say we would like the United States and Canada.
+For years 2015 and 2016.
+Take a look at what this looks like.
+Excuse me.
+Okay, so here we have four rows. It's Canada and the US for the years 2015 and 16.
+So now let's take a look at what would happen if we were to use this data to do some operations. So first, I'm going to move this up here so we can see it on the same slide.
+And now let's try the WDI over my DF.
+So what happens here? Oh, can't quite see it.
+I'm going to change this and let's do 2002 and 2003.
+So now what happens is we get man's everywhere where, oh, let's add, I'm sorry, I'm changing this example as we go.
+This is a useful thing to see though, so I won't edit it out. Okay.
+So now we have years 2003, 2002, 2016 and 17 for Canada and the US.
+If we take the full WDI data frame and divide it by our new data frame, what we'll get is we have nands in all rows that don't appear in my DF.
+But for Canada in 2002, we have all ones. What happened here was it looked at the WDI value for for Canada in 2002 and it found the government expenditure number.
+And it looked up that same cell or that same entry for my DF. It looked up Canada 2002, government expenditure.
+Because these are the same, we see a one everywhere. If there was anything but a one, pandas would be misaligning the data.
+But the whole point of being able to set the index and trust pandas to align things is that if we were to do this division, we'll either see nands or one. Those are the only options.
+We'll see same behavior down here for the latter years of the United States.
+I think that one example was sufficient for our purposes here. Feel free to do more if you like to experiment more, but understanding that it's either missing or equal to one makes very clear that it's pulling out the exact same row column combinations from the two data frames.
+Okay. So we've seen here that when we want to extract all rows for multiple values of an outer index and then everything for later levels, we use this convenience and tax.
+In our example, we had the WDI dot lock and then we could pass a list of only Canada and the United States to get back all years for both of those two countries.
+However, here's the example. And we're getting back all of Canada and all of the US for each of those years.
+However, suppose you wanted to get data for all the countries for only years 2005 2007 and 2009, for example, we don't yet have the tools to do this using just dot lock because the years on the second level instead of the first and we don't have a way that we've learned so far to specify, hey, I would like all countries, because that sort of appears on the first level.
+We're going to list with these three numbers because I want any of these three.
+There is a way to do it, but we need a new tool here we use what's called index slice.
+So here the index slice, we we open up the dot lock and where we're selecting rows instead of a list or a tuple here we're going to start by constructing an index slice.
+And tell this index slice that we'd like a colon for the first layer of the index if you remember colon means all or everything when we're slicing in Python.
+So this tells this index slice says I want all values are all rows, regardless of their value of the first level of the index.
+But then I would like to restrict the rows where the second layer of the index is either 2005 or 2007 or 2009.
+So now we get all four countries, but we only have these years and then we get back all columns because we have this comma all for the column specifier.
+Notice here that dot lock can accept up to two arguments, the first one before the comma specifies the rows, the second one after the comma specifies the columns.
+We see the colon here in two places first, it's saying all values on the first layer or the country layer of the index are acceptable.
+And the second usage is to say we would like all values or all columns are also acceptable.
+Here's that in words.
+So now we have another exercise that we'd like for you to do.
+I'll go ahead and pause here. I'll let you read through the exercise. You can work through it. And then we'll come back and we're grouped together. Okay, let's pause now.
+Okay, welcome back here in this exercise will begin by creating another version of our WDI data frame.
+But this time we're going to set year as the first layer of the index and country as the second.
+We're then given three different data extraction operations for the WDI data frame. And what you're asked to do is to use index slice to get the same data out of WDI2.
+So let's start with the first one. Here we're getting all data from the United States.
+We're going to do this WDI2 dot lock. We need to use index slice here because we want all the years, but we only want the United States as the second one.
+And then we'll get all the columns. And if we run this, we'll get back very similar data frame here. We're going to have 2017 and all the columns.
+We would like to get back these six rows for either the US or Canada for these three years.
+So now here what we can do is we can actually get this one without using next slice. So we can do WDI2 dot lock.
+We can pass the years first.
+And then we can pass a list of the countries.
+That's that we want all columns. We'll get back again a data frame with the same observations.
+We'll still see that these index levels are swapped. So the printing looks slightly different. But the data is the same.
+Okay, finally, this third example, we would like GDP for each of the 17 years for both Canada and the United States.
+Get that using our second one. We would do we have to use index slice here.
+We want all the years. We want a colon for the year level of the index. And we want just the United States and Canada, forgive me.
+I didn't mean to press enter there. Canada. And then we would like just the GDP column.
+Here again, we're going to get back the same values, the printing is different.
+Because the order of these index levels is different, but we got back the same 34 numbers.
+I hope you had a chance to experiment and play with the index slice. And that you understand how that helps us.
+Okay, so we've been working with these hierarchical or multi indices on the row labels or on the index.
+But you can also have it on the column index. So what we're going to do here is we'll take our WDI data frame.
+And we will swap the columns in the rows. This operation comes from linear algebra and is known as the transpose.
+And the way we write it is by doing a dot capital T after the data frame.
+So when we do this, now the index has just these five variable indicators. This used to be the columns.
+And now our columns have two levels on the outermost level. We still have the country.
+There's used to be on the far left of WDI. And on the second level of our column names, we have the year.
+So what we can do is we can tell we can start extracting data. We can tell pandas. We would like all the variables.
+That's this first colon just for the United States. This was doable because country was on the outer layer of our column indices.
+Here country was the first level of column indices.
+Here notice also just like we saw with the United States on the rows.
+Because we want only data from the United States and we want all of it. The year is now the only level of index for our columns.
+We didn't need that second layer to identify the country because we know that this is only data for the United States.
+If we wanted to get both the US and Canada, we could pass a list here and notice that we get countries both the US and Canada.
+And the same types of rules that we learned for extracting rows will work here. So in this example, we're going to get all the variables.
+And then we will have a tuple which tells pandas to expect the first item to apply to the first layer of the index and the second item to the second layer.
+Here we want all columns where the country is either the United States or Canada and the year is 2010.
+So we should get back something that is five by two.
+So we have all five variables for these two different countries in 2010.
+Here's another exercise for you to try.
+I will go ahead and pause here while you attempt that and then we'll regroup in a minute.
+Okay, welcome back. Here what we're asked to do is to use this transpose WDI data frame to get all data for all countries in years 2010, 2012 and 2014.
+So here we would do WDI transpose dot lock. We're going to get all the variables.
+We'll do an index slice and we'll put a colon in the first position. This represents that we want all countries.
+And then we'll do a list in the second position, note of telling pandas that we would like only rows or sorry, the columns.
+But the year is equal to 2010, 2012 or 2014.
+We forgot a comma right here. And here we got we got all five variables and we only have these three years, but we have them for all four countries.
+And there's a nice symmetry between how we can use these indexing rules for a multi level column or a multi level row data frame.
+We talked about how to set the index, but one of the other key operations when we're dealing with the index is to reset it.
+And when we call the reset index method when we and we don't pass any arguments, the following happens.
+We will see that the columns that were previously used for the index are returned back to be columns alongside the existing ones.
+The index is going to be reset to go from zero one to all the way through the total number of rows and the data frame minus one.
+This is the default index also called a range index in pandas.
+And when we call reset index again, whatever we had there is moved back as a column and then we get back the default range index.
+And we have a few variations of behavior with the reset index method. And we'd like for you to do this exercise now to learn what these variations are from the documentation of the method.
+So we'll pause at this time for you to work through this exercise and then we'll regroup in a minute for us to work through it together.
+Okay, welcome back. We'll go ahead and start this exercise together. So the first hint is that we should use the
+documentation string for reset index to understand how it works.
+So when I do the WDI dot reset index and a question mark, the Jupyter notebook opened up this help window.
+If you're in Jupyter lab or a different environment, you might have seen something slightly different, but this same content should be everywhere.
+We'll see here that there are a few arguments. One is called level and drop. And these are the ones that will focus on at this point.
+So first the level argument says that we should only remove given levels from the index.
+And this could be specified by an integer, a string or some two polar list of integers and strings.
+By default, if we don't pass anything, it removes all levels of the index. So let's use that to see how we can remove just the year.
+So if we do WDI dot reset index.
+And we pass as the first argument or level as year, what we see is that the country stayed on the index, but the year was moved up and was made a column alongside the existing ones.
+So this satisfies the first part of the question.
+So now the second part of the question says that we'd like to throw away all levels of the index.
+Let's turn to looking at the documentation and we'll look at this drop method or sorry, this drop argument here it says do not try to insert the index as columns.
+This resets it to the default.
+So if we were to run this, they would not be inserted as columns. That sounds like just what we want because we'd like to throw away the levels.
+WDI dot reset index dropped equals true.
+And here we'll see that we do get this default zero through n minus one on the index, but now country and year are nowhere to be seen.
+They have been removed from the index and dropped from the data frame entirely.
+The third part here asks us to combine these two we would like to remove country from the index, but keep here and then we don't want to keep country as a column.
+So here we can combine these two things that we've learned WDI dot reset index.
+The level that we would like to reset country.
+And we like to drop it. We don't need to keep it around.
+When we do this, we still get the year on the index.
+But now instead of moving country up to be another column, it's just completely thrown out of the data frame. We no longer have country information.
+We wouldn't necessarily want to do any of these operations, but it's useful to know how just like you can set the index, you can also reset the index.
+So as we close our discussion on the index, we will kind of leave you with a few parting words of best practice and suggestion for how to do that.
+And the question that should come to your mind is we've seen the index being important.
+And now the question becomes how do we pick the index? How do we feel or know that we have the right columns on the index.
+And there is some belief on what is a good default value or good default answer to this question.
+And to explain it, we're going to look at a description of what had Lee Wicham, a very popular data scientist in the R community, refers to as tidy data.
+And the first two components of his definition of tidy are that each column should have only one variable in it. And that each row should have one observation.
+Sounds fairly simple, but you'll see how this helps us with the index here pretty soon.
+We're striving to have a tidy data, which makes a lot of forms of analysis easier. So it's a great default.
+Then when we choose the index, we should make sure that the row labels are sufficient to uniquely identify an observation.
+For our column or shy for our WDI data frame.
+This unique way to identify an observation would have been the country and the year.
+And then the column names should be specific enough to identify one single variable.
+And in our WDI example, this was any of the components of GDP consumption, government expenditure, imports, exports, or GDP.
+Let's think about another example. Suppose we have data on interest rates.
+Each column might represent one asset, one different bond, one different term structure for debt.
+And then on the rows, we might have the date or the time. And we would keep track of in this data frame how the interest rate evolves over time.
+The reason we chose the rows to be time was that it allowed us to think through and identify an observation as what was the interest rate on a particular date.
+And then putting the different assets or debt as columns allowed us to identify them as separate variables.
+So the notion of keeping everything in a two dimensional form where we have a row label and a column label might seem a bit limiting at first, because there are many forms of data that typically require more than two dimensions.
+If you had an image or a picture, you would have a two dimensional grid of pixels.
+And then at each of these two dimensional points, you would have a third dimension that represents the color saturation in red, green, and blue.
+And then, apparently, one natural way to represent this would be as a three dimensional object, one for the pixels going up and down the picture, the second dimension going left and right, and the third dimension going into the color space.
+But we could represent this in pandas in a data frame by using a hierarchical index.
+One thing you might choose is to put both the horizontal and vertical pixel coordinate on the index and then have the columns be the red, green, and blue pigment values.
+In this way, we're still able to keep it in a tabular explicitly two dimensional form, but because we have this notion of the hierarchical index, we're able to represent a three dimensional data set.
+This example could be extended to more and more dimensions, if we just add extra layers to either the row index or the column index.
+One of the main points we'd like to emphasize when you're trying to organize your data is that you really need to understand the problem you're trying to solve.
+The quote correct labels for your data will often depend on the problem at hand.
+So for example, suppose we wanted to study how the GDP and consumption evolved over time for different countries.
+Well, in this case, we would want both time and the country to be on the index. This is what we saw earlier with the WDI data frame.
+However, if instead of looking over time, I was more interested in looking at differences across countries at a particular moment in time, I might choose to put the country in variable on the index and have the year be the column labels.
+This allows me to think of all the observations for 2010, for example, as a variable, and I can quickly do comparisons row by row between different countries.
+The last party wisdom will leave with you is that following the tidy rules above and just thinking about what you would like to accomplish with the data or how you intend to use it.
+And a little practice with setting and resetting the index will help you to consistently get the correct index that makes your analysis as easy as possible.

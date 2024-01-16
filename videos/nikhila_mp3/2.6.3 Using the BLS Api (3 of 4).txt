@@ -1,0 +1,519 @@
+Hello, this is Spencer Lyon and in this video we'll be talking about how we can access the United States Bureau of Labor Statistics data using their own API.
+Before watching this video you should have seen our previous video on what an API is and its main structure and usage.
+The goals for this video will be to understand how we can register for an API key from the BLS in order to have increased access to their data.
+We will then write the Python code that can communicate with or make requests against the BLS API and finally we'll use this Python code to construct a data set filled with unemployment statistics or indicators as reported by the BLS.
+Now the Bureau of Labor Statistics collects data on employment statistics for the United States. They make this data publicly available via their API.
+The data is available without the need for an API key, however, if we are able to provide an API key, we can get additional information in our response.
+This is what we're going to do here today.
+The first step then will be to register for an API key.
+What we'll do is we will open the landing page for the BLS API documentation and once there will identify where we can look for how to give an API key.
+Once we've done that, we'll receive our API key of the email and we'll store it somewhere safe.
+We need to remind you that we should treat this API key like a password because in the world of APIs, the key really is a password.
+It's something unique and secret for you that can identify you as a person and a user of their system.
+If you, if this gets out, other people can pretend to be you as they interact with those services, which could have unintended consequences.
+So let's look right now at this documentation page on their website.
+When we go there, we see the following. We're greeted with a page that looks like this.
+We'll see here that the, there's some information on the data and it says it's currently available in two versions.
+Version two requires registration to allow users to access data more frequently.
+We'll click this registration link and we'll be taken to this page here.
+Now in order to register, we have to specify which organization we are affiliated with, what our email address is, and then respond to the cap share that is put here.
+We can read and review the terms of service, check that we agreed to them and submit a registration.
+We should be able to then get an email very quickly with our API key.
+And again, once we have that, we'll store it somewhere safe and we'll use it later on in this video.
+Now, once we know how we can authenticate with the API, we need to figure out how to build the request that we'd like.
+We'll call from our previous video on an API that a request has the following components.
+We need to have an endpoint or a URL for where our request should be sent.
+We need to know what type we should associate with our request.
+We need to know if there are any necessary query parameters that should be sent to identify what we would like to do at that endpoint.
+We need to have a payload that we send that gives additional information about what the specifics of our request entail.
+Headers can provide some context around who we are and why we're making the request.
+And finally, we need to know how to use our API key to authenticate ourselves.
+We're going to work through how we can identify each of these points from the BLS API documentation.
+So first, let's work on an endpoint.
+We're going to go again to the API documentation page.
+And our goal here is to find where we can access data.
+So what we'll do is we'll go back to this getting started page.
+And then this link right here, the using BLS API signatures will take us to a page that describes all the different endpoints, other documentation for their API.
+What we're going to be interested in is being able to gather data on multiple series.
+So what we're going to be looking at is actually this third option called one or more series with optional parameters.
+We'll go ahead and we'll click that and we greeted with the documentation.
+So it tells us that we can use this format or this endpoint to get data for one or more time series for a timeframe of up to 20 years.
+We'll also be able to request different types of calculations, averages and catalog data.
+We're not going to be looking at these three things, but the catalog data will be meaningful.
+And the reason for it is by default, the BLS uses these series ID to identify a series and they look like what I've highlighted here.
+They're quite difficult to understand and they don't have much human meaning.
+The catalog on the other hand will have a lot of information that is easier for a person to understand.
+We can get if it's if the data behind the series ID belongs to a particular geography, it will tell us that here.
+It'll tell us the seasonality, which survey the data comes from.
+What the human readable name for the series is.
+And so this catalog will be very helpful in helping us understand what data we're actually getting and how we can use it.
+So it says here that in order to get these optional parameters, users must have a registration key.
+So in order to get this catalog data, we need an API key and that's why we went through the registration step before.
+Further down in the documentation, we see that users have to include at least one series ID, the start year and the end year in the body or payload of the request.
+If we have multiple series IDs, we need to separate them with a comma.
+So again, our goal here is to find the end point or the URL will be using.
+And here we see that the URL is the following.
+We have the HTTPS scheme.
+We're going to be accessing the host API dot BLS dot gov.
+The path is highlighted here public API slash v2 slash time series slash data.
+This is the end point that we'll be using.
+For accessing our data.
+Now, let's go back to the documentation page and try to identify both the request type and the query parameters.
+So when we go here, we see just above the URL, the documentation says that HTTP type is post.
+So here, even though we're not requesting the BLS save our data or store it, we still are asked to send a request using the post type.
+Now, the reason for this is because technically a get request shouldn't have a JSON payload or body.
+And so the most common type of request that allows for a payload is the post request.
+So in this case, we're kind of bending the convention of when a post should be used.
+And we're doing so in order to attach a payload to our request.
+So we'll back up a little bit and we're trying to we just identified that we're doing a post request and looking here at the URL.
+We're actually not going to be using any query parameters.
+There is a format of the API that allows us to use query parameters.
+But you'll see here that things like the registration key or catalog can be passed down in the payload.
+Here it shows up again registration key catalog.
+And because the documentation specified that we must include these things in the body of the request, we're going to opt for putting all that information in the body and not having to worry about putting some things in query parameters appear and other things as part of the body.
+We're going to attach no query parameters. So we'll use this URL as is and we'll put all the other information into the body.
+And here's kind of a summary of what we just walked through.
+So now if we look at that data documentation, we'll see that the payload or the body has a structure that looks like this.
+We were told that series ID start year and end year must be passed and they have the following form.
+Notice here that this is kind of like a Python dictionary.
+And so this is passing a JSON payload.
+The key series ID will map to a list or array of series IDs.
+We can have a start year mapping to a year.
+And this would be a four digit number or a string representing a four digit number.
+And then the end year would be the same.
+All the other options down here, these four are optional.
+We are going to only worry about setting catalog equal true so that we can get the information about what each series ID represents.
+We're going to skip these three.
+And then finally, we will pass our API key or registration key at the bottom.
+If you weren't able to obtain a registration key, then you'll only have to pass these top three as the catalog feature is only enabled for users that have an API key.
+And don't worry, at the very end, we'll provide a downloadable file with all the catalog information.
+So if you are unable to get a registration key, you'll still be able to proceed with further analysis.
+But it's good practice to work through all these steps if possible.
+Now, if we look through the documentation again, there's no notion of required HTTP headers.
+So we won't include any except we will accept for the content type header because we're passing in our in the body or payload of our request that Jason object we just saw.
+We're going to set the content type header to be application slash Jason.
+This is just going to tell the BLS that we do have a payload and that its contents should be interpreted as Jason.
+And we'll just kind of remind all the viewers that the Jason stands for JavaScript object notation and is kind of the web or API way to talk about what we refer to as a dictionary in Python.
+Okay, the final component in the in using an API is authentication. We need to be able to identify who we are. And for that, we'll use our API key.
+We've already talked about where this will go for the BLS API. And what we need to do is set the registration key field on the payload or the body of our request.
+So let's summarize what we'll be doing is making a post request to the following URL. This is the end point that we're accessing.
+We don't have any query parameters. So there's no question mark and parameters passed in the URL.
+In the body of our request, we will be passing series ID, start year and year catalog and registration key.
+And then finally, we will set the content type to application Jason in the header of our request.
+This will again, let the BLS know that we're passing a payload or body with Jason data.
+Now that we've done our homework and we understand what we need to do. Let's talk about how we do it.
+In order to make our HTTP requests or API requests, we're going to be using the request library in Python.
+We're also going to be needing to convert things to and from Jason. So we'll import that. We'll also import pandas as PD like usual. And then finally, so that we have clean,
+documented code. We're going to import a few of these helpers from the typing library. These aren't ever going to be called by us. They're just going to be attached to our function parameters. And you'll see this below.
+So execute the cell and import the necessary packages.
+Now, we need to make a request and we're going to use a Python function to do that. And we're going to study what this request does.
+So here's the code that we've written for interacting with the BLS API. So we need to, we have a function named request for series that takes four parameters.
+These four are series IDs, start year end year and API key and they map closely to the payload parameters series ID, start year end year and registration key.
+So the series ID, you see here that this syntax where we have a variable name, colon, a type is a way for us to write down the type that is expected in this parameter.
+So that when people go to use our function, they see that this is the expected type and it provides a little bit more insight into how this should be used.
+So here we're saying that the series ID should be specified as a list of strings. Both start year and end year have the type union int comma string.
+Now what union means is it could be any of the types contained within the square brackets. So start year.
+It is appropriate to pass an integer or a string representing an integer same for end year. Finally, the API key has type optional string optional is Python's way of saying the value can either be the none value or it can be of type whatever's in the square brackets.
+So here we're saying you either need to either need to pass a string or none. We'll have a default value here of none.
+We then wrote some documentation strings that describe what these things are and what they do.
+We have here a list of all the parameters. We're going to describe what the responses are. And in this case, we will have a list of response objects that come from the request package.
+And then finally, there's some notes that we've written for ourselves so that we'll remember why we made certain decisions in the code.
+Let's jump to the code and then you can look back on these notes on your own time and it will become clear what the notes are saying and how that influence what we wrote down below.
+So here we go. The first thing we'll do when we enter this function is we'll take our list of strings and we'll see how long it is. This will be the number of series that are being requested.
+If we were to look a little closer in the API documentation for the BLS, we would have seen that a user without an API key can only request up to 25 series at a time.
+So if the user has asked for more than 25, we're going to need to make more than one request. And here's how we do it.
+If we have more than 25 series, we're going to start by saying that parts is an empty list.
+Then we're going to establish some common keyword arguments like NDR start year and API key.
+These are going to be passed as these three arguments.
+Two different times. The first time we're going to call this same function we're currently in, but only for the first 25 series IDs.
+And then we'll pass the same start year and year and API key.
+Then we're going to extend our list with the return value from calling it with the first 25 IDs.
+After that, we're going to call extend again, or we're going to call this function one more time using IDs starting at the 26th ID until the end of the list.
+And again, we're going to pass the same start year and year and API key.
+Once that's done, we have made the request for all the series contained in the series ID argument, and we can return the list that is parts.
+This technique of calling a function from within itself is known as recursive function calls.
+Here we're utilizing this technique in order to allow the user to specify an arbitrary number of series ID.
+And then we will do the work of making sure that we adhere to the BLS limits and only request 25 at a time.
+That's what happens if we did request more than 25 if we requested 25 or less, we fall into this else step.
+And here's where we actually make a request on this line, we specify the headers.
+Then we specify the parameters or the payload for our function or for our API request.
+We're going to pass the series ID start year and end year.
+These names are required and they were what the BLS documentation said we needed to have.
+Then if the user was able to pass us an API key, we're also going to say that we would like to request the catalog and then we'll attach the API key as the registration key field in the payload.
+This completes the construction of the payload.
+And now we need to convert it to JSON. So in the header, we promised we'd be sending JSON.
+We're going to use the JSON dot dump S function to convert our dictionary into a string of JSON data.
+The dump S stands for dump string where dump means whatever you hand me, I'm going to convert to JSON.
+And then the S means and return it to you as a string.
+Finally, we're going to actually make the request. So here we're going to use the post function from the request library.
+We're going to pass the endpoint or the URL.
+The payload is set by passing an argument to the data field of the data parameter to this function.
+And then the headers are set by passing it to the headers.
+Once we're done, we're going to return the output of this function call in a list with the value P.
+The reason we passed a list here was because in the case that we have a more than 25 series IDs, we need to return a list of API responses.
+And so if we always are returning a list, then the list here is going to be consistent with the list here and everything will work as expected.
+So what we'll do is we'll execute this code cell, which will define our function.
+So here we see that we have a number which is Jupiter's way of saying that this function has been defined.
+And now let's let's do it. Let's try to run this.
+And if we do this, we will first load up the API key.
+So now I don't want to post my API key publicly in this video.
+So I've saved it as an environment variable.
+You shouldn't have to worry too much about this code.
+If you are using this and you were able to successfully get an API key, you should replace the right hand side of this with your API key.
+So your key here has a string.
+So that I don't have to make one public in the video.
+I will continue to access it from this environment variable.
+So now we're going to go ahead and grab one series ID.
+And this was one of the ones I took from the API documentation page.
+And we're going to make a request for all the data for this particular series between 2010 and 2020.
+And then we'll pass in our API key.
+We run this. We'll check the output and we get a request response object in return.
+Now our request for series function, it makes the request and it builds the correct payload and headers for us.
+And it returns to us a list of response objects.
+However, it doesn't do any type of work to validate that the requests were successful or that they happened how we wanted.
+So now we'll write a separate function that will validate or verify that our requests were successful.
+Our approach for doing this will be to utilize another part of the HTTP convention.
+So one part of the standard is that whenever a request is made as part of the response, the API provider or the web service will provide a status code.
+Now this code is an integer with three digits.
+And there are conventions that specify what each three digit number represents.
+We have threeiano and threeos, and we have two thousand undeniable access for responses for getting data are going to be in the two hundreds.
+So they're going to be between 200 and 299.
+So what we'll do now because we were asking for some data, we should get a status code between 200 and 299.
+And so we will write a function that just checks if the status code on our response was less than 300.
+It takes one argument, which is the response object
+from the request library.
+And it first extracts the status code.
+If it is greater than 299, it will raise a Python value error
+saying we had a response error with a code.
+And it will tell us what the code is.
+Find this.
+And then in the next cell, we'll apply it
+to the response we received.
+If you remember, our responses was a list of response objects.
+We're going to access the first and only response here.
+Ask to check it.
+And it didn't do anything.
+This is great.
+We were expecting this because we didn't have this function
+have any return value down here.
+And the only thing that could have happened
+is a error would have been raised if this status
+code indicated a failed request.
+Nothing failed.
+We didn't see an error.
+So this is good for our application.
+Next, let's start to look at what is inside this response object.
+There is a content field of the request stop response
+that returns the data sent from the API.
+We'll go ahead and run this cell and look what this is.
+So this is fairly large and a little bit
+hard to read as is.
+But if we look closely, we can see that the type of this,
+it looks like a JSON object or a Python dictionary.
+It has a curly brace, a string, colon, something else,
+comma, string, colon, something.
+And we can actually see if we do responses 0.Hedders,
+we can see here that the content type.
+And now this is the content type on the response, not
+on our request.
+They sent us some headers.
+And they set the content type to be application JSON.
+So our hunch that this looked like JSON
+is supported by the content type sent back by the BLS API.
+In addition to the content fields, if the response happens
+to have type JSON, which is very common, the request response
+object also has a JSON method on it.
+If we call this method, requests will do the work
+to read that into a Python dictionary
+that we can then use like any other Python dictionary.
+Now that it's a dictionary instead of just a string,
+it's a little easier to use and to read.
+On the next slide, we're going to unpack kind
+of the structure of this response.
+So here, notice that the response had the following structure.
+There were a few different fields at the very front
+of this dictionary that talked about the request as a whole.
+Here we see status that the request succeeded.
+We have a response time of 190 milliseconds
+and that there are no extra messages for us.
+Everything worked as it should have.
+The server didn't need to tell us anything special.
+Then there's a results field.
+Now what this does is it is another dictionary
+or another JSON object that has a series key.
+This maps to a Python list or a JSON array.
+And each object in this results.series list
+has the following structure.
+We're going to be given a series ID.
+There's also a catalog field that has another dictionary
+inside of it with information such as the series title.
+Here, this particular series ID must represent the total
+employment or number of people working employees
+in Apache County, Arizona.
+Then the series ID is repeated
+and there are a number of other fields.
+Alongside the series ID and catalog, again,
+if you had an API key and were able to request a catalog,
+there is a data field.
+Here, the data field is another list and inside of it,
+there are objects or dictionaries containing the data.
+So let's look at an example.
+Here, we have this is the first item inside the data list.
+It has keys year, period, period name, value, and footnotes.
+You'll see that these same things are repeated over and over.
+So this is the structure of our return.
+Now, a summary of what we just talked about,
+the actual data that we're after is going to be in our JSON object.
+Here, we've named that variable JS.
+So I'll change that to read JS.
+And there's a results field.
+Inside of that, there's a series field.
+Now, this series, the output of this will be a list of dictionaries.
+Each of these are different.
+Each of those dictionaries will have a series ID,
+a catalog, and a data field.
+The data field has the actual data that we need,
+and the catalog has some kind of metadata
+or information about the series.
+What we'll now need to do now that we've unpacked the structure
+that was returned to us is we need to write a Python function
+that can operate on one of these dictionaries.
+So it's going to process the response for a single series.
+What we'd like to get out of it is a data frame,
+a pandas data frame with all of this data in it,
+and then a pandas series that contains all the catalog information.
+Here is the function we've written
+that will unpack these series results.
+You'll see here again, we've included a helpful doc string
+that described what the function does.
+And we're going to dive right into the implementation
+and you can look back at the doc string later
+when you use this later.
+So the first thing we do is we extract the series ID
+from these results and restore that in a variable.
+Next, we're going to create a pandas data frame
+from the data field of our series results.
+And thankfully, pandas knows how to read a list of dictionaries
+and construct a data frame for us.
+So there's very little work that needs to be done here.
+And the last thing we'll do with the data
+is we'll attach the series ID as a new column.
+So we extracted that on the first line
+and now we're adding that as an additional column in our data.
+Then we're going to check to see if the catalog was returned
+as part of the series results.
+If it was, we'll construct a pandas series from that.
+If it wasn't, we'll just set it to none
+and finally we'll return our data and our metadata.
+We'll define this function and test it out in the next cell.
+So here, we will make the data frames from our series.
+We'll call our function.
+We're going to pass it just the first value, the first series.
+And we'll see that our data is the following.
+And our metadata extracted from the catalog
+is a pandas series that has all the information
+that describes what the series with this code or this ID
+has inside of it.
+So far, it looks like our functions
+are all working for the single example that we tried.
+And we made our request for earlier.
+So now we're getting closer.
+We're nearing the end of writing the code to get the data.
+And we'll just remind you that the results.series
+field of our response object or response body was a list.
+The reason for this is that we're going
+to get one of the series objects for every series ID
+that we requested when we interacted with the API.
+What we need now is to write a function
+that can take a single response object from the API
+and process all of the series data inside of it.
+This will leverage the function we just wrote.
+But it will not look at just a single value from this list.
+It will look at all of the values
+and return many data frames and many series.
+Here's what this function looks like.
+Again, the helpful doc strings can be read later.
+But the input now is one response object
+from the request library.
+And the body here, the first thing we'll do
+is we'll compute the JSON form of our response.
+And then we have one more line of code.
+So what we do here is we call the map function.
+So what map does in Python is it takes two arguments.
+The first is the name of a function.
+Here we're going to pass this make DFs from series function.
+We wrote and applied just before.
+And the second argument is a list or some type of iterator.
+In our case, it is the list that is found at our JSON response
+and then the results series field.
+And we're going to, so this map operation
+will instruct Python to call this function on each
+of the items in this list.
+By default, the map function returns
+what's called a generator or a lazy way of doing that.
+And it's not actually going to do the work
+when the highlighted code finishes.
+In order to make Python run the functions and do the work,
+I need to convert this map generator into a Python list
+by calling the list function.
+So now this whole block of code down here after return
+will work through each of the items in the results series list.
+Construct our data frame from those contents
+and then return them as a list.
+Let's test this one out.
+So now we're going to pass in our one response.
+We're going to pass into this function.
+And we're going to get back something that I'll call parsed.
+So we see here, oops, excuse me, I need to define this
+by running this cell.
+And we'll run it again.
+And we'll see here that parsed is a list
+and that it has length one.
+Now the reason it has length one is because when we initially
+made our API request, we only asked for data
+for one series from the BLS.
+If we look at the first element of parsed,
+this will be the first value returned
+from our make defs from series.
+Excuse me, the first element of parse and the only element
+will be what is returned from our make defs from series.
+If we look at this, you see that this is a tuple.
+It contains two objects.
+The first one is the data frame containing the actual data.
+And the second is the panda series containing
+the metadata information.
+So again, for the very first BLS series in our request,
+we're going to get the parsed data from this parsed square
+bracket 0.
+And then the first item in this tuple
+is the data frame and the second is the metadata.
+So we'll just look at these.
+And we'll see here this is familiar.
+It's what we saw before.
+The difference this time is that had we made a request
+for more than one BLS series, and we
+got a response containing multiple series data,
+the parsed would have a length greater than one.
+And we would be able to do something like parsed 1, 0
+to get the data frame for the second series we requested
+from the BLS.
+OK, we're getting close.
+There's one last step.
+If you remember back at the very start,
+when we wrote the request for series function,
+we were given the return object is a list of request responses.
+If we are requesting more than 25 BLS series,
+this list will have more than one item in it.
+Our job will then be to unpack all the responses
+that are returned from the request for series function.
+We want to concatenate or stack all of the data that was
+returned as well as all of the metadata series.
+So we'll write one last Python function that does this unpacking
+and then concatenation step.
+So now here, we define a new function.
+This one has one argument that is a list of response objects.
+And we'll do the following.
+We're going to say that the unpacked is an empty list.
+And then we'll do a for loop over all of the response objects
+in what was in the argument past.
+So for each res in all res, we want to unpack that
+and remember the unpacked response for some day list of unpacked data.
+So we're going to extend this empty list we created
+with all the items from the list returned by this unpacked response.
+Now, this line of code is a little bit trickier, mysterious.
+And we will leave it to the viewer, have an assignment
+for exactly how the zip function works in this context.
+But effectively, what it does is we're
+going to have the data underscore df is just
+going to be a list of data frames containing all of the raw data
+in each of the requested series.
+And the metadata series will be a list of pandas
+series with all the catalog information.
+Once we have that, we can use the pd.comcat function
+to stack each of these data frames one on top of the other,
+creating a long form data set.
+Each of these data frames will have its own index.
+This is going to be just an integer from 0 to the number of rows.
+And it's not meaningful.
+So we told pandas that when it does the concatenation,
+it's safe to ignore the existing index from each of these data frames.
+And then finally, we're going to do something similar.
+We're going to call the cat function again for all of our metadata,
+or all of our pandas series that contain the catalog or metadata
+information.
+And because these are pandas series, what we're first going to do
+is we're going to stack them as separate columns in a data frame.
+That's what this access equal one argument does here.
+Once that's done, we're going to have the row or the index
+is going to be the kind of the keys, like series ID, units,
+geography.
+We'd really like those to be columns.
+So what we'll do is we'll transpose the output.
+And now the series ID and string version of the series ID
+will become column names.
+We'll become columns instead of rows.
+And this makes more sense.
+You'll notice here that we also have a list comprehension.
+Our code is set up that if you don't have an API key,
+you won't be able to get the catalog information.
+And this metadata series object here
+will just be a list of the value none.
+And so what we tell pandas to do is only
+try to concatenate items from metadata series
+if the item is not none.
+Once we've done that, we return our data frame containing
+all of the data, and then another data frame containing
+all of the metadata.
+Go ahead and we'll execute that.
+And now all of our functions are defined.
+At this point, we're ready to do the core data gathering
+for our unemployment exercise.
+So with all these functions in place,
+let's go ahead and put them to use.
+I have defined for you in the next cell a list of 108 series
+IDs that contains all of the series IDs
+at the national US level from the BLS monthly unemployment
+report.
+I found these by looking through the BLS website
+at this monthly unemployment report
+and then looking through the source of the data behind the
+report.
+So now with this list of BLS series IDs related
+to unemployment data, we will execute our code.
+So what we'll do first is we'll use the request for series
+function, pass that list of 108 series IDs,
+specify that we'd like to gather data
+between the year 2001 and 2020, and then pass our API key
+from above.
+What we'll get back is a list of request response objects.
+Once we have that, we will want to validate or check
+that they were all completed successfully.
+Once that happens, we use our unpack all responses
+functions to extract all of the data returned to us inside
+of a data frame and then a metadata
+data frame with the catalog data.
+We'll go ahead and we'll run this cell.
+And we'll see what we have.
+We're waiting here for the previous cell making the request
+to finish.
+And once it has, we will see the results appear here
+on this slide.
+So now we see that we have a data frame with 25,596 rows
+and the six seven columns we were expecting.
+And our metadata data frame has the information
+about what each of these series is for all 108 series IDs
+that we passed it.
+Now, what we'll do the last step in this video
+will be to save the metadata and the raw data to a file
+on our computer so that when we want to come back
+and do further analysis in the future,
+we don't have to make the same API requests.
+We're able to just load the data and proceed from that point.
+It also makes it easier to share or collaborate with others.
+As if we give them this notebook, they
+can see the process we went through to get the data,
+but then they would just be able to use the file
+when loading and using the data.
+So that concludes this video for how you can interact
+with the API provided by the US Bureau of Labor Statistics.
+Thank you, and see you next time.

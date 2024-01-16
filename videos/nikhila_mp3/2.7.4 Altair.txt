@@ -1,0 +1,412 @@
+Hello, this is Spencer Lion and in this notebook, we will be learning about the Altair library,
+which is used for utilizing the Vega light JavaScript charting library from Python.
+There are actually multiple Vega or Vega light wrappers and libraries written in Python.
+The Altair library is the most widely used currently and this is what we'll be using now.
+The purpose of this notebook will be to introduce the core concepts of Altair,
+not to provide an exhaustive showcase of all of its features.
+Further exploration and experimentation will be left as an exercise.
+As a note, we do borrow quite heavily from the official documentation in parts of this notebook.
+And we strongly encourage you to view this documentation for yourself to get more detail on how you can utilize Altair in your own workflow.
+If you haven't installed Altair yet on your machine, you can uncomment the second line in this code cell and then run this.
+Let's talk about the core concepts of Altair.
+There are three main concepts. First is the chart.
+You can think of this as a container for our chart specification.
+Typically, when working with Altair, all charts will begin in one form or another by using the Altair dot chart function for instantiating an instance of the chart class.
+And we'll usually pass into it an instance of a pandas data frame.
+The main component called a mark.
+This is a type of visual element that will be displayed on the screen.
+Some examples are a line, circle, a bar, a violin, a heat map, coordinate, etc.
+The next thing that we, the next main concept is the encoding concept.
+So an encoding is a mapping or a relation between the columns of our data set.
+And what Vega calls the visual encoding channels of the term.
+Some of these channels are x, y color size, etc.
+These three components form the basis of the Altair system.
+We have a chart that is the overall container.
+We can request that certain type of visual elements be drawn.
+And we can instruct Altair where and how drawings should take place by encoding or mapping between our data and the visual encoding channels that Altair understands.
+We'll look at a brief example.
+First, we will import Altair as a LT.
+This is the common prefix or the common way of importing Altair.
+And then from the Vega data sets package will import the car's data set.
+This is a common and popular data set that's used often in the R programming language to show examples and has been made available to us through the Vega data set.
+We see here that there are a number of columns.
+We have a name.
+The year that the car was made.
+The country of origin.
+And then some statistics about the car things like miles per gallon.
+How many cylinders.
+And things about the power and performance of.
+Now let's look at one example of a chart.
+And we'll talk through in a bit more detail how these parts work.
+So the first thing we'll do is we will create an instance of chart by passing in our data frame.
+We'll then request that Altair use a point or a circle.
+As the marker.
+Then we will encode the data as follows.
+We'll say that the exposition to come from the horse power column.
+The Y position of each mark to come from the miles per gallon.
+And that each mark should be colored based on the country of origin.
+We then will chain on one more method call.
+Which makes the chart interact.
+And when we do this, we see here that we do have a chart.
+On the x axis, we have horsepower.
+The y axis, we have miles per gallon.
+And then we have three different colors.
+We look here at the legend.
+It will tell us that the colors correspond to either countries or regions where the car was manufactured.
+By making it interactive, we can roll around with the zoom in.
+And we could also double click to reset the scrolling.
+Let's talk a bit more detail now about marks and encoding.
+And in the examples that will be working through who will have the following data.
+This is a nine row data frame where we have columns a and C.
+Volume a is of type object because it has string data.
+And it has the values ccc ddd.
+Volume B is filled with semi random integers.
+And then column C is also integer.
+But it repeats the pattern one, two, three.
+Now the mark property of a chart tells Vega what type element to drop.
+These are going to be set on the chart object by using a method of a chart instance that looks like mark underscore followed by the type of mark that we'd like to drop.
+For example, we created chart and then we asked for the point mark.
+And what we get back is a single looks like single point.
+We could also ask for a rectangle or maybe we could ask for a circle.
+It would be similar to the point, but it's all filled in.
+So these examples are very uninteresting charts.
+It looks like we have a single point, single rectangle, single circle.
+And what we actually have though is we have one mark of the corresponding type for each of the nine rows in our data set.
+The issue is that all nine of these marks are plotted exactly on top of one another, because we didn't give alter any information about where they should be plotted.
+In order to remedy this, we would need to encode or map from the variables, columns in our data set into the visual channels of.
+Do this, who will use the chart dot encode method.
+You see here.
+One thing we'll point out is that when we call chart dot mark point or mark rect.
+That method will actually return to us our instance chart.
+So after calling mark point, for example, we can immediately put period encode.
+We start with the chart after we call the mark method.
+It returns the chart.
+We're ready again to call the encode method.
+So now we'll instruct all tear to map the column a to the X channel.
+This will set the horizontal position of each of the marks.
+You'll notice here that a was our column of strings, a CD and E.
+And now we have marks at each of these locations.
+You can see that there are three distinct values of a and that there is at least one mark here.
+And it turns out that because of structure of our data frame, there's actually three marks at each of these locations.
+Again, we can't see all of them because we didn't provide any information for how alter should lay out the data vertically.
+It only said that the any extra mention.
+To use the hm.
+So in order to actually see all nine points, we need to say that X should be taken from a and why should be taken from B.
+Now you'll see that for each of the X points in the a column, here we look at X equals C.
+We have one to three points from the B column.
+You'll notice that in addition to setting the position of each mark, the encode method will also set the access title.
+Not only are we getting positions at CD and E, but we also label this access a because that was the name of the column we gave.
+Now if we want to, we can use the C column in a different visual chat.
+So because so we talked before about how the mark family of methods returns the chart.
+That the encode family methods also does. So here we have our chart.
+After calling this, we still have our chart.
+Recalling this, we still have our chart. So now we're ready to chain on more methods.
+So here we're going to start from C to.
+And then all we're going to do is add one additional encoding and we'll say here that the color should be taken from the C column.
+So we run this now we'll see that within each of the columns, we have different colors.
+We have a color bar here for C is going from one, three because those were the values that we.
+We could also choose to use this third column to encode the size dimension of the size channel.
+And here we'll see that we have different sizes of circles or circles with different radii.
+This is what it means to use the encoding channel of size map to a particular column.
+When we specified the encodings for our charts above, we use the encode method and then set keyword arguments like x and y equal to a string.
+Above we're using strings that were exactly equal to column names of our data frame.
+Hence our Altair has a sort of mini language for expressing other types of operations using those strings will demonstrate this using some example.
+Let's consider the want of plotting the mean of the values in column B or each value in column A.
+As we are becoming pandas experts, our first idea might be to first do a group by operation will group by a and then we'll compute the mean over the other columns here.
+This is only B and then we can reset the index so we still have columns named a and B.
+Now that we have this aggregated data, we can construct a.
+Start with mark point and encode the channel.
+You'll see here that we now have three marks one for each value of a and the position here vertically is the average of the B column for each value of a.
+So the satisfy our one.
+However, there's actually a way to let Altair do the aggregation for us.
+So notice here that instead of doing data dot group by a dot mean index just doing Altair dot chart and we're passing data.
+Again, ask for a point mark.
+We set the X channel equal to a and now the Y channel instead of being just B will set it equal to average.
+And if you compare this chart with these three marks to the previous one, you'll see that the marks are at the same location.
+So if we get the exact same chart, but doing it the Altair route causes us to learn a whole new syntax, why would we do this?
+There are at least three benefits first.
+Take careful attention. You'll see that the Y axis label changed to the average of the where when we did the aggregation by hand, we access label was equal to just B.
+So that was nice. Altair remembered the duration we did and it applied the correct access title.
+Second is there may be more visual types of aggregations or operations we'd like to do that aren't readily expressed as pandas operate.
+In this case, picking the average across a group was easily done in either pandas or Altair, but there could be situations where pandas doesn't have a good representation for an operation.
+In this case, we would like to learn how to use aggregations and transformations within Altair.
+Third, the aggregations or transformations of our data, they happen within a context that is aware of the rest.
+This can allow for additional optimizations or conveniences to be applied for us.
+Similar to what we saw with the Y axis title being set to average of B that have just been.
+I know that this is fairly abstract at this point, but if you look over some examples either in the exercises that that will have you do or in the Altair documentation, you'll see how leveraging their aggregation and transformation syntax and lead to more concise or more readable and shareable code.
+Now, the last thing we'll comment on here is that the fact that we made looked a little bit odd.
+Usually when we have summary statistic of some quantitative variable across a discrete base, we will represent these as bars instead of.
+The only thing we need to change now is we will start from the chart we constructed a minute ago this C3.
+And we will just reassign or tweak what the mark type should be.
+So instead of mark point, we'll set mark bar.
+Now, Altair will remember everything else specified as part of this chart and the only thing that will change is the type of mark theme drop.
+If we wanted to another week we might want to make is to have the bar be horizontal part.
+Do this.
+The only change we really need to make is we just swap X and Y.
+Previously, we were setting the X channel equal to a and that made the a values appear on the horizontal.
+Now we'll set Y equal to a and now a is laid out on the vertical act and average B is laid out on the horizontal line.
+The only purpose of Altair is to make it convenient for Python users to make a Vega light client JSON specification starting from a pandas data firm.
+Eventually, Vega light will need to consume Jason or consume something that looks like a Python dictionary.
+So before it can render the chart and Altair will help us do that.
+If we want to inspect what it Altair is producing and then handing off to Vega light, we can use the two JSON method from our chart.
+So here we will take our chart and we'll say we'll ask for the two JSON method and then we'll print that out.
+And we'll see here that we have a schema. This is a way for Altair to say the specific version of Vega light that it would like to be using.
+Then it will encode our data sets for us here. You'll see all the rows of our data frame.
+And then we have this encoding.
+This is where we specified the channels X and Y and then we also have here that the mark type is bar.
+If you win the JSON output like this, it can be a very useful tool when debugging and trying to figure out exactly what is going on behind the scenes.
+And it can also be helpful when following examples found either in the Altair or Vega light documentation.
+Let's take a closer look at the encoding section for the JSON or the fourth chart that we had above.
+Go ahead and we'll print out will access just the encoding block of our chart and we'll ask for that JSON and we'll print it out.
+And then we'll notice that the X channel has three properties. It has the field. This is the column name B.
+It also has aggregate is average. This comes from became from us writing average parentheses B.
+But then we have this third field type and it maps into a value of quantity.
+So I feel for the white channel also has a type in this case it's nominal.
+So this type property of each of these channels is actually very significant and it's a required property for each channel in Vega light.
+When we're using a pandas data frame, Altair can infer the appropriate value for this type property based on the D type of the data frames column.
+Well, it's a little dive in a little bit more about what Vega light.
+There are five core types of encoding and these are summarized below.
+You could have quantitative,
+ordinal, or nominal. These three are all numeric.
+Actually the first two are new there. So,
+quantitative is anything that's continuous and real value.
+Ordinal is anything that is finite set the discrete set and has a specific order.
+An example of an ordinal set might be good, better and best.
+This is a discrete set and there is a natural ordering that can be imposed.
+Another type of encoding might be nominal.
+This would correspond to anything that is unordered.
+When we passed in the column A, which contained strings C D and E.
+Altair signed the type for that as nominal.
+It wasn't quantitative. There were no numbers.
+It's not obvious how to order C D and E unless you wanted to do this.
+Exographically as strings are alphabetically.
+Altair chose nominal as the safety one.
+These last two types one is called temporal.
+This is anything that has to do with time.
+It would be a timestamp or a date or anything like that.
+And then the final one has to do a geography.
+There is some type in the map and charting.
+World of there's type of data called geo json data.
+Altair knows how to handle this and how to display it.
+So if you happen to have some, you can assign the type of that encoding to geo json.
+Now this first column is what I'll what Vega light is expecting to see.
+Third column is kind of our helper description.
+So we know what it is. This middle is an Altair specific feature.
+That is a.
+Shorthand code and we'll show you what this is here.
+So if you remember, we were using the C column color or marks from before.
+If we have C.
+We can specify the type of our encoding as follows.
+We'll have the variable name followed by a colon and then the short hand.
+Do you remember from the table?
+You was short hand for quantity.
+So when we say that the color channel should come from the C column and interpret it as quantitative.
+It applied a continuous scale here.
+Because the interpretation of quantitative means numeric data on a continuous scale.
+We could have chosen ordinal instead of quantitative.
+Here.
+This is a discrete scale that has a natural ordering to it.
+You'll see that the color for one is the lightest of the three and it gets progressively darker as we move from two.
+This happened because we constructed Altair to treat the C column as discrete as fordimal rather than as continuous.
+The final option we would have for this column would be nominal.
+We treat it as nominal.
+Altair will plot it in three very different colors.
+The reason for this is nominal variables don't necessarily have any ordering to them.
+They are just discrete unordered collection.
+So when there's no natural ordering, there's no natural progression of shades or of color depth.
+And in this case, Altair will choose three completely different colors and make it as clear as possible.
+Where this section for SQL 3 is SQL 2 and then see.
+The short hand for specifying a type that can also work when you're doing some aggregation or transformation.
+So here we have average B, which we've seen before and we also have this colon queue at the end, which tells Altair that we want to compute the average of B, then using those values interpret them as quantitative and plotting.
+We could have chosen nominal and here it would have just done three points, whatever the average is happen to be and same with ordinary.
+It would just lay out the three points.
+We've been seen examples where in while we're encoding, we often set some channel or keyword equal to a string.
+It's not the most flexible version that Altair offer.
+You are also able to construct the mappings to an encoding channel using the Altair functions written as a LT dot the name of the channel.
+The way this works is that when calling the encode method, if you pass in an arbitrary number of a LT dot some channel name objects before any keyword arguments, it will treat this as if I wrote.
+This is the same as writing.
+This would be the same as writing X.
+And then this would be the same as Y equal average quantity.
+And notice that these there's no keyword here, these are positional arguments and they are passed before the other arguments if I wanted to add another one.
+I could either do Alt dot color or I could just do color.
+These would be equivalent. Let's verify that.
+Oh, uncomment lower.
+We'll see here that we get the same thing.
+Whether we pass the positional argument with the name color or a keyword argument name.
+The reason we might want to do this is that there are some more advanced features of the encoding some other properties you might want to set that don't have a corresponding.
+And in just the channel equal string.
+Sometimes you have to reach in to this Altair dot channel name in order to access all of the possible tweaks and proper.
+Next let's talk about how we can use data from a file.
+This is what we're doing.
+And we're going to pass in a URL or where a particular data file could be downloaded on the Internet.
+But here we'll say Altair dot chart will pass the URL to the cars, data set, so before.
+And then we'll go through and we'll make the same chart we saw that.
+We'll have a point mark the encoding channels will be X this force power.
+Why is miles per gallon color is origin.
+And you'll notice here that we specified explicitly the type each of these three encoding channel.
+This is actually required when we don't use a data frame and we're passing in the URL to some resource.
+We need to tell Altair what type of data it's because when we had a data frame.
+Look at the D type of the column and apply a reasonable default based on the column D type.
+But now this isn't a pandage data frame.
+This spring here doesn't have D types.
+So we need to be more explicit.
+I'm telling Altair what type to these columns.
+We'll look here at one more example.
+We wanted to show you what a temporal chart would look like.
+So here we're going to again pass in a URL to a CSV.
+The last time the URL you noticed was to a JSON file.
+And this time is to a CSV.
+Altair understands those two file type.
+We'll do Altair dot chart where we point to that URL.
+We then want a line mark.
+We want it to draw a line forest.
+The X comes from the column apple underscore X.
+And we want Altair to treat that as temporal.
+And then the Y comes from the apple dot Y.
+We want it to treat that as quantitative.
+Now I just added this interactive.
+So now we can scroll in and you'll see that Altair nicely handles forest.
+And we're scrolling of the dates.
+Here we now we see that we're Wednesday.
+Now we're April 20th. We scroll more into April.
+We'll see that we're at April 13th Thursday the 17th Monday the 21st.
+Altair does a nice job.
+At handling the time series nature of this.
+So we know that pandas can read in JSON.
+And it's a great thing to do.
+We can read in CSV.
+And it wouldn't be that much more work.
+First to just do a PD dot read CSV.
+Ask the URL to that data set.
+And then we'll get a data frame.
+Once we have a data frame, we can give that straight to Altair.
+And we can move on.
+And if we do that, we won't even have to specify the types.
+He's calling.
+And we can just work for us and gives us the added benefit of not needing to think about column types.
+Why would we do it this?
+Well, the real large benefit here is that the JSON spec.
+A fourth chart will actually end up just containing the URL.
+Then when Altair hands that to Vega light and Vega light starts to process.
+It will see that there's a URL for the data set.
+It will go to Vega light library will request the data set from the online resource.
+Download it, process it, and then apply it to the specification when it's rendering the chart.
+When we have a data frame as the first argument for the argument to Altair dot chart.
+All of the data for the chart is going to be written out or hard coded into the JSON space.
+This is before Vega light ever sees.
+Let's make this a little more concrete example.
+So we have that cars.
+But from the very start of this notebook.
+And let's just print out.
+We'll first ask for the JSON and this will give us a string containing all the JSON for this chart specification.
+And then we'll ask for the link.
+This would be the number of characters in that string.
+We'll see here that there are 120,000 649 characters in the JSON spec for the cars chart.
+Then later on we constructed a URL or sorry, the same cars chart for the data pointed to a URL instead of passing in a data frame.
+So we'll just add the characters to JSON spec for this.
+Here we only have 686 characters in this JSON specification.
+What we can infer from these two numbers here is that in order to describe the chart, it takes about 690 characters.
+In order to describe the data set, it took about 120,000.
+And then it was going to make the file for the chart specification far larger and bigger.
+Then it would need to be.
+And we can actually just print out the whole chart specification for the URL version.
+And we'll see here that in the data section, all we have here is data, where we have a URL.
+This is the URL that we handed it.
+So everything else is just having to do with coding mark we selected and then how to make it interactive.
+The benefit of having a smaller spec size is that the Vega light specification.
+Can now be more portable.
+It would be easier to inspect this specification right here visually and maybe make some changes or tweaks.
+It would also be far more efficient to load this much into a website.
+Rather than the entire 120,000 character version.
+It's also possible that we might want to put this into a version control system.
+I get and start tracking a version history of our.
+And just to see how we've seen how this looks fairly reasonable and easy to think about.
+I am actually going to print out the other one attempt to see how this goes.
+So what we'll do is we'll copy this will get rid of the Len argument and we'll just print the chase on itself.
+And when I've had this earlier.
+That white big.
+Okay, so you'll see here there's a little troll bar way up here.
+And if we just keep going down.
+I mean.
+This is going to take a very long time.
+Yep, this is just data data data data.
+We haven't talked about.
+Okay, here we go. Finally at the very bottom.
+Starting here.
+We get to talk about our chart and its specification and everything that came before it.
+Was just the data.
+This would be difficult to elaborate on with the colleague.
+It would be kind of unreasonable to think about in.
+And it would take quite a bit longer to serve a web page that had this embedded in it.
+And then it would just.
+Now, Altaire has many other features that we didn't have a chance to cover.
+These are things like different types of charts or marks.
+We can do maps, candlesticks.
+We can do compound charts, which would be multiple charts, multiple marks within a chart.
+Heat maps area chart, scatter charts.
+You could also do compound charts.
+This would be multiple subplots within one figure.
+There are other options for interactivity.
+You can customize things.
+And the best way we found to learn all the different features is by practice.
+By practice and referring to the documentation.
+Typically when I want to learn something, what I'll first do is I'll.
+I'll work through the want operator and I'll say.
+I know I have a chart and I'll be as specific as I can for what I want it to look at.
+For sure what I want it to look like.
+Then I'll go through examples, I'll look around on the internet, read the documentation.
+That will help me kind of one step at a time.
+Start from a blank canvas.
+You will.
+And build the chart that I want to end up with.
+We'll have an opportunity for practice and looking at the documentation in the forthcoming homework.
+And this from this lecture.
+The very last thing that we want to show is how you could use an all tear produced chart on web.
+We saw above how the chart and start type as a method to Jason.
+And so there's actually another.
+I've had called to HTML.
+And this will generate an HTML document.
+I mean a HTML document is a website.
+This is what your web browser will receive whenever it visits a particular website.
+I will receive HTML and know how to render that and display it.
+On your web browsers display.
+We can use the output of to HTML.
+We can use a standalone web page.
+We wanted to just put it somewhere on a web server and send a link to a colleague.
+Or we can copy and paste parts of it and put it into an existing website.
+I'll show you briefly what this would look like.
+We can ask to print out the HTML for the apple.
+And this is a fully functioning website or sorry web page.
+It has all the main tags we have HTML.
+We have a header. We have some body.
+And you'll see here.
+Our spec.
+This is the JSON that we generated when we asked for the apple stock chart.
+And then this is going to be passed to a.
+Vega and method.
+Now Vega light will take over from this point and render our chart for.
+Just to show that this is indeed a fully functioning web page.
+What we'll do is we'll open up.
+We'll save this to a file.
+So we'll use a context manager to open a file in right of all mode.
+And then we will write to that file.
+All of the string associated with that HTML.
+Now that we've created this HTML file, we can go out of the presentation into this folder.
+I'm on a remote to put a server.
+So I'm going to download this to my local computer.
+And I will open it up.
+When I click this, I'm opening up a file apple Altair chart.
+And I see here.
+That it is the chart that we constructed up above.
+This is in a file on my computer.
+And it contains just the chart.
+We wanted to look at the kind of developer tools for my browser.
+And look at what.
+Content is in this a shimmo page.
+You'll see here.
+That it has our chart spec.
+That we saw before.
+I'm going to pass that to Vega embed.
+So we'll put the chart right here.
+And this is exactly the same text that we saw over in our notebook.
+When we asked Altair to generate a shimmo for.

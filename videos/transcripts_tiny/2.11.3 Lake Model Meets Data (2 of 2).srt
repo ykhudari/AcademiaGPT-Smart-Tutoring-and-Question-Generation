@@ -1,0 +1,752 @@
+1
+00:00:00,000 --> 00:00:07,000
+The models we've considered thus far have many things in common.
+
+2
+00:00:07,000 --> 00:00:13,000
+One of them is our treatment of the state S at time t equals 0.
+
+3
+00:00:13,000 --> 00:00:21,000
+What we've done so far is exaginously shift or adjust the state at t equals 0
+
+4
+00:00:21,000 --> 00:00:25,000
+to match the data observed in the COVID era.
+
+5
+00:00:25,000 --> 00:00:32,000
+And this exaginously shift happened in a very literal way.
+
+6
+00:00:32,000 --> 00:00:39,000
+What we've been doing is starting a simulation at t equals minus 35.
+
+7
+00:00:39,000 --> 00:00:46,000
+Letting the model dynamics apply to that state and generate its values up until time t equal 1.
+
+8
+00:00:46,000 --> 00:00:49,000
+And then we pause the simulation.
+
+9
+00:00:49,000 --> 00:00:53,000
+While the simulation's paused, we reach into the model.
+
+10
+00:00:53,000 --> 00:01:00,000
+You shuffle around some workers such that there are fewer employed workers at going in
+
+11
+00:01:00,000 --> 00:01:02,000
+to period t equals 0.
+
+12
+00:01:02,000 --> 00:01:12,000
+Then ended at t minus 1 such that the starting state at time 0 matches what we observed at
+
+13
+00:01:12,000 --> 00:01:16,000
+the low point in the COVID era recession.
+
+14
+00:01:16,000 --> 00:01:21,000
+Once we're done with our reshuffling, we take our hand out of the model, we press play again
+
+15
+00:01:21,000 --> 00:01:28,000
+and let the model dynamics run and march the state forward from that point on.
+
+16
+00:01:28,000 --> 00:01:33,000
+Now we might want to be able to answer the following question.
+
+17
+00:01:33,000 --> 00:01:42,000
+What change in alpha or beta at time minus 1 could have generated the drop and employment seen at time 0.
+
+18
+00:01:42,000 --> 00:01:49,000
+In other words, is there a way we can by only adjusting model parameters
+
+19
+00:01:49,000 --> 00:01:59,000
+and not artificially moving the state generate dynamics that are consistent with the data?
+
+20
+00:01:59,000 --> 00:02:05,000
+Now thinking about our model, there are in principle two ways might happen.
+
+21
+00:02:05,000 --> 00:02:15,000
+Either a decrease in the job finding rate or an increase in the job separation rate could lead to a lower percentage of employed workers.
+
+22
+00:02:15,000 --> 00:02:23,000
+In order to understand how much lower kind of the magnitude of the shift, let's take a look at the BLS data for COVID era,
+
+23
+00:02:23,000 --> 00:02:27,000
+just in periods minus 1 and 0.
+
+24
+00:02:27,000 --> 00:02:36,000
+We see here that at time minus 1 in COVID era, we had about 95% of workers employed.
+
+25
+00:02:36,000 --> 00:02:44,000
+And then in periods 0, we had only 85% or there was a 10 percentage point drop in the number of
+
+26
+00:02:44,000 --> 00:02:49,000
+within the percentage of employed workers between periods minus 1 and 0.
+
+27
+00:02:49,000 --> 00:02:58,000
+Let's keep that in mind and think more about how we can use our model parameters to replicate this.
+
+28
+00:02:58,000 --> 00:03:07,000
+So let's recall that the steady state job finding rate, alpha bar is about 37%.
+
+29
+00:03:07,000 --> 00:03:11,000
+And the steady state job separation rate is about 1%.
+
+30
+00:03:12,000 --> 00:03:22,000
+Now suppose that we believe that this sharp change in employment with dribbling driven entirely by a shift in the job finding rate.
+
+31
+00:03:22,000 --> 00:03:34,000
+Now the most extreme shift we could consider would be to shift the job finding rate at time minus 1 from steady state value of 37%.
+
+32
+00:03:34,000 --> 00:03:52,000
+So let's go ahead and do that and then we'll iterate one period using the model dynamics and see what the percent of employed workers would be if alpha minus 1 was set to zero.
+
+33
+00:03:52,000 --> 00:04:03,000
+So what we'll do is we'll begin here and we'll say that the percent of employed workers at minus 1 and here we use the sub-tree.
+
+34
+00:04:04,000 --> 00:04:06,000
+The letter m to represent minus.
+
+35
+00:04:06,000 --> 00:04:13,000
+We'll start that out at 0.955, which is what we just saw from the data on the previous slide.
+
+36
+00:04:13,000 --> 00:04:28,000
+Well then say that the employed the percent of workers that are employed at period zero is going to be that's percent at period minus 1 times all the people that did not lose their job.
+
+37
+00:04:28,000 --> 00:04:45,000
+Plus all the people that were employed times the number who found a job and this was where the alpha minus 1 is set and notice here we're setting this exactly equal to zero and that's where we impose our hypothesis the alpha minus 1 is equal to zero.
+
+38
+00:04:45,000 --> 00:05:02,000
+And we do this we see here that alpha minus 1 was at zero.955 if nobody found a job in between period minus 1 and zero then the percent of employed workers would be at 94.5%.
+
+39
+00:05:03,000 --> 00:05:21,000
+So shifting this job finding rate from 37% to zero only had a 1% point percentage point impact on the share of workers that have a job where if you recall we were looking for a 10 percentage point difference.
+
+40
+00:05:21,000 --> 00:05:27,000
+What this means is that our shift.
+
+41
+00:05:27,000 --> 00:05:40,000
+In this means is that in the context of our model this shift of 10 percentage points could not have been generated entirely from a shift in the job finding rate.
+
+42
+00:05:40,000 --> 00:05:52,000
+In other words we've ruled out the hypothesis that only changing alpha could have generated the data we saw in the covid area.
+
+43
+00:05:52,000 --> 00:05:59,000
+So our other lever we have to pull in this model is changing the job separation rate beta.
+
+44
+00:06:00,000 --> 00:06:14,000
+Now suppose that we set this to its most extreme value we go from 1% of jobs are separated to 100% of jobs and then we'll keep alpha at its steady state value.
+
+45
+00:06:15,000 --> 00:06:36,000
+When we do this we apply the same law of motion we see that if everybody lost their job and only 37% of previously unemployed workers found a job we would move all the way from 95% of people being employed to only having 1.6% of people being employed.
+
+46
+00:06:36,000 --> 00:06:53,000
+So this validates that it is possible within the context of our model for a change in the job separation rate to be consistent with the covid area data.
+
+47
+00:06:53,000 --> 00:06:56,000
+So this leads us to a question.
+
+48
+00:06:56,000 --> 00:07:17,000
+So suppose that we want to keep alpha fixed at its steady state value and then determine what value of the job separation rate at time minus 1 could have generated the shift from 95% of workers being employed to 85% at time zero.
+
+49
+00:07:17,000 --> 00:07:30,000
+Whatever this value is at time minus 1 that moves us from and forgive the type of here from 95% of workers being employed to only 85 we're going to call this value of job separation beta till.
+
+50
+00:07:30,000 --> 00:07:45,000
+So we can rearrange the law of motion for the fraction of workers that are employed in order to solve for beta till back and it's going to be in terms of the percentage of employed workers for targeting at time zero.
+
+51
+00:07:45,000 --> 00:07:53,000
+The percentage of them zero workers we observed at time minus 1 and the steady state value of the job finding rate.
+
+52
+00:07:53,000 --> 00:07:58,000
+So when we compute this we see that the job separation rate.
+
+53
+00:07:58,000 --> 00:08:08,000
+At time minus 1 would have to move from a steady state value of 1% all the way up to a value of 12%.
+
+54
+00:08:08,000 --> 00:08:20,000
+If we do this and we've done our algebra correctly, but we should see is that without reaching into the model and artificially moving the state around at time t will zero.
+
+55
+00:08:20,000 --> 00:08:30,000
+If we just set the time minus 1 value of beta equal to 12% instead of 1% we should see the same.
+
+56
+00:08:30,000 --> 00:08:37,000
+Quick drop in employment but the data show.
+
+57
+00:08:38,000 --> 00:08:51,000
+Let's implement this in a function. So here we're going to have a new model and it's the solution to its direct problem.
+
+58
+00:08:51,000 --> 00:08:58,000
+We're going to start out with the state initially at its steady state.
+
+59
+00:08:58,000 --> 00:09:15,000
+We're going to say that alpha and beta are fixed at their steady state values for all time except that at time t equal minus 1 we move beta away from beta bar and to beta till there.
+
+60
+00:09:16,000 --> 00:09:28,000
+That's it. There's no manipulation of the state going on. We're just having a one period shift in beta and then we'll simulate and return our output.
+
+61
+00:09:28,000 --> 00:09:44,000
+We do this. We can go ahead and we can run this and we can look at the outcome and we see here that the model is able to generate this very sharp drop and employment just like we observed in the data.
+
+62
+00:09:46,000 --> 00:09:59,000
+The MSE is between four and five which is what we saw back in model one where we artificially reached into the model and set the state from its steady state down here.
+
+63
+00:10:00,000 --> 00:10:11,000
+And so what we've done is instead of externally moving the state we've allowed the model parameters to move the state for us.
+
+64
+00:10:11,000 --> 00:10:21,000
+And now this rebalancing of employment to unemployment is happening all inside the model.
+
+65
+00:10:21,000 --> 00:10:37,000
+So if the outcome of the modeling experiment is the same in model one where we always keep the parameters fixed to their steady state values but reach in and change the state.
+
+66
+00:10:37,000 --> 00:10:44,000
+Compared to model three where we have a one time deviation in the parameter beta.
+
+67
+00:10:44,000 --> 00:10:52,000
+If those two frameworks or models generate the same outcome have we really improved or what benefit every we gained.
+
+68
+00:10:52,000 --> 00:11:03,000
+And the benefit comes because when we allow the shift in the time zero state to come from within the model instead of without we can do experiments.
+
+69
+00:11:04,000 --> 00:11:14,000
+And we can start to ask questions of our model and then try to learn what other outcomes might have happened so one of the experience we might run.
+
+70
+00:11:14,000 --> 00:11:22,000
+Is suppose that the government had the capacity to save one third of the jobs that were lost at times zero.
+
+71
+00:11:22,000 --> 00:11:39,000
+Yeah, how could it do this will maybe it was able to subsidize a certain sector or subset of the economy such that employers didn't have to fire or separate from as many of their workers.
+
+72
+00:11:39,000 --> 00:11:52,000
+And we might want to say well if this was possible for the government what impact with that of had going forward if we stay entirely within the model we're able to answer questions like that.
+
+73
+00:11:52,000 --> 00:12:00,000
+And in this way we're able to use the model kind of as a vehicle for doing these counterfactual exercises.
+
+74
+00:12:00,000 --> 00:12:18,000
+And and this is actually in the spirit of what were really after when we're doing computational social science what we do is we build a model that captures a feature or features of data that we'd like to better understand.
+
+75
+00:12:18,000 --> 00:12:27,000
+And we use this model so that we can analyze the impact of decisions on the variables of interest.
+
+76
+00:12:28,000 --> 00:12:37,000
+We can't set up for ourselves a physical laboratory in which to perform these experiments so we have to do so using our models.
+
+77
+00:12:38,000 --> 00:12:59,000
+With that in mind let's now consider a model where we shift both beta at time minus one to generate this rebalancing of employment and we're also going to slow down the recovery of the model like we did in model two.
+
+78
+00:13:00,000 --> 00:13:03,000
+In some sense we're combining both models two and model three.
+
+79
+00:13:06,000 --> 00:13:18,000
+So to do this we have another function here that takes the following parameters we have a beta tilde and this represents what happens at time period minus one.
+
+80
+00:13:19,000 --> 00:13:34,000
+We then have the three parameters go the three extra parameters from model one or model two which is the alpha hat and beta hat values that are going to be applied from time t equals zero through time t equal n.
+
+81
+00:13:35,000 --> 00:13:51,000
+Once we've taken in these parameters are solution to the direct problem is this follows we start off with the steady state distribution of workers across employment and unemployment.
+
+82
+00:13:51,000 --> 00:14:01,000
+We construct a vector of parameters that's the length that we would like our time series to be that is always fixed at the steady state.
+
+83
+00:14:02,000 --> 00:14:10,000
+We then apply the adjustment from model three where we shock the time minus one value of beta to equal beta tilde.
+
+84
+00:14:11,000 --> 00:14:13,000
+We then apply the.
+
+85
+00:14:14,000 --> 00:14:25,000
+Concept from model two where we shot or remove alpha zero through alpha n to be equal to alpha hat and we'll repeat that for beta.
+
+86
+00:14:26,000 --> 00:14:33,000
+And then once we get past n we're going to be back in this period where alpha and beta are their steady state values.
+
+87
+00:14:34,000 --> 00:14:46,000
+Once we have these vectors of parameters we can go ahead and simulate and then combine with the BLS data to prepare for plotting and evaluating the MSE.
+
+88
+00:14:46,000 --> 00:15:03,000
+Okay, so we're going to be using the four parameter values we had from above we had beta tilde had to be about 12% in order to generate that sharp drop in the percentage of employed workers.
+
+89
+00:15:03,000 --> 00:15:17,000
+And then to slow down the recovery to steady state we have these three parameters here data hat of 2% alpha hat of 25% and those values apply for four periods.
+
+90
+00:15:18,000 --> 00:15:21,000
+We do that.
+
+91
+00:15:22,000 --> 00:15:33,000
+This model where we've combined both the shift of beta minus one to generate this sharp drop in the number of employed workers and then the.
+
+92
+00:15:33,000 --> 00:15:48,000
+temporary but prolonged shift in alpha and beta between zero and equal four has slow recovery that matches the coveterra and we're now able to.
+
+93
+00:15:48,000 --> 00:16:05,000
+Construct a model which again is our sequence of parameter vectors alpha and beta that can match the coveterra dynamics and we're set up to be able to explore and ask this model more questions.
+
+94
+00:16:06,000 --> 00:16:23,000
+We'll speak more about this in the future but for now we're actually going to transition into something slightly different so our analysis so far has focused on models that for the most part keep alpha and beta at their steady state values.
+
+95
+00:16:23,000 --> 00:16:35,000
+We've allowed for temporary but short deviations from this in order to get a sharp change in the employment configuration and then a quick recovery.
+
+96
+00:16:36,000 --> 00:16:39,000
+And that helped us match the coveterra data.
+
+97
+00:16:39,000 --> 00:16:50,000
+However, the great recession era data doesn't have a sharp decrease in rapid recovery in the number of employee in the percentage of employed workers.
+
+98
+00:16:50,000 --> 00:16:58,000
+Rather has a gradual decline in the percent of employed workers followed by a gradual increase.
+
+99
+00:16:58,000 --> 00:17:06,000
+And in order for our model to achieve something like that we would have to allow for alpha and beta to adjust.
+
+100
+00:17:06,000 --> 00:17:09,000
+More than just a couple periods.
+
+101
+00:17:09,000 --> 00:17:14,000
+And so what we'd like to do is answer the following questions.
+
+102
+00:17:14,000 --> 00:17:23,000
+What values of alpha t and beta t were now t covers the entire horizon from minus 35 to plus 35.
+
+103
+00:17:23,000 --> 00:17:32,000
+Would be consistent with or allow the model to generate great recession era dynamics.
+
+104
+00:17:33,000 --> 00:17:36,000
+To answer this question, let's return to our data.
+
+105
+00:17:36,000 --> 00:17:44,000
+So the the BLS data frame it has columns E E U U E and U E.
+
+106
+00:17:44,000 --> 00:17:52,000
+So these represent the rates of individuals moving between unemployment and employment status.
+
+107
+00:17:52,000 --> 00:17:57,000
+And what these were of course bond to is governed by the first letter of employment and unemployment.
+
+108
+00:17:57,000 --> 00:18:07,000
+So that E E column represents workers for that flow in any given month from being employed to still be employed.
+
+109
+00:18:07,000 --> 00:18:13,000
+E U would be somebody who started the month employed and did unemployed.
+
+110
+00:18:13,000 --> 00:18:18,000
+E would be people who started unemployed and then ended with a job.
+
+111
+00:18:18,000 --> 00:18:26,000
+And finally, you would be unemployed at both the start and then the period.
+
+112
+00:18:26,000 --> 00:18:39,000
+So if we think carefully about what the interpretation of our model jar will see that the U E column from the BLS data frame represents the job finding rate.
+
+113
+00:18:39,000 --> 00:18:47,000
+This is the rate at which unemployed workers transition from being unemployed to being employed.
+
+114
+00:18:47,000 --> 00:18:55,000
+Similarly, the EU column would represent the job separation rate or the rate at which employed workers move into unemployment.
+
+115
+00:18:56,000 --> 00:19:01,000
+So what we'll do is we'll take these columns.
+
+116
+00:19:01,000 --> 00:19:12,000
+E E and E U from the BLS data frame and we will use them as a time series of values for alpha T and beta T.
+
+117
+00:19:12,000 --> 00:19:16,000
+And then we'll simulate our model using those parameters.
+
+118
+00:19:16,000 --> 00:19:21,000
+Let's now code up a solution to the direct problem for this model.
+
+119
+00:19:21,000 --> 00:19:24,000
+So our function here will take in three parameters.
+
+120
+00:19:24,000 --> 00:19:27,000
+The first is our like model simulator.
+
+121
+00:19:27,000 --> 00:19:33,000
+The second would be our data frame of data from the BLS.
+
+122
+00:19:33,000 --> 00:19:37,000
+And then a third parameter S in it which represents the initial state.
+
+123
+00:19:37,000 --> 00:19:38,000
+We'll set down here.
+
+124
+00:19:38,000 --> 00:19:42,000
+We'll talk why we we about why we need this here shortly.
+
+125
+00:19:42,000 --> 00:19:50,000
+Now what our function does is it will take the BLS data and it will grab only the rows corresponding to the Great Recession.
+
+126
+00:19:50,000 --> 00:19:56,000
+And then sort those rows by the months from column to make sure they're all in order.
+
+127
+00:19:56,000 --> 00:20:02,000
+We'll then save that as DF underscore GR.
+
+128
+00:20:02,000 --> 00:20:14,000
+We'll then get our vector of alpha parameter values directly from the column you eat and the vector of beta values directly from the column EU.
+
+129
+00:20:15,000 --> 00:20:22,000
+We'll then make sure that the state is set to the indicated value will simulate and return.
+
+130
+00:20:22,000 --> 00:20:38,000
+When we evaluate this function and then run it we'll see here that our model is now able to generate dynamics that look very much like the Great Recession.
+
+131
+00:20:38,000 --> 00:20:46,000
+Let's see here that the model now starts out of place very near the Great Recession starting point.
+
+132
+00:20:46,000 --> 00:20:50,000
+This is what we needed that S in it value for.
+
+133
+00:20:50,000 --> 00:21:00,000
+And then it's able to gradually decrease until it gets to about time zero and then gradually increase just like we see in the Great Recession data.
+
+134
+00:21:00,000 --> 00:21:15,000
+In addition to visually seen that our lake model is capable of of of Mimicumic Great Recession we can see that the model is indeed a much better fit quantitatively by looking at the MSE.
+
+135
+00:21:15,000 --> 00:21:18,000
+And our previous iterations of the model.
+
+136
+00:21:18,000 --> 00:21:27,000
+The MSE for the Great Recession was between 25 and 30 which always very high and now we have an MSE that is less than one.
+
+137
+00:21:27,000 --> 00:21:44,000
+A strong indication that this version of the model is the best version we've considered thus far at matching the dynamics observed during the Great Recession.
+
+138
+00:21:44,000 --> 00:22:02,000
+In addition to seeing that the MSE for the Great Recession era fell we saw that the MSE and the Covid era rose we were down between one and two in model four and now we're back up to a 9.05 for the MSE Covid.
+
+139
+00:22:02,000 --> 00:22:18,000
+Now the fact that the MSE for the Great Recession era fell so sharply and the MSE for the Covid era rose it demonstrates or illustrates a common curse and hidden blessing to all modeling exercises.
+
+140
+00:22:18,000 --> 00:22:25,000
+And this is summarized by the statement that each modeling decision we make it comes with trade offs.
+
+141
+00:22:25,000 --> 00:22:40,000
+So our two state mark-off chain view of labor market fluctuations that cannot match both the Great Recession era dynamics and the Covid era dynamics with the same set of parameters.
+
+142
+00:22:41,000 --> 00:22:57,000
+These two time periods in U.S. labor markets are sufficiently different that a model of this degree of complexity is not able to match both of them at the same time.
+
+143
+00:22:57,000 --> 00:23:09,000
+However, the good side of this or kind of the blessing in disguise is that we are forced as modelers to be deliberate in specifying our modeling goals.
+
+144
+00:23:09,000 --> 00:23:22,000
+We have to at the onset of our analysis answer the question of whether we want the model to match the dynamics of Covid era labor markets or of Great Recession era labor markets.
+
+145
+00:23:22,000 --> 00:23:40,000
+This specificity in our goal for doing the modeling and the analysis will help all aspects of what we're working on the more specific and pointed targeted we can be with what we're doing the more likely it is that we'll have success.
+
+146
+00:23:41,000 --> 00:23:49,000
+The second aspect of a blessing coming from this trade off is that we can afford to use simpler models.
+
+147
+00:23:49,000 --> 00:24:06,000
+If we are willing to accept that we can either match Covid era data or Great Recession era data are two state mark of chain is a great workhorse model for studying both areas of U.S. data.
+
+148
+00:24:07,000 --> 00:24:21,000
+This is a fairly simple model built up from building blocks that we know and understand well and by making this deliberate decision on what our goal is we are allowed to use a simple model.
+
+149
+00:24:21,000 --> 00:24:29,000
+And as a guiding rule we will always want the simplest model that allows us to achieve our modeling goal.
+
+150
+00:24:29,000 --> 00:24:37,000
+Now there are many reasons for this desire for simplicity which we will cover in greater detail throughout our time together.
+
+151
+00:24:37,000 --> 00:24:55,000
+But one of the strongest reasons is that the simpler the model the more likely it is we understand how it works and then we're able to effectively use the model to solve whatever problem or to apply it to whatever task we are working on.
+
+152
+00:24:56,000 --> 00:25:05,000
+Now close our next time together today let's pause and look ahead a little bit.
+
+153
+00:25:05,000 --> 00:25:17,000
+We did a bunch of work in a previous lecture and in this one about building a model and you might be wondering why do we go through the hassle of doing this.
+
+154
+00:25:17,000 --> 00:25:23,000
+And as social scientists we rarely have the luxury of setting up controlled experiments.
+
+155
+00:25:23,000 --> 00:25:34,000
+There are some settings in which very creative and brilliant researchers have been able to effectively create an experiment.
+
+156
+00:25:34,000 --> 00:25:51,000
+To test a social or economic theory but in general this just isn't possible because we study society and people setting up controlled testing environments is often unethical and almost always impossible.
+
+157
+00:25:51,000 --> 00:25:59,000
+So in order to do real science and employ the scientific method we must create a laboratory for ourselves.
+
+158
+00:25:59,000 --> 00:26:09,000
+And instead of laboratories created with physical components you might observe in physics or chemistry or hard science.
+
+159
+00:26:09,000 --> 00:26:18,000
+Our laboratories are constructed from the mathematical equations and the statistical structure that we used to build our models.
+
+160
+00:26:18,000 --> 00:26:24,000
+A model allows us to consider what if scenarios that we call counterfactuals.
+
+161
+00:26:24,000 --> 00:26:34,000
+And in these scenarios we're able to use the model as a lens or as a way to study trade-offs to potential decisions.
+
+162
+00:26:34,000 --> 00:26:45,000
+So for example you might imagine that our lake model that helps us understand the flows from employment to unemployment.
+
+163
+00:26:45,000 --> 00:26:49,000
+Might be part of a larger economic framework.
+
+164
+00:26:49,000 --> 00:27:08,000
+Now this larger framework could include other things such as the workers or the households making decisions like whether or not to save the income they generate from working as employees or to spend it on consumption right now and gain some happiness from that.
+
+165
+00:27:08,000 --> 00:27:18,000
+And also include a government that has to raise taxes to finance some expenditures on behalf of its constituents.
+
+166
+00:27:18,000 --> 00:27:24,000
+And then in act policies for maybe labor market relief during time distress.
+
+167
+00:27:24,000 --> 00:27:35,000
+You might also have international trading partners that could both increase the diversity of goods available to consumers as well as help smooth out labor shocks.
+
+168
+00:27:35,000 --> 00:27:41,000
+Our economies experiencing difficulties in the labor market but a different economy isn't.
+
+169
+00:27:41,000 --> 00:27:48,000
+Maybe production and resources should shift to the more healthy economy for a short time.
+
+170
+00:27:48,000 --> 00:27:54,000
+And this could happen through international trading partners.
+
+171
+00:27:54,000 --> 00:28:00,000
+These are all extra modeling components that could work alongside the lake model.
+
+172
+00:28:00,000 --> 00:28:15,000
+And building up a rich framework by connecting these well understood pieces allows us to have a very powerful laboratory for doing experiments and apply in the scientific method.
+
+173
+00:28:15,000 --> 00:28:20,000
+We can apply a change in one component.
+
+174
+00:28:20,000 --> 00:28:28,000
+For example, maybe we want to assume that the government was able to subsidize the labor market.
+
+175
+00:28:28,000 --> 00:28:32,000
+And then we can see the corresponding impact on other parts of the economy.
+
+176
+00:28:32,000 --> 00:28:39,000
+Maybe this would result in a lower separation rate or increased household consumption because they still have jobs.
+
+177
+00:28:39,000 --> 00:28:45,000
+And if their consumption is higher than maybe they're happy Mr. their welfare is higher.
+
+178
+00:28:45,000 --> 00:28:49,000
+And by connecting these components.
+
+179
+00:28:49,000 --> 00:28:57,000
+We're able to create a laboratory of statistics and of equations that is our model.
+
+180
+00:28:57,000 --> 00:29:11,000
+We can apply the solution to the direct problem to have the model generate simulated data for us that we can study and compare against actual data to see if our model parameters are accurate.
+
+181
+00:29:11,000 --> 00:29:18,000
+And then we can use the inferences we make and the things we learned from that simulation.
+
+182
+00:29:18,000 --> 00:29:28,000
+To apply to our solution to the indirect problem where we then refine the choices we make about the parameters.
+
+183
+00:29:28,000 --> 00:29:31,000
+And we saw this balance plain off today.
+
+184
+00:29:31,000 --> 00:29:45,000
+We did a lot of simulating which was solving the direct problem that allowed us to make different decisions about how to tweak model parameters which was the way we were solving the indirect problem.
+
+185
+00:29:45,000 --> 00:29:54,000
+And kind of throughout this course we're going to be putting together our data programming, math and modeling tools that we've built up.
+
+186
+00:29:54,000 --> 00:29:58,000
+In order to build models and perform experiments like this.
+
+187
+00:29:58,000 --> 00:30:05,000
+And in that sense we'll be able to understand the society in which we live and operate.
+
+188
+00:30:05,000 --> 00:30:12,000
+Appreciate you for being here and we look forward to more exciting lectures here coming up.
+

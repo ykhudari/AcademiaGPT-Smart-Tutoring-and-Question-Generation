@@ -1,0 +1,2860 @@
+1
+00:00:00,000 --> 00:00:07,000
+Hello, this is Spencer Lion and in this lecture we will talk about web scraping.
+
+2
+00:00:07,000 --> 00:00:15,000
+Hello, this is Spencer Lion and in this lecture we will talk about web scraping.
+
+3
+00:00:15,000 --> 00:00:22,000
+As we know the internet is full of data.
+
+4
+00:00:22,000 --> 00:00:26,000
+Much of our lives and livelihoods lives on the internet.
+
+5
+00:00:26,000 --> 00:00:33,000
+This includes things like our shopping behavior, our interactions with friends, the contact list,
+
+6
+00:00:33,000 --> 00:00:37,000
+with friends, family and other colleagues, or associates.
+
+7
+00:00:37,000 --> 00:00:48,000
+As well as other behavior, not specific to us such as asset prices and sporting events scores.
+
+8
+00:00:49,000 --> 00:00:55,000
+All of the programming and theoretical tools that we have developed throughout this course
+
+9
+00:00:55,000 --> 00:01:02,000
+can allow us to do meaningful analysis of this wealth of data that can be found on the internet.
+
+10
+00:01:02,000 --> 00:01:08,000
+However, there is the caveat that we first need to know how to get the data into Python.
+
+11
+00:01:08,000 --> 00:01:17,000
+As we've seen in some examples throughout this course some website data is
+
+12
+00:01:17,000 --> 00:01:20,000
+somewhat easy to access.
+
+13
+00:01:20,000 --> 00:01:28,000
+A few examples of easy to access data may be when data is provided as a downloadable file
+
+14
+00:01:28,000 --> 00:01:35,000
+that we can use the Pandas Read CSV function to read into a data frame.
+
+15
+00:01:35,000 --> 00:01:42,000
+We've seen examples of passing in the URL to a website where web location,
+
+16
+00:01:42,000 --> 00:01:48,000
+containing the CSV file, and how Pandas handles that just fine.
+
+17
+00:01:48,000 --> 00:01:55,000
+Another example of data that is easier than my otherwise B to access would be
+
+18
+00:01:55,000 --> 00:02:00,000
+data that can be made available via an API.
+
+19
+00:02:00,000 --> 00:02:08,000
+There may be various options and filters that we can apply so that we specify exactly the type of data that we buy.
+
+20
+00:02:08,000 --> 00:02:16,000
+But in the end it's usually just a couple lines of code to make those requests and then read the data to a data frame.
+
+21
+00:02:16,000 --> 00:02:23,000
+We've seen other examples where the website itself contains the data,
+
+22
+00:02:23,000 --> 00:02:29,000
+not in any type of file format, but in a nicely formatted table.
+
+23
+00:02:29,000 --> 00:02:36,000
+In these examples we've been able to use the Pandas Read HTML function to read all of the data
+
+24
+00:02:36,000 --> 00:02:40,000
+from the tables on the website.
+
+25
+00:02:40,000 --> 00:02:46,000
+In each of these examples, getting the data into Pandas and Python was fairly straightforward.
+
+26
+00:02:46,000 --> 00:02:49,000
+But sometimes it's not.
+
+27
+00:02:49,000 --> 00:02:59,000
+And today we will focus on learning some skills and techniques for accessing data that may be visible on a public website,
+
+28
+00:02:59,000 --> 00:03:03,000
+but that is not easy to download in any way.
+
+29
+00:03:07,000 --> 00:03:16,000
+To begin our study of that topic, we first need to talk about HTML or the language of the web.
+
+30
+00:03:16,000 --> 00:03:22,000
+All web pages are written in a special markup language called HTML.
+
+31
+00:03:22,000 --> 00:03:27,000
+HTML stands for a protects markup language.
+
+32
+00:03:27,000 --> 00:03:34,000
+All HTML documents are composed of a tree of nested elements.
+
+33
+00:03:35,000 --> 00:03:44,000
+For example, the bullet point list that we're currently working through may look as follows in HTML.
+
+34
+00:03:44,000 --> 00:03:51,000
+We might see in this less than sign UL greater than sign.
+
+35
+00:03:51,000 --> 00:04:00,000
+This is the HTML way of constructing the browser that we are about to begin an unordered list.
+
+36
+00:04:00,000 --> 00:04:03,000
+That's what the two letters you'll mean.
+
+37
+00:04:04,000 --> 00:04:08,000
+We'll see down at the very bottom, the letters UL repeat one more time,
+
+38
+00:04:08,000 --> 00:04:11,000
+also within these angle brackets.
+
+39
+00:04:11,000 --> 00:04:17,000
+But that there is a slash just before the text UL.
+
+40
+00:04:17,000 --> 00:04:27,000
+This is the way that we can instruct the web browser that our unordered list is finished and that it's done.
+
+41
+00:04:28,000 --> 00:04:38,000
+Inside of the opening marker for our list and then the closing marker for our list, we have some more content.
+
+42
+00:04:38,000 --> 00:04:46,000
+Here on this next line, we see that we have an opening marker for something that has type l i.
+
+43
+00:04:47,000 --> 00:04:54,000
+Is the HTML version or abbreviation for the phrase list item.
+
+44
+00:04:54,000 --> 00:05:01,000
+So now we have an unordered list and here's our first item.
+
+45
+00:05:01,000 --> 00:05:10,000
+The text contained within this list item begins web pages are this corresponds to the text over here.
+
+46
+00:05:10,000 --> 00:05:20,000
+The bullet point that appears just before the word web is what is drawn when the browser comes across this l i.
+
+47
+00:05:20,000 --> 00:05:26,000
+Now we have the dot dot dot which is a stand in for the rest of this sentence.
+
+48
+00:05:26,000 --> 00:05:29,000
+Starting at written and closing with HTML.
+
+49
+00:05:29,000 --> 00:05:36,000
+Once that's finished, we see again the l i or list item tag.
+
+50
+00:05:36,000 --> 00:05:44,000
+Now we have the slash here, which is the pattern that the browser uses for ending a list item.
+
+51
+00:05:44,000 --> 00:05:49,000
+So this line that I've highlighted opens the list item.
+
+52
+00:05:49,000 --> 00:05:57,000
+Establishers the content for the item as well as closes or terminates the list.
+
+53
+00:05:57,000 --> 00:06:01,000
+You'll see that there are three other lines that follow the same structure.
+
+54
+00:06:01,000 --> 00:06:08,000
+You have an opening tag for this item which just has l i in between angle brackets.
+
+55
+00:06:08,000 --> 00:06:17,000
+A closing tag for this item which looks almost the same, but has a slash immediately following the open angle bracket.
+
+56
+00:06:17,000 --> 00:06:19,000
+And then there's some content.
+
+57
+00:06:19,000 --> 00:06:26,000
+We see it for the second bullet point, the third bullet point and the fourth bullet point.
+
+58
+00:06:26,000 --> 00:06:39,000
+This text right here, if we were to hand this to our web browser, would be rendered in very much the same way that this bullet point list is above.
+
+59
+00:06:39,000 --> 00:06:43,000
+Notice here that there is.
+
+60
+00:06:43,000 --> 00:06:49,000
+The structure that we we we outlined and we understood.
+
+61
+00:06:49,000 --> 00:06:52,000
+Structure includes.
+
+62
+00:06:52,000 --> 00:06:55,000
+The angle bracket notation.
+
+63
+00:06:55,000 --> 00:06:59,000
+With the name of the type of element in between.
+
+64
+00:06:59,000 --> 00:07:01,000
+Each of these.
+
+65
+00:07:01,000 --> 00:07:11,000
+Is called the start of an element and we also we always have an opening tag and a closing tag for each element.
+
+66
+00:07:11,000 --> 00:07:22,000
+The opening tag and closing tag there may be some content here inside of the URL we have nested for l i items for list items.
+
+67
+00:07:22,000 --> 00:07:31,000
+And in this way we say that the HTML document forms a nested free the URL tag.
+
+68
+00:07:31,000 --> 00:07:39,000
+Or element be the parent and each of these list items are children of the unordered list and they are siblings.
+
+69
+00:07:42,000 --> 00:07:57,000
+Below is an image that has been syntax highlighted and annotated to help us understand a little bit more about the key components.
+
+70
+00:07:57,000 --> 00:08:00,000
+Of an HTML document.
+
+71
+00:08:00,000 --> 00:08:08,000
+You'll see here that the text on this document appears with this opening h2 act.
+
+72
+00:08:09,000 --> 00:08:11,000
+This.
+
+73
+00:08:11,000 --> 00:08:18,000
+That instructs the browser that we are trying to create an element of type h2.
+
+74
+00:08:18,000 --> 00:08:24,000
+You'll see that down a few lines below we find the closing tag for the h2 element.
+
+75
+00:08:24,000 --> 00:08:26,000
+This is the less than slash h2.
+
+76
+00:08:27,000 --> 00:08:38,000
+Now inside of the opening tag or the opening of this element we have.
+
+77
+00:08:38,000 --> 00:08:42,000
+A property that has been set here we have the word class.
+
+78
+00:08:42,000 --> 00:08:46,000
+Follow by an equal sign and then a string.
+
+79
+00:08:46,000 --> 00:08:53,000
+We've set the class property equal to the string heading space main.
+
+80
+00:08:54,000 --> 00:08:57,000
+This structure of.
+
+81
+00:08:57,000 --> 00:09:08,000
+A left hand side and equal sign and a right hand side following the name or the tag of an element that's a property on that element.
+
+82
+00:09:08,000 --> 00:09:17,000
+Here for this h2 element we are setting the class property equal to heading main.
+
+83
+00:09:17,000 --> 00:09:29,000
+The purpose of the class property is to instruct the browser how it should style or make the content appear different.
+
+84
+00:09:29,000 --> 00:09:43,000
+If this class property were omitted then the actual content wouldn't change but the styling for how is displayed or rendered by the web browser would likely change.
+
+85
+00:09:43,000 --> 00:09:52,000
+It's here in this example because the class property is very commonly found on most hshml.
+
+86
+00:09:52,000 --> 00:10:03,000
+Now inside of the h2 element we have a span and we have another property set here instead of class property ID is being set.
+
+87
+00:10:03,000 --> 00:10:07,000
+It is equal to the string heading.
+
+88
+00:10:07,000 --> 00:10:21,000
+The ID property is special in that it is supposed to be a unique identifier for a single element on an entire web page.
+
+89
+00:10:21,000 --> 00:10:28,000
+For our use case when we're back to be able to extract data from a web page.
+
+90
+00:10:28,000 --> 00:10:36,000
+If the data is contained inside of an element with a specific ID it can be fairly simple to get the data.
+
+91
+00:10:37,000 --> 00:10:44,000
+For example if our goal was to extract the text, Google heading number one.
+
+92
+00:10:44,000 --> 00:10:59,000
+The way we could do this in code would be to instruct the program to find the element with ID equal heading and then return to us the text or content of that element.
+
+93
+00:11:00,000 --> 00:11:07,000
+As far as web scraping goes that's the ideal situation and about as easy as it could be.
+
+94
+00:11:07,000 --> 00:11:13,000
+However it's fairly uncommon for that to take place.
+
+95
+00:11:13,000 --> 00:11:17,000
+The next main part of this.
+
+96
+00:11:17,000 --> 00:11:23,000
+Dr. May here is just the text cool heading number one and this is the text of the element.
+
+97
+00:11:23,000 --> 00:11:27,000
+The word text is not just.
+
+98
+00:11:27,000 --> 00:11:32,000
+It is actually a technical term though is used within.
+
+99
+00:11:32,000 --> 00:11:40,000
+Web browser and web technologies for describing the content that would be put on the screen represent this element.
+
+100
+00:11:40,000 --> 00:11:52,000
+As we get into writing different web scrapers web scrapers we will often ask for the text of an element.
+
+101
+00:11:52,000 --> 00:11:54,000
+So.
+
+102
+00:11:54,000 --> 00:12:00,000
+As a quick recap on the in this snippet of code there are three element.
+
+103
+00:12:00,000 --> 00:12:03,000
+First is the H2 element.
+
+104
+00:12:03,000 --> 00:12:09,000
+Inside of that or as a child is a span element by the heading.
+
+105
+00:12:09,000 --> 00:12:18,000
+And then the third element is a sibling of the H2 and it is another span element.
+
+106
+00:12:18,000 --> 00:12:21,000
+The next main each of these elements.
+
+107
+00:12:21,000 --> 00:12:24,000
+How's a particular type or tag.
+
+108
+00:12:24,000 --> 00:12:28,000
+The tag is always the first thing to appear inside of these angle bracket.
+
+109
+00:12:28,000 --> 00:12:31,000
+The first element tag is H2.
+
+110
+00:12:32,000 --> 00:12:39,000
+Then we have a tag span and then a final tag span at the bottom.
+
+111
+00:12:39,000 --> 00:12:42,000
+The next thing that will be helpful for us.
+
+112
+00:12:42,000 --> 00:12:49,000
+And when we do web scraping is we know whether recognize the key value properties on an element.
+
+113
+00:12:49,000 --> 00:12:52,000
+We have two examples of that here.
+
+114
+00:12:52,000 --> 00:12:57,000
+We have the class property being set to heading main on our H2.
+
+115
+00:12:57,000 --> 00:13:04,000
+And we have the ID property being set to heading on the first span.
+
+116
+00:13:04,000 --> 00:13:18,000
+Finally we may also need to know how to access the text that should be rendered for a particular element.
+
+117
+00:13:18,000 --> 00:13:22,000
+Now that we know what an HTML element looks like.
+
+118
+00:13:22,000 --> 00:13:29,000
+We can think about how they combine or how they can be used together to form a web page.
+
+119
+00:13:29,000 --> 00:13:32,000
+Most web pages follow a very common structure.
+
+120
+00:13:32,000 --> 00:13:43,000
+This is somewhat of a standard or how a web browser can receive any HTML document and know how to render it or how to display it.
+
+121
+00:13:43,000 --> 00:13:45,000
+The structure is as follows.
+
+122
+00:13:45,000 --> 00:13:55,000
+The first line will contain this annotation or this notice that the document type or the type of this file is an HTML document.
+
+123
+00:13:55,000 --> 00:14:00,000
+This is not an element.
+
+124
+00:14:00,000 --> 00:14:06,000
+So you see here that there is a left bracket at the exclamation point.
+
+125
+00:14:06,000 --> 00:14:11,000
+And there's no closing dot type element or dot type tag.
+
+126
+00:14:11,000 --> 00:14:14,000
+So this stands alone by itself at the very top.
+
+127
+00:14:14,000 --> 00:14:19,000
+Do let the browser know that we are giving it HTML.
+
+128
+00:14:19,000 --> 00:14:26,000
+Then immediately after that you will usually see the HTML tag.
+
+129
+00:14:26,000 --> 00:14:29,000
+This encompasses the entire rest of the document.
+
+130
+00:14:29,000 --> 00:14:35,000
+You'll see it starts here in the second line and it closes on the very last line.
+
+131
+00:14:35,000 --> 00:14:40,000
+The HTML tag or element typically has two children.
+
+132
+00:14:40,000 --> 00:14:46,000
+The first one is called the head and the second one is called the body.
+
+133
+00:14:46,000 --> 00:14:50,000
+These each serve a slightly different purpose.
+
+134
+00:14:50,000 --> 00:14:57,000
+The body contains all of the content that will be rendered on the screen.
+
+135
+00:14:57,000 --> 00:15:03,000
+This is where we will often look when we're trying to determine how we can extract data from a website.
+
+136
+00:15:03,000 --> 00:15:10,000
+If it's on the screen and we know it's there, we'll often be contained within the body.
+
+137
+00:15:10,000 --> 00:15:17,000
+The other element, called head, contains some meta information about the website.
+
+138
+00:15:17,000 --> 00:15:25,000
+This may contain things like the title, which is what would appear at the top of the tab marker for the web page.
+
+139
+00:15:25,000 --> 00:15:35,000
+You might contain links to other places on the web or it might contain other information that can help a browser or other environment.
+
+140
+00:15:35,000 --> 00:15:41,000
+Know what's contained within the web page without actually having the content.
+
+141
+00:15:41,000 --> 00:15:49,000
+As we're doing web scraping, we'll typically look over our look past, the head and we'll focus more on the body.
+
+142
+00:15:49,000 --> 00:15:53,000
+We'll see examples of this shortly.
+
+143
+00:15:56,000 --> 00:16:06,000
+With our basic HTML knowledge, fresh in our minds, let's take a look at this in a real example.
+
+144
+00:16:06,000 --> 00:16:11,000
+What we'll do is we will navigate our web browser to the following URL.
+
+145
+00:16:11,000 --> 00:16:17,000
+We will go to boats.toscrape.com slash random.
+
+146
+00:16:17,000 --> 00:16:39,000
+The quotes.toscrape.com website was set up to allow programmers and other developers to learn the basics of web scraping using a fairly friendly and sandbox environment.
+
+147
+00:16:40,000 --> 00:16:51,000
+When we say sandbox, it doesn't worry about the complexities of most websites like user authentication or interactive features.
+
+148
+00:16:51,000 --> 00:16:56,000
+So this website has a few paths. One of them is the random path.
+
+149
+00:16:56,000 --> 00:17:00,000
+And this contains when we go to this random.
+
+150
+00:17:00,000 --> 00:17:11,000
+The random path we will be presented with a single quote from a book that was chosen at random from some body of quote.
+
+151
+00:17:11,000 --> 00:17:24,000
+What we'll do is we will go to the website and we will use our web browser and ask it to show to us the actual HTML that it received before it rendered the web page.
+
+152
+00:17:25,000 --> 00:17:30,000
+While we're looking at the HTML, we'll try to pay attention to a few things.
+
+153
+00:17:30,000 --> 00:17:36,000
+First, let's see if we can identify the main pattern we saw on the previous slide.
+
+154
+00:17:36,000 --> 00:17:41,000
+Which, as you remember, is that they have a doc type.
+
+155
+00:17:41,000 --> 00:17:46,000
+And then there's an HTML that wraps everything and then a head and a body.
+
+156
+00:17:46,000 --> 00:17:50,000
+We'll look for that pattern on this website.
+
+157
+00:17:50,000 --> 00:17:56,000
+Then let's pay attention to how the class property is used throughout the website.
+
+158
+00:17:56,000 --> 00:18:06,000
+And we'll want to look at the kind of hierarchy or the nested structure of the web page.
+
+159
+00:18:06,000 --> 00:18:09,000
+Okay, let's check it out.
+
+160
+00:18:09,000 --> 00:18:14,000
+We will go here and we will open this in a new tab.
+
+161
+00:18:14,000 --> 00:18:18,000
+And over here, I'm going to make the screen a little bigger.
+
+162
+00:18:18,000 --> 00:18:22,000
+We see we have a fairly basic website.
+
+163
+00:18:22,000 --> 00:18:28,000
+And what we'll do now is on this page, I will right click.
+
+164
+00:18:28,000 --> 00:18:32,000
+And then I will click the inspect button down here.
+
+165
+00:18:32,000 --> 00:18:35,000
+So I'll go ahead and I'll click inspect.
+
+166
+00:18:35,000 --> 00:18:43,000
+And now what gets brought up is the developer tools for the web browser.
+
+167
+00:18:43,000 --> 00:18:48,000
+And we can see at the top we still have our normal web page as we're used to seeing it.
+
+168
+00:18:48,000 --> 00:18:54,000
+But now at the bottom, if we go to the elements tab, which I'm currently in right now,
+
+169
+00:18:54,000 --> 00:19:00,000
+we can see the HTML structure for the website.
+
+170
+00:19:00,000 --> 00:19:06,000
+And let's look for that first thing we're supposed to watch for the overall structure of the web page.
+
+171
+00:19:06,000 --> 00:19:10,000
+So you'll notice here the first line indeed reads,
+
+172
+00:19:10,000 --> 00:19:14,000
+I'll just go ahead and check it out.
+
+173
+00:19:14,000 --> 00:19:24,000
+So here is the line that tells the browser that what follows is an HTML document.
+
+174
+00:19:24,000 --> 00:19:30,000
+Then we have a single HTML tag or element.
+
+175
+00:19:30,000 --> 00:19:33,000
+And inside of that, there are two children.
+
+176
+00:19:33,000 --> 00:19:36,000
+There is head and there is body.
+
+177
+00:19:36,000 --> 00:19:44,000
+Inside the head, there is a meta telling this what type of characters should appear on the site.
+
+178
+00:19:44,000 --> 00:19:46,000
+We have here a title.
+
+179
+00:19:46,000 --> 00:19:51,000
+Notice here is quote to scrape is the content of this title element.
+
+180
+00:19:51,000 --> 00:19:55,000
+And if we look at the top in our tab, we see here that that's what it shows up.
+
+181
+00:19:55,000 --> 00:19:58,000
+If we were to go through and edit this.
+
+182
+00:19:58,000 --> 00:20:04,000
+To say quote to scrape today, immediately we see that the title in the tab gets updated.
+
+183
+00:20:05,000 --> 00:20:17,000
+And then these two lines are bringing in some some styles that allow the author of this website to lay the content out in the fashion we see above.
+
+184
+00:20:17,000 --> 00:20:23,000
+If we close the head and now open the body, here we'll see the content of the web page.
+
+185
+00:20:23,000 --> 00:20:30,000
+And in my browser, whenever I hover over one of the elements of the HTML,
+
+186
+00:20:30,000 --> 00:20:36,000
+it will show me what on the website is being shown.
+
+187
+00:20:36,000 --> 00:20:44,000
+So for example, if I look inside the body, it looks like if I click the container, this is everything on the site.
+
+188
+00:20:44,000 --> 00:20:52,000
+And now if I go down a little more, I'll hover over this div element with a class equal to row header box.
+
+189
+00:20:53,000 --> 00:20:57,000
+And now we'll see that my browser is just highlighting the top of the page.
+
+190
+00:20:57,000 --> 00:21:03,000
+This would be the header of the page or the title.
+
+191
+00:21:03,000 --> 00:21:10,000
+And if we continue to go down deeper into this, we can see that now we have another div.
+
+192
+00:21:10,000 --> 00:21:15,000
+And this is covering the same vertical region as that header row.
+
+193
+00:21:15,000 --> 00:21:19,000
+But now it's only covering a portion of the horizontal space.
+
+194
+00:21:19,000 --> 00:21:24,000
+It's only covering until about right here on the web page.
+
+195
+00:21:24,000 --> 00:21:33,000
+And this is being the reason it's happening as a little beyond the scope of what we're trying to cover here today.
+
+196
+00:21:33,000 --> 00:21:38,000
+But I have to do with the class here that's being set in the CSS.
+
+197
+00:21:38,000 --> 00:21:46,000
+But if I continue to hover down, I can indeed find the content quotes to scrape, which is what we see up above.
+
+198
+00:21:46,000 --> 00:21:53,000
+And so this content, if I were to change this.
+
+199
+00:21:53,000 --> 00:21:58,000
+And we could say instead of quotes to scrape quotes for us to scrape.
+
+200
+00:21:58,000 --> 00:22:02,000
+You'll see here that this is actually in the HTML code.
+
+201
+00:22:02,000 --> 00:22:07,000
+What is causing the title to be written now up here on the website?
+
+202
+00:22:07,000 --> 00:22:12,000
+We can continue to go down a little further and let's focus here on this quote.
+
+203
+00:22:12,000 --> 00:22:17,000
+And I wanted to be able to determine who the author of the quote was.
+
+204
+00:22:17,000 --> 00:22:21,000
+I could continue to kind of hover over these elements and hopefully find it.
+
+205
+00:22:21,000 --> 00:22:26,000
+But there's another tool that the browser offers, which is this one right here.
+
+206
+00:22:26,000 --> 00:22:32,000
+It's for me the top left part of the bottom panel, continuing the browser tools.
+
+207
+00:22:32,000 --> 00:22:37,000
+And it's a square with a little mouse cursor icon on top of it.
+
+208
+00:22:37,000 --> 00:22:42,000
+Now it says here if I hover select an element in the page to inspect it.
+
+209
+00:22:42,000 --> 00:22:46,000
+So if I click this, it will turn my mouse now.
+
+210
+00:22:46,000 --> 00:22:53,000
+If I hover over anything, it shows me the box around which that element appears.
+
+211
+00:22:53,000 --> 00:22:59,000
+And if I click on something, so if I go to the author's name and I click it, watch what happens on the bottom panel.
+
+212
+00:22:59,000 --> 00:23:01,000
+I'm going to click right now.
+
+213
+00:23:01,000 --> 00:23:12,000
+And immediately the bottom panel went directly into the HTML source code and showed us where this author appears.
+
+214
+00:23:12,000 --> 00:23:15,000
+So if we wanted to do this again, let's try it one more time.
+
+215
+00:23:15,000 --> 00:23:21,000
+I'm going to activate the select mode.
+
+216
+00:23:21,000 --> 00:23:27,000
+You can see that it's active both because this square is now blue and as I hover over things, I see the boxes.
+
+217
+00:23:27,000 --> 00:23:32,000
+And now let's see if we can have the site take us to this little heart emoji.
+
+218
+00:23:32,000 --> 00:23:38,000
+So I'll go ahead and I'll click that and sure enough, it took us immediately down into the source code,
+
+219
+00:23:38,000 --> 00:23:45,000
+where there is a heart character and it's apparently the class here has something to do with the color red.
+
+220
+00:23:45,000 --> 00:24:00,000
+Okay, so let's go back to our slides and we'll kind of review at least the main concepts we are supposed to find.
+
+221
+00:24:00,000 --> 00:24:08,000
+So as we saw on the previous slide, there is a main outline for most HTML pages.
+
+222
+00:24:08,000 --> 00:24:12,000
+So we have a document and then a HTML inside of that we have head and body.
+
+223
+00:24:12,000 --> 00:24:17,000
+We were able to find that on the book quote page.
+
+224
+00:24:17,000 --> 00:24:25,000
+Then we also saw that the class was used in a few instances to apply style to the page.
+
+225
+00:24:25,000 --> 00:24:37,000
+And then we also noticed a bit of the hierarchy that inside the body, there were a few nested HTML elements.
+
+226
+00:24:39,000 --> 00:24:48,000
+Now that we're kind of warming up a bit at looking at the source of a web page, let's go to the similar web page.
+
+227
+00:24:48,000 --> 00:24:55,000
+It's again on the quotes to scrape.com website, but this time there's going to be more than one quote.
+
+228
+00:24:55,000 --> 00:25:03,000
+And what we want you to look for is again, we want to see that overall structure of an HTML page or a web page.
+
+229
+00:25:03,000 --> 00:25:08,000
+And then we really want to look for it because there's going to be more than one quote.
+
+230
+00:25:08,000 --> 00:25:18,000
+We really want to see how the information for one quote appears in a pattern similar to the information for other quotes.
+
+231
+00:25:18,000 --> 00:25:24,000
+Let's take a look and we'll explain more. So I'm going to open in a new tab and we'll go over there.
+
+232
+00:25:24,000 --> 00:25:33,000
+And we'll see here that we again have this quotes to scrape header, we have the login, if we scroll down to the bottom, we have this.
+
+233
+00:25:33,000 --> 00:25:37,000
+Made with love by scraping hub and so on.
+
+234
+00:25:37,000 --> 00:25:41,000
+Now instead of having just one box.
+
+235
+00:25:41,000 --> 00:25:47,000
+This bordered box with a quote in it, now we have it looks like about 10 of them.
+
+236
+00:25:47,000 --> 00:25:55,000
+So let's go ahead and open up the browser developer tools to see what's going on here.
+
+237
+00:25:55,000 --> 00:25:59,000
+We will go we will right click and I will press inspect.
+
+238
+00:25:59,000 --> 00:26:03,000
+And now the browser web tools popped up again.
+
+239
+00:26:03,000 --> 00:26:08,000
+If we look at the overall structure, we see that this is an HTML document.
+
+240
+00:26:08,000 --> 00:26:14,000
+There's an HTML tag with children head and body.
+
+241
+00:26:14,000 --> 00:26:20,000
+Now let's go ahead and look into the body.
+
+242
+00:26:20,000 --> 00:26:28,000
+And you'll see here that there appears to be the way this boxes drawn.
+
+243
+00:26:28,000 --> 00:26:34,000
+Perhaps has to do with the fact that there is a div element with the class equal to quote.
+
+244
+00:26:34,000 --> 00:26:43,000
+Because as I look at this and I go down the next one, as I hover over these, it shows me the first quote and this highlights the second quote.
+
+245
+00:26:43,000 --> 00:26:46,000
+So the third quote and so on.
+
+246
+00:26:46,000 --> 00:27:01,000
+So now we're making a mental note as we look through the source here that if we want to extract either the text of the quote or the author, or maybe even the tags that appear here,
+
+247
+00:27:01,000 --> 00:27:07,000
+we will need to look for a div element with a class equal to quote.
+
+248
+00:27:07,000 --> 00:27:12,000
+Let's keep drilling down and see how once we're inside of this div,
+
+249
+00:27:12,000 --> 00:27:15,000
+we'll see how the actual text for the quote.
+
+250
+00:27:15,000 --> 00:27:24,000
+So we'll open this up and what we'll see here is that there is a span element with class equal to text.
+
+251
+00:27:24,000 --> 00:27:31,000
+Now if I look at what's highlighted up above, it shows me exactly that the quote is highlighted.
+
+252
+00:27:31,000 --> 00:27:41,000
+So if we open this up, sure enough we'll see that the text property of this span element is the quote that's being rendered.
+
+253
+00:27:42,000 --> 00:27:59,000
+So if I were to try to extract the quote here, what I would do is I would look for a div with class equal quote, and then a span with class equal text, and I would get the text from inside of it.
+
+254
+00:28:00,000 --> 00:28:13,000
+One thing you'll notice down here at the very bottom of the screen is those that path through this nested tree or hierarchy is repeated for us.
+
+255
+00:28:13,000 --> 00:28:28,000
+Here we have a div and whenever you see some this syntax where you have some letters a string, a period and a string, you should read this as the tag for an element.
+
+256
+00:28:29,000 --> 00:28:33,000
+Separated by a period and then the class for that element.
+
+257
+00:28:33,000 --> 00:28:40,000
+So here we have a div with class equal the quote, so this is equivalent to this div right up here.
+
+258
+00:28:40,000 --> 00:28:48,000
+And then inside of that one of its children is a span with class equal text.
+
+259
+00:28:48,000 --> 00:28:51,000
+And then we're at the text property.
+
+260
+00:28:51,000 --> 00:29:01,000
+We'll be able to use this thing at the bottom to help us out when we're trying to extract the data using some pipe on code here pretty soon.
+
+261
+00:29:03,000 --> 00:29:11,000
+Now and I hover over so inside the quote div there are three children the first is a span with the text.
+
+262
+00:29:11,000 --> 00:29:20,000
+The second is another span and based on what's highlighted this looks like where we find the author.
+
+263
+00:29:20,000 --> 00:29:33,000
+So if I open this up the text here is by and then there's another element called small with the tag small and here we have class author.
+
+264
+00:29:33,000 --> 00:29:40,000
+So if we were trying to find the author what we would need to do is find the quote div.
+
+265
+00:29:40,000 --> 00:29:45,000
+And then find a span that also has a child.
+
+266
+00:29:45,000 --> 00:29:52,000
+Element of tag small with class equal to author.
+
+267
+00:29:52,000 --> 00:29:58,000
+Once we've done that we will eventually arrive here in this example on Albert Einstein.
+
+268
+00:29:58,000 --> 00:30:09,000
+But notice the structure it's a div of class quote and then a span and then a small element with the text Albert Einstein.
+
+269
+00:30:11,000 --> 00:30:14,000
+Let's look at the next quote this one by jk rolling.
+
+270
+00:30:14,000 --> 00:30:22,000
+If we open up this what we should see if we wanted to get to her name and the website follows the same structure.
+
+271
+00:30:22,000 --> 00:30:32,000
+Inside of the div quote for her quote we should be able to find a span and then a small inside of that with class author.
+
+272
+00:30:32,000 --> 00:30:36,000
+So we'll go to the jk rolling quote div.
+
+273
+00:30:36,000 --> 00:30:47,000
+Open up the span and we'll see here sure enough there is a div with class quote and then a span and then a small element with class author.
+
+274
+00:30:47,000 --> 00:30:52,000
+We continue on and if we wanted to see one by Thomas Edison.
+
+275
+00:30:52,000 --> 00:30:57,000
+We could go ahead and find his quote div.
+
+276
+00:30:57,000 --> 00:31:03,000
+Inside of there there will be a span that has a child small of class author.
+
+277
+00:31:03,000 --> 00:31:15,000
+So each of these 10 quotes on the website have the exact same structure in our HTML code for representing the data.
+
+278
+00:31:15,000 --> 00:31:20,000
+There is a div with a quote that will give us the whole box.
+
+279
+00:31:20,000 --> 00:31:25,000
+Then there's a span with class equal to text that has the text of the quote.
+
+280
+00:31:25,000 --> 00:31:33,000
+There's another span that has a child small with class equal author for the author's name.
+
+281
+00:31:33,000 --> 00:31:37,000
+And the next thing we could look at is the tags.
+
+282
+00:31:37,000 --> 00:31:41,000
+So if we look here.
+
+283
+00:31:41,000 --> 00:31:47,000
+There's alongside the span for the text and the span for the author line.
+
+284
+00:31:47,000 --> 00:31:48,000
+There's a div.
+
+285
+00:31:48,000 --> 00:31:52,000
+So these are the three parent of each of our quote divs.
+
+286
+00:31:52,000 --> 00:31:55,000
+Now this div has a class tags.
+
+287
+00:31:55,000 --> 00:32:09,000
+And then inside of there there are a number of a elements whose text is the text on the little tag pill that we're seeing here.
+
+288
+00:32:09,000 --> 00:32:12,000
+So the second one says deep thoughts.
+
+289
+00:32:12,000 --> 00:32:15,000
+So inside the tags div.
+
+290
+00:32:15,000 --> 00:32:20,000
+The second a element with class tag has deep thoughts.
+
+291
+00:32:20,000 --> 00:32:30,000
+And of course, it's the second tag pill having the text deep thoughts.
+
+292
+00:32:30,000 --> 00:32:35,000
+If we wanted to find this inspirational right here.
+
+293
+00:32:35,000 --> 00:32:40,000
+If the structure is the same, we would have div.clot.
+
+294
+00:32:40,000 --> 00:32:42,000
+And then div.tags.
+
+295
+00:32:42,000 --> 00:32:45,000
+And then it would be the third a.tag.
+
+296
+00:32:45,000 --> 00:32:47,000
+Let's check.
+
+297
+00:32:47,000 --> 00:32:51,000
+So sure enough, we have a div.clot.
+
+298
+00:32:51,000 --> 00:32:56,000
+And then inside of that one of the children is a div with a class equal the tags.
+
+299
+00:32:56,000 --> 00:33:15,000
+And then the third a child of type A with class equal tag has the text inspirational.
+
+300
+00:33:15,000 --> 00:33:26,000
+So now that we've gone through a bit about HTML, how it works, we've seen some examples of the HTML that generates a website.
+
+301
+00:33:26,000 --> 00:33:34,000
+We get to the main question that we're after for this lecture, which is how could we scrape the data.
+
+302
+00:33:34,000 --> 00:33:43,000
+The key to web scraping is to be able to identify patterns and then teach a program in our case a Python program.
+
+303
+00:33:43,000 --> 00:33:48,000
+How to extract data according to those patterns.
+
+304
+00:33:48,000 --> 00:33:56,000
+My main strategy when I'm faced with a web scraping task is to follow these steps.
+
+305
+00:33:56,000 --> 00:34:06,000
+First, I'm going to look at the website just like normal in my web browser and kind of visually identify the data that I would like to scrape.
+
+306
+00:34:06,000 --> 00:34:17,000
+Over here in our quotes example, as I'm looking at this website, I may want to say I would like to get the text for each quote and the author.
+
+307
+00:34:17,000 --> 00:34:24,000
+And by visually just inspecting this website, I may have seen these two things.
+
+308
+00:34:24,000 --> 00:34:31,000
+And then now I've identified what it is from the website that I like to scrape.
+
+309
+00:34:31,000 --> 00:34:40,000
+The second step would be to open those browser developer tools and inspect the elements containing the data.
+
+310
+00:34:40,000 --> 00:34:44,000
+This is what happened when we did a right click and we did inspect.
+
+311
+00:34:44,000 --> 00:34:53,000
+And then if I wanted to get right at this author, I could click the mouse icon over the square and then click on the author.
+
+312
+00:34:53,000 --> 00:35:02,000
+And now immediately I'm taken into the source of the web page right to how I can get at that author name.
+
+313
+00:35:02,000 --> 00:35:04,000
+So that's step two.
+
+314
+00:35:04,000 --> 00:35:11,000
+Step three is I will look at what tag the element has.
+
+315
+00:35:11,000 --> 00:35:13,000
+Maybe what its classes are.
+
+316
+00:35:13,000 --> 00:35:16,000
+I will look for an ID if there is one.
+
+317
+00:35:16,000 --> 00:35:25,000
+And this will help me know how I can teach a computer to identify that piece of information on the website.
+
+318
+00:35:25,000 --> 00:35:29,000
+In our example, the author.
+
+319
+00:35:29,000 --> 00:35:37,000
+The name of the author's name was the text for a element of with tag small and class equal author.
+
+320
+00:35:37,000 --> 00:35:45,000
+This is enough information that I could instruct a computer to find the author name.
+
+321
+00:35:45,000 --> 00:35:54,000
+I would first tell it to look for a div with class quote and then a span with a small element of class author and get the text.
+
+322
+00:35:54,000 --> 00:36:01,000
+That's a recipe or pattern that I could teach my program.
+
+323
+00:36:01,000 --> 00:36:08,000
+And then the next step is I'll kind of look outwards to the other elements on the page.
+
+324
+00:36:09,000 --> 00:36:14,000
+If I would like to scrape them and they are the same type of data.
+
+325
+00:36:14,000 --> 00:36:21,000
+For example, another author name on our quotes page or maybe if I'm looking at a shopping website.
+
+326
+00:36:21,000 --> 00:36:24,000
+Another price for an item.
+
+327
+00:36:24,000 --> 00:36:33,000
+What I'll try to do is I'll find a pattern that's similar across these two distinct instances of the same type of data.
+
+328
+00:36:33,000 --> 00:36:36,000
+Similarly, there's a similar structure or pattern.
+
+329
+00:36:36,000 --> 00:36:43,000
+And that way I can teach my program one time how to access data using that pattern.
+
+330
+00:36:43,000 --> 00:36:46,000
+If it's a different totally different type of data.
+
+331
+00:36:46,000 --> 00:36:53,000
+For example, in the quotes page, maybe this is the actual content or text of the quote.
+
+332
+00:36:53,000 --> 00:36:55,000
+Instead of the author name.
+
+333
+00:36:55,000 --> 00:36:57,000
+Well, then I'll start the process over.
+
+334
+00:36:57,000 --> 00:36:59,000
+I'll look at the browser tools.
+
+335
+00:36:59,000 --> 00:37:02,000
+I'll look at that elements tag and classes.
+
+336
+00:37:02,000 --> 00:37:15,000
+The pattern or structure allows me to identify that piece of data on the webpage.
+
+337
+00:37:15,000 --> 00:37:23,000
+There are many different Python libraries that have been built to assist programmers with scraping websites.
+
+338
+00:37:23,000 --> 00:37:30,000
+Perhaps the most widely used and well known of these is a library called scrape eye or scrape.
+
+339
+00:37:30,000 --> 00:37:35,000
+We'll use the scrape eye library to extract the quote information.
+
+340
+00:37:35,000 --> 00:37:39,000
+We saw on the example websites we just visited.
+
+341
+00:37:39,000 --> 00:37:45,000
+The first step towards doing this would be to install the scrape eye library.
+
+342
+00:37:45,000 --> 00:37:51,000
+I'll bring over my terminal and we'll work through this together.
+
+343
+00:37:51,000 --> 00:37:56,000
+So now that my terminal is here on full screen.
+
+344
+00:37:56,000 --> 00:38:01,000
+I'll just activate a condon environment.
+
+345
+00:38:01,000 --> 00:38:06,000
+Create a condon environment.
+
+346
+00:38:06,000 --> 00:38:10,000
+With just Python and we'll do version 3.7.
+
+347
+00:38:10,000 --> 00:38:17,000
+And we'll that conda create this for us.
+
+348
+00:38:17,000 --> 00:38:24,000
+And once it's done, we can do conda activate scrape eye example.
+
+349
+00:38:24,000 --> 00:38:27,000
+I'll check really quickly to make sure that it's active.
+
+350
+00:38:27,000 --> 00:38:31,000
+I can run in which pip and it looks like it is.
+
+351
+00:38:31,000 --> 00:38:32,000
+So that's great.
+
+352
+00:38:32,000 --> 00:38:37,000
+Now we will do pip install scrape eye and we're also going to want eye python.
+
+353
+00:38:37,000 --> 00:38:40,000
+So I'll add that here.
+
+354
+00:38:40,000 --> 00:38:43,000
+We'll let it run for just a moment.
+
+355
+00:38:43,000 --> 00:38:49,000
+And we're good to go.
+
+356
+00:38:49,000 --> 00:38:54,000
+So now that we have ipython and scrape eye here.
+
+357
+00:38:54,000 --> 00:38:58,000
+What we can do is we can start the scrape eye shell.
+
+358
+00:38:58,000 --> 00:39:07,000
+This will be an ipython session that will allow us to interactively determine what scrape eye was able to identify from a website.
+
+359
+00:39:07,000 --> 00:39:09,000
+So let's start this.
+
+360
+00:39:09,000 --> 00:39:16,000
+We'll do scrape eye shell and then you pass it a URL to a website that you would like it to load.
+
+361
+00:39:16,000 --> 00:39:23,000
+We'll do the quotes.to scrape.com and then we'll go to the random one.
+
+362
+00:39:23,000 --> 00:39:29,000
+What I do this, you'll see that there was some logging information that happened up above.
+
+363
+00:39:29,000 --> 00:39:32,000
+But eventually we're greeted with an ipython prompt.
+
+364
+00:39:32,000 --> 00:39:34,000
+Here this is normal ipython.
+
+365
+00:39:34,000 --> 00:39:41,000
+We can do our normal ipython stuff.
+
+366
+00:39:42,000 --> 00:39:44,000
+One moment.
+
+367
+00:39:44,000 --> 00:39:45,000
+Okay.
+
+368
+00:39:45,000 --> 00:39:47,000
+I'm not sure what that error was.
+
+369
+00:39:47,000 --> 00:39:54,000
+But now we're here and we'll put one more time and we'll see here that scrape eye gives us a message.
+
+370
+00:39:54,000 --> 00:40:02,000
+It says that we have a few available scrape eye objects that have been defined for us in the request.
+
+371
+00:40:02,000 --> 00:40:04,000
+Sorry in the shell.
+
+372
+00:40:04,000 --> 00:40:07,000
+So if I look here and I look for item.
+
+373
+00:40:07,000 --> 00:40:09,000
+It's defined but it's empty right now.
+
+374
+00:40:09,000 --> 00:40:14,000
+It can also look at things like request and response.
+
+375
+00:40:14,000 --> 00:40:23,000
+And these are objects that are associated with scrape eye going out and making a request to get the HTML for this webpage.
+
+376
+00:40:23,000 --> 00:40:27,000
+And then the response received i in return.
+
+377
+00:40:27,000 --> 00:40:31,000
+We're going to work primarily with that response.
+
+378
+00:40:31,000 --> 00:40:40,000
+I'm going to leave this open and move it to the side and we're going to go back to the scraping page.
+
+379
+00:40:40,000 --> 00:40:44,000
+Quotes.2screpe.com random.
+
+380
+00:40:44,000 --> 00:40:48,000
+So that we can remind ourselves of what we're looking for.
+
+381
+00:40:48,000 --> 00:41:00,000
+So we'll go ahead and we'll inspect here and we can see.
+
+382
+00:41:00,000 --> 00:41:03,000
+So it's for mind ourselves how we might be able to get at this author.
+
+383
+00:41:03,000 --> 00:41:08,000
+So what we're really if we want an author the way we can do that is there's a.
+
+384
+00:41:08,000 --> 00:41:11,000
+They div element with class quote.
+
+385
+00:41:11,000 --> 00:41:15,000
+And then a span and then an author.
+
+386
+00:41:15,000 --> 00:41:20,000
+Now the response object has a CSS method.
+
+387
+00:41:20,000 --> 00:41:25,000
+This will allow us to.
+
+388
+00:41:25,000 --> 00:41:37,000
+We'll go through the HTML document by the element types and then the value of the class property to extract.
+
+389
+00:41:37,000 --> 00:41:43,000
+Subset. So let's try this. We'll do response.css and then we'll just pass div.
+
+390
+00:41:43,000 --> 00:41:44,000
+Quote.
+
+391
+00:41:44,000 --> 00:41:47,000
+This was similar to what we see right here.
+
+392
+00:41:47,000 --> 00:41:48,000
+We'll do this.
+
+393
+00:41:48,000 --> 00:41:53,000
+And by default what happens is we get back a list.
+
+394
+00:41:54,000 --> 00:41:58,000
+And we'll check the length of this list and here it says that there's a length one.
+
+395
+00:41:58,000 --> 00:42:05,000
+And the reason for this is we went to the twoscrape.com slash random page where there's only one quote.
+
+396
+00:42:05,000 --> 00:42:12,000
+So it looks like here inside of this list there was one element that was found for us.
+
+397
+00:42:12,000 --> 00:42:20,000
+So let's go ahead and we'll call this quote div and we'll store the output of this.
+
+398
+00:42:20,000 --> 00:42:24,000
+And we'll just get the first element of the list. So now we have a quote div.
+
+399
+00:42:24,000 --> 00:42:26,000
+What we can do now.
+
+400
+00:42:26,000 --> 00:42:37,000
+Now that we're inside of this quote div what we would really like to do is get an element of type small with class author.
+
+401
+00:42:37,000 --> 00:42:41,000
+So quote div.
+
+402
+00:42:42,000 --> 00:42:45,000
+.css small.offer.
+
+403
+00:42:45,000 --> 00:42:49,000
+And then we want the text.
+
+404
+00:42:58,000 --> 00:43:03,000
+Now once we're getting the text for the author field we can call the get method.
+
+405
+00:43:03,000 --> 00:43:07,000
+And it will return to us the text for that quote.
+
+406
+00:43:07,000 --> 00:43:11,000
+You'll see here that this quote must have been by Jimmy Hendrix.
+
+407
+00:43:11,000 --> 00:43:17,000
+It's different from what we've seen here because each time somebody visits this particular URL.
+
+408
+00:43:17,000 --> 00:43:19,000
+They get greeted with a random quote.
+
+409
+00:43:19,000 --> 00:43:23,000
+So if I refresh this a few times we'll get different quotes.
+
+410
+00:43:23,000 --> 00:43:28,000
+And so what we see in our web browser on the left doesn't necessarily map into what we see on the right.
+
+411
+00:43:28,000 --> 00:43:36,000
+But now we've gone through and we now are able to get the author.
+
+412
+00:43:36,000 --> 00:43:44,000
+So if we do we'll save this and now we have the variable called author in our Python session that is the author of our quote.
+
+413
+00:43:44,000 --> 00:43:46,000
+So this is great.
+
+414
+00:43:46,000 --> 00:43:50,000
+Let's now work on how we can get this text.
+
+415
+00:43:50,000 --> 00:43:58,000
+So I'll go back to my web browser and I'll go here and I'll click on the text for the elected extract.
+
+416
+00:43:58,000 --> 00:44:06,000
+And I'll look here at the path if you will to find in that.
+
+417
+00:44:06,000 --> 00:44:14,000
+So once we're in the quote div which again we have a quote div, there should be a span with class text.
+
+418
+00:44:14,000 --> 00:44:20,000
+So let's try that quote div.css, band.text.
+
+419
+00:44:20,000 --> 00:44:24,000
+And then we want the content or the text for that field.
+
+420
+00:44:24,000 --> 00:44:28,000
+So let's go ahead and ask to get that and we'll see the quote.
+
+421
+00:44:28,000 --> 00:44:32,000
+So apparently at one point Jimmy Hendrix is quoted as having said,
+
+422
+00:44:32,000 --> 00:44:36,000
+I'm the one that you Scott to die when it's time for me to die.
+
+423
+00:44:36,000 --> 00:44:38,000
+So let me live my life the way I want to.
+
+424
+00:44:38,000 --> 00:44:40,000
+Okay.
+
+425
+00:44:40,000 --> 00:44:42,000
+Jimmy Hendrix.
+
+426
+00:44:42,000 --> 00:44:53,000
+For those who don't know, Jimmy Hendrix was a famous guitar player, often called or thought of as the best guitar player in the history of rock music.
+
+427
+00:44:53,000 --> 00:44:57,000
+So the fact that this quote is about
+
+428
+00:44:57,000 --> 00:45:03,000
+partying, if you will, isn't too surprising knowing the background of Jimmy.
+
+429
+00:45:09,000 --> 00:45:15,000
+We were able to work through this example by having our web browser open on the left,
+
+430
+00:45:15,000 --> 00:45:23,000
+working through the items we wanted and then using those CSS paths or selectors to get the data.
+
+431
+00:45:23,000 --> 00:45:29,000
+But we found that the data we received inside of our Python session didn't match what we saw on the website.
+
+432
+00:45:29,000 --> 00:45:35,000
+If we want to see exactly what scraped by working with, we can actually use the view function.
+
+433
+00:45:35,000 --> 00:45:39,000
+So view is a function inside of scraped by.
+
+434
+00:45:39,000 --> 00:45:41,000
+And so we do view response.
+
+435
+00:45:41,000 --> 00:45:53,000
+It will open up a new page, a new tab in our web browser with the content of H.Ch.ML that scraped by has in the response object.
+
+436
+00:45:53,000 --> 00:45:59,000
+So you'll see here, this is that quote, sure enough it's by Jimmy Hendrix.
+
+437
+00:45:59,000 --> 00:46:05,000
+And now we're able to see if we needed to exactly what scraped by has.
+
+438
+00:46:05,000 --> 00:46:09,000
+And what we're able to extract from it.
+
+439
+00:46:09,000 --> 00:46:23,000
+This can be helpful in situations when maybe some of the content for the web page gets loaded after the initial structure of the web page.
+
+440
+00:46:23,000 --> 00:46:31,000
+For example, if you've ever gone to a shopping website, sometimes when you scroll down to the bottom,
+
+441
+00:46:31,000 --> 00:46:39,000
+sometimes there are additional items that pop up and they load up after you scroll to a certain point.
+
+442
+00:46:39,000 --> 00:46:47,000
+When scraped by first makes a request to the URL for that shopping website, it would only see the items that are immediately visible.
+
+443
+00:46:47,000 --> 00:46:51,000
+And it wouldn't see ones that we scroll down to.
+
+444
+00:46:51,000 --> 00:46:59,000
+That's an example of how sometimes content is loaded after the initial structure of the website.
+
+445
+00:46:59,000 --> 00:47:11,000
+So, in our ways, where scraped by can actually simulate the scrolling down and getting more, but it's not something that will be able to cover quite yet.
+
+446
+00:47:11,000 --> 00:47:17,000
+Let's continue on learning more about scraped by.
+
+447
+00:47:17,000 --> 00:47:22,000
+So scraped by can be run using the scraped by shell as we just saw.
+
+448
+00:47:22,000 --> 00:47:28,000
+This is often a very useful exercise to do when you're first starting out on a new web to gripping project.
+
+449
+00:47:28,000 --> 00:47:47,000
+The ability to view exactly what scraped by will be trying to extract data from and then interactively try out different paths or techniques for extracting data can be very useful in helping build a solution.
+
+450
+00:47:48,000 --> 00:48:01,000
+However, one of the main benefits or reasons for learning how to scrape websites is to be able to have the scraper run as a program that doesn't need any interaction from us.
+
+451
+00:48:01,000 --> 00:48:04,000
+It can be fully automated.
+
+452
+00:48:04,000 --> 00:48:07,000
+Scraped by was built exactly for this use case.
+
+453
+00:48:07,000 --> 00:48:25,000
+The scraped by shell is more of a convenient add-on and not the core reason for the scraped by library existing.
+
+454
+00:48:25,000 --> 00:48:33,000
+And by can provide a scaffolding for helping us keep our scraper's organized.
+
+455
+00:48:33,000 --> 00:48:38,000
+This is referred to in the scraped documentation as a scraped project.
+
+456
+00:48:38,000 --> 00:48:49,000
+We can create a project by running the scraped by start project, command followed by a name, where the name is the project that we are trying to build.
+
+457
+00:48:49,000 --> 00:48:51,000
+Let's try it out.
+
+458
+00:48:51,000 --> 00:48:56,000
+I'll go back here to my terminal and I'll leave our ipython session.
+
+459
+00:48:56,000 --> 00:49:09,000
+I'll clear this out and I will now run scraped by start project and the menu will do quotes example.
+
+460
+00:49:09,000 --> 00:49:12,000
+Apparently I didn't follow the rules.
+
+461
+00:49:12,000 --> 00:49:16,000
+So scraped by projects is being with a letter and contain only letters, numbers and underscores.
+
+462
+00:49:16,000 --> 00:49:18,000
+I'll change the minus to an underscores.
+
+463
+00:49:18,000 --> 00:49:24,000
+Okay, so now we have a project called quotes example.
+
+464
+00:49:24,000 --> 00:49:30,000
+I'm going to use the tree command to show us the files that created for us.
+
+465
+00:49:30,000 --> 00:49:40,000
+So inside of the quotes example folder, there is one file called scraped.config spelled CFG.
+
+466
+00:49:40,000 --> 00:49:43,000
+And then there is a folder.
+
+467
+00:49:44,000 --> 00:49:48,000
+There is the folder is also named quotes example.
+
+468
+00:49:48,000 --> 00:49:58,000
+And it has a few basic settings that can help us configure how our project should be executed when we tell scraped or run it.
+
+469
+00:49:58,000 --> 00:50:01,000
+And then we have a spider's directory.
+
+470
+00:50:01,000 --> 00:50:04,000
+This is the one we'll talk most about.
+
+471
+00:50:04,000 --> 00:50:12,000
+So we're going to need to teach scraped by exactly how to execute the project.
+
+472
+00:50:12,000 --> 00:50:18,000
+We'll talk exactly how to extract the data from the web pages we tell it to visit.
+
+473
+00:50:18,000 --> 00:50:24,000
+The way we do this is by defining or creating a spider.
+
+474
+00:50:24,000 --> 00:50:30,000
+A spider is a Python class that we define that has at least the following features.
+
+475
+00:50:30,000 --> 00:50:38,000
+First, we need to provide the spider with a list of websites to scrape.
+
+476
+00:50:38,000 --> 00:50:48,000
+And then we need to define a Python function that tells scraped how it can extract the data from a single web page.
+
+477
+00:50:48,000 --> 00:50:51,000
+Let's create our first spider now.
+
+478
+00:50:51,000 --> 00:50:54,000
+So if we saw the output from the previous.
+
+479
+00:50:54,000 --> 00:50:57,000
+So let's go into the quotes example directory.
+
+480
+00:50:57,000 --> 00:51:02,000
+And then the output from the previous scraped start project command.
+
+481
+00:51:02,000 --> 00:51:08,000
+Give us a little hint that we can use scraped jense spider.
+
+482
+00:51:08,000 --> 00:51:11,000
+And then all call this quotes.
+
+483
+00:51:11,000 --> 00:51:19,000
+And we want the next argument we give it is the URL that we have like it to scrape.
+
+484
+00:51:19,000 --> 00:51:23,000
+So here we'll do quotes.to scrape.com.
+
+485
+00:51:23,000 --> 00:51:27,000
+So the commands here are scraped jense spider.
+
+486
+00:51:27,000 --> 00:51:30,000
+Because that's what we would like it to do.
+
+487
+00:51:30,000 --> 00:51:33,000
+And then we name our spider here. I'm going to call it quotes.
+
+488
+00:51:33,000 --> 00:51:42,000
+And then we have the URL that we're supposed to be scraping, which here is quotes.to scrape.com.
+
+489
+00:51:42,000 --> 00:51:44,000
+I'll execute this.
+
+490
+00:51:44,000 --> 00:51:47,000
+And it will create for us a new file.
+
+491
+00:51:47,000 --> 00:51:49,000
+So I'll do tree again.
+
+492
+00:51:49,000 --> 00:51:54,000
+And here we see that.
+
+493
+00:51:54,000 --> 00:51:58,000
+Before the spider's directory had only an init.py.
+
+494
+00:51:58,000 --> 00:52:04,000
+And now there is an init.py in addition to a quotes.py file.
+
+495
+00:52:04,000 --> 00:52:15,000
+Let's go ahead and we can go into this file and take a look around.
+
+496
+00:52:15,000 --> 00:52:21,000
+So we see here that.
+
+497
+00:52:21,000 --> 00:52:28,000
+Oops. We may have messed up. It looks like we shouldn't have passed HTTP with our jense spider command.
+
+498
+00:52:28,000 --> 00:52:31,000
+So we'll delete that.
+
+499
+00:52:31,000 --> 00:52:41,000
+And what should have done is we should have done jense spider with just quotes.to scrape.com.
+
+500
+00:52:41,000 --> 00:52:48,000
+So to rectify the mistake we made, we'll just delete that duplicate HTTP colon slash slash.
+
+501
+00:52:48,000 --> 00:52:50,000
+So now it's happening here.
+
+502
+00:52:50,000 --> 00:52:56,000
+Is scrape.com has created for us the skeleton or the outline for a class.
+
+503
+00:52:56,000 --> 00:53:04,000
+The first thing we'll notice is there's a class called quotes spider.
+
+504
+00:53:04,000 --> 00:53:08,000
+And there is a name property on this class.
+
+505
+00:53:08,000 --> 00:53:10,000
+Set equal to quotes.
+
+506
+00:53:10,000 --> 00:53:15,000
+This is coming from the argument we passed to the jense spider command.
+
+507
+00:53:15,000 --> 00:53:19,000
+We said we wanted to create a new spider named quotes.
+
+508
+00:53:19,000 --> 00:53:25,000
+Let's go ahead and we remembered that and applied it both here on this line and on the one above.
+
+509
+00:53:25,000 --> 00:53:35,000
+Then we see that this quotes spider class that we are supposed to define has a parent class of scrape.spider.
+
+510
+00:53:35,000 --> 00:53:39,000
+Then scrape by setting a few properties.
+
+511
+00:53:39,000 --> 00:53:43,000
+If we wanted to learn more about them, we could look at the scrape by documentation.
+
+512
+00:53:43,000 --> 00:53:49,000
+But based on the names, we can kind of gain some intuition or a gas as to what they do.
+
+513
+00:53:49,000 --> 00:53:57,000
+The start URLs property is a list of URLs that we would like to send our spider to scrape.
+
+514
+00:53:57,000 --> 00:54:01,000
+Here it's only the quotes.to scrape.com.
+
+515
+00:54:01,000 --> 00:54:05,000
+Then the allowed domains.
+
+516
+00:54:05,000 --> 00:54:11,000
+What this one actually does is protect our spider from not leaving the website.
+
+517
+00:54:11,000 --> 00:54:13,000
+We intended it to be on.
+
+518
+00:54:13,000 --> 00:54:19,000
+And the reason for this is the parsed method here that we'll talk about really soon.
+
+519
+00:54:19,000 --> 00:54:25,000
+It can return some results in addition to launching the spider on another web page.
+
+520
+00:54:25,000 --> 00:54:31,000
+The reason you might want to do this is perhaps at the bottom of the quotes page,
+
+521
+00:54:31,000 --> 00:54:33,000
+which we'll check out right here.
+
+522
+00:54:33,000 --> 00:54:37,000
+There might be a little button that says next.
+
+523
+00:54:37,000 --> 00:54:47,000
+What we'll want to do is we'll want to make sure our parsed method will click that next button for us so that we can get the next page of quotes.
+
+524
+00:54:47,000 --> 00:54:51,000
+And we can continue to go on and on.
+
+525
+00:54:51,000 --> 00:54:59,000
+And the reason sometimes there may be links that we think might be an X button but actually something else.
+
+526
+00:54:59,000 --> 00:55:03,000
+And they might cause us to leave the website what we're on.
+
+527
+00:55:03,000 --> 00:55:07,000
+But the allowed domains will tell scrape I not to visit any other websites.
+
+528
+00:55:07,000 --> 00:55:15,000
+Okay, so this is all the fine for us and we don't need to change it.
+
+529
+00:55:15,000 --> 00:55:19,000
+What we do need to do is define the body of the parsed method.
+
+530
+00:55:19,000 --> 00:55:21,000
+And that's what we'll be working on next.
+
+531
+00:55:21,000 --> 00:55:29,000
+The parsed method that we will be defining will take as an input a scrape I response object.
+
+532
+00:55:29,000 --> 00:55:35,000
+Similar to the one we were using the CSS method for in our scrape I shell.
+
+533
+00:55:35,000 --> 00:55:47,000
+Then its responsibility is to return a Python dictionary containing one row of data at a time.
+
+534
+00:55:47,000 --> 00:55:59,000
+Let's work through how we might extract all of the quotes as well as their authors for each of the quotes that appear on this page.
+
+535
+00:55:59,000 --> 00:56:05,000
+The first thing we'll do is we will create a quotes.
+
+536
+00:56:05,000 --> 00:56:09,000
+Object by doing response.
+
+537
+00:56:09,000 --> 00:56:11,000
+CSS div.quotes.
+
+538
+00:56:11,000 --> 00:56:15,000
+If you remember each of our quotes was in a div with class quote.
+
+539
+00:56:15,000 --> 00:56:21,000
+Now we will loop over this so that we can produce a dictionary one for each quote.
+
+540
+00:56:21,000 --> 00:56:25,000
+So we'll say for q in quotes.
+
+541
+00:56:25,000 --> 00:56:29,000
+The data is equal to the following dictionary.
+
+542
+00:56:29,000 --> 00:56:39,000
+We can say that the text is q.css where we want to do a span with class text and get the text.
+
+543
+00:56:41,000 --> 00:56:51,000
+Then we need to get the author which is a q.css small dot author text.
+
+544
+00:56:51,000 --> 00:56:55,000
+And then that's all the data.
+
+545
+00:56:55,000 --> 00:57:01,000
+Now what scrape I expects is not to return here if we were to do return data.
+
+546
+00:57:01,000 --> 00:57:07,000
+What would happen just following normal Python control flow is we would enter this loop
+
+547
+00:57:07,000 --> 00:57:15,000
+and we would return a single row and then the function would exit and we wouldn't be able to come back here.
+
+548
+00:57:15,000 --> 00:57:19,000
+So instead of return what we'll do here is we will use the keyword yield.
+
+549
+00:57:19,000 --> 00:57:27,000
+And what this will do is it has the effect of
+
+550
+00:57:27,000 --> 00:57:33,000
+temporarily pausing the function once we create our first dictionary of data.
+
+551
+00:57:33,000 --> 00:57:39,000
+Returning that to whoever is maybe calling it or looping over it.
+
+552
+00:57:39,000 --> 00:57:45,000
+And then when that person or that part of the routine is done we can resume executing our function.
+
+553
+00:57:45,000 --> 00:57:51,000
+So what will happen is when parses first call we'll get our quotes.
+
+554
+00:57:51,000 --> 00:57:55,000
+All of the divs that have a class quote.
+
+555
+00:57:55,000 --> 00:57:59,000
+We'll loop over them. We'll set q equal to the zero element of quotes.
+
+556
+00:57:59,000 --> 00:58:05,000
+We'll get the data for that quote and then we will hand that back to the process that called parse.
+
+557
+00:58:05,000 --> 00:58:15,000
+They can then do what they need to with that data and give control of the program back to us and we'll pick up where we left off.
+
+558
+00:58:15,000 --> 00:58:18,000
+This means we'll start back at the top of our loop.
+
+559
+00:58:18,000 --> 00:58:23,000
+Q will take on the value of the second item in quotes or the item number one.
+
+560
+00:58:23,000 --> 00:58:29,000
+We'll get the data for that item and then we'll return it.
+
+561
+00:58:29,000 --> 00:58:34,000
+Or you will yield execution alongside that data.
+
+562
+00:58:34,000 --> 00:58:39,000
+It can be processed and then that cycle repeats.
+
+563
+00:58:39,000 --> 00:58:50,000
+So at this point we have defined this scraper that should be able to extract all of the quotes in the main page.
+
+564
+00:58:50,000 --> 00:58:56,000
+So let's go ahead and we'll exit our text editor here and we'll run the scraper.
+
+565
+00:58:56,000 --> 00:59:05,000
+So the way we run a scraper is using the scrapy crawl method and we pass it the name of the scraper.
+
+566
+00:59:05,000 --> 00:59:13,000
+And if you remember we had that name property on our quotes spider class where we said name is equal to the string quotes.
+
+567
+00:59:13,000 --> 00:59:17,000
+So that's what we're showing right here the quotes string.
+
+568
+00:59:17,000 --> 00:59:21,000
+And then we can do quotes dot say CSV.
+
+569
+00:59:21,000 --> 00:59:26,000
+We wanted to create a CSV file for us containing all that data.
+
+570
+00:59:26,000 --> 00:59:36,000
+We'll go ahead and actually when we hit enter it went through and it shows us the output the logs and it did run.
+
+571
+00:59:36,000 --> 00:59:46,000
+And if we look here inside of this folder in addition to the quotes example interval there we now have a quotes dot CSV file.
+
+572
+00:59:46,000 --> 00:59:54,000
+And if we look at quotes dot CSV we will see that it is empty.
+
+573
+00:59:54,000 --> 01:00:01,000
+Let's open up our spider one more time and make sure that there's not a mistake.
+
+574
+01:00:01,000 --> 01:00:08,000
+Oh, turns out we put div. quotes where the actual CSS class was div. quote.
+
+575
+01:00:08,000 --> 01:00:10,000
+Let's try running it one more time.
+
+576
+01:00:10,000 --> 01:00:15,000
+And if we run this again and now check the quotes dot CSV file.
+
+577
+01:00:15,000 --> 01:00:23,000
+We'll see here that we have a CSV file.
+
+578
+01:00:23,000 --> 01:00:28,000
+With two columns one is text the other is author.
+
+579
+01:00:28,000 --> 01:00:34,000
+The value in the first column will be the value of the text and then the second column contains the author.
+
+580
+01:00:34,000 --> 01:00:52,000
+So this is great. It looks like our attempt to extract and scrape the quotes on that first page was successful.
+
+581
+01:00:52,000 --> 01:00:56,000
+Let's carry on with our slides.
+
+582
+01:00:56,000 --> 01:01:03,000
+As we just saw once we've defined a spider that will yield one row of data at a time we can have scrape i run it.
+
+583
+01:01:03,000 --> 01:01:12,000
+We have scrape i run it by using the scrape i crawl command and we'll pass as arguments the name of the scraper.
+
+584
+01:01:12,000 --> 01:01:18,000
+And then we can pass dash o out file dot extension.
+
+585
+01:01:18,000 --> 01:01:26,000
+We're again the name represents the name of our spider out file dot extension are the name and extension for storing the data.
+
+586
+01:01:26,000 --> 01:01:39,000
+Scrape i is pretty intelligent and in our example when we ran our scraper we passed dash o quotes dot CSV and scrape i created a CSV file for us.
+
+587
+01:01:39,000 --> 01:01:51,000
+If instead we did quotes dot JSON what would happen is scrape i would have created a JSON file containing all of our data.
+
+588
+01:01:51,000 --> 01:01:54,000
+So here we have an array.
+
+589
+01:01:54,000 --> 01:02:00,000
+Instead of it we have JSON objects where each of these has keys offer and text.
+
+590
+01:02:00,000 --> 01:02:12,000
+So just by passing a different file extension, scrape i was able to write out our scraped data to the correct format.
+
+591
+01:02:12,000 --> 01:02:19,000
+Now we only scraped one page from the quotes website.
+
+592
+01:02:19,000 --> 01:02:30,000
+But scrape i actually is smart enough if we tell it what to do to continue scraping on multiple pages and the way to do this.
+
+593
+01:02:30,000 --> 01:02:39,000
+Is there's two steps first we need to find the next URL that we would like scrape i to go scrape.
+
+594
+01:02:39,000 --> 01:02:51,000
+And then we need to call on our response object that scrape i gives us inside of our parse method we need to call the follow method and give it the URL.
+
+595
+01:02:51,000 --> 01:02:57,000
+We'll show you how this is to be done using our quote scraper we've been working on.
+
+596
+01:02:57,000 --> 01:03:05,000
+So back here in our text editor will return to our scraper and after the loop is over.
+
+597
+01:03:05,000 --> 01:03:10,000
+What we need to do is figure out where to go next.
+
+598
+01:03:10,000 --> 01:03:18,000
+If we look back at the web page and scroll down to the bottom we'll see here that there's a next button.
+
+599
+01:03:18,000 --> 01:03:28,000
+Let's open up our developer tools to see how we might be able to figure out where the next button is taking us.
+
+600
+01:03:28,000 --> 01:03:40,000
+So now it looks like this next button is an element of type a.
+
+601
+01:03:40,000 --> 01:03:57,000
+And it points to so the property h graph on an a element is where the URL will point to next so.
+
+602
+01:03:57,000 --> 01:04:06,000
+And in order to extract the next URL what we need to do is we need to.
+
+603
+01:04:06,000 --> 01:04:12,000
+If we look down here there we go there will be a list item with class next.
+
+604
+01:04:12,000 --> 01:04:20,000
+Inside of that there's a child a element with href set to the next URL.
+
+605
+01:04:20,000 --> 01:04:23,000
+So let's see if we can get that in our scraper.
+
+606
+01:04:23,000 --> 01:04:36,000
+We'll go here and we'll say next page is response.css and what we're looking for is a list item with.
+
+607
+01:04:36,000 --> 01:04:43,000
+And we'll go to the next and inside of that there will be hopefully an a element.
+
+608
+01:04:43,000 --> 01:04:53,000
+And we would like to get from it the attribute or property of href.
+
+609
+01:04:53,000 --> 01:04:55,000
+Oh, make it's there we go now fits on one line.
+
+610
+01:04:55,000 --> 01:05:04,000
+Okay, so this right here is how we can extract the next page of quotes to scrape.
+
+611
+01:05:04,000 --> 01:05:12,000
+So because it does seem to be nice, I guess this is if we do it in writing this code.
+
+612
+01:05:12,000 --> 01:05:20,000
+Obviously it does look nice, I think that means we should cut it out twice it will actually be there.
+
+613
+01:05:20,000 --> 01:05:25,520
+We have a list item class equal next, and then there's a child element.
+
+614
+01:05:25,520 --> 01:05:30,320
+We would like to not get its text this time, like we did up above for the author and the
+
+615
+01:05:30,320 --> 01:05:31,320
+quote.
+
+616
+01:05:31,320 --> 01:05:36,240
+But instead, we'd like to get the value of the HREF attribute.
+
+617
+01:05:36,240 --> 01:05:43,080
+The way we do that is we do colon colon, ATTR, which is short for attribute.
+
+618
+01:05:43,080 --> 01:05:49,600
+In parentheses, we pass the name of the attribute we would like to obtain.
+
+619
+01:05:49,600 --> 01:05:56,360
+This is similar, or reminiscent of the colon colon text syntax we used up above.
+
+620
+01:05:56,360 --> 01:06:00,040
+But now it's colon colon attribute, or ATTR.
+
+621
+01:06:00,040 --> 01:06:03,600
+And it's almost as if we're calling a function, and we're telling it, we would like
+
+622
+01:06:03,600 --> 01:06:07,920
+the value of the HREF attribute.
+
+623
+01:06:07,920 --> 01:06:16,360
+Now if we're on this page, what we can do, sorry, for on this page eventually, we'll get
+
+624
+01:06:16,360 --> 01:06:19,560
+to a point where there's no next page.
+
+625
+01:06:19,560 --> 01:06:22,680
+We could maybe there's 10 pages, maybe there's 100.
+
+626
+01:06:22,680 --> 01:06:24,160
+I'm not sure.
+
+627
+01:06:24,160 --> 01:06:28,720
+But eventually, there's probably a last page, and it looks like it is 10.
+
+628
+01:06:28,720 --> 01:06:35,120
+So we'll eventually get to a point where there is no li with class equal next.
+
+629
+01:06:35,120 --> 01:06:39,560
+So it's possible that this next page is empty.
+
+630
+01:06:39,560 --> 01:06:40,760
+It's nothing.
+
+631
+01:06:40,760 --> 01:06:49,000
+So what we'll do is we'll only continue on to a new page if there is an x page.
+
+632
+01:06:49,000 --> 01:06:54,640
+So if x page is not none, what we'll do now is that second step.
+
+633
+01:06:54,640 --> 01:07:01,360
+So if you remember from our slides, we said, we first need to find the link, then we use
+
+634
+01:07:01,360 --> 01:07:04,240
+the response dot follow method.
+
+635
+01:07:04,240 --> 01:07:12,160
+So what we'll do is we will do yield response dot follow next page.
+
+636
+01:07:12,160 --> 01:07:17,600
+And then once we're here, we need to say what to do with it.
+
+637
+01:07:17,600 --> 01:07:23,400
+And I'll show you, let me take this out, and then we'll talk about it.
+
+638
+01:07:23,400 --> 01:07:26,120
+Okay.
+
+639
+01:07:26,120 --> 01:07:36,720
+So what we're doing is we are yielding the return value of the follow method on our
+
+640
+01:07:36,720 --> 01:07:38,520
+response object.
+
+641
+01:07:38,520 --> 01:07:41,800
+And this expects us to handle or pass two arguments.
+
+642
+01:07:41,800 --> 01:07:47,040
+The first one is the URL that we should go to next.
+
+643
+01:07:47,040 --> 01:07:50,040
+And then the second, we need to set a callback.
+
+644
+01:07:50,040 --> 01:07:56,960
+And the purpose of this callback parameter is we need to tell a scrape I what it should
+
+645
+01:07:56,960 --> 01:08:03,360
+do or how it should handle the data that it finds on the next page.
+
+646
+01:08:03,360 --> 01:08:08,400
+And this example, we are saying that the function you should call or you should pass the new
+
+647
+01:08:08,400 --> 01:08:14,680
+response to the response obtained after looking at next page, you should send it to self dot
+
+648
+01:08:14,680 --> 01:08:17,800
+parse, which is sent it back to this function.
+
+649
+01:08:17,880 --> 01:08:22,760
+Now the reason we chose self dot parse was that we're going to be presented after clicking
+
+650
+01:08:22,760 --> 01:08:28,040
+next with another page of quotes that look just like this.
+
+651
+01:08:28,040 --> 01:08:29,040
+It's possible.
+
+652
+01:08:29,040 --> 01:08:34,360
+The reason this exists in this gray pie API is that it's possible that you might find
+
+653
+01:08:34,360 --> 01:08:39,600
+a link to a different type of web page.
+
+654
+01:08:39,600 --> 01:08:42,040
+Let's think of an example.
+
+655
+01:08:42,040 --> 01:08:46,200
+Suppose that we are on a web page for shopping.
+
+656
+01:08:46,200 --> 01:08:49,720
+Let's go to ebay.com.
+
+657
+01:08:49,720 --> 01:08:57,760
+For on ebay.com, what we might be trying to do is let's find the price of all the
+
+658
+01:08:57,760 --> 01:09:00,360
+front page items.
+
+659
+01:09:00,360 --> 01:09:01,360
+So we can go through.
+
+660
+01:09:01,360 --> 01:09:03,320
+We can have our scraper run.
+
+661
+01:09:03,320 --> 01:09:05,720
+It might need to click some of these buttons.
+
+662
+01:09:05,720 --> 01:09:13,000
+When each time it does, it would need to pass the new data back to itself and back to the
+
+663
+01:09:13,000 --> 01:09:14,000
+price extractor.
+
+664
+01:09:14,000 --> 01:09:19,600
+But then we also want to get all the details we can about each item.
+
+665
+01:09:19,600 --> 01:09:24,920
+So if we click over here on an item, here it's an intendow switch.
+
+666
+01:09:24,920 --> 01:09:27,320
+Then we're taken to a totally different page.
+
+667
+01:09:27,320 --> 01:09:33,040
+Now this has other information, like the number of ratings or spend 55 ratings, as well
+
+668
+01:09:33,040 --> 01:09:35,080
+as the average rating.
+
+669
+01:09:35,080 --> 01:09:43,440
+We have more and more information like how you might ship what the shipping costs or what's
+
+670
+01:09:43,440 --> 01:09:45,600
+the return policy.
+
+671
+01:09:45,600 --> 01:09:51,800
+All of these things would probably need to be handled by a product detail scraper.
+
+672
+01:09:51,800 --> 01:09:57,640
+So if we were to write a scraper to get all of the items on this page, we would say,
+
+673
+01:09:57,640 --> 01:10:02,880
+okay, as we're looking for the prices, keep track of those.
+
+674
+01:10:02,880 --> 01:10:06,600
+We will yield the prices instead of our price scraper.
+
+675
+01:10:06,600 --> 01:10:15,680
+But then we will also to response.follow to the detail page for each of the products.
+
+676
+01:10:15,680 --> 01:10:22,160
+And the callback, when we follow to a detail page, should be the product detail scraper.
+
+677
+01:10:22,160 --> 01:10:26,400
+It shouldn't be the price scraper.
+
+678
+01:10:26,400 --> 01:10:31,080
+So hopefully that, that example makes a little more sense of why this callback exists.
+
+679
+01:10:31,080 --> 01:10:37,400
+Sometimes we come across links that need to be handled by a different scraper.
+
+680
+01:10:37,400 --> 01:10:41,120
+Okay, after all that talking, let's see what we're able to do.
+
+681
+01:10:41,120 --> 01:10:50,200
+So we'll go back out and you'll see here that.
+
+682
+01:10:50,200 --> 01:10:54,840
+Let's look at our quotes.csv file and we'll see if I just count the number of lines in
+
+683
+01:10:54,840 --> 01:10:55,840
+the file.
+
+684
+01:10:55,840 --> 01:10:57,640
+There are 11 lines in this file.
+
+685
+01:10:57,680 --> 01:11:04,760
+So when we scraped just the first page, we had one line or one row giving the column names.
+
+686
+01:11:04,760 --> 01:11:08,120
+And then we had 10 rows of data.
+
+687
+01:11:08,120 --> 01:11:10,520
+Let's run our scraper again.
+
+688
+01:11:10,520 --> 01:11:14,680
+And this time, let's see what data it finds.
+
+689
+01:11:14,680 --> 01:11:22,560
+So if we see how long the quotes.csv file is now, we see that it's 101 rows long.
+
+690
+01:11:22,560 --> 01:11:32,400
+So what scraped I did in this one executed program, it went through and it found 10 pages worth of quotes.
+
+691
+01:11:32,400 --> 01:11:36,000
+Now we can look at quotes.csv.
+
+692
+01:11:36,000 --> 01:11:39,840
+And we'll see here that again, it has text and author.
+
+693
+01:11:39,840 --> 01:11:43,240
+And now there are 100 lines.
+
+694
+01:11:43,240 --> 01:11:47,000
+You can see the line number I met over here in the bottom right.
+
+695
+01:11:47,000 --> 01:11:48,680
+And now we have 100 quotes.
+
+696
+01:11:48,760 --> 01:11:53,640
+So this is all the quotes that were available to us on that quotes page.
+
+697
+01:12:00,920 --> 01:12:03,560
+Let's review really quickly how we did that.
+
+698
+01:12:03,560 --> 01:12:10,440
+So if we look at our scraper, we didn't change anything in the first 17 lines.
+
+699
+01:12:10,440 --> 01:12:12,440
+We only added three lines.
+
+700
+01:12:12,440 --> 01:12:14,360
+And here's what they did.
+
+701
+01:12:14,360 --> 01:12:23,240
+The first line found what the next page's link would be if an x page existed.
+
+702
+01:12:23,240 --> 01:12:27,240
+This is the same as this first step over here in our slides.
+
+703
+01:12:27,240 --> 01:12:37,800
+Then if we have an x page, what we need to do is yield the data that comes when we follow that link.
+
+704
+01:12:37,800 --> 01:12:43,360
+And we process the data using the self dot parse method, we just defined.
+
+705
+01:12:43,520 --> 01:12:47,120
+This is the second step here.
+
+706
+01:12:47,120 --> 01:12:55,040
+This is how we can have scraper process one page and then continue processing more pages that it uncoversed.
+
+707
+01:12:55,040 --> 01:13:02,240
+This is also why to run a scraper, we use the scraper crawl command.
+
+708
+01:13:02,240 --> 01:13:05,200
+Because you can think about what our scraper is doing.
+
+709
+01:13:05,200 --> 01:13:11,280
+It will first land on the quotes to scraped.com main page.
+
+710
+01:13:11,280 --> 01:13:15,600
+It will grab this data and then it will move to the next link.
+
+711
+01:13:15,600 --> 01:13:17,360
+And the next one and so on.
+
+712
+01:13:17,360 --> 01:13:26,320
+And you can think about it as if it were crawling through all of the pages on our on the website that we're looking at.
+
+713
+01:13:27,520 --> 01:13:35,920
+If this website were more complicated, where there were maybe three different next links that we could follow that take us to different places.
+
+714
+01:13:35,920 --> 01:13:46,320
+It's almost as if we're creating a web of connected pages and our spider then is crawling from each node in the web to each other node.
+
+715
+01:13:47,600 --> 01:13:54,480
+And that's kind of the imagery the scraped team had when they named things spiders and crawling.
+

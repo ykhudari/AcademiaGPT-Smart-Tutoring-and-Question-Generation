@@ -1,0 +1,269 @@
+So we're very excited for this lecture in which we're going to estimate a Markov chain using some of the employment data that we've talked about.And we'll try to be specific about what we mean by estimate, but some of these are details that we'll learn later on in the class.
+Okay, so let's start with a short digression.We have a friend named Jim Savage who's a statistician, a good one actually.
+And he has thought about the right way to do modern statistical work.And we think that many of the things that he's learned in thinking about this apply to economics as well.
+So let's start by talking about what he envisions as a modern statistical workflow.So he's kind of created nine steps, which seems long, but they're pretty short.
+So step one would be to prepare and visualize your data.So this involves things like data cleaning or making some plots.We did lots of this in a previous lecture with the BLS data and looked at how employment has changed in response to the COVID recession.
+Step two is to create a generative model.And what do we mean by a generative model is all we mean is some probability distribution over outcomes.
+That are a function of some model parameters.And he thinks it's very important that the first model created should be as simple as possible.And the next step is something that lots of people don't necessarily think to do because it's not necessarily natural.But one of the first things you should do is take the model that you've written down.
+And you should now actually generate some data.So we generate a bunch of observations from our model given a particular parameter that we've picked out of a hat.
+And then step four is let's see if we can back out what theta looks like.So we'll call theta hat. The parameter is that we get from our model sitting and see how this compares to theta.And you do that because what you want to know is in step five, you should check that you understand and that you're able to, you know, if you have certain parameters for your model, that your fittingthat your fitting procedure is able to recover those parameters when you know them.Because if it does, if you can't get the parameters that you know, it's very unlikely that you'll be able to find the parameters that you don't know.And he emphasizes that you possibly repeat steps three through five.So two through five with different methods and parameters to get an understanding of how your model works and what fitting procedures seem to be successful.After this. So we've now worked with some fake data. We understand the fitting procedure and how the model works.Now we move on to our real data. So we take the same procedure and do the same fitting procedures on the data that we observed in step one.And then step seven and I, this makes me laugh. So he says, argue about the results with your friends and colleagues. So Jim's not a particularly hard guy to get along with.He's actually very friendly. And so his choice of the word argue. I think tells you a little bit about who you should be talking to about this.You don't want someone that's going to just tell you that it's nice work. You want someone that's going to be able to ask you questions and say, why did you do that?Well, what if you did this instead? So you want someone that's going to push back a little bit.Step eight is then return to step two and work with a slightly richer model and we repeat steps three, four, five, six, and seven.And then once you've done this with a sufficiently rich model, you should think about what decisions are going to be made from this analysis.Figure out what your loss function will be, kind of what are the costs of getting this right or wrong.
+And then you should perform make decisions based on statistical decision analysis.And so later in the semester, we'll talk more formally about what we mean by fitting your model and the work that goes along with it.But right now, anytime we say fit, you should just imagine some type of a procedure that allows us to take a generative model that depends on parameters theta and data and try to get a guess at whatget a guess at what those theta parameters are if we could not see them.And so we're going to go ahead and do some of these steps on the labor data to see if we can work through this process.So what's our plan for this lecture? Well, we're going to actually skip steps one. We've already mostly done step one.We created some graphs, we cleaned the data. So we're going to take that as given.And then the plan for the remainder of this class and this probably will go into our next class is to work through some of the remaining steps of a modern statistical workflow.So we're going to develop a generative model of employment and unemployment.
+We're going to use that model to simulate some fake data from our generative model.We're then going to fit that model using simulated data and we'll tell you explicitly how we're going to do that fitting.Then we're going to explore some options that we might have had for having for how we could choose to fit the data.Then we're going to fit the model with the BLS data. And finally, we're going to examine what our model implies for the effects of COVID on employment and unemployment.So again, we won't get through all of these today. It's an ambitious lecture, but I think we're going to have a lot of fun along the way.
+Okay, so let's develop a generative model.So Jim's recommendation is that the first model created should be as simple as possible.So in the spirit of as simple as possible, we're going to return to the model that we talked about in class when we talked about Markov chains.
+So we're going to consider a single individual.This individual is going to move between two states, employment and unemployment.
+When an individual is unemployed, they're going to find a new job with probability alpha.So we'll call this the job finding rate.
+And while an individual is employed, they're going to lose their job with probability beta.
+So we'll call this the job separation rate.And that's it. That's our model.
+So our model is entirely defined by two parameters, an alpha, which is the job finding rate, and a beta, which is the job separation rate.Okay, well, we now have a generative model.
+So the next step is for us to actually simulate data from this generative model.
+And we're going to do this in two steps.So first, we're going to take an individual's state of employment or unemployment, and the transition probabilities, which are our parameters.And then we're going to draw from tomorrow's state and determine whether that person will be employed or unemployed.Next, once we have what we're going to call the one step transition, we're going to specify, we're going to create a function that takes an initial state and the parameters.And that can then simulate the entire history of employment or unemployment using our one step function.
+So let's start doing this.
+So how can we simulate the one step function?So we're going to specify again, we highly encourage everyone to when they're writing code, follow good coding habits and write documentation.So our function called next state is going to take three arguments.
+It's going to take an ST, which is an individual's current state.And we're going to specify ST equals zero is going to map to unemployment and ST equals one is going to be employment.There's going to be the alpha, which is the job finding probability, and there's going to be the beta, which is the job separation.And so what it's going to return, this is actually, I should have written this documentation previously, but it's going to return an ST plus one, which is also an integer.And it's going to be the individual's employment state in period T plus one.
+Okay, so what are we going to do?Well, the first thing is there's going to be some random randomness in whether an individual transitions from one state to another.So we're going to draw our random number up front, just that we don't have to do it multiple times.
+Then, and so this random number is going to be drawn from a uniform zero one.So this is coming from uniform zero one.
+So if an individual is unemployed, so this is ST equals zero, then we want to know whether they become unemployed or employed.Well, they find a job with probability alpha.
+So there's lots of ways that we could potentially do this, but the easiest is what's another event that has probability alpha.Well, if X is distributed uniform zero one, then the probability that X is less than alpha is equal to alpha.And so what we do is we say if an individual is unemployed and our random number is less than alpha, so this is our probability alpha, then they transition from unemployment to employment.Similarly, if an individual is employed, so this is ST equals one, then they could either become unemployed or employed.
+And they do this with probability beta, they become unemployed.And so we check whether the number was less than beta.
+And if so, then they become unemployed.
+Otherwise, their state stays the same. It doesn't change.So this means either UT was greater than alpha or UT was greater than beta.
+Or you gave us a state that was incorrect.So we also could have added a check at the front to make sure that S sub T was less than or equal to one.
+But we're going to be the ones using this code, so it's probably okay.So one thing we wanted to point out was that this function actually depends on the Markov property, which we've previously discussed.In case you don't remember, the Markov property states that the probability of ST plus one given ST, so the probability of a state tomorrow given the state today, is the same as the probability of STprobability of ST plus one given ST minus one dot dot dot S zero.And what this means is other than the transition probabilities, we only need to give the function the previous state and not an entire history.And so that's why in this function, we can specify that ST is just an integer, just a single integer.And again, we've started with the simplest model we could have. And so this is just purely by assumption.Okay, well, now we've written some code. Did we run the code? I'm not sure. So just double check.And whenever you write a function that will be used kind of frequently, oh, you forgot code from even earlier.
+There we go. So we forgot to import our packages.Let's just re-run that. Okay, perfect. So once you've written a function that's going to be used somewhat frequently, and just in general, if you write a function, it's a good idea to create someidea to create some simple test cases.So what we're doing here is we have an individual who's starting in state zero.And they're transitioning to unemployment with about probability one half. So we should expect to see about half ones and half zeros.
+And, you know, modular randomness, that seems to be the case.Okay, so what other checks can we do?
+We set the probability of going from unemployed to employed. So if we set the alpha to zero, then the individual should stay unemployed.Well, that works. Likewise, if we set the job separation probability to zero, then an individual who is currently employed should stay employed.And likewise, we can set the job finding probability to one, and then an individual who is unemployed should always find a job. That works.And we can set the job separation probability to one and check whether an individual who is currently employed will become unemployed next time.And even if we ran all of these things, because we've set the probability to one, they're not going to change.Okay, great. So now we can simulate, we can simulate a single step. And so all we have to do is now be able to simulate an entire history.And we do want to advise you, eventually we're going to allow alpha and beta to change over time.So we want you to think of them as constant for now, but we're going to write this code in a way that allows them to fluctuate period by period.And the way we'll do that, notice you can see this in the documentation, is alpha and beta are both numpy arrays and they're going to have type of float.And each element is going to be a probability that an individual finds a job or loses a job.And then the other thing we're going to specify is the initial state of unemployment or employment that an individual is in.So in order to be able to take our first step, we need to know whether someone was employed or unemployed.So we're going to do some test checking first. So we're going to make sure that alpha and beta were the same length.
+And we're going to call their length t.And then we're going to make room for a history of employment or unemployment.
+We're going to set the first value to our initial state.
+And then we're going to do t steps.So how do we do that is we compute the next state by giving it the previous state and what the transition probabilities for that period are, which are alpha, t, and beta, t.And then we're going to save the new value back into s0. And this is just to kind of keep a minimum number of variables here.
+So then we'll save that value into our array.And then we'll return our history of employment or unemployment.
+Okay, well, let's check the output of this function.So we're going to set the job finding rate at 25, 0.25, and the job separation at 0.025.
+And let's see what happens.
+Well, an individual who is employed is likely to instate employed for a long time.So we see it takes a long time to lose a job because you're only losing it with probability 0.025.
+Well, if we run it again, now let's start an individual as unemployed and see what happens.And it doesn't take very long for them to find a job. And that's because the probability of finding a job is 0.25.
+And so you should kind of expect this to take 256.This person, I guess, was really unlucky.
+And then continued to be unlucky because they eventually became unemployed.
+But you get the idea. And the output of this function seems to be sensible.So we'll call that a success.
+Great. So we've now completed step two, which is define a generative model.
+And step three, which is simulate data from your generative model.And now we're going to come to step four, which is going to be fit your model to fake data.There's a lot of different procedures that we could have chosen to map our data into the implied parameters.So remember, fitting our model is just going to be a procedure in which we uncover unknown parameters of our model.The way we're going to do this for our mark off chain is just by counting the frequencies of transitions.
+So let's start by thinking about the general case.
+So consider an N-state mark off chain.The parameters of an N-state mark off chain are going to be the elements of the transition matrix, capital P.
+So what do each of these P's stand for?So remember that P sub 1, 1 stands for the probability that an individual in state 1 is in state 1 next period.
+P12 is the probability that an individual in state 1 is in state 2 next period.That, that, that.
+So let why not Y1 to Yt be a sequence of generations that are generated from our N-state mark off chain.Then the proposed fitting procedure we're going to use is going to assign the following value to PIJ.
+We're going to sum up over all of the T's. So let's have a sample.So again, we're going to use a two-state mark off chain at first.
+Okay, so we have 7. That's enough.
+Okay, so it's going to sum up over our 7 values.
+And the 1 in bold like this is a function.And so this is quite equals S.
+It's called the indicator function.
+And it takes the value 1 if the condition below is true and zero otherwise.So let's go ahead and compute P00 according to this formula.
+Okay, so we're going to look for places where the sub T observation is equal to zero.
+So this one is equal to zero.This one is equal to zero. And this one is equal to zero.
+And so now we want to know this is going to be one times is YT plus one equal to also zero.
+Nope. So that gets a zero.These will all be zeros just because they're not zeros.
+And then we're now going to do zero.
+So that gets a one.
+And T plus one is also equal to zero.
+So that gets a one.So that gets a one.
+So this is, and then the last one is going to transition from zero to one.
+So it will get a zero.And if we sum up over all of the places that YT was equal to zero, we get one plus one plus one.
+So this comes out to one over three.And so we think there's a lot of potential intuition in understanding this.
+And we believe this procedure is intuitive.And if it's not necessarily intuitive, I think the right place to start is to compute the sum across the PIJs for a given I.
+Where these PIJs are defined by this procedure.And you should think about what value do you get?
+And why do you think you get that value?
+You might, you might already see it.But if you don't, this is kind of a, we find something, things like this to be useful exercises and understanding how the fitting procedures work.Okay, so let's write some code that can count frequencies.
+So our function is going to compute the transition probabilities for a two-state mark-off chain.
+So we're going to specialize.The input is going to be a history with the state values of the two-state mark-off chain.
+It's going to return two values, an alpha and a beta,where the alpha is going to be the probability of transitioning from state zero to state one, and the beta is from state one to state zero.
+So how do we do this?Well, the first thing is, let's check what the length of the history is.
+So how many observations did we see total?And then we're going to create this little IDX, so this stands for index, and it's just going to be a counter.
+So this will take the values zero, one, two, two, two, t.And now what we're going to do is, let's find all of the places where the history was equal to zero.So this is going to give us some truths and falses, this right here, based on whether that element of the history was zero or not.And we want to make sure we're not looking at the last step, because we won't be able to see what comes after it.
+And we do the same things for the ones.And so what does our counting procedure look like here?
+Well, let's go ahead and sum up all of the, so this is kind of clever.
+So let's talk through it.
+So zero, one, one, zero, zero.So we've created zero IDXs, true and true.
+Zero, one, two, three, four, five, six, seven.
+Okay, so let's talk through what each of these things are.
+So IDX is these numbers from zero to t.History equal equals zero is going to give us true, false, true, false, false, true, true.
+And that and IDX less than t minus one is going to give us true, true, true, true, true, true, true, false.And so then if we index with those truths and falses, we're going to get the numbers zero, two, and six.Because these are values in which the history is equal to zero and are not the very last value in our observation.
+Okay, now we're going to sum up the history zero IDXs plus one.So the IDXs, so now we're moving them from zero to one, two to three, and six to seven.
+So that's going to be this value, this value, and this value.And we're going to sum them up. And so we get two.
+And we're going to divide it by the length of these indexes, which was three.And we see that's because we moved from the state zero to one, two times, and from zero to zero, one time.
+And likewise, we do the same thing to compute the beta.Except now we're looking at the indexes that are ones.
+And so we want to know when they were zeros.
+And so to get that, we do one minus.Because if we do one minus zero, it will be equal to one. So they will each count as one.
+And when it's one, it will be one minus one. So it will get set to zero.So if you didn't quite follow that, you should take a minute and break out each of these pieces of the function.
+And think about what's happening.And I often, when I write code, I break my code into as natural steps of possible.
+So in this case, I'm thinking about this as kind of pre-analysis.In this step, I'm finding out where the zeros and the ones are.
+And in this step, I'm using where the zeros and the ones are to figure out what the corresponding counts should be.Okay. So now what we're going to do is we're going to use this count frequencies individual to check the accuracy of our fit.
+Let's see if we know what our parameters are.Can we uncover them if we pretend that we don't know them?
+So we're going to use this function and it's just going to be a length of simulation and some parameters for alpha and beta.It's going to create the arrays that we pass into our simulation.
+We'll then simulate to create an employment history and we'll always start the individual as unemployed in this case.So you can think about this as someone who's graduated from college and is initially unemployed.
+We're then going to count the frequencies and we'll call these alpha hat and beta hat.And then we're going to print out what the true alpha was and what the fitted value was.
+Okay. So let's check the accuracy.Let's simulate for 10,000 periods with the same probabilities that we've been using.
+So what we find is we get rather accurate results.So you'll find that all of the numbers we've had so far have been within a percent or so.So that's good news. So it means that if we have enough data, our fitting procedure is recovering the true parameter.
+Well, let's now think about what the interpretation of this is.So we're viewing this as monthly transitions and employment.
+So if we observe 10,000 months of employment history for someone, that's a very long time.We're unlikely to have that much data on anyone.
+And so that's just not going to be what our data looks like.
+So what happens if we have less data?So maybe we have a lifetime of employment transition.
+So this is someone who works for 45 years for 12 months a year with the same parameters.And you'll immediately notice that before all of our values were in the 0.24, 0.26, I think we had a 0.27.
+And now we're at 0.15 when the true value is 0.25.I wouldn't call that a disaster, but you're certainly not as accurate.
+We could get a 0.3.
+And you see, it just really depends on what the particular history is.
+This one's particularly inaccurate.It just depends on what sequence of draws you get.
+And you can't quite tell.
+But again, it's unlikely that we have an entire lifetime of employment transitions for very many people.And you might not even want to do that because you think there are structural changes in how employment has worked.
+And so what if we just look at two years?
+What's going to happen?Well, it's not terrible.
+We're getting the job separation rate very wrong.
+If we rerun this, so this person over two years.
+So they became employed.And once they were employed, they never became unemployed again.
+And what you see is our fitting procedure gets very noisy.
+So what could we do to deal with this?
+How could we fix this?So the BLS doesn't actually base their transition probabilities off of a single individual.
+Instead, they're using an entire cross section of individuals.So can we do the same thing if we use a cross section rather than a single individual's history?
+The answer is yes.The answer is yes.
+But in order for our frequency counting to work, what we need is we need job finding and job separation to be independent across individuals.So in our previous case, all of the work was being done by the Markov property.We simply assumed that the transition from one state to the next today was independent of the transition from one state to the next tomorrow, conditioning on what the current state was.So what happens?
+So when could this break?So again, so formally, what we're saying for independence is that the joint distribution over S i t plus 1 and S j t plus 1 where i and j are individuals in our cross section, conditional on theiron their previous states and the parameters.Independence is going to be that that joint distribution is equal to the product of their marginal distributions.
+So what's the probability of S i t plus 1 given S i t and the parameters?Times the probability of S j t plus 1 given S j t.
+So what could violate this?
+Well, we thought of three examples.
+I'm sure there's lots of others that lots of others that someone could think of.But one example might be there's a changing government policy for one year.
+That results in a job guarantee.Well, then if two individuals are unemployed, then finding a job is not necessarily an independent event.
+You could have a technological change that results in the destruction of an entire industry.And if that happens, then there's going to be lots of correlated job loss.
+So everyone who worked in that industry is likely to lose their job.
+Kind of temporarily, you may also see a recession.And this recession could cause increased firing across the country.
+As a spoiler alert, some of these problems, some of these are going to be problems that are active in the data.And this is actually why we're going to allow for the fact for alpha and beta to move each period.Because we think at least roughly the transition from employment to unemployment or unemployment to employment is close to independent on a period by period basis.And I think you could show examples of where that's not true.
+But we're just going to assume in our model for now that it's true.
+So how could we simulate a cross-section?So we're going to give it, give our function an alpha and beta.
+And these are going to be the same function of the same arrays that they were before.Then we're going to give it an s0, but we're going to change what s0 is and what the interpretation is.s0 is now going to be an array with two elements that represent the fraction of the population that begins in each employment state.And then we're going to specify a number of individuals that will be in our cross-section.
+The output is going to be an n by t matrix that contains individual histories of employment along each row.So what we're going to see is we're going to get the history.
+So we'll call this person zero and period zero.Then we're going to see person zero in period one all the way until person zero at period t where t is again going to be the length of alpha and beta.
+Then there's going to be person one.We're going to observe them in period zero.
+We're going to observe them in period one all the way up to t dot dot dot.
+And we're going to store this in a big matrix.Okay, so how do we do this? We check sizes again.
+We're going to check to make sure that you gave us two fractions that add up to one.And then we're going to figure out based on the number of individuals that the fraction of individuals that should be employed.
+How many should start as unemployed?And so the first n z individuals will all start as unemployed.
+We're going to allocate room for us to store these employment histories.And we're going to set all of the individuals who start employed.
+We're going to set their states to one.And then this turns out to be pretty easy because we've already done the work where now we can simulate the employment history.
+And we've already explored this function.It just simulates a single individual's history.
+And we're going to give them the initial state that they'll start in.
+And we're just going to store those values into the array that we've allocated.And then we're going to return it.
+And let's see what happens when we simulate 10 individuals for two periods.
+And we specified that roughly 35% of the individuals should be start as unemployed.So we rounded down and we got three.
+And so two of these three found jobs. One did not.
+And of the seven that were employed, all of them stayed employed.
+So this seems plausible.So this is just with one transition.
+We could increase the number of transitions.
+And so now we have zero, one, two, three.
+So that function seems to be working.Just as a matter of practice and kind of keeping with our data.
+If we, when we import real data into Python, we're typically going to import this data into a data frame.So let's go ahead and keep our simulated data in a data frame as well.
+So we're going to allow to give it a data frame that's going to have the alpha and beta.So the job finding and separation probabilities.
+We're going to specify again the S naught is the fraction of the population that begins in each population state in each employment state.And we're going to have an N, which is the number of individuals in our cross section.
+And so all we're going to do is we'll make sure that our alpha's and beta's are ordered by their date.We'll extract the alpha and beta arrays.
+We'll simulate our entire cross section.
+And we'll dump the output into a data frame.
+Okay.
+So let's see whether this function works.So we're going to simulate.
+Let's initially just do six months.
+And we're going to have alpha equal to the same thing that's been forever.
+Dates are going to start in January 2018.And we're going to go forward six months.
+And let's see what comes out.
+So we have a single person.
+Oh, we just are looking at the head.
+So let's look at 12.So we're going to see this person, person zero.
+We're going to observe their employment history for six months.
+So this person took five months of being unemployed.And in their six months, they found a job.
+Person one was unemployed for two months.
+And then found and held a job for the remainder of their simulated history.And obviously we can increase how many simulations we do.
+And it continues to work.
+So this is good news.
+Okay.
+So just to keep it interesting,
+let's actually pretend that we are the BLS.And so the BLS has their hands tied and are actually not able to observe
+an individual's entire employment history.
+So what we're going to do is we're going to take our full employment historyand we're going to restrict it.
+And we're going to pretend to ask the individuals from our generative model,
+the CPS questions.
+So if you remember,So if you remember,
+so if we have January, February, March, April, May, June, July, August, September, October,
+November, December,
+so if an individual,
+and we'll call this year one and year two,if an individual begins interviewing with the CPS in February of year one,
+they're interviewed in February, March, April, and May.
+And then they are left out of the survey for eight months.And they're interviewed again in February, March, April, and May.
+And then they're no longer interviewed.
+Okay.
+So how could we do that?So what we're going to do is this is going to take a single individual,
+simulated employment and unemployment history.
+And it's going to interview that individual.So the inputs are going to be a data frame that have the columns person ID.
+So who are we talking to?
+DT, which is in what month are we talking to them and employment.And then we're going to have start year and start month as when the interviews occur,
+and when the first interview occurs.
+And so now the CPS is going to be a version of this data frame,but it's only going to contain the observations that would correspond to the CPS schedule
+for someone who starts interviewing and start year start month.So the way we're going to do this is we're going to create some date ranges.
+And we're going to talk about, we'll talk about these when we talk about pandas, dates,
+and how to work with them.And we're just going to put these together.
+So we're going to start four months of observations in our first year.
+And then we're going to start four months of observations in our second year.And then we're only going to keep data that's in those two sets of dates.
+And so how do we interview someone is we're going to pass this function.
+So we're going to do CPS interviews.We're going to give it some a data frame.
+And then we're going to randomly sample from our year.
+Let's go ahead and make this an X.
+And then we're going to group by the person IDs.And so we're going to randomly choose a year and an integer.
+And then we're going to group by the person IDs.
+And we're going to interview that person and get a subset of the data.And then we're just going to drop some of the extra indexes that show up.
+So this will take a minute or so to run.Okay, so now that we've let this finish running, let's go ahead and see what this data looks like.
+So let's regroup.
+We've room to see about 25 observations.So individual zero was interviewed in October of 2019.
+I see.
+So this person we stopped interviewing them in 2020 because we haven't seen those states yet.Okay, so yeah, because we started interviewing in 2018, 0101.
+And we simulated two years of history.So because we interviewed this person in October of 2019, we stopped all of our interviews in January of 2020.
+So this person's employment history was cut short.But this person started in April of 2018.
+So let's go ahead and look at what happened to them.
+So person one was interviewed in April, May, June, July of 2018.And then April, May, June, July in 2019.
+So this looks, this looks accurate.
+Let's go ahead and see how many individuals are we observing per month.So if I remember, I believe we interviewed 5,000 individuals overall.
+So we're going to interview 5,000 individuals over the course of two years.And so what you see is as we start interviewing people, there's not very much data because this is when all of our employment history starts.
+And we're going to add about 200 people per month.And because of that, by the time we get to April of 2019, we're adding 200 people a month, which means that we have200 people times four months because you could happen in any of four months that you're interview, that you end up, you could start in any of four months and be interviewed in April.So if you were interviewed in, if you started being interviewed in January, then you are still being interviewed in April, same with February, March and April.And so that gives us 800 and there's about another 800 that come from individuals who started being interviewed in the four months from last year.So once our interview has started, we expect to see about 1,600 people per interview and that seems to line up with what we're seeing.So all of this is good. So now what we're going to do is we're going to go ahead and fit to the cross section.So our data looks exactly like what the BLS uses. So how can we modify our frequency of transition concept to account for the fact that we're now observing cross sectional data?So the parameters of the Markov chain are still going to be the elements of our transition matrix P.But now our data is going to be, remember, Y0, Y0, Y0, Y0, Y0, Y0, Y0, Y0, Y1, Y1, Y1, Y1, Y2, and that's what we get from here.
+So Y0, Y1, Y0, Y1, dot, dot, dot.So the way that we're going to do this is we're simply going to add an additional sum.
+So if we look at this equation here, we're doing the exact same sum as before.But now we're going to add a sub M to stand for individual.
+And we're going to check whether that individual experienced state i during period t and state j in t plus 1.And then we'll do the same thing for the bottom.
+So not much new there.
+So how could we do this?
+There's some clever pieces of this function.
+So I'm going to walk through it.But again, I'd invite you to come back and think carefully about each step of this function.
+So our input is now just going to be a sample of individuals from our CPS survey.So this is going to have columns dt, pid, and employment.
+And the output of this function is going to be alpha and beta, which is the job finding and job separation rates.So the way that we're going to do this is the first thing we'll do is we'll put date and person ID on the index.
+Then we're going to extract the date values.So this is just going to give us all of the date values.
+And we're going to do dot shift 1 by months.
+And so what is this going to do?
+Don't do that.
+What is this going to do?This is going to transform 202001-01-2020-02-01.
+So we're simply going to move things forward one month.
+And you'll see why we do that in a second.The next thing we do is just extract all of the associated person IDs.
+So these are two vectors that are the same shape, same height as the original data.Then we're going to create another index that has the shifted dates and the original people person IDs.
+And now we're going to re-index the original data by using this new index that we've created.And so then we're going to reassign the column employment to unemployment t plus 1.
+So what this is going to give us is we're going to have dT and PID and employment,which will eventually be named employment t plus 1.
+And it's going to associate.
+So we'll have 2020-01-01-02-01, person 0, and their employment value in February of 2020.And what's going to happen is we won't have a value for January.
+But this will be the same size as our original data frame.
+So now we're going to reset the index on both data frames.So dT and PID will become columns.
+And then we're just going to concat them horizontally.
+So we're going to set access equals 1.And we're going to keep dT and PID and employment from the original data frame.
+And we're only going to keep employment t plus 1 from the new data frame, from the data t plus 1.And then we're going to drop any missing values because these are associated with when the individual stopped being interviewed.
+And then we're going to make sure things are integers again.And so what we're going to have is we're going to have data frame that has dT, PID, employment, and employment t plus 1.
+And this is going to have a date, a person ID, and an employment status.So let's say that the individual was unemployed and that in t plus 1 they were employed.
+And then we're going to see the next month's date.
+So this is going to be February 1st.And now we're going to have the same person ID except their new employment must look like this.
+Must line up with what the t plus 1 said.
+And so that's what all of this code is going to do.And then this could be in 1, which would mean that there would be a 1 here until we get, we had a missing value, but we would have dropped that row.
+So that's roughly what all of this code does.And so once we have the t's and the t plus 1's, we can just do exactly the same thing we did with the other frequency counting function, where we find all of the zero states, and we take the meanwe take the mean across just the one values or the mean of 1 minus the zero values.So we're also we're going to write another function to check for the accuracy of our cross sectional work.
+So what happens when we have 1000 individuals, we observe them for up to two years.And these are our alpha and beta.
+There we go. So that looks pretty accurate. This will again take another second.So that's not so bad. It's not as good as when we had 10,000 observations, but it's pretty good.We do it with 500 observations. We see some success. We're going to see that this is less successful than with 1000, but it performs relatively well.And by the time we get down to 100, our data starts being pretty noisy again.
+And so if you think about this, the BLS is interviewing approximately 60,000 individuals per month.And so if this generative model is correct, we should expect that what they're doing is pretty accurate that they're uncovering the right transition probabilities.So I think this is this is good news in terms of what we've learned for our generative model and our fitting process.And so the last thing we're going to do is actually we're going to go ahead and take our model and we're going to fit it with real CPS data.So we've downloaded and cleaned for you. You're welcome. A subset of CPS data for the years 2018 and 2019.
+So let's see what our constant parameter model does with this data.So let's go ahead and load our data. We'll take a look.
+Notice this looks very similar to the data we've been generating. We have a date time.We have a person ID, but they create their the CPS creates their person ID slightly differently in that the ID is generated by using the first four, the first four digits is generated by the yearby the year that their interviews begin.And the next two digits are generated by the month in which they are first interviewed.
+So their person IDs are more meaningful than our numbers 0, 1, 2, etc.So let's find some employment histories. So what we're going to do is we're going to group by the person ID and we're going to count how many times a DT shows up and we're going to sum up how manyto sum up how many periods they were employed for.And then we're going to sort by these counts and look at the bottom.
+So we're going to just grab one of these identifiers and we can see an individual's employment history.So this person started being interviewed in June 2018. They were employed and they continued to be employed for all four months in which they were observed for 2018.And then when we return in 2019, this individual is still employed and continues employed throughout the remainder of their history.So let's try and find someone that's not employed for the entire time. So let's search for IDs in which we have eight observations for date time.But the sum of the employment states is less than eight. So previously I picked this ID out of a hat. It looks like there's plenty of others that we could have chosen.And so what we see as this person was was employed in 2018 in July was when they began their interviews and they were employed for all four months that we observed them in 2018.But fast forward to 2019, we now see that this person is employed in July, but they lose their job from July to August.
+And during September and October, they continued as an unemployed individual.Let's see if there's someone who finds a job. Oh, yeah, so here's someone. They have an unfortunate history, I guess.So this person was employed for all of their 2018 interviews. They were employed for their first 2019 interview became unemployed, then became employed again, and then became unemployed again.So I don't know what had happened, but there we go.And so now since we've done all of the work and we've our data is in our clean format, all we have to do is apply our CPS count frequencies function, and it's going to return to us two numbers.It's going to return an alpha and a beta. And the alpha is going to be the job finding probability. So notice in 2018 and 2019, these were relatively good economic times.And so there was lots of job finding. So the probability of finding a job, if you were unemployed, was about 0.37.
+And the probability of losing your job was only about 0.01.And so that kind of wraps up what we're going to do today. We're going to continue this lecture. So recall one of the goals that we have with this lecture is to kind of build a model, fit it, andmodel, fit it, and then do some kind of forecasting or prediction where we start thinking about what could happen in the future.And to do that, we're going to talk about a model in which these transition probabilities, the job finding and job loss rates can fluctuate over time.And we're going to see what comes out of that model next time. So talk soon.

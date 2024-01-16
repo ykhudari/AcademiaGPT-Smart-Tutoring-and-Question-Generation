@@ -1,0 +1,996 @@
+1
+00:00:00,000 --> 00:00:07,880
+Hi everyone, we're going to start today's lecture by introducing a new data set.
+
+2
+00:00:07,880 --> 00:00:12,680
+This data set is from a company called Instacart.
+
+3
+00:00:12,680 --> 00:00:18,080
+Instacart is an online grocery retailer that sells and delivers grocery products.
+
+4
+00:00:18,080 --> 00:00:23,880
+The data that we'll use today comes from a subset of their data that they open sourced,
+
+5
+00:00:23,880 --> 00:00:29,840
+which includes 3 million different Instacart orders and contains data on which
+
+6
+00:00:29,840 --> 00:00:36,200
+particular items were ordered and which customer made each particular order.
+
+7
+00:00:36,200 --> 00:00:39,800
+As usual, we're going to import the package we need.
+
+8
+00:00:39,800 --> 00:00:44,000
+For this lecture, it will just be pandas because we're only working with a little bit
+
+9
+00:00:44,000 --> 00:00:47,840
+of data.
+
+10
+00:00:47,840 --> 00:00:53,600
+So this data set was initially released as a part of a Kaggle competition.
+
+11
+00:00:53,600 --> 00:00:59,560
+Instacart described this data set in the competition description saying the following.
+
+12
+00:00:59,560 --> 00:01:04,280
+The data set for this competition is a relational set of files.
+
+13
+00:01:04,280 --> 00:01:06,360
+You should remember this term.
+
+14
+00:01:06,360 --> 00:01:10,160
+We're going to come back to talking about this in the next video.
+
+15
+00:01:10,160 --> 00:01:13,160
+Describing customers orders over time.
+
+16
+00:01:13,160 --> 00:01:18,920
+The goal of the competition is to predict which products will be in a user's next order.
+
+17
+00:01:18,920 --> 00:01:23,440
+The data set is anonymized and contains a sample of over 3 million grocery orders from
+
+18
+00:01:23,440 --> 00:01:26,360
+more than 200,000 Instacart users.
+
+19
+00:01:26,360 --> 00:01:31,200
+For each user, we provide between 4 and 100 of their orders with the sequence of products
+
+20
+00:01:31,200 --> 00:01:33,680
+perched just in each order.
+
+21
+00:01:33,680 --> 00:01:38,520
+We also provide the weak and hour of day the order was placed and a relative measure of
+
+22
+00:01:38,520 --> 00:01:40,800
+time between orders.
+
+23
+00:01:40,800 --> 00:01:44,040
+For more information, see the blog post accompanying its public release.
+
+24
+00:01:44,040 --> 00:01:49,680
+So we've linked to this blog post and we're also adding a citation that they ask that
+
+25
+00:01:49,680 --> 00:01:58,640
+if we use this data source that we appropriately cite them.
+
+26
+00:01:58,640 --> 00:02:03,760
+Now let's start diving into the data and seeing what's contained.
+
+27
+00:02:03,760 --> 00:02:12,800
+The first file that they distribute as part of this data set is one called Isles.csv.
+
+28
+00:02:12,800 --> 00:02:20,480
+This file just contains some meta information about something they refer to as Isles.
+
+29
+00:02:20,480 --> 00:02:26,800
+They have an Isle ID which is just an integer and an Isle which is a string named describing
+
+30
+00:02:26,800 --> 00:02:27,800
+the integer.
+
+31
+00:02:27,800 --> 00:02:34,520
+For example, Isle ID 1 corresponds to prepared soups and salads.
+
+32
+00:02:34,520 --> 00:02:40,280
+Isle ID 4 corresponds to instant foods.
+
+33
+00:02:40,280 --> 00:02:48,920
+As we could see, Isle ID 131 is dry pasta 132 is beauty.
+
+34
+00:02:48,920 --> 00:02:55,720
+In addition to reading the data set in, we've gone ahead and we've saved it to a parquet file.
+
+35
+00:02:55,720 --> 00:03:00,680
+That's because some of these data sets that they're going to include are quite large.
+
+36
+00:03:00,680 --> 00:03:05,280
+So we're going to read in their raw CSV files, but then we're going to write out parquet
+
+37
+00:03:05,280 --> 00:03:08,040
+files to be able to load them more quickly.
+
+38
+00:03:10,360 --> 00:03:14,600
+The next data set we're going to look at is one called Department.
+
+39
+00:03:14,600 --> 00:03:19,800
+So department.csv is going to look a lot like Isles CSV and that it's going to contain
+
+40
+00:03:19,800 --> 00:03:27,640
+a department identifier which is called department ID and a string name for department
+
+41
+00:03:27,640 --> 00:03:30,280
+that describes which department we're working with.
+
+42
+00:03:30,280 --> 00:03:38,680
+So if we load this data, we see that department ID 1 corresponds with the frozen department.
+
+43
+00:03:38,680 --> 00:03:47,960
+Department ID 4 corresponds with produce and we could see there's only about 20 departments.
+
+44
+00:03:47,960 --> 00:03:56,680
+So we have 17 households and 18 corresponds to babies.
+
+45
+00:03:56,680 --> 00:04:01,160
+Next we come to the products.csv file.
+
+46
+00:04:01,160 --> 00:04:08,200
+This file contains metadata about each of the products and this has more than two columns.
+
+47
+00:04:08,200 --> 00:04:10,920
+Like the last two data sources.
+
+48
+00:04:10,920 --> 00:04:18,600
+So the first element is a product ID and this is going to be an identifier for the product
+
+49
+00:04:18,600 --> 00:04:20,920
+that was purchased.
+
+50
+00:04:20,920 --> 00:04:26,280
+There's going to be a product name which will be a string name that describes the product
+
+51
+00:04:26,280 --> 00:04:32,280
+that we're working with and then there's going to be an ILID and a department ID.
+
+52
+00:04:32,520 --> 00:04:39,560
+At the beginning, in the introduction that Instacart wrote for the Caggle competition,
+
+53
+00:04:40,120 --> 00:04:43,000
+they said that this was a relational data set.
+
+54
+00:04:43,640 --> 00:04:49,640
+And what they meant by relational is that each of the sub data sets.
+
+55
+00:04:49,640 --> 00:04:56,200
+So in this case, products.csv refers to other data sets that are bundled together.
+
+56
+00:04:57,160 --> 00:05:04,440
+In this case, we are referencing the IL and the department from the products.csv folder.
+
+57
+00:05:05,560 --> 00:05:08,280
+We can go ahead and load this just like the others.
+
+58
+00:05:09,000 --> 00:05:11,480
+And we see some examples of products.
+
+59
+00:05:11,480 --> 00:05:15,560
+So product ID 1 is chocolate sandwich cookies.
+
+60
+00:05:16,920 --> 00:05:22,760
+And that is found in ILID 61, which is in department 19.
+
+61
+00:05:23,240 --> 00:05:33,800
+Green chili anytime sauce is product ID 5, which is found in ILID 5, department ID 13.
+
+62
+00:05:36,120 --> 00:05:41,560
+So we might be interested in, for example, determining which ILs.
+
+63
+00:05:41,560 --> 00:05:48,360
+So let's group by ILID.count.
+
+64
+00:05:49,000 --> 00:05:55,000
+So all this is going to do is we're going to use the Pandas group by that we learned earlier in the course
+
+65
+00:05:55,720 --> 00:05:57,880
+to group by each of the IL IDs.
+
+66
+00:05:58,840 --> 00:06:03,880
+We're going to select the product name column and we're just going to count how many
+
+67
+00:06:03,880 --> 00:06:06,120
+non-missing values this takes.
+
+68
+00:06:10,040 --> 00:06:13,080
+So what we see and let's go ahead and
+
+69
+00:06:13,720 --> 00:06:15,720
+describe.
+
+70
+00:06:17,560 --> 00:06:23,000
+So the IL with the lowest number of items would be 12 items.
+
+71
+00:06:24,120 --> 00:06:28,600
+The IL with the most items has 1,258.
+
+72
+00:06:28,600 --> 00:06:36,360
+I'm actually a little bit curious about that sort of values, sending equals false.
+
+73
+00:06:37,160 --> 00:06:45,960
+And then we can again, we can merge IL.
+
+74
+00:06:45,960 --> 00:06:52,920
+That is set index dot merge IL on equals IL ID.
+
+75
+00:06:54,520 --> 00:06:56,200
+How equals left.
+
+76
+00:06:57,320 --> 00:07:06,200
+So the IL with the most, the most products in the IL is the IL called
+
+77
+00:07:06,200 --> 00:07:07,080
+missing.
+
+78
+00:07:07,080 --> 00:07:14,520
+So the IL that does not have anything followed closely by candy chocolate and ice cream ice.
+
+79
+00:07:15,480 --> 00:07:19,000
+I don't know what other kind of ice cream there is, but ice cream ice is the IL.
+
+80
+00:07:21,240 --> 00:07:23,800
+Let's go ahead and clean this up a little bit.
+
+81
+00:07:23,800 --> 00:07:25,800
+So it's not quite as ugly.
+
+82
+00:07:27,000 --> 00:07:27,560
+There we go.
+
+83
+00:07:30,120 --> 00:07:31,560
+That's a little more readable.
+
+84
+00:07:31,720 --> 00:07:37,000
+We may also be interested in which departments have the most products.
+
+85
+00:07:37,000 --> 00:07:42,440
+So again, we're now going to run the same code, but we're going to group by the different department
+
+86
+00:07:42,440 --> 00:07:42,840
+IDs.
+
+87
+00:07:43,640 --> 00:07:46,280
+And there's a much fewer departments than ILs.
+
+88
+00:07:46,280 --> 00:07:51,640
+So we should see more items per group.
+
+89
+00:07:52,440 --> 00:07:57,560
+We're going to again select the products name and count how many observations there were,
+
+90
+00:07:57,560 --> 00:08:03,560
+we're then going to sort these values, reset the index and we're going to merge now with
+
+91
+00:08:04,520 --> 00:08:09,480
+department on department ID.
+
+92
+00:08:10,680 --> 00:08:11,960
+And let's go ahead and run this.
+
+93
+00:08:13,160 --> 00:08:19,560
+So we'll see that the department with the most products is department 11, which was personal care
+
+94
+00:08:20,360 --> 00:08:22,360
+with 6,500 products.
+
+95
+00:08:23,320 --> 00:08:30,520
+I'm closely followed by the snacks department with 6,264 different products.
+
+96
+00:08:32,280 --> 00:08:38,760
+And I suspect that each IL corresponds to this is an open question.
+
+97
+00:08:38,760 --> 00:08:41,560
+I haven't actually answered this.
+
+98
+00:08:41,960 --> 00:09:01,560
+But I suspect each IL corresponds to a single department, but we can test this by grouping by both ILID
+
+99
+00:09:01,560 --> 00:09:08,200
+and department ID, selecting the product name counting, sorting the values.
+
+100
+00:09:08,200 --> 00:09:13,160
+Again, we're going to reset the index to move ILID and department ID into the columns.
+
+101
+00:09:13,160 --> 00:09:20,040
+And then we're going to merge on the IL and department data frames on their corresponding
+
+102
+00:09:20,040 --> 00:09:20,760
+identifiers.
+
+103
+00:09:25,240 --> 00:09:30,120
+And it looks like, oh, maybe I was wrong.
+
+104
+00:09:30,680 --> 00:09:42,920
+Let's go ahead and sort by the IL ID and the department ID.
+
+105
+00:09:45,720 --> 00:09:53,960
+And so what we see is IL1 has IC.
+
+106
+00:09:54,920 --> 00:10:03,720
+So it looks like each IL only has corresponds to a single department, but that there can be multiple ILs
+
+107
+00:10:03,720 --> 00:10:12,920
+per department. So for example, IL132 maps to department 11 as does department 133.
+
+108
+00:10:13,880 --> 00:10:26,200
+And that seems to hold true in a larger subset of the data.
+
+109
+00:10:29,400 --> 00:10:37,000
+So multiple ILs can map two way single department, but each IL only corresponds to a single
+
+110
+00:10:37,000 --> 00:10:43,080
+department. So in this case grouping by IL and department gives us the same
+
+111
+00:10:43,960 --> 00:10:46,840
+product accounts as grouping by IL would have.
+
+112
+00:10:48,680 --> 00:10:54,920
+Okay, well, we learned something. So let's keep exploring our data.
+
+113
+00:10:56,520 --> 00:11:02,280
+So the next file is exciting. So this is going to be the orders.csv file.
+
+114
+00:11:03,240 --> 00:11:08,920
+It's going to contain meta information about each of the three million orders that are
+
+115
+00:11:08,920 --> 00:11:17,240
+covered in the data set. The columns in the data set are order ID, which is a unique identifier for each order
+
+116
+00:11:18,440 --> 00:11:24,280
+user ID, which is a unique identifier for each consumer that made one of the three million orders.
+
+117
+00:11:25,080 --> 00:11:31,640
+So there's going to be three about three million different order IDs, but only two million
+
+118
+00:11:31,640 --> 00:11:38,040
+different user IDs or 200,000 rather 200,000 unique consumer IDs.
+
+119
+00:11:39,080 --> 00:11:43,640
+And then there's going to be an aval set. This is just a classifier that
+
+120
+00:11:43,640 --> 00:11:48,680
+Instacart used. They wanted this data to be used in a machine learning context. And so
+
+121
+00:11:49,320 --> 00:11:54,760
+they classified these orders into a prior order, a training order and a test order.
+
+122
+00:11:55,720 --> 00:12:01,320
+Then we're not going to use the aval set. Order number is going to be
+
+123
+00:12:02,840 --> 00:12:09,000
+which the order in which the individual made the given orders. So for example, we could see
+
+124
+00:12:10,440 --> 00:12:16,200
+the following. We could see order ID one made by user one.
+
+125
+00:12:17,480 --> 00:12:22,920
+Then we're not going to talk about a valset. And this might have been order one.
+
+126
+00:12:25,080 --> 00:12:31,560
+We could have seen a new order, which had order ID one or two,
+
+127
+00:12:32,440 --> 00:12:37,400
+made by consumer two. And this would have been their first order.
+
+128
+00:12:38,840 --> 00:12:47,080
+Then we could have seen an order ID three followed by perhaps order ID three was made by user one.
+
+129
+00:12:47,880 --> 00:12:55,640
+Then this would have been order number two made by user one. So this is user one's second order.
+
+130
+00:12:56,280 --> 00:13:01,320
+And we're going to track the order in which the orders were made.
+
+131
+00:13:03,240 --> 00:13:08,600
+There's going to be an order day of week, which is going to be an integer between 0 and 6.
+
+132
+00:13:09,240 --> 00:13:14,360
+Where 0 is Sunday and 6 is Saturday. That denotes the day of the week the order was made.
+
+133
+00:13:15,320 --> 00:13:20,760
+There's going to be an order hour of the day, which is an integer between 0 and 23,
+
+134
+00:13:21,480 --> 00:13:27,080
+which denotes the hour of the day that the order was made. So 0 would mean that the order was made
+
+135
+00:13:27,080 --> 00:13:34,520
+between midnight and 1 am. 7 would mean that the order was made between 7 am and 8 am,
+
+136
+00:13:35,480 --> 00:13:42,600
+etc. And then a day's sense prior order. And this is going to be an integer that represents how many days
+
+137
+00:13:42,680 --> 00:13:49,480
+it has been since a customer's previous order. So the first order that an individual would make
+
+138
+00:13:49,480 --> 00:13:56,040
+would have this value be missing, but all subsequent orders they made would be able to reference
+
+139
+00:13:56,040 --> 00:13:59,320
+how long it has been since that consumer has made an order.
+
+140
+00:14:05,000 --> 00:14:12,520
+So what's not included here is we don't know anything about the exact date of the transaction
+
+141
+00:14:13,240 --> 00:14:19,320
+so we understand the order in which the transactions occurred and the amount of time that took
+
+142
+00:14:19,320 --> 00:14:26,680
+place between each order, but we don't know the year or month or anything else about that.
+
+143
+00:14:27,320 --> 00:14:32,040
+Additionally, we don't know where these orders were made so we don't know whether this corresponds
+
+144
+00:14:32,040 --> 00:14:42,520
+to New York City or maybe Austin, Texas or Seattle, Washington. So we have no ability to say
+
+145
+00:14:43,240 --> 00:14:50,200
+user ID orders in New York City, user ID one orders in New York City while user ID five orders
+
+146
+00:14:50,200 --> 00:14:57,800
+in Seattle. So we're not going to be able to do that. But let's go ahead and read in this data
+
+147
+00:14:59,080 --> 00:15:07,960
+and describe it. So let's describe this order's data set. So we see we have about
+
+148
+00:15:08,920 --> 00:15:18,040
+3 million observations. They're just going to be the days since prior order.
+
+149
+00:15:19,000 --> 00:15:23,240
+The minimum is zero, which means someone ordered something on a particular day.
+
+150
+00:15:24,440 --> 00:15:27,640
+They may have forgotten something so they ordered again on the same day.
+
+151
+00:15:28,440 --> 00:15:34,600
+The maximum number of days between orders is 30. And again, that corresponds to only the
+
+152
+00:15:34,680 --> 00:15:44,760
+subset of data that is included in the sample. The average time that individuals were ordering was
+
+153
+00:15:45,960 --> 00:15:55,000
+4 a.m. Oh, sorry, I knew that was funny. So this corresponds to about 13 and a half,
+
+154
+00:15:55,880 --> 00:16:00,360
+which if we map that into time is about 130 in the afternoon.
+
+155
+00:16:01,320 --> 00:16:12,840
+And the day of week is about a 2.7, which is most orders are occurring on Wednesday.
+
+156
+00:16:14,920 --> 00:16:25,000
+It seems and that lines up with this median. So now we have an idea of so we could go ahead and
+
+157
+00:16:25,000 --> 00:16:31,480
+also look at what's in this data. So we have as we promised an order ID, a user ID,
+
+158
+00:16:32,840 --> 00:16:41,480
+which order was made. So for example, these are user IDs first five, user ID ones, first five orders.
+
+159
+00:16:43,640 --> 00:16:48,360
+They ordered one day on a Tuesday, two times on a Wednesday.
+
+160
+00:16:49,320 --> 00:16:58,840
+And two times on a Thursday, you'll notice it was about it was two weeks and one day
+
+161
+00:16:58,840 --> 00:17:05,560
+between order one and two. It was three weeks exactly between orders two and three.
+
+162
+00:17:06,600 --> 00:17:15,720
+Then it was 29 days between orders three and four and 28 days are four weeks between orders four and five.
+
+163
+00:17:19,160 --> 00:17:24,680
+And this all builds up to the final data set of interest, the order products.
+
+164
+00:17:25,400 --> 00:17:31,720
+So this can file contains detailed information about each of the orders. So the previous data set
+
+165
+00:17:31,720 --> 00:17:37,560
+told us some metadata about the orders when they happened, which individual made them,
+
+166
+00:17:38,280 --> 00:17:44,360
+and now this is going to tell us what was ordered. So the first column is an order ID,
+
+167
+00:17:44,360 --> 00:17:49,400
+which again is going to allow us to reference the order ID from the previous data set.
+
+168
+00:17:50,120 --> 00:17:55,080
+There's going to be a product ID, which tells us which product was purchased.
+
+169
+00:17:56,600 --> 00:18:02,200
+There's going to be an add to cart order. So Instacart is watching the order in which individuals
+
+170
+00:18:02,200 --> 00:18:08,920
+add items to their cart. And then there's going to be a reordered column. Was this an item that the
+
+171
+00:18:08,920 --> 00:18:13,480
+individual has ordered in the past so that there it's a reordered item?
+
+172
+00:18:15,320 --> 00:18:22,040
+Again, what's not included? Importantly, they are not including any information about the price paid
+
+173
+00:18:22,040 --> 00:18:30,040
+for each product. Let's be precise here for a product. And then they're not telling us the quantity
+
+174
+00:18:30,040 --> 00:18:35,400
+purchased. So for example, if you bought bananas, they're not telling us did you buy three bananas,
+
+175
+00:18:35,720 --> 00:18:42,920
+or did you buy seven, they're just saying user ID one purchased 10 bananas.
+
+176
+00:18:52,920 --> 00:19:00,840
+Okay, so let's talk a little bit more about the relational nature of these files. So as we said,
+
+177
+00:19:01,240 --> 00:19:06,280
+files and departments provide additional context for the products file.
+
+178
+00:19:07,400 --> 00:19:13,640
+The products file is then going to describe provide context for the order products that
+
+179
+00:19:13,640 --> 00:19:17,960
+when we see particular products ordered, we know what products were ordered.
+
+180
+00:19:18,920 --> 00:19:26,200
+And then orders is going to contain information about win and who made the orders
+
+181
+00:19:27,080 --> 00:19:28,600
+given in these two files.
+
+182
+00:19:31,720 --> 00:19:48,200
+So we had IEL, which had an ID, we had department, which had an ID, and these both mapped into the
+
+183
+00:19:48,440 --> 00:20:04,920
+product, which had an ID, and then told us the IEL ID and the department ID.
+
+184
+00:20:07,880 --> 00:20:13,000
+Then we had the order status set, which had an
+
+185
+00:20:13,320 --> 00:20:18,280
+kind of the important information from here was the product name.
+
+186
+00:20:20,600 --> 00:20:30,920
+Also the name here and the name here. The order is this told us the order ID,
+
+187
+00:20:32,120 --> 00:20:40,360
+and importantly the user who used it in addition to the win in order was made.
+
+188
+00:20:40,360 --> 00:20:51,400
+And then finally was what we think is the most important data set here was the ordered
+
+189
+00:20:52,920 --> 00:21:08,120
+products. And so this mapped into, so this needed an order ID, so that we knew which order we were talking about.
+
+190
+00:21:10,360 --> 00:21:14,600
+Let's go ahead and box these so that we know these are the different data sets.
+
+191
+00:21:21,560 --> 00:21:26,440
+Then it told us the product ID that was ordered.
+
+192
+00:21:28,440 --> 00:21:34,760
+And then it told us the order that items were added to the cart, and whether an item was
+
+193
+00:21:34,760 --> 00:21:42,360
+re-order or not. But now we're having information about the product come from the product table.
+
+194
+00:21:43,080 --> 00:21:48,600
+So if we wanted to know the name of a particular product that an individual ordered,
+
+195
+00:21:49,000 --> 00:21:56,200
+we would need to merge this data in from product. Likewise if we wanted to know which department
+
+196
+00:21:56,200 --> 00:22:02,920
+or IEL that product came from, we would need to take the data in IEL and department and merge it into
+
+197
+00:22:02,920 --> 00:22:08,600
+product and then we would take that merged data set and merge it into the order of products.
+
+198
+00:22:11,720 --> 00:22:22,760
+So let's do a small example about kind of referencing these different data sets.
+
+199
+00:22:24,120 --> 00:22:32,360
+So Instacart was interested in determining whether certain items or groups of items were re-order
+
+200
+00:22:32,680 --> 00:22:37,960
+to more than others. So let's explore what items or groups of items were the most re-ordered.
+
+201
+00:22:38,680 --> 00:22:44,200
+We're going to do this by computing the fraction of re-orders for a particular item or group.
+
+202
+00:22:45,240 --> 00:22:51,960
+And the way we're going to compute that is we're going to count how many times a particular item was ordered
+
+203
+00:22:53,320 --> 00:22:59,880
+and what fraction of those orders were a re-order. This isn't a perfect measure,
+
+204
+00:23:00,520 --> 00:23:04,200
+but we think this is in line with the goals that Instacart had.
+
+205
+00:23:05,800 --> 00:23:11,400
+So what are we going to do? We're going to take our order product
+
+206
+00:23:12,440 --> 00:23:18,520
+and so that we're going to take the order product table which has information on what was ordered.
+
+207
+00:23:19,080 --> 00:23:25,240
+And we're going to merge it with the orders column and in particular we're very interested in the
+
+208
+00:23:25,240 --> 00:23:33,800
+user ID to know who ordered what. So we'll go ahead and merge this. Again, we're doing a
+
+209
+00:23:33,800 --> 00:23:38,680
+left so we're only merging in data that is relevant to the order products data frame.
+
+210
+00:23:41,640 --> 00:23:49,480
+We're going to sort this table by user ID order number and the add-to-cart order
+
+211
+00:23:50,440 --> 00:23:59,800
+to get an idea of what this data looks like. So we can see that order ID 253 9329
+
+212
+00:24:01,720 --> 00:24:10,360
+was done by user one. This was user one's first order. You can also see that because there's
+
+213
+00:24:10,360 --> 00:24:18,600
+no days since their prior order. They had a product ID 196 that they added to the cart
+
+214
+00:24:20,040 --> 00:24:29,800
+and they added product 14084 all the way to I'm not sure but you can see the structure of this data.
+
+215
+00:24:32,840 --> 00:24:40,440
+So let's determine which products were the most reordered. So we're going to do this by
+
+216
+00:24:40,440 --> 00:24:50,040
+selecting the non-nan values of the day-sense prior order. And again, we're doing this
+
+217
+00:24:50,040 --> 00:24:54,840
+because of this right here. So the first time an individual interacts with the store,
+
+218
+00:24:54,840 --> 00:24:59,480
+they're not going to be reordering. And so we're going to drop all of the first interactions.
+
+219
+00:25:01,880 --> 00:25:10,040
+We're then going to group by the product ID. Then we're going to aggregate by counting
+
+220
+00:25:10,600 --> 00:25:16,840
+the add-to-cart order. So this is just going to give us how many observations there were.
+
+221
+00:25:17,800 --> 00:25:23,320
+Then we're going to sum reordered because it takes a 0s or 1s. So we know how many
+
+222
+00:25:24,360 --> 00:25:31,560
+items were reordered. We're only going to work with products that were reordered at least 10 times.
+
+223
+00:25:31,560 --> 00:25:36,680
+And this is just going to cut out some items that were only reordered once or twice.
+
+224
+00:25:37,400 --> 00:25:44,920
+We're then going to rename these two columns. So we're going to change add-to-cart order to end order
+
+225
+00:25:45,880 --> 00:25:54,360
+and reordered to end reorder. We're going to create a new column. This new column is going to be
+
+226
+00:25:54,360 --> 00:26:03,640
+named a frack reorder for the fraction of orders that were a reorder. And then we're going to
+
+227
+00:26:03,720 --> 00:26:11,800
+sort this by the fraction of reorders. And then we're going to merge in product information
+
+228
+00:26:13,160 --> 00:26:18,200
+so that we can see which items are being reordered. So you can see that the
+
+229
+00:26:19,560 --> 00:26:27,560
+product with the lowest fraction of reorders was about 2%. And the maximum was 100%.
+
+230
+00:26:28,520 --> 00:26:34,280
+With the median about 50%, the mean about 50%.
+
+231
+00:26:37,640 --> 00:26:44,840
+Let's look at what this data looks like. So we see the most reorder products were 0pitch nutrient
+
+232
+00:26:44,840 --> 00:26:53,320
+enhanced water beverage. And Amazake, Almond Shake and Orange Energy Shots.
+
+233
+00:26:53,560 --> 00:27:01,800
+So I was particularly interested in kind of who is ordering orange energy shots. And so what we did
+
+234
+00:27:01,800 --> 00:27:08,120
+was remember order product user contains information about the products along with the users
+
+235
+00:27:09,720 --> 00:27:15,240
+and the orders that were made. So we're going to return to this data frame and we're only going to look at
+
+236
+00:27:15,240 --> 00:27:23,720
+observations in which orange energy shots, which are product ID 43553, were ordered.
+
+237
+00:27:25,240 --> 00:27:32,120
+And what we see is let's go ahead and sort, I'll use by order number.
+
+238
+00:27:34,520 --> 00:27:37,720
+If we wanted to be proper we'd do it by user ID and then order number.
+
+239
+00:27:38,680 --> 00:27:49,960
+But what you'll see is that there is a single user, user 202 557, who every 10 days on average
+
+240
+00:27:49,960 --> 00:27:59,800
+or so orders these orange energy shots. So they ordered them on their first order.
+
+241
+00:28:00,440 --> 00:28:08,360
+They then waited about two weeks. They had two additional orders. So notice this jump
+
+242
+00:28:08,360 --> 00:28:14,920
+term order 1 to order 4. So in order 2 in 3 they did not order orange energy shots.
+
+243
+00:28:16,360 --> 00:28:24,520
+And then they ordered again during order 6. So not during order 5 during order 8.
+
+244
+00:28:25,320 --> 00:28:31,560
+Then order 9. And so once they got started on this product they were ordering them
+
+245
+00:28:32,840 --> 00:28:41,400
+about every, about once a week. Again we're not seeing the quantity ordered. And so
+
+246
+00:28:42,680 --> 00:28:48,200
+we're losing in cases like this. There's a question of did the individual purchase
+
+247
+00:28:48,920 --> 00:28:56,040
+you know, two weeks of orange energy shots. And then just use them over those two weeks
+
+248
+00:28:56,920 --> 00:29:01,880
+as opposed to here at the end it looks like they were ordering them every couple of days.
+
+249
+00:29:05,480 --> 00:29:11,880
+But we hope this sets the stage for the data set that we'll be discussing today.
+

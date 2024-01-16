@@ -1,0 +1,1428 @@
+1
+00:00:00,000 --> 00:00:07,920
+Hello, this is Spencer Lyon and in this lecture we will learn about the different plotting
+
+2
+00:00:07,920 --> 00:00:13,160
+libraries that are available to us for use from within Python.
+
+3
+00:00:13,160 --> 00:00:18,920
+Before viewing this lecture you should be familiar with pandas and the core operations
+
+4
+00:00:18,920 --> 00:00:24,480
+on a data frame or series as well as some familiarity with matte plot lib.
+
+5
+00:00:24,560 --> 00:00:30,960
+As when we discussed other plotting libraries we will make comparisons that draw upon our
+
+6
+00:00:30,960 --> 00:00:33,480
+knowledge of matte plot lib.
+
+7
+00:00:33,480 --> 00:00:41,480
+The goals or outcomes for this lecture will be to have a better sense of the variety of
+
+8
+00:00:41,480 --> 00:00:47,680
+different plotting packages that are available inside of Python as well as learn a bit
+
+9
+00:00:47,680 --> 00:00:53,520
+about the differences and some of the benefits of web or JavaScript based plotting
+
+10
+00:00:53,520 --> 00:00:58,440
+libraries.
+
+11
+00:00:58,440 --> 00:01:00,440
+First let's talk about plotting and Python.
+
+12
+00:01:00,440 --> 00:01:07,520
+There are many, many different packages that can be used to create charts, graphs or other
+
+13
+00:01:07,520 --> 00:01:12,200
+visualizations from within Python.
+
+14
+00:01:12,200 --> 00:01:21,240
+In a 2017 talk, Jake Vanderploss summarized the Python plotting landscape and one of his
+
+15
+00:01:21,240 --> 00:01:26,680
+killer slides in his talk had this image on it.
+
+16
+00:01:26,680 --> 00:01:35,560
+And this is a graphic where each of these circular objects represents one plotting
+
+17
+00:01:35,560 --> 00:01:38,920
+package that you could use from within Python.
+
+18
+00:01:38,920 --> 00:01:46,640
+There are many others that are not mentioned here but these are going to be the most
+
+19
+00:01:46,640 --> 00:01:50,920
+popular ones at least as of the time of his talk in 2017.
+
+20
+00:01:51,240 --> 00:01:59,880
+You'll see that they are organized into three large networks as well as smaller little
+
+21
+00:01:59,880 --> 00:02:05,400
+network here and then some random independent ones down in the left corner.
+
+22
+00:02:05,400 --> 00:02:07,560
+We'll start up in the top right.
+
+23
+00:02:07,560 --> 00:02:09,600
+Here we see matte plot lib.
+
+24
+00:02:09,600 --> 00:02:16,840
+This is the original Python plotting package that was at least the original in the sense of
+
+25
+00:02:16,840 --> 00:02:19,000
+scientific programming.
+
+26
+00:02:19,000 --> 00:02:25,120
+It has very wide adoption, which is integrated into many other packages and is something
+
+27
+00:02:25,120 --> 00:02:29,000
+that we've studied throughout this course.
+
+28
+00:02:29,000 --> 00:02:34,720
+You'll see that from this hub that is matte plot lib, there are a number of spokes that
+
+29
+00:02:34,720 --> 00:02:36,920
+connect to this wheel.
+
+30
+00:02:36,920 --> 00:02:40,000
+Some of these we already know about like pandas and seaborn.
+
+31
+00:02:40,000 --> 00:02:46,640
+Others we haven't learned too much about like GGPi, Yellowbrick, BaseMap or Cartopi.
+
+32
+00:02:46,640 --> 00:02:51,240
+So these are all different packages that in one way are another integrate with or
+
+33
+00:02:51,240 --> 00:02:56,040
+leverage matte plot lib to create charts.
+
+34
+00:02:56,040 --> 00:03:01,920
+The next main hub here on the left-hand side is JavaScript.
+
+35
+00:03:01,920 --> 00:03:10,360
+JavaScript is a programming language used to create interactive websites and widgets or components
+
+36
+00:03:10,360 --> 00:03:12,360
+within a website.
+
+37
+00:03:12,360 --> 00:03:17,960
+You'll see here that there are many different examples of JavaScript-based plotting libraries
+
+38
+00:03:17,960 --> 00:03:23,480
+that can be used from Python.
+
+39
+00:03:23,480 --> 00:03:31,840
+Branching off from JavaScript, we see this red line connects from JavaScript to this circle
+
+40
+00:03:31,840 --> 00:03:35,040
+here called D3JS.
+
+41
+00:03:35,040 --> 00:03:41,880
+D3 is something that we'll talk more about here soon, but it is one of the core libraries
+
+42
+00:03:41,880 --> 00:03:46,720
+in the JavaScript language for creating visualizations.
+
+43
+00:03:46,720 --> 00:03:59,520
+From D3 things like Vega, VegaLite, even platly which is up here are based in creating.
+
+44
+00:03:59,520 --> 00:04:04,040
+We won't talk too much about these other sections as they're not tools we will be using
+
+45
+00:04:04,040 --> 00:04:08,640
+in this course.
+
+46
+00:04:08,640 --> 00:04:10,640
+Let's review what we know about matte plot lib.
+
+47
+00:04:10,640 --> 00:04:16,080
+We'll talk a little bit about its history so we understand the context.
+
+48
+00:04:16,080 --> 00:04:24,000
+matte plot lib was created by one John Hunter back in the early 2000s and his goal was
+
+49
+00:04:24,000 --> 00:04:31,360
+to create a Python plotting package that could produce publication quality plots that were
+
+50
+00:04:31,360 --> 00:04:36,720
+similar in style and appearance to plots produced by the software matte lab.
+
+51
+00:04:36,720 --> 00:04:46,520
+Up until now or today it is the most widely used plotting package and its strength is creating
+
+52
+00:04:46,520 --> 00:04:52,800
+these publication quality plots as well as being an integral part to many of the data analytics
+
+53
+00:04:52,800 --> 00:04:55,720
+based libraries in Python.
+
+54
+00:04:55,720 --> 00:05:00,720
+We've become familiar with the plot method of a panda series or data frame.
+
+55
+00:05:01,280 --> 00:05:09,680
+There's another library called Cborn used to construct statistical visualizations that are all
+
+56
+00:05:09,680 --> 00:05:11,680
+rendered with matte plot lib.
+
+57
+00:05:11,680 --> 00:05:17,680
+So when you write code that uses Cborn inside of the Cborn implementation it will be writing
+
+58
+00:05:17,680 --> 00:05:19,680
+matte plot lib code.
+
+59
+00:05:19,680 --> 00:05:25,520
+Then there are other libraries for specific applications such as scikit-learn.
+
+60
+00:05:25,520 --> 00:05:35,920
+This is using matte plot lib to generate some common visualizations in machine learning applications.
+
+61
+00:05:35,920 --> 00:05:41,680
+matte plot lib is very good and really excellent at doing its job or fulfilling its main
+
+62
+00:05:41,680 --> 00:05:45,200
+purpose of creating print or the charts.
+
+63
+00:05:45,200 --> 00:05:52,720
+However since matte plot lib was created in 2003 there have been many striking advances in technology.
+
+64
+00:05:53,680 --> 00:05:58,960
+Three that we'll talk about now are the proliferation of internet connect devices.
+
+65
+00:06:01,200 --> 00:06:07,440
+Many people now have access to smartphones, laptops, tablets and these things either didn't
+
+66
+00:06:07,440 --> 00:06:12,720
+exist or far less common, back when matte plot lib was created in the early 2000s.
+
+67
+00:06:13,680 --> 00:06:22,240
+The next thing is that websites have gone from being mostly a digital representation of printed content
+
+68
+00:06:23,040 --> 00:06:28,800
+to fully interactive applications where you can do quite sophisticated things that were previously
+
+69
+00:06:28,800 --> 00:06:33,680
+possible only on native applications running on your operating system.
+
+70
+00:06:34,720 --> 00:06:40,640
+And then finally something we all know and understand is that computers or computing devices
+
+71
+00:06:40,640 --> 00:06:43,120
+are far more powerful and inexpensive.
+
+72
+00:06:44,880 --> 00:06:47,360
+Today compared to the early 2000s.
+
+73
+00:06:47,760 --> 00:06:57,520
+These three phenomena as well as maybe some others that have a more secondary impact have
+
+74
+00:06:57,520 --> 00:07:01,040
+led to a rise of web-based plotting tools.
+
+75
+00:07:04,880 --> 00:07:10,720
+Web-based plotting libraries are primarily written in another programming language called JavaScript.
+
+76
+00:07:11,440 --> 00:07:19,680
+JavaScript is the language of the internet. It's what powers the vast majority of online applications.
+
+77
+00:07:22,240 --> 00:07:29,280
+Ranging from things like online shopping, video or media outlets, social media
+
+78
+00:07:31,120 --> 00:07:32,880
+and many others.
+
+79
+00:07:33,840 --> 00:07:41,440
+JavaScript-based plots have a few distinct advantages over static plots like those produced by
+
+80
+00:07:41,440 --> 00:07:48,880
+matte plot lib. First they are fully interactive. You consume, pan, toggle, rotate,
+
+81
+00:07:48,880 --> 00:07:54,560
+have toolsips etc. You can really interact with them as you would many websites.
+
+82
+00:07:55,920 --> 00:08:01,360
+Second, these charts are responsive meaning that they can automatically know how to resize
+
+83
+00:08:01,360 --> 00:08:07,440
+themselves, maybe changing font sizes, if the screen where the plot is being viewed is smaller.
+
+84
+00:08:08,480 --> 00:08:12,320
+So the chart can look great on a variety of different device types.
+
+85
+00:08:14,080 --> 00:08:20,240
+Finally, the web-based charts are very shareable in the full interactive form.
+
+86
+00:08:22,240 --> 00:08:27,840
+You can embed them on a website, perhaps in a blog post or on social media, or even put them
+
+87
+00:08:27,840 --> 00:08:35,040
+inside of a different application or a mobile application. Static charts have some
+
+88
+00:08:35,040 --> 00:08:41,520
+version or form of these three things, but it's much less intuitive to users of modern devices.
+
+89
+00:08:46,000 --> 00:08:53,200
+Let's talk about one particular library in the JavaScript visualization space called D3.
+
+90
+00:08:54,160 --> 00:08:59,120
+This is one of the original and most powerful visualization libraries for JavaScript.
+
+91
+00:09:00,240 --> 00:09:08,000
+The name D3 stands for data-driven documents, where the D comes from the first letter of
+
+92
+00:09:08,000 --> 00:09:15,200
+those words and the three because there are three words. From the D3 homepage we could read the
+
+93
+00:09:15,200 --> 00:09:24,160
+following quote. D3 describes itself by saying D3.js is a JavaScript library from manipulating
+
+94
+00:09:24,160 --> 00:09:34,880
+documents based on data. D3 helps you bring data to life using HTML, SVG and CSS. These acronyms
+
+95
+00:09:34,880 --> 00:09:44,400
+here are acronyms for different technologies within the website world. Continuing on with the quote,
+
+96
+00:09:44,400 --> 00:09:50,080
+D3's emphasis on web standards gives you the full capabilities of modern browsers without
+
+97
+00:09:50,080 --> 00:09:56,400
+tying yourself to a proprietary framework, combining powerful visualization components and a
+
+98
+00:09:56,400 --> 00:10:04,560
+data-driven approach to DOM manipulation. This is a fairly technical way to say that D3 is all about
+
+99
+00:10:05,200 --> 00:10:13,040
+creating website components that are tied to an underlying data source. It contains the raw building
+
+100
+00:10:13,040 --> 00:10:20,000
+blocks that can map from a data set into some form of visualizing that data set.
+
+101
+00:10:24,800 --> 00:10:30,160
+With D3 you can create just about any visualization. We're going to go through and click on many
+
+102
+00:10:30,160 --> 00:10:37,600
+of these links and just see and appreciate the variety of charts that can be created using D3.
+
+103
+00:10:37,760 --> 00:10:46,960
+This first link will take us to a candlestick chart. This type of chart is commonly used in financial
+
+104
+00:10:46,960 --> 00:10:55,360
+settings. You'll see here that for every day of the year there's going to be one plot element.
+
+105
+00:10:56,080 --> 00:11:04,240
+This plot element has two main components. It has a colored cylinder or rectangle as well as a line.
+
+106
+00:11:05,200 --> 00:11:16,240
+The interpretation of these are that the color of the rectangle tells us if overall the stock
+
+107
+00:11:16,240 --> 00:11:23,600
+price for here it's Apple stock. If the stock price for Apple went up, throughout the day or down.
+
+108
+00:11:25,600 --> 00:11:31,600
+Color each rectangle green, if the closing price for Apple, is higher than the opening price.
+
+109
+00:11:31,600 --> 00:11:36,240
+If the closing price was lower, then the direction would be red.
+
+110
+00:11:37,360 --> 00:11:44,640
+You can see here because this particular rectangle is green. This must mean that the closing price
+
+111
+00:11:44,640 --> 00:11:51,600
+is higher than the opening and you'll see and then they wear the bottom and the top of these
+
+112
+00:11:51,600 --> 00:11:57,200
+rectangles are marked the open and closed price. On this particular date the opening price must
+
+113
+00:11:57,200 --> 00:12:03,040
+have been near about 170, while the closing price would have been near 172.5.
+
+114
+00:12:05,200 --> 00:12:12,720
+Looking over at another example, this bar is red. This time the opening price is going to be at the
+
+115
+00:12:12,720 --> 00:12:19,760
+top of the bar because the cost of the day the stock price went down.
+
+116
+00:12:19,760 --> 00:12:29,440
+Here the opening price on what April 23rd would have been about $171.
+
+117
+00:12:29,440 --> 00:12:33,040
+The closing price would have been closer to $165.
+
+118
+00:12:35,200 --> 00:12:40,960
+Then the other component would be the black vertical line that passes through the middle of the
+
+119
+00:12:40,960 --> 00:12:45,840
+rectangle. This represents the high and low price obtained throughout the day.
+
+120
+00:12:46,800 --> 00:12:54,240
+On this example with the most extreme black line down here, we'll see that the highest price
+
+121
+00:12:54,240 --> 00:13:02,400
+reached by that by Apple's stock throughout the day was about $157. On this day the lowest price would have
+
+122
+00:13:02,400 --> 00:13:13,760
+been down here in your $150. If we hover over it, my browser's saying that the low was $150.24
+
+123
+00:13:13,760 --> 00:13:22,720
+on the high was $155.157.89. You'll see that in this one type of chart, we have a lot of information.
+
+124
+00:13:22,720 --> 00:13:30,720
+We have the date, we have for each date, the open high, low, and closed prices for the Apple stock.
+
+125
+00:13:34,320 --> 00:13:41,120
+This is a candlestick chart and down here you could see the D3 code needed to import the data
+
+126
+00:13:41,120 --> 00:13:47,440
+and construct the chart. Another common type of chart would be a line chart.
+
+127
+00:13:50,320 --> 00:13:57,600
+Here we have a D3 visualization that shows off some of the flexibility of D3.
+
+128
+00:13:58,400 --> 00:14:05,120
+Here are some of the features of this chart. On the horizontal axis, we see that there's a log scale.
+
+129
+00:14:05,120 --> 00:14:11,520
+We have 100,000 here and then 200, 3, 4, 5, up to a million and so on. So we have a very
+
+130
+00:14:11,520 --> 00:14:20,000
+custom notion of scale on this horizontal axis. Then we also have a very custom type of legend.
+
+131
+00:14:20,000 --> 00:14:26,400
+And what this tells us is that the black dot for each of these lines represents the value
+
+132
+00:14:27,680 --> 00:14:34,080
+of the variable in the year 1980. I'll make this a little bit bigger so we can see a more.
+
+133
+00:14:35,680 --> 00:14:42,320
+So what this is saying is that the black dot shows us where a particular city was
+
+134
+00:14:43,200 --> 00:14:50,400
+with population on the horizontal axis and inequality by the genie coefficient on the vertical one.
+
+135
+00:14:50,400 --> 00:14:57,040
+So this black dot says that New York City had a population of probably about 15 million
+
+136
+00:14:57,600 --> 00:15:02,160
+in 1980 and in equality index of about 4.25.
+
+137
+00:15:02,640 --> 00:15:12,080
+Then continuing to read the legend says that the arrow will point to the value for that particular location in 2015.
+
+138
+00:15:12,880 --> 00:15:18,160
+So we'll see here that the population in New York City grew from maybe about 15 million to about 20.
+
+139
+00:15:18,960 --> 00:15:28,240
+But the inequality measure grew substantially. It went from about 4.25 all the way to about 7.
+
+140
+00:15:28,880 --> 00:15:33,280
+We'll see here that there are other extreme examples of inequality growth.
+
+141
+00:15:34,800 --> 00:15:40,320
+For example, the city of San Jose and California, Fairfield, Connecticut and so on.
+
+142
+00:15:40,880 --> 00:15:47,040
+You can also conceive based on the direction of the arrow that some cities experience population decline.
+
+143
+00:15:48,320 --> 00:15:54,000
+This city, I'm not sure which it is, but actually had population about the same, but had a decline in
+
+144
+00:15:54,000 --> 00:16:00,240
+inequality. So this is an example of a particularly
+
+145
+00:16:01,440 --> 00:16:06,160
+customized line chart and trying to think of how you might do this in say map plot
+
+146
+00:16:06,160 --> 00:16:11,200
+lib or another library could be quite a bit more difficult, especially getting things like this
+
+147
+00:16:11,200 --> 00:16:19,840
+legend correct correct. Another common visualization is a heat map.
+
+148
+00:16:20,720 --> 00:16:26,800
+Here this is a document written by Mike Bostock. He's actually the creator of D3
+
+149
+00:16:27,760 --> 00:16:32,640
+and he's to be the editor of graphics and visualization at the New York Times.
+
+150
+00:16:33,760 --> 00:16:43,600
+And he's shown us here a heat map of his home's electricity usage for every hour of the year.
+
+151
+00:16:44,320 --> 00:16:54,000
+And he actually mentions in the text up here that he has a belief some solar
+
+152
+00:16:56,000 --> 00:17:02,720
+panels on his home and you'll see here that the net power consumption in the middle of the day in January
+
+153
+00:17:02,720 --> 00:17:09,200
+is actually negative. His solar panels are producing more energy than he and his household are
+
+154
+00:17:09,200 --> 00:17:15,760
+consuming. On some areas where this legend, for sure, where the box is blue.
+
+155
+00:17:16,880 --> 00:17:21,120
+You'll see that this happens quite a bit in the springtime. So where he lives must be fairly
+
+156
+00:17:21,120 --> 00:17:28,320
+sunny but moderate in temperature in order for him to not need to consume a lot of electricity,
+
+157
+00:17:28,320 --> 00:17:34,560
+but be able to produce a lot. You can see here there's a fairly consistent pattern of high
+
+158
+00:17:34,560 --> 00:17:44,320
+energy usage between the hours of 6 and 9 pm. There's a lot of deep red towards the right of the chart.
+
+159
+00:17:44,320 --> 00:17:52,560
+And then there's also some high energy usage in the middle of the night between midnight and 1 a.m.
+
+160
+00:17:56,400 --> 00:17:58,160
+I thought this was a particularly
+
+161
+00:17:58,800 --> 00:18:06,560
+heat example of a heat map being able to display a wide variety of information and that was
+
+162
+00:18:06,560 --> 00:18:09,600
+personally relevant to my plastic the boss talk.
+
+163
+00:18:15,120 --> 00:18:23,200
+We'll go through these next ones quickly. Here's a calendar chart. This shows the daily percent
+
+164
+00:18:23,200 --> 00:18:30,320
+change in the Dow Jones industrial average between 2000 and 2020. So this would
+
+165
+00:18:34,080 --> 00:18:38,000
+all the trading days are represented for the year 2000 right here. We have a Monday,
+
+166
+00:18:38,000 --> 00:18:42,080
+Tuesday, Wednesday, Thursday, Friday are the days that US equity markets are open.
+
+167
+00:18:42,640 --> 00:18:48,960
+And then we have these columns. We're represented these four columns right here.
+
+168
+00:18:48,960 --> 00:18:54,160
+I represent the month of January and then we'll have February at follows and so on. So here we have
+
+169
+00:18:54,160 --> 00:19:00,400
+20 years worth of financial data showing the daily returns on the Dow Jones. You'll see a
+
+170
+00:19:00,400 --> 00:19:08,560
+particularly volatile time filled with many deep colors in late 2008. This corresponds to the
+
+171
+00:19:08,560 --> 00:19:15,280
+onset of the real estate market related financial crisis. All shown them is the great recession.
+
+172
+00:19:16,080 --> 00:19:23,680
+You'll see here at the beginning of 2020 in March. There's also quite a bit of volatility with deep
+
+173
+00:19:23,680 --> 00:19:31,280
+colors and this would be when the COVID-19 virus started to make a big impact in the United States.
+
+174
+00:19:34,160 --> 00:19:40,080
+This is also another chart type that I personally would struggle to create using
+
+175
+00:19:40,080 --> 00:19:43,440
+map plot lib but isn't all that difficult using D3?
+
+176
+00:19:46,320 --> 00:19:52,480
+This next one, I think is nearly impossible to create with standard plotting tools. So what this is
+
+177
+00:19:53,120 --> 00:20:01,360
+is this is, let's call it, Arc diagram, that connects one component to one or more other components.
+
+178
+00:20:02,240 --> 00:20:13,520
+And the actual example used here is the number of scenes for which each character appears in the book
+
+179
+00:20:13,520 --> 00:20:23,520
+lame-zerob by Victor Hugo. And the link here, so Jean Valjeon, this link down here, is the main
+
+180
+00:20:23,520 --> 00:20:29,920
+character in this story and you'll see that he co-appears with many, many different
+
+181
+00:20:30,640 --> 00:20:38,240
+other characters. In the book, so you'll see, for example, I don't know how to pronounce these
+
+182
+00:20:38,240 --> 00:20:44,080
+names because I'm not, I don't speak French, but this character is starting with a G,
+
+183
+00:20:44,080 --> 00:20:51,520
+and Gribeer perhaps, was only in a scene with one other character and the character's name was this one
+
+184
+00:20:51,520 --> 00:20:58,720
+starting with an F. This character was in a scene with the character starting with a G, as well as
+
+185
+00:20:58,800 --> 00:21:06,320
+down below a scene with Jean Valjeon, and then way down into the purple section, the largest arc with
+
+186
+00:21:06,320 --> 00:21:15,600
+G.A.V. and we could continue looking through the different characters in this play and
+
+187
+00:21:15,600 --> 00:21:24,160
+earn this book and seeing who co-appears in a scene with other characters. What's really cool about
+
+188
+00:21:24,240 --> 00:21:32,400
+this particular chart is the interactivity, as I hover over a name, I immediately see in bold the
+
+189
+00:21:32,400 --> 00:21:39,840
+other characters that co-appeared with this one, and we also can make it even more interactive. So here,
+
+190
+00:21:40,880 --> 00:21:47,520
+it's ordered based on a group which would be probably part of the book, these characters appeared.
+
+191
+00:21:48,080 --> 00:21:53,840
+You can also order it alphabetically by first name. Here we see that the A's show of the top,
+
+192
+00:21:53,920 --> 00:22:00,640
+B, C, or all the B's, and so on, and you could also order it by what's called degree. What this
+
+193
+00:22:00,640 --> 00:22:07,120
+would do is it will put the character who is connected to the most other characters at the top.
+
+194
+00:22:07,120 --> 00:22:13,600
+So here we have Valjeon, the main character, because he has the most co-opriiances of any
+
+195
+00:22:14,480 --> 00:22:19,280
+character in the book, and now, though, down at the bottom, we have some characters who only appear
+
+196
+00:22:19,440 --> 00:22:27,920
+once with one other character. So the most commonly co-oprior character at the top, and then down
+
+197
+00:22:27,920 --> 00:22:35,200
+the bottom. But it's amazing to watch how it interactively reorganizes and re-shuffles itself.
+
+198
+00:22:42,240 --> 00:22:47,280
+D3's often used to create maps, and this map is called a hex bin map,
+
+199
+00:22:48,160 --> 00:22:55,680
+which has a some unique aesthetic to it, but also has some unique properties. For being able to
+
+200
+00:22:56,640 --> 00:23:03,280
+represent data in a more discrete way than a contour would, but perhaps in a more localized way
+
+201
+00:23:03,280 --> 00:23:10,400
+than you would get with only having dots or something like that. This map shows the density or
+
+202
+00:23:10,400 --> 00:23:18,720
+shy of the location of each of the 3000 operating Walmart stores in the United States.
+
+203
+00:23:19,520 --> 00:23:24,800
+As well as the median year for when the stores in a particular region open.
+
+204
+00:23:26,320 --> 00:23:33,280
+What's interesting here is that this region of the United States is known as the Midwest,
+
+205
+00:23:33,280 --> 00:23:39,920
+and is relatively less populated than regions on the coast. You'll see that California,
+
+206
+00:23:40,400 --> 00:23:44,160
+has very high population as does some of New England here, especially in New York.
+
+207
+00:23:44,960 --> 00:23:52,800
+Florida has high population in Texas, the Midwest doesn't. However, the dots in this area are warm
+
+208
+00:23:52,800 --> 00:23:59,920
+colors, meaning reds and oranges. The reason for this is that this section has the state Arkansas,
+
+209
+00:24:00,640 --> 00:24:06,720
+which was where Walmart was founded. Walmart headquarters are in a town called Bentonville,
+
+210
+00:24:06,880 --> 00:24:12,480
+Arkansas, and you'll see that there are many Walmart's in this region based on the size of the
+
+211
+00:24:12,480 --> 00:24:17,520
+hexagon, and that they are the oldest Walmart in the United States based on the color.
+
+212
+00:24:18,800 --> 00:24:22,000
+You'll see that other regions, for example in Nevada,
+
+213
+00:24:23,760 --> 00:24:29,520
+there's most many of much of this region is desert or mountain, and there are almost no Walmart's to
+
+214
+00:24:30,160 --> 00:24:35,760
+those that are found are relatively newer. They have cool colors like greens and blues.
+
+215
+00:24:44,160 --> 00:24:51,840
+Other types of chart for D3. This is an interactive chart that is showing you the top 10
+
+216
+00:24:52,320 --> 00:25:02,320
+or maybe top 15 or show publicly traded companies in the United States, and they're ordered based
+
+217
+00:25:02,320 --> 00:25:09,440
+on their market capitalization, the total value of all their stock. We'll see here the years 2008,
+
+218
+00:25:09,440 --> 00:25:13,360
+and the time is going up, and these orderings are reshuffling. You'll see that Google
+
+219
+00:25:14,480 --> 00:25:19,360
+started not even in here. Here comes Apple in the early 2010s,
+
+220
+00:25:20,320 --> 00:25:26,400
+Google and Apple really started to grow, and now Apple's pace of growth is accelerating in terms
+
+221
+00:25:26,400 --> 00:25:36,240
+of its market value. As we near the end of the 2010 decade, you'll see that Amazon cropped up here,
+
+222
+00:25:37,360 --> 00:25:45,680
+and you'll see that the top four equity or yeah equities in terms of market cap,
+
+223
+00:25:46,640 --> 00:25:51,840
+by the end of 2019 we're all in the technology industry, Apple, Google, Amazon, and Microsoft.
+
+224
+00:25:53,680 --> 00:26:02,240
+But this type of interactive visualization wouldn't possible in print or with something like
+
+225
+00:26:02,240 --> 00:26:09,520
+Matt Plotlib without having to go through some extra hurdles. But in D3 again, because it's all
+
+226
+00:26:09,520 --> 00:26:15,760
+web-based and meant to be interactive, it's quite possible to make these types of charts.
+
+227
+00:26:22,000 --> 00:26:27,520
+As I mentioned before, D3 can be used for mapping. Here is a what's called a CoroPleph map,
+
+228
+00:26:27,920 --> 00:26:33,520
+where each region on the map is shaded or highlighted in a different color, or color of a
+
+229
+00:26:33,520 --> 00:26:39,280
+different intensity. Here what's being plotted is the health adjusted life expectancy
+
+230
+00:26:39,520 --> 00:26:47,520
+from the World Health Organization. You can see here some socioeconomic patterns occurring. There are
+
+231
+00:26:47,520 --> 00:26:55,200
+regions in less developed countries. For example, a large portion of Africa, it has a far
+
+232
+00:26:55,200 --> 00:27:02,400
+lower healthy life expectancy than developed areas like Europe, North America, South America, or Asia.
+
+233
+00:27:09,520 --> 00:27:16,720
+Finally, the last one will look at is another type of map. Here, this is called what the
+
+234
+00:27:16,720 --> 00:27:24,000
+author called a spike map. What this is representing is the population in each of the counties
+
+235
+00:27:24,000 --> 00:27:32,400
+of the United States. The center of the county or its capital will be where the spike is located
+
+236
+00:27:32,400 --> 00:27:38,240
+and then the height of the spike captures the population. You'll see here that the largest spike
+
+237
+00:27:38,880 --> 00:27:44,720
+is in Los Angeles County, in California, with population of 10 million people.
+
+238
+00:27:45,600 --> 00:27:50,560
+Then you have other large spikes. This would be Merrick Hopewell County in Arizona, where Phoenix
+
+239
+00:27:50,560 --> 00:27:57,280
+Arizona is. This would be the county with Chicago in it and Cook County in the noise and so on.
+
+240
+00:27:59,280 --> 00:28:03,440
+One thing that we want you to pay attention to here is that you can see
+
+241
+00:28:03,920 --> 00:28:13,520
+of highly customized type of map created with the same basic primitives that this more standard map
+
+242
+00:28:13,520 --> 00:28:21,120
+was created with, or even this hex game map. The ability to create all three of these types of
+
+243
+00:28:21,120 --> 00:28:33,280
+map with one set of tools in one library is pretty powerful. However, this power and flexibility
+
+244
+00:28:33,440 --> 00:28:41,840
+does rather unsurprisingly come to cost. The D3 library by itself is rather low level,
+
+245
+00:28:42,480 --> 00:28:46,880
+which means that you're not writing more code than you would with a package for library
+
+246
+00:28:46,880 --> 00:28:55,280
+that's relatively higher level. For this reason, there have been many libraries created
+
+247
+00:28:55,280 --> 00:29:02,320
+that build upon or utilize D3 to make things easier for you to construct their charts.
+
+248
+00:29:03,280 --> 00:29:08,960
+Two of these packages that build upon D3 are called Vega and Plotley.
+
+249
+00:29:10,320 --> 00:29:17,040
+Both Vega and Plotley have corresponding Python packages that will explore later on today.
+
+250
+00:29:17,040 --> 00:29:21,840
+But first, we're going to talk about the native JavaScript version of these libraries so that
+
+251
+00:29:21,840 --> 00:29:28,720
+we can understand what makes each of them unique. We'll start by talking about Vega and it's
+
+252
+00:29:28,800 --> 00:29:37,440
+sibling Vega Lite. Vega is a research product that comes out of the interactive data lab
+
+253
+00:29:37,440 --> 00:29:47,040
+at the University of Washington. From the Vega's homepage, we can see this core,
+
+254
+00:29:47,040 --> 00:29:50,400
+and we'll read just this first one and leave the rest for you to be done well.
+
+255
+00:29:51,360 --> 00:29:58,800
+Vega's documentation says that Vega is a visualization grammar, a declarative language
+
+256
+00:29:58,800 --> 00:30:04,560
+for creating, saving, and sharing, interactive visualization designs.
+
+257
+00:30:06,320 --> 00:30:13,440
+Now, this term grammar was chosen very carefully and precisely by the Vega team.
+
+258
+00:30:14,400 --> 00:30:26,080
+The grammar, forgive the type of here, the grammar is used to build the specification for a chart.
+
+259
+00:30:27,280 --> 00:30:33,280
+Once we have this specification for what a chart should contain, we can then apply the
+
+260
+00:30:33,280 --> 00:30:40,480
+specification to a dataset and that will let us generate or let Vega generate a visualization.
+
+261
+00:30:40,640 --> 00:30:50,880
+With this structure that is the Vega grammar, some rather complicated charts can be creative,
+
+262
+00:30:50,880 --> 00:30:56,320
+created fairly easily using this core set of primitives that form the grammar.
+
+263
+00:30:57,760 --> 00:31:05,120
+This is very similar and similar intentionally to how written or spoken language is constructed.
+
+264
+00:31:06,080 --> 00:31:13,280
+When we write or we speak, we'll use a core set of concepts, things like nouns, adjectives,
+
+265
+00:31:13,280 --> 00:31:22,880
+verbs, punctuation, as well as rules for how they can be composed, as well as relate to one another,
+
+266
+00:31:23,840 --> 00:31:29,520
+to create arbitrarily complex phrases and concepts.
+
+267
+00:31:30,480 --> 00:31:36,560
+This Vega is built in a similar way. There are a few core foundational principles that need to
+
+268
+00:31:36,560 --> 00:31:42,160
+be learned and then they are rules for how they can be composed and used together.
+
+269
+00:31:43,120 --> 00:31:52,320
+Then it is very flexible once you are within the confines of this grammar in what can be produced.
+
+270
+00:31:53,280 --> 00:32:01,440
+The Vega grammar is quite flexible and similar to D3, this flexibility
+
+271
+00:32:02,080 --> 00:32:08,560
+comes at the cost of being rather low level. To make things easier for users, the
+
+272
+00:32:10,560 --> 00:32:16,880
+team at University of Washington created a second more simplified grammar called Vega Light.
+
+273
+00:32:17,840 --> 00:32:25,520
+Let's see an example. Here we have a bar chart that was created with Vega Light. Let's see a few
+
+274
+00:32:25,520 --> 00:32:33,600
+of its properties or features. We'll see that we have labels for the y-axis as well as the x-axis.
+
+275
+00:32:35,040 --> 00:32:42,800
+We have tick labels here on the vertical axis, of course, bond to different locations perhaps.
+
+276
+00:32:43,200 --> 00:32:50,560
+Then we also have different colors for the bars and these bars, these colors are stacked to
+
+277
+00:32:50,560 --> 00:32:59,840
+form a stacked bar chart. The specification for this particular chart in Vega Light is
+
+278
+00:32:59,840 --> 00:33:07,840
+entirely contained right here. The first line says, in Strix Vega Light, what version of Vega Light
+
+279
+00:33:07,840 --> 00:33:16,000
+we're using. Here it says, we are using Vega Light, version 4. Then there's a way to describe where
+
+280
+00:33:16,000 --> 00:33:24,160
+the data can be found. Here the data is contained at a URL and it's at this particular path.
+
+281
+00:33:25,520 --> 00:33:31,200
+Then we set what's called the mark. This is telling Vega that we'd like to draw bars on our chart.
+
+282
+00:33:32,000 --> 00:33:38,720
+Then we have an encoding. This is mapping what the field x, y and how the different components
+
+283
+00:33:38,720 --> 00:33:47,360
+here should be colored. We'll see the x will be the sum of the yield variable, which is consistent
+
+284
+00:33:47,360 --> 00:33:55,600
+with this label sum of yield. The y variable should be based on variety. That's why you see
+
+285
+00:33:55,680 --> 00:34:03,120
+this label here as well as these items on the vertical axis. Then color should be
+
+286
+00:34:04,080 --> 00:34:11,520
+come from the site variable and our dataset. That's why the legend here has a title of site
+
+287
+00:34:12,560 --> 00:34:21,920
+and these are the different farms where this bar is grown. Notice that in this chart,
+
+288
+00:34:22,560 --> 00:34:30,880
+we didn't specify anything about how when chart elements should be drawn. We only described
+
+289
+00:34:31,600 --> 00:34:36,720
+what we wanted the chart to look like. This is all contained here in this JavaScript
+
+290
+00:34:36,720 --> 00:34:48,960
+object by specifying a dataset, a mark and included. This type of programming is known as declarative
+
+291
+00:34:49,360 --> 00:34:56,080
+program. In the declarative programming paradigm, the user will specify what should be done,
+
+292
+00:34:56,720 --> 00:35:01,440
+but not give any instruction or detail regarding how or when things should happen.
+
+293
+00:35:02,880 --> 00:35:08,560
+This is different from the standard programming paradigm where used to when we worked with Python.
+
+294
+00:35:09,760 --> 00:35:17,600
+Our typical Python program is imperative, where we provide to the computer a sequence of tasks
+
+295
+00:35:17,760 --> 00:35:23,200
+to perform and then we build up the end result, one instruction or task at a time.
+
+296
+00:35:25,120 --> 00:35:30,640
+To really make clear the distinction between declarative and imperative styles of programming,
+
+297
+00:35:30,640 --> 00:35:38,640
+let's consider a non-code example. Suppose that you were hungry, a need of a mid-mites net,
+
+298
+00:35:38,640 --> 00:35:46,400
+and you wanted to pour for yourself a bowl of cold cereal with milk. A declarative way of specifying
+
+299
+00:35:46,880 --> 00:35:52,800
+your end goal or want might look like this. You might say that you would like to have a bowl,
+
+300
+00:35:53,840 --> 00:36:01,440
+and that this bowl should contain cereal, milk, and a spoon so that you're prepared to eat the cereal.
+
+301
+00:36:02,880 --> 00:36:08,160
+On the other hand, a more imperative set of instructions for achieving this same result
+
+302
+00:36:08,800 --> 00:36:16,080
+might be the following. Step one, get bowl from cupboard, step two, get cereal from pantry,
+
+303
+00:36:17,040 --> 00:36:23,920
+step three, pour cereal into bowl, step four, get milk from fridge, step five,
+
+304
+00:36:24,640 --> 00:36:32,800
+pour milk into bowl, step six, get spoon from drawer, step seven, put spoon in bowl.
+
+305
+00:36:32,800 --> 00:36:41,200
+Notice that in this list of instructions, we had to describe both what we wanted,
+
+306
+00:36:41,200 --> 00:36:50,640
+as well as how and when things should happen. Both mega and ploughy are declarative.
+
+307
+00:36:52,080 --> 00:36:56,960
+Meaning we can specify just what the end result should look like and not worry about how it should
+
+308
+00:36:56,960 --> 00:37:02,080
+be constructed or created. We'll see these examples throughout the class and we'll have to go up
+
+309
+00:37:02,080 --> 00:37:12,160
+the lecture today. Plotley is another JavaScript-based plotting library that also builds upon D3.
+
+310
+00:37:14,240 --> 00:37:20,080
+From their homepage we could read, built on top of D3JS and stacked.GL,
+
+311
+00:37:20,080 --> 00:37:27,200
+plotlyJS is a high level declarative charting library. PlotleyJS ships with over 40 chart types,
+
+312
+00:37:27,200 --> 00:37:35,920
+including 3D charts, statistical graphs and SVG maps. Plotley has a very diverse set of chart types
+
+313
+00:37:36,480 --> 00:37:43,360
+that range from your basic charts like bar and line, two sums statistic, statistical charts like
+
+314
+00:37:43,440 --> 00:37:50,560
+violins and distributions, financial charts like candlestick and scientific ones like heat maps
+
+315
+00:37:50,560 --> 00:38:00,720
+or contours, as well as maps, 3D charts and more. It is one of the most, it's one of the charting
+
+316
+00:38:00,720 --> 00:38:08,800
+libraries that has the most variety in chart type in the JavaScript space. Plotley is a declarative
+
+317
+00:38:08,880 --> 00:38:16,400
+charting library like big a light, however, Plotley does not attempt to create a grammar for
+
+318
+00:38:16,400 --> 00:38:24,880
+describing visualizations. Instead, a plotly chart is constructed by directly setting features or attributes
+
+319
+00:38:24,880 --> 00:38:33,200
+of the chart. For this reason, Plotley will feel a bit more familiar than Vega does, two users of
+
+320
+00:38:33,200 --> 00:38:42,000
+Matt Plotley or other imperative plotting libraries. We'll look at one example of creating a chart
+
+321
+00:38:42,000 --> 00:38:50,960
+with Plotley to show you what we mean. The chart will be looking at, I'll show them here in this tab.
+
+322
+00:38:50,960 --> 00:38:57,600
+We see here we have another candlestick chart. This one again for stock prices for Apple.
+
+323
+00:38:58,080 --> 00:39:06,320
+This chart apparently based on the horizontal axis ranges from the start of 2015 through to
+
+324
+00:39:08,480 --> 00:39:16,400
+early 2017. You'll see here that this chart is very interactive. We can zoom,
+
+325
+00:39:16,400 --> 00:39:21,680
+we can hover and get some tool tip information. We'll see here the candlestick features we talked
+
+326
+00:39:21,760 --> 00:39:28,320
+about before. Upon hovering, we'll be able to see the date shown for us at the bottom,
+
+327
+00:39:28,320 --> 00:39:33,920
+as well as the open high low closed information that forms a candlestick.
+
+328
+00:39:36,320 --> 00:39:40,640
+This chart was created with the following code back here in our notebook.
+
+329
+00:39:41,760 --> 00:39:47,680
+First, we'll use the D3 library to load up a CSV chart for CSV.
+
+330
+00:39:47,680 --> 00:40:00,480
+Then we have the following. We have one function that will unpack one column from this data set.
+
+331
+00:40:01,600 --> 00:40:09,760
+We'll use it as follows. We will say that the X variable on our item to be plotted comes from the
+
+332
+00:40:09,760 --> 00:40:18,400
+date column in the CSV. Close comes from aapl.close, high aapl.high and so on.
+
+333
+00:40:19,680 --> 00:40:25,120
+Then there's a little bit of work here to customize the appearance and we'll see that we can
+
+334
+00:40:25,120 --> 00:40:31,840
+specify that on a day where the price was increasing. We would like the line color to be black.
+
+335
+00:40:32,880 --> 00:40:37,200
+On a day where the price was decreasing, we would like for the line color to be red.
+
+336
+00:40:37,200 --> 00:40:45,360
+We'll then specify that this is a candlestick type chart that's plotted on the standard XY axis.
+
+337
+00:40:46,400 --> 00:40:53,840
+We can then do a little bit of customization of the chart. We'll get to this more when we understand
+
+338
+00:40:53,840 --> 00:41:01,040
+the structure of platly. We'll skip this for now. Then the last thing we'll do is we'll call the
+
+339
+00:41:01,040 --> 00:41:06,800
+plat function. We'll pass it the description of our candlesticks as well as a little bit more
+
+340
+00:41:06,800 --> 00:41:14,640
+information on the chart as a whole. That's it. You'll see here that this is quite different from
+
+341
+00:41:14,640 --> 00:41:22,640
+the Vega approach where there was a grammar where we had mark types and encoding. This is a bit more
+
+342
+00:41:22,640 --> 00:41:28,400
+direct where we're saying here's where X should be, here's the close high low and open, etc.
+
+343
+00:41:29,360 --> 00:41:35,120
+And this is a little bit closer to how we might do things in that platly.
+
+344
+00:41:36,880 --> 00:41:44,400
+But it's still fully declarative. Notice that here we just described what we want the chart to look like.
+
+345
+00:41:44,400 --> 00:41:51,680
+We don't say it all how the candlestick should be drawn or in what order. We just described the
+
+346
+00:41:51,680 --> 00:41:59,440
+end result we're after. Then we hand that description to platly and it is responsible for drawing the chart
+
+347
+00:41:59,440 --> 00:42:08,000
+for us. To worry if you didn't follow all of the code here, when we study platly directly,
+
+348
+00:42:08,000 --> 00:42:18,560
+we'll understand a bit more about how this works. Now we just showed you a bit of that D3 Vega
+
+349
+00:42:18,560 --> 00:42:26,560
+and platly are all libraries for the JavaScript programming language. We've done most of our
+
+350
+00:42:26,560 --> 00:42:34,320
+examples in the Python language. It turns out that for both Vega and platly, there are Python
+
+351
+00:42:34,320 --> 00:42:40,000
+packages that allow you to write Python code and work with Python data structures like
+
+352
+00:42:40,000 --> 00:42:48,480
+pandas, data frames or python dictionaries. And then the Python package will use your python data
+
+353
+00:42:48,480 --> 00:42:55,120
+and instructions send those to the JavaScript libraries for actually drawing with charts.
+
+354
+00:42:56,320 --> 00:43:02,000
+And in this way, we can kind of have the best of both worlds. We can continue to use our Python
+
+355
+00:43:02,000 --> 00:43:07,840
+skills that we've developed and all of the tools and packages we know in that ecosystem.
+
+356
+00:43:08,480 --> 00:43:19,840
+For doing our analysis and we can get the benefits of interactivity from these JavaScript-based
+
+357
+00:43:19,840 --> 00:43:23,360
+platly libraries.
+

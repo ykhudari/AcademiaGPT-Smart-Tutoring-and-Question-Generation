@@ -1,0 +1,347 @@
+So in this video we're going to keep reviewing pandas and we're going to use an
+example using UN population data. Originally a lot of this material came from
+some work that Spencer and I did with Dave Backus who was that NYU and Brian LeBlanc.
+And let's get started. So the data that we're going to use in this notebook to
+review pandas is we're going to look at the UN's population data and in
+particular we're going to be focusing on the age distribution of the
+population. So there's going to be two types of data that are an input to what
+we do. There's going to be what the UN calls estimates which are estimates of
+the population at a point in the past and there's going to be projections which
+are forecasts about what the population might be for a given year. Furthermore
+the UN is going to provide us with a few different forecasts using some
+different modeling assumptions and so under projections there will be three
+potential population models. We'll have low variant which is going to assume a
+low fertility, medium variant which assumes medium fertility and high variant
+which assumes high fertility. So let's go ahead and load the data. So what we do
+in this first code cell is the data is going to be stored at this URL and we're
+going to use the URL join to make sure this is joined appropriately. We also
+probably could have just added these strings together but this is just to be
+safe. And so what that gives us is it gives us this URL and so if we were to
+click this URL it should take us to this Excel file. And so now what we're going to
+do is we're going to read a subset of the columns in particular we're
+interested in the column variant region sub region country or area country
+code type reference date and then there's going to be a bunch of columns that
+are things like 0 to 4, 5 to 9, etc. all the way up to 100 plus and so we're
+going to create these in just this little list comprehension and then we're
+going to add these columns to the columns we've already written out. Once we've
+done that we'll use pandas read Excel function and we're going to read a URL
+which is the URL we created above and then we're going to read four sheets
+from this Excel file we're going to read the estimates the low variant the
+medium variant and the high variant. At the top of the top the Excel file there's
+16 rows of kind of garbage just citations or notations so we're going to
+skip those rows we're only going to select this subset of rows to work with
+and then anything that is a dot dot dot is going to get read in as a missing
+value and what this will do is if you read in one sheet it gives you back a
+data frame but if you read in multiple sheets by passing in a list it gives you
+back a dictionary so it's going to give us a dictionary with the keys estimates
+low variant medium variant and high variant and so all we're going to do is go
+ahead and unpack these and then we're going to stack these data frames one on
+top of another so remember concat takes the data frames and just puts them
+together there's kind of no clever merging back and forth it's just literally
+going to stack them and we're going to do this access equals zero which is going
+to be one on top of another and we're going to ignore the index so this will
+take a minute the data sets about 10 megabytes so which isn't that big it
+just sometimes takes a minute for the server okay perfect so now we've read in
+our data so what does it look like so because we specified which columns we
+were going to read in you should already have an idea of what the columns are
+going to be so variant we can now see is going to specify estimates or if we
+look at the tail we can notice it's going to have high variant so the variant is
+going to tell us whether the data in this row is an estimate that's coming from
+kind of previous data or whether it's a forecast of what could happen in the
+future the region sub-region country or area is going to tell us what region
+we're working with so at the top it says world so these are world population
+estimates and at the bottom we have United States of America and so we could
+also kind of infer that somewhere in between some of these countries will the
+countries will be named country code is going to use the what they call the
+alpha three standard which is just there's a three-digit country there's a
+three-digit code for each country in the world and this is just a standardized
+notation type is going to tell us what kind of data point it is so again if we
+look at the bottom any time it has a country's name it's going to call it a
+country slash area reference date is going to give us a year and we've
+specified that this the population is an estimate as of July 1st so here
+this row would read the population for the entire world which is country code
+900 on 1st of July 1950 was X and then there's all of these columns that denote
+the age brackets of the different individuals so we have and these are in
+thousands of people so the world in 1950 July 1st had 338,496 thousands of
+people so that's really 338 and a half million zero to four year olds
+okay so let's check the shape of the data and what types are in it to make sure
+everything's what we expect so there's the 26 columns and we've kind of
+visually inspected these their approximate their what we expect and the
+de types are going to be this is an object so strings also strings this is an
+integer that's good the type is a string again and then the year comes in as an
+integer that's good and all of these numbers are floating point so that looks
+good so our data is clean enough and now we kind of know what's in it so the next
+step is kind of let's start cleaning the data let's put the data in a format in
+which we would be able to use it to answer some questions so remember this is
+what our data starts like and so the first thing we're going to do is kind of
+any of the questions that we're asking today I'm going to focus on just
+country data so they have things like so if we came in here we could do df type
+dot unique and what this will tell us is each of the different values that type
+could have taken so we could ask for anywhere where type was equal to region
+oh there we go and so what this is going to say is this going to say things like this region is
+Africa and so what's the population of Africa as a whole or ocean as a whole etc and so I think
+we've seen this in the past but if not just a quick reminder query is a way that we can
+apply filters to the data so this would be equivalent to writing df dot lock df type equal equals
+region and all columns so you'll notice that we're getting trues everywhere we could
+kind of up the ante and check for all dot all and this tells us every value is equivalent one to
+another so yeah so the query is just a shorthand notation and it does some things that make it a
+little faster like not creating copies of the data frame but it's just a faster way to do boolean
+selection okay so like I said we're going to focus on country data rather than looking at kind of
+regions or you know high development low development any of the other classifications that the UN
+or any of the other world organizations uses okay so here's our data and we notice now
+the head starts at the index of 390 because it's eliminated the first 389 rows
+and it only has country data now okay so if you look at this data frame and you're trying to kind of
+combine this data or reshape this data you'll run into a bit of a headache that the column names
+aren't necessarily in the best format they're not easily type a bowl or easily usable so what we're
+going to do is we're going to kind of use some common naming conventions for our pandas columns
+and we're going to rename the data that's been in that's been ingested from the UN so some kind of
+naming tips is typically you want to name your column something short and memorable
+and there's kind of standard conventions about how to do this you want
+so I typically like I won't say that this is kind of a world standard but I like my data frame
+columns to be named with lowercase letters and then when there's multiple words I want to include
+in a single name you use underscore so if this was going to be something like variant type I might
+have added an underscore to separate variant and type but kind of beyond any other
+conventions it's most important that you're internally consistent so choose whatever conventions
+you want but make sure that you follow them so what we're going to do is we're going to rename our
+columns and the input to rename is a dictionary and it's going to take a dictionary with keys that
+are the current column names and values that are the column names that you'd like to replace it with
+and once we've renamed all of our columns we're going to go ahead and drop the column the type
+from the data frame because we've already limited it to only having one type so it only has
+country slash area information and none of the sub regions okay and so you can see that we've
+now renamed our columns so we left the age brackets the same those are kind of easy enough to work
+with variant in country so variant was made lowercase all of this information about this was
+condensed into the word country because we're only working with country data we've converted the
+word country code into alpha three because they're the alpha three country codes and then reference
+date as of july has been converted into year so now the data has one column for each age group
+kind of if you remember what we talked about in terms of tidy is you want to you kind of want
+the data to be tall you want each column to be a variable and in this in some ways I guess the
+interpretation of our data is that a variable that the variable we're working with is population
+and these things 0 to 4 are more identifiers for the variable rather than their own variables and so
+what we're going to do is we're going to move our data from a wide form to long form to make it
+more tidy than what we have right now and if you remember we could do this with dataframe.melt
+so melt is going to move data from is going to change this into a data frame that has the
+columns variant country alpha three year it will have a new column that has these values in it
+and then it will have a final column called values that will have the actual values so
+and a row of this data frame will be estimates for berundi which is country code 108 in the year 1950
+for the age group 0 4 has the value 377000 okay so let's go ahead and run that code
+and just like we said one row is now an identifier which contains the information about the variant
+the country the alpha three code which is equivalent to two countries so we could have
+potentially dropped one or the other the year and then what age group we're focusing on and what
+value that age group had so this melt function I'm a big fan you'll you'll often use it when
+you're trying to tidy up your data okay and so then towards the end of what we're going to do in class
+we're going to focus on countries that had more than 50 million people in the years 2010 2015 and 2020
+so if a country kind of hit 50 million people in 2020 they will not be included in our data set
+and so the way we're going to do this is we're going to use a pivot table to determine how many
+people were in each country during each year and then we're going to do some Boolean selection
+so you'll notice we're only going to look at the estimates data because 2010 2015 and 2020
+are years that we already have data for then we're going to put country names on the index so we're
+going to have countries running down the index there's going to be the years across the columns
+and then in each value we want to put the total population of that country in that particular year
+and so what we're going to do is remember the default aggregator function is taking the mean
+but what are going to be the values that go in each of these it's going to be each of the age groups
+and so what we want to do is we want to sum up over all of the age groups which has the data stored in
+value okay so that's going to give us our population sizes and let's go ahead and look what
+look at what that looks like okay perfect so we can see we have years running along the columns
+and we have countries running along the index and we have this number right here how could we
+check that number as we could go back and we could say df.query country is equal to
+Albania for example and we want to look at just um and let's say and year
+here is equal to 1950 and so this should only give us you know 15 or 20 rows
+oh okay so we have all of these values so notice there for these age columns and now if we took
+this sum it should give us the same value oh we only want to sum the values column because
+everything else is meaningless and let's make sure we're displaying this okay so the population in
+1950 of Algeria was 1,263,000 according to our pivot table and if we do the only get the data from
+Albania in 1950 and take that sum we confirm that it's 1,263,000 okay so it looks like our pivot
+table is doing what we would expect and so now we need to find a way to only use countries that have
+more than 50 million people and the way we can do that is just create some kind of a boolean selector
+so we're going to do population sizes which is this data frame here we're going to look at all of the
+countries and we're going to look at the years 2010 to 2020 um it only they only have population
+data every five years so this is going to work but if we wanted to be explicit about what years we
+also could have passed in a list and we're going to check whether those values are greater than 50,000
+which is 50 million because the population data is reported in thousands and then we're going to
+ask whether all of those values were true and that's going to give us some booleans and then we're
+going to look at the index and we're only going to take the true values and we're going to
+put that into a list and that's going to give us countries population greater than 50 million
+which is just this list of countries so Bangladesh, Brazil, China, democratic republic of Congo,
+dot dot dot so if you kind of look through this list of countries that you're not surprised that
+these countries have 50 million people okay great so now if we wanted to just have a data frame with
+the countries that have greater than 50 million people we could just do df dot query so we're going
+to query again and we're going to ask whether country is in this list and so this at is kind of
+magic is that it allows you to pass a variable so we've created this variable right here
+and the at sign tells it that we're not expecting this to be a column name or anything else but
+rather this is a variable that's defined in the scope of what this query call should be able to see
+so because we've already defined this it will know how to hunt that down so if we delete it it'll
+give us an error but once we put at it knows to go get this and if you looked at the
+country dot unique you'd kind of line up that these are the same countries that we just saw in that
+other list great so later on we'll use this data set of using just the countries with greater than
+50 million people excellent so let's start exploring our data this is kind of the fun part so we've
+done some cleaning and so I have a confession you know the cleaning always looks better when you're
+presenting it to someone else really kind of these last 15 minutes that I've been talking probably
+took me you know four or five times as long to do on my own just because there's a lot of trial
+and error and so this is the same way as when you read kind of an academic paper it looks beautiful
+it looks polished but that's because someone has done has taken the effort to clean it up and to make
+it nice and it makes it will automatically make sense and so it takes practice to develop this skill
+so it's really is if you find chances to work with data we highly encourage you to do it because
+cleaning the data is going to be a skill that's acquired through practice not just by watching
+kind of data science and statistics and economics are all very much hands on learning
+okay so you know slash end rant we'll go on and start looking at some visualizations
+okay so one of the things that I kind of hinted at is that what we're going to be interested in
+is looking at the age distribution and so let's go ahead and look at the age distribution in
+China we're going to use the variant estimates so that we have the old data and then for any data
+that's in the future namely for 2050 and 2080 we're going to get the medium variant so this is
+going to be kind of the the medium version of the population forecasts so we're going to find all
+of the rows that satisfy these criteria we're going to do a pivot table and we're going to put the
+ages down the index and then on the columns we're going to put the different years and values into
+value and then we're going to take all of those rows but only the columns 1960 1990 2020 2050 and
+2080 okay so let's see whether that worked I guess let's uh so df China and it has 1960 90 2020
+2050 and 2080 and then the ages down the down the index so oh so that's what we wanted okay so
+let's go ahead and plot this so if you take a minute and stare at this graph there's actually
+something that's not quite right I'll give you a second just stare for a minute and there should be
+a couple of things that that look funny to you and you're you're not sure why but once you do notice
+it it will become obvious so what's happened is that if you look at the x-axis of our bar chart
+the ages have gotten out of order so because we have a number dash another number this had to be
+stored in a string so we ended up with the ages 0 to 4 then 10 to 14 so something's missing
+there so 5 to 9 oh and got put over here and then 100 plus which should be at the end
+and then I actually think everything else is in order so there's just a few that are out of order
+so how can we get these back in order well we can just kind of directly pass an order so if you
+remember when we constructed the age columns we constructed them in order using a list comprehension
+and so let's just remake this chart and look at this so this should look much better so what do we
+have now on the y-axis which should be the same for each chart we have the thousands of people
+running up and down the y-axis so what this says is that in 1960 there were almost 100 million
+100 million people in China aged 0 to 4 and there were approximately 50 million
+we'll call this one the 50 million bar of age 30 to 34 and so what we can see is that over time
+and this is probably not a surprising or new fact to you the population in China has aged so in
+the kind of the 60s and 90s there was a very young population you see this population kind of
+in 2020 and 2050 advance into their middle aged and then in 2050 and especially in 2080 you see
+this population retire and then potentially die off and so the other thing you notice is that as
+these people have died off there have been less births and we'll talk about why something like that
+might be important next so but rather than kind of seeing total population we might just be interested
+in seeing the fraction of the population in each age group so we've done kind of a lot here so
+let's go ahead and walk through it so we've taken our data frame and we've divided by the entire
+some of the population so first we sum this gives us the total population in each year and then
+we're going to take that and we're going to divide along the rows to tell you kind of what fraction
+of the population in 1950 was aged 0 to 4 etc okay so then we're going to look at the age calls we
+need to put them in order and then we're going to do this same plot command we've added a few more
+arguments so in particular we're only going to look at kind of 0 to 0.2 on the y-axis and we've
+added a title which is population share by age bracket and then so when you do a plot command in
+pandas it returns either a mat plot lib axis or an array of them so because we chose to do subplots
+equals true it created one plot per year and so what we're going to do is figure out what was the
+population in that year in millions for each age group yes sorry total what was the total population
+then we're going to add another title and that title is going to have the year which is what we get
+from df-china.collum's element i and then we're going to also put in the population and this colon
+period 2f is kind of a string formatting syntax that adds two decimal places so you'll notice this is
+660.41 if we changed this to 4 these decimal places would have four numbers instead so 0.4081
+there's a few different things that you can do with string with kind of number formatting in strings
+if you type up python string number formatting you can read all about it for some reason when I
+was setting the title it was getting confused so first I set the title to nothing and then I
+set the title to this string which has the year and what the population was in that year and I want
+it to be lined up on the right and then I'm going to get rid of the spines on the right and top
+axis just because I think it looks better and then this tight layout when you have a lot of data
+like this sometimes the graphs overlap and so tight layout makes sure that they don't overlap
+um but now we have kind of the same graph as we had before except things are expressed in
+population shares and we can see what the total population was in each year and so in 2020 there
+were one and a half billion people living in China and in 2050 they expect that to be slightly
+lower and then they expect it to be even lower in 2080 so what if we wanted to make this graph for
+other countries or for other variants we could potentially copy and paste this code from right here
+but when you do that there's a really good chance that you start making errors um one of my one of
+the stories I like to tell is when I was kind of when I was replicating a paper during the second
+year of my PhD I found a paper where the authors had written a utility function and had clearly
+copied and pasted it to a bunch of other places but because of this they had missed copy and pastes
+in the future as they changed it and so there were at least three variations of their utility function
+and so because of this they're again they were big deviations I doubt it had any effect on their
+results but it could have been a bug that was more malicious than just a small typo and so whenever
+you get a chance to whenever you're doing something repeatedly we highly encourage you to
+write a function to do it so let's go ahead and write a function it's going to take data
+which is going to be a data frame which country we want to write for the years that we want to plot
+and then which forecast variant we want to use and then all of this code is just the same as before so
+we're going to skip it we're going to look at the 80 90 2000 2020 and 2050 and just run through
+some graphs real quick so here's the age distribution of China if the model assumes
+low fertility so with low fertility the age distribution in China gets really old
+in by the year 2100 and only has 684 million people rather than more than a billion in 2020
+here's the graph that we've already seen so kind of things don't look quite so bad here you see
+larger population especially in kind of this 35 to 55 I think and then if you take the high variant
+which is going to assume a higher fertility you actually have much less aging in the population so you
+get a relatively stable distribution across the ages with it tapering off at higher ages we could do
+the same thing for India so the low variant is going to look bad in terms of the age distribution
+by 2100 for pretty much any country we do the medium variant is going to be less bad and the
+high variant is going to look it's actually in some ways looks similar to the China graph
+and then we can also do the United States what you see is kind of in both the low variant and the
+medium variant we're going to we're going to have a relatively aged population but one of the things
+that's interesting is is that the US sees a much smaller even percentage wise decrease in the
+population and that could be I don't know exactly why that is I'd have to see what their model looks
+like so I'm not going to I'm not going to try and make guesses okay so we've made these graphs
+about the age distribution and kind of played around so why do we care about it I think there's
+lots of reasons we might care about it but one reason we should be particularly concerned is social
+security programs so in the US the way the social security program is run is when you start working
+you pay approximately 15% of your income to a government savings program they call social security
+and when you retire at the age of right now the retirement age is 65 you potentially start
+receiving payments from the government that are hyped kind of hypothetically this money that you
+saved with the government and so kind of I like to think of myself as young working age and you
+certainly everyone in this class is young working age so you should be really interested in this
+because there's a lot of countries across the world which it's not clear that their social security
+programs are going to be solvent in 40 years I'm particularly concerned about this I think it's
+very unlikely that the US Social Security system stays solvent and one number that economists and
+other people used to kind of think about whether a social security program will be able to sustain
+itself in the case that the money that kind of the working people contributed through their
+lifetimes is gone as is the case in the United States is something they call the dependency ratio
+and so the dependency ratio relates the number of persons aged 65 or over per 100 persons aged 15 to
+64 so why is this a helpful number is because this number tells us roughly how many working age
+people there are to support each person who has stopped working so as the population distribution
+shifts to the right which we kind of saw in a lot of the previous graphs then there's going to be
+fewer individuals that are currently paying into social security programs that these so and these
+social security programs are supposed to be making payments to the old who's who made payments to
+this these programs while they were working age so we're going to compute this age dependency ratio
+and we're going to do this by figuring out with two list comprehension so this first one is going to
+give us all of the five times i to five times i plus four so these are the age brackets if the age
+is greater than 15 and less than 65 and then we're going to do the same thing if the age is greater
+than 65 and we're going to add the 100 plus category to the old age list and so what we're going to
+do now is first we're going to create a column called age classification and we're going to assign
+the value young to every value in this age classification column next we're going to figure out
+whether the age bracket is in this list working age and that's going to give us a boolean
+and everywhere that that boolean is true we're going to give it work and so if the age is zero to
+four it will be false that person would still have a young if that is 20 to 24 now that falls into
+our working age category and so the person is put as work and we'll do the same thing for old age
+and so then we're going to so we're working with the medium variant of the forecasts
+we're going to pivot table and put the country and year on the index and across the columns we're
+going to put the age classifications and in values we'll put value again and we're going to call
+this data frame dr for dependency ratio and then we're going to compute the dependency ratio
+which the way the UN defines it is 100 times the number of old divided by the number of working age
+and once we've done that we're going to save this back into this data frame dependency ratio
+we're only going to select that column and then we're going to unstack the level country so now
+we'll have year on the index and country across to the columns and so let's see whether that works
+if you get errors like this there is a reason that they give them to you but sometimes you get
+false warnings and so in this case we're getting a false warning
+okay so like I said we have the year on the index and we have the country names on the columns
+and then these values are actually the dependency ratios that we just talked about
+and so just as kind of a matter of benchmark a zero dependency ratio would mean that you have
+no old people to support an age dependency ratio of 50 means that you have two working people
+for every old person and then an age dependency ratio of 100 would mean that you have one working
+person for every old person and it can be over 100 but that just means you have more old people
+than working people okay so this next computation is obviously going to be wrong and the reason
+it's going to be wrong is because as the country ran into a crisis such as the one they might
+that we've kind of discussed is they would obviously increase their retirement age or there's
+other things that they could do but just as a thought experiment but suppose that the dependency
+ratio that's sustainable long-term is 50 and so what this means is that there's going to be two
+workers for each person over 65 so of our countries with 50 million citizens how many of these
+countries are going to be sustainable in 2080 or 2100 and I think kind of this plot tells us a lot
+so this dotted line is our 50 and you see kind of a lot of countries that kind of so you've seen
+this happening between 2000 and 2020 we've got kind of four or five countries that had a very quick
+run from the 20 to 30 range to you know to 80 90 and you see a bunch of countries that have just
+done it in kind of who are starting down that same path and could potentially cross over 50 from 2020
+to 2040 and then there's some other countries that are well below and so what are these countries
+so let's go ahead and look at the remember years or in the index so we're going to look at 2080
+and all of the countries and let's see which of the countries have less than 50 so the Democratic
+Republic of Congo, Egypt, Ethiopia, India, South Africa, Russia, Indonesia, the Philippines
+so these are all countries that have low age dependency ratios in 2100 it's an even smaller list
+and Ethiopia the Democratic Republic of Congo and South Africa are still on it but kind of some of
+these other countries India and Russia in particular and Indonesia have fallen off of this list
+so I don't know what to say about this other than if you believe this is kind of a good benchmark
+of a solvent social security program then you may want to go to one of these countries on these
+lists obviously there are other considerations that you would want to take into account that
+you know maybe these countries don't make your list but it's at least kind of hypothetical exercise
+this was actually something our friend Dave Bacchus was really interested in five six years ago
+and he spent his and I had started working on a paper on this at one point but it never got finished
+but hopefully this has been a chance to we think this is a fun example hopefully this was a chance
+to refresh you on some of the pandas topics that we've covered especially the reshaping because we
+can't emphasize this enough reshaping and cleaning are things that you'll only learn to do by doing
+them yourself so hopefully this gives you a playground and some data where you can start trying to do
+the same so that's everything I have bye bye

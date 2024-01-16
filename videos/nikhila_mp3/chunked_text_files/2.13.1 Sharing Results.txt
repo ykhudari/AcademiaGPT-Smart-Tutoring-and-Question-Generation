@@ -1,0 +1,307 @@
+Hello, this is Spencer Lion and in this lecture we will be learning about how to share the
+results of our research and analysis.
+The agenda or outline for this lecture is as follows.We will first talk about the purpose we have in sharing results.
+We'll call this the introduction.
+We'll then focus for a little bit on how we can share Jupyter notebooks in a variety of ways.And then we'll talk about interactive share.
+The section on Jupyter notebooks will cover how we can share a static representation of our analysis.And when we say static, we mean not connected to a running Jupyter kernel.
+So no code can be executed by Python or the language of our notebook.And then in the interactive section, we will learn how we can actually have live feedback from the user on a website,a trigger code to be executed in Python, and then results sent back to the user's website.
+So it becomes an interactive app.As we've been learning tools of data analysis and computation, we are becoming researchers and data analysts.
+As a researcher or data analyst, we're called knowledge workers.This means that our primary source of capital is knowledge information or data.
+One primary responsibility that knowledge workers have, and especially those who work with data,is to be able to use the information we have access to in order to assist a decision making process.In order to be effective in assisting a process like this, we need to do, we need to both perform analysis,
+as well as have effective communication of our results.Being able to effectively communicate the output of our analysis and work is absolutely essential.
+Without effective communication, the work we do will have little to no impact.In order to be effective at communicating our results, we need to decide a number of things.
+First, we need to determine who our audience is.This is sometimes a broad category, such as the public at large.
+This would be for anybody that's on the internet, for example, to be able to consume the output.This might be writing to a particular body of researchers.
+Maybe we have a paper or some analysis in a particular field.
+We would like to present our work as a novel contribution to the field.We're really reaching out to an audience of our peers in order to demonstrate the new insights we've gained through our work.We may have an audience be a client if we're working on a data project in the private sector.
+They may or may not be technically inclined.We'll have to be careful, do tone both our language, as well as the types of rich output we show,
+the tables, numbers, charts, etc.So that the audience that we're supposed to receive our analysis will be able to understand it.Then, after we really understand who our audience is, we need to be able to determine what the content should be.
+Or one audience, they may want just a few summary paragraphs and a chart or two.However, this can be suitable for the broad audience that is the public.
+However, if we are publishing a paper and some of the work we're trying to show is in, for example, a technical appendix,we will need to show in great detail various algorithms and derivations, as well as the code and results.
+In this case, the content would be much more than a few summary paragraphs and a chart.Finally, after we've identified who we're speaking to and what it is we're supposed to say,
+we need to decide upon a medium or technology, or convey our insights and information to our audience.These could be some standard technologies such as a PDF document or other static document.
+On one end, or it could range all the way to the other end as a full-blown interactive web application,or API for others to interact with and consume in their own research and work.
+But in order to be effective at communicating, we need to identify these three key components.Let's take an example of this class we've been working on together.
+We as the instructional staff have made a decision to distribute most of the materials for this course as Jupyter Notebooks,coupled with re-recorded videos.
+Why? Well, our audience is you, fellow data enthusiasts and researchers and data workers,
+who are capable of downloading, opening, and utilizing a Jupyter Notebook.We chose to give you the Notebook in its raw and original form so that you can follow along,
+make changes, really dive into how we do certain things,
+and provide you the full content of our lectures.An alternative could have been to present a PDF version of our slides and distribute those,
+but that would have come at the limitation of not being able to interact with code examples,change them, and re-render.
+So for our particular audience, this made sense to distribute as the full Jupyter Notebook.Another important factor that went into our decision was the type of content we needed to display.
+We knew that we would need to write some text that needed to be formatted.We have a number of equations or other rich formatting like a list or italic or bold content.
+We also knew that there would be a heavy portion of computer code,specifically in the Python language, it was part of this course.
+And in addition to seeing this code, we also wanted to be able to show and display
+the results or the output of that.And then finally, the medium that we would use would be our Jupyter Notebook,
+and the technology we used to distribute it was the co-cowk server,
+where we are hosting materials.In order for, and then the other part of our delivery was the pre-recorded videos.
+We did this for a number of reasons.
+First, as we are teaching remotely and unable to be in person,we felt like having an opportunity to have high quality and polished materials,
+via recording beforehand, the ability to edit,
+could increase the likelihood of student success.Second, the other reason, another reason for using videos is so that you could have them to
+refer back to and rewatch as you're reviewing the materials from the lectures,as we don't have as easy access to things like in-person office hours.
+And then third, the final reason is a technology limit where we did not want to be relianton a live and high-integrity internet connection during the entirety of each of our lectures.
+If for some reason we can't connect via video conferencing,you would still be able to consume the lecture material through the video.
+Let's now talk about how to share Jupyter Notebooks.
+There are many options available to us for sharing a Jupyter Notebook.This is one of the things that gives the Jupyter Notebook or that makes the Jupyter Notebook
+such a powerful tool. Not only is it flexible in the types of input and content it can represent,but it's also very flexible in how the content and results can be distributed.
+We will cover a few of the main ways for sharing Jupyter Notebooks here in this video,and then offer some suggestions and advice for which form of distribution you may choose
+based on your audience and content. After discussing the why we would pick one option overanother, we will show an example of how to use that particular method of distribution.
+First, we would recommend being able to share a Jupyter Notebook via GitHub.GitHub is a web service or website that provides both remote Git repositories as well as
+collaboration and sharing features. As we know, a Git repository is a folder that sitswhen we're working with it on our computer and is managed by the Git version control system.
+Git is used to keep track of changes to each of our files at a history of checkpointsthat we choose to keep track of. Typical workflow when using Git would be to
+add a feature or make a change to some analysis or report and then create a commit or savedversion of our work at that moment in time before we begin on the next step. If we do this regularly,
+we will end up with an entire history of how our analysis and work evolved from the startall the way through at the present time. This is how we would use Git on our computer,
+but we may also want to use Git either on a different machine or with other people,and that's where a service like GitHub would come into play. After we've made the changes to our
+files on our computer, we can then push the Git commits to a web resource like GitHub where theycan be shared either publicly or privately with others of our choosing. GitHub has become the homeof millions of the most used open source projects in the world. There are many, many projects such as
+Python packages like pandas and matplotlib that we've used as well as other analyses,technical appendix, source for papers, and so on. One benefit of using GitHub within your Git workflow
+is that you're able to go to the GitHub website and view the contents of your repository.When you do this and you view the contents of your repository, the files on GitHub will be rendered
+quite nicely. You may have some markup in a markdown file. Instead of seeing the raw text whenyou visit the markdown file on GitHub, you will see a nicely formatted version and rendered
+version of that file. The same goes for Jupyter Notebooks. When you go and you visit or browseror repository on GitHub, you'll see syntax highlighting for code, images, will display natively,
+you can open PDFs within GitHub, and you can also see a fully rendered Jupyter Notebookright within the GitHub interface. Let's take a look at an example of what this looks like.
+To do this, I will leave full-screen mode and create a new tab in my web browser.I will then go to GitHub.com, NIST app, and as I'm already logged in,
+I'm greeted with my default homepage. Let's go ahead and look at this firstrepository here called dataframes.jl. Once I'm here, you'll see that this file is called readme.nd.
+And this is a markup file in the markdown formatting language. And this is not the true rawrepresentation. This is the nicely formatted one we mentioned before. I'll have to click raw.
+Now I will be taking through a page that contains the actual code or the markup this file.You'll see here that it has the same contents. There is tools for working with tabular data in
+Julia, followed by installation, documentation, reporting issues, and contributing. If I go back,I'll see that I have these same content here, but it's rendered quite nicely.
+Let's go back out again and let's move to the repository that the instructors have been working onfor parts of this class. I'll go here and I'll navigate to one of these lectures on web plotting.
+When I go here, and I click on a notebook, what I see is after this loads is a nicely formattedversion of all of our notebooks. We'll see here that we have the rich text. Here's a header,
+a monospace font, a link. We also have code cells. These are going to be in the monospace font withthe code cell background and the syntax highlighting. This particular notebook has been stripped of all
+of its outputs. We won't see those here. If we navigate to a different repository, we could seewhat the rich outputs may look like. Let's look for this particular repository. It's some machine learning
+tools that integrate pandas. We'll look here in the examples and we'll open up one of theseby notebook, C-Born1 distribution. Now we see here that in addition to the code, we have some
+outputs. This is a table and it is how pandas data frames are rendered. Then we can see a numberof charts throughout this file. Now if we were to have run the codes and save the results for
+the notebooks for this course, we'd be able to see them output it like these are. This all comesquote for free when we use GitHub as a means of sharing our resources.
+So now we will talk about why we might not share Jupyter notebooks on GitHub.And there are two main reasons that we have found we like to share our notebooks. One would be
+to collaborate with others. Often we are doing analysis as part of a team or group of co-authorsand in this setting, our audience for wanting to share our, communicate our results would be the
+colleagues co-authors we are working with. Second are the content for this particular group.Would be the research code documentation for that code or maybe some examples or experiments
+that we've been trying. In each case, having the code be in the medium of a Jupyter notebookand shared via the GitHub technology allows us to easily transfer or share all of this content
+with the right audience so that they can also help and contribute. If we were insteadsending back a PDF file and asking for feedback, it would be difficult for our colleagues to
+edit that PDF file or make changes using GitHub facilitates a back and forth collaboration.The second main reason we may want to share our code, our Jupyter notebooks on GitHub
+is to share with a public audience. GitHub is a very popular and well-known and often used siteand hosting our content there may allow us to get some publicity for some extra viewers of our content
+that we may not pick up via other sharing technology. The type of content that we found we sharemost often would be reports, maybe in appendix to a paper or even class course materials
+and learning materials that we develop. We often share them publicly on GitHub.Let's do an example of how we could share some resources on GitHub. We'll share one of the notebooks
+we've been through in this course called v1 statistics2.ipynb.Let's first start a Jupyter notebook server and take a look at this notebook to remind ourselves
+of the content. We won't go over it in detail but we'll mostly look for the features contained inthe notebook. What I'll do is I'll navigate over here to my terminal and I will start a Jupyter
+notebook by running Jupyter notebook. First, I'll navigate to the repository and we will go intothis. Now we will run Jupyter notebook. Now that I'm in the correct directory and we will be
+taken to this landing page for the Jupyter notebook. I'll then click to open the notebook we'dlike to share the 01 statistics2 and we'll take a quick look. So we have here some text,
+some code, we have a lot of math and we have some code output as text. We also have some outputthat is some charts. Here's a chart that we've output. It looks like
+there are a handful of other charts and there's even one place in here where if we were to run thecode right now we would see that there were some interactive widgets. So what we'll do is we will
+go and we'll run all the cells above so that we can see what these interactive widgets did.So we see here that we have in blue a histogram of test scores on an exam in a class and we have in
+orange a truncated normal distribution where we have sliders that allow us to change themean and standard deviation of the distribution and we can kind of get a sense or a feel
+for what the parameters of best fit might be to capture this distribution.That looks like that's all the types of outputs. So now let's work on getting them on to GitHub.
+So the first thing I'll do is I will go to GitHub.com and I will createafter I've signed in I will create a new repository and I will call this test,
+Jupyter, Share. I'll allow this to be public and I'll press Create.Now what's here I have a couple options. What one option would be to use the command line to
+upload this file which I will show you how to do over here. We'll go back to our terminal and I willclose down this server. I'm going to move to an empty folder on my computer and I will clone
+the repository you just created. Don't worry this isn't a lecture really on Git. So if you're notfollowing this, we're going to talk about the second way we can upload our results.
+So here we're going to now go into the GitHub repository that we just cloned. We can copy overthe materials, the notebook that we would like.
+Now into this directory we'll see here try checking Git status that we do have one new file.We can do Git add, easier one, and Git commit and added first notebook.
+Then finally we can do Git push.
+So what just happened was we created a new commit on our computer and pushed it to GitHub.If we refresh this page we'll see that our file has been uploaded. If we click it we can see
+that GitHub will render the contents of our notebook in a nice way. We see here that we still havethe formatted text. We can see our code that we wrote. We can see the math that was written
+and rendered here. And we can even see some charts. So here is one of the charts and we can seea few more. One thing that we're missing is that interactive cells. So we look here and this is where
+we had the two widgets. One for the mean and one for the standard deviation. And we see that onGitHub this is just empty. The reason for this is that there's two main reasons. One, the rendering
+of the sliders created some interactive elements on our web page that needed to use what's calledJavaScript in order to be interactive and then to have some computation attached to them.
+GitHub does not allow you to render JavaScript inside of a notebook. So it removes that functionalityand then the second problem is every time the slider moved our Python code needed to run again
+in order to construct our plot. On GitHub there's no Python process or no kernel it's connected toso there's no way it could update and be interactive. So the outputs missing because JavaScript
+was removed but even if it was there it would be totally static. The sliders would bekind of disconnected and you may be able to move the sliders but the plot would not change.
+The reason the plot would stay the same is there's no Python process provided by GitHubthat would be able to update the plot in response to the new slider value.
+Now if you're not comfortable or familiar with using the command line for working with Git,you can go to you can actually upload files manually here so I could go and I could click
+add file and I can go click on upload files and when I upload them this tells me I need to dragthe files there to add them. So I will do this and I will just make a copy of this file and I'll callthis actually more not an empty bad bad bad forget it. But we'll do instead as we'll just create a new file.We'll do one more line. Okay. So what we've done is we created a second file called readme.md
+and we said the contents of that file is just the string this is a test repository or test repo.I'm going to open up my file browser. This is just the native browser for my computer.
+So let's me see all the files and we'll see here in this folder test Jupiter sharingsorry if the bell font is small but we're in the test Jupiter sharing folder. The notebook we
+worked on previously is here and the new file we just created is right here. We could upload thisusing the Git command line instructions we saw before or if we're not comfortable with that we can
+just drag from our computer onto the website the files we like to update and here it says thatthe readme.md file kind of ready to be added and now I need to commit the changes. So here I'll say I
+added readme the file uploader. Once I click commit I'll be then taken back to my repositoryand now you'll see here that in addition to the notebook we uploaded we have a second file readme.md.
+Now it is a standard in GitHub that when I visit any folder or any repository the contents of thereadme get rendered below. So we see here that this is the file readme.md and here is the contentsthat we wrote. So we could either upload via the Git command line or we can choose to click the add file
+either create right here or upload them directly. The next method of sharingJupyter notebooks we'll talk about is called Quant Econ Notes. Quant Econ Notes is a free online
+service from the Quant Econ team or sharing and distributing Jupyter notebooks. The purpose of thenotes project is to be a library of high quality notebooks on a variety of topics that are related to
+economics or computation. The notebooks on the notes website can execute some JavaScriptwhich means that they are allowed to have JavaScript embedded plots like those from an Altair
+plot or plotly. In addition other users of the note system can give thumbs up or down to thenotebooks providing some minimal form of feedback or a way to measure the popularity of a notebook.
+And also the notes system supports commenting on notebooks in order to facilitate a discussionaround the content of the notebook. Let's take a look at what the notes project looks like.
+So we'll go here and as I'm signed in you can see up here. Here's my Ike, my logo, and then you'llsee that there are a number of notebooks from different authors and if you click on any of them
+we'll see that here is the ability to write a thumbs up or thumbs down for this particular notebook.Here is a title that the author here John Stitscherski gave for this notebook as well as a
+description of what the notebook covers. And now we see that we have a nicely rendered Jupiter notebook.You'll see that relative to what we saw on GitHub or inside the Jupiter notebook itself.
+We have a little bit more style applied to the fonts and typography.The links here are orange to be consistent with the theme on the note site. But we still are
+able to see code and outputs just as we would with our other Jupiter notebook systems or format.Let's look at one more to see the other types of outputs that are possible. Here we see some
+charts and 3D graphs for more math. Here's a tree that was generated or rendered.
+And so on.And so on.
+Now we'll return to our presentation on our notes. So why might we want to share on Quanticon notes?And really the other way to ask this question is who would the audience be and what would the
+content be in order for us to choose to share on Quanticon notes rather than some alternativetechnology? The main audience for Quanticon notes is the research community in academic
+in in economics. The content that these notebooks contain are academic facing contentlike an appendix or an explanation or an example that either demonstrates a concept for instructionor an example as part of a paper or a research project. The content should have something to do with
+computation or economics and I because this is who the project is for. Let's see an example of howwe might share our statistics notebook on Quanticon notes. So I will create a new browser tab
+and I will go to notes. Quanticon.org and I'll be taken back to the landing page.Because I'm signed in, I have the option to submit a notebook and here it says I can drag and drop
+a notebook or I can click in order to find notebooks on my computer. You'll see here if the font isnot too small that I am in the test Jupyter sharing folder that we were working with previously.
+And I have this V1 statistics to notebook. I'll click open and this will be uploaded here to the site.I'm going to put statistics as the title of the notebook and if I wanted to make sure that I'm
+uploading the correct thing, I can also click preview which will open up a modal window with apreview of our notebook. This does look like the correct notebook. Here are some of those charts we
+were seeing. So I'm going to go ahead and close this preview and fill out the rest of this form.Now they'd like you to select some topics that will make sorting and identifying notebooks a
+bit easier. Here this is a notebook about statistics which is most closely related to the fieldof econometrics but I'll also click other just in case. This is a notebook under
+the reading basic concept. I can then click that I agree to these terms and conditions and submit.So when I do this, if I want to discover or if I want to sort by the date, I will see this notebook
+is the most recent one published on the site and if I click it, I can see the notebook we've beenworking with. We'll see that all the math here is rendered nicely. We have our charts that are
+showing up without any problems but one thing again that we'll see is we don't have our interactiveGUI. Now the reason for this is not an issue with JavaScript but it's the issue that there's no
+live Python kernel hosted by the quantum Econ Notes project. So there's no way for this cell to beupdated because there's no Python kernel connected.
+Now that this is here, other users can view it and there's also at the very top here anopportunity for people to comment on my notebook and I could then respond to the comments. So if I go
+back out to the beginning, I can click on a notebook. This one by John has a few comments to itand we can go and kind of see what this discussion looks like.
+And now this is a social way for us to have some back and forth with other professionals in our field.Of sharing a static version or non-interactive version of a Jupyter notebook that we'll talk about
+is the NB Convert tool. NB Convert is a tool from the Jupyter team to enable the conversion orexport of a Jupyter notebook to other file type. NB Convert is a PIP installable Python package
+that must be installed on your local computer and then you will run it from the command line.NB Convert and convert your Jupyter notebooks into many different file types such as a PDF,
+a standalone HTML or web page, a slideshow, a latec document, and more.Why might you share with NB Convert or who would your audience be and what might the content be?
+The audience is very broad for NB Convert. It could be anyone public or private but the maincondition is that they need a static single file version of your notebook in order to consume it.
+The content that can be included can be just as diverse as the audience.NB Convert has been successfully used to create websites, to write books, reports,
+and other documents that will create it in Jupyter.It is an NB Convert is an integral part of the Jupyter ecosystem,
+specifically when trying to use Jupyter for authoring documents.
+Let's see some examples of how we can use NB Convert.We're going to use NB Convert to share our document as a Python script,
+as an HTML page, as a PDF, as some slides that can be used in HTML or in a web browser.Similar to the slides we're looking at right now.
+In each case, we will use a command on the command line that looks something like this.It will read Jupyter, NB Convert, and then we'll pass the name of our notebook
+and an argument saying dash josh 2 xxx, where this xxx is a placeholder, or the format we would like togenerate. Let's switch back over to my terminal and give it a try.
+Here in my terminal, we can see that we have just the statistics file and the readme we createdbefore. Let's now run Jupyter and be convert. We're going to pass in our notebook and then let's do
+dash 2 Python. We convert to a Python script. Now if we look, we'll see that in addition to thenotebook we had, we also have another file that has the dot py extension. This is a Python file.
+We can open up a text editor in this directory. Here I'll open up Visual Studio code.And if we open up this Python file, we'll see here that this is a Python file containing all
+of the code from our notebook. A few other of the features are first that we haveall of the markdown or all of the text is included here as comments.
+Here we see all of the math and the equations that we wrote. And then also we have herethe in a comment for each code to sell. Here it says in bracket one,
+polling, and this allows the virtual Visual Studio code to recognize that these are cells of aJupyter notebook. And if we wanted to use if we have Jupyter configured properly, we can click
+run cell and it will attempt to run this computation. I'm not sure if this will work.It may not have Python totally configured properly, but the
+the using Visual Studio code is not a focus of this lecture. So we won't spend too much more time.But we do have a fully runnable Python script containing all the code from our notebook.
+Next we said that we would try to convert our notebook to a HTML page. So here we'll do twomore replace the Python at the end with HTML. Now when we check the contents of our directory,
+we have three files that start with the one statistics two. We have the notebook that we startedwith. The Python script we just looked at as well as an HTML file. We go back to our code editor.
+We'll see that this if we open up this HTML file, we'll see that there are a number of stylingthings added. We'll kind of skip through for a little while, but eventually if we make our way all the waydown, we can start to see some of the content for our notebook. I'm sorry, it's really far down. Okay,
+here we go. Here are some of the equations that we had. And I think if we look carefully,we'll be able to see some code. Yep, this, believe it or not, is actually the code.
+You'll see here we have variables like mu hat one equals np dot something. And so all of this uglystuff going on is how our web browser will be able to put nice colors on all the code. We'll take a lookat a more. Or actually, if we go back to our web browser that we were using for our slides, we can
+go here, make a new tab, and I will open a file, and I will tell it to open this HTML file.And when I do that, we see here that we have a nicely formatted HTML version of our notebook.
+We have all of the code. Here maybe is some of the code we were working with,with all those crazy HTML elements and text. But we see plots, we see math, we see formatted
+text and code, we see output. And so after we've used nb convert and we'veconverged in HTML file, we can either share this with a colleague, upload it to some web server
+somewhere and have it be available publicly. We also mentioned that we may want to convert toAPDF. Let's try this by running this Jupyter and be convert command again and this time,
+passing dash dash to PDF. When we run this, going to do some work, and it actually ends upgenerating a PDF via the latex program. If you don't have latex installed on your machine,
+this would probably fail. I did have it, and we see here the output that the PDF was successfullycreated. And if we list the contents of my directory, we now see four versions of files starting
+with v01 statistics 2. Notebook is HTML Python and now this new file is a PDF. If we do,if we try to open this file,
+my PDF browser on my computer will open and now we have a PDF version of our notebook. We can havebeautifully types that map. We have code that syntax highlighted for us with these code
+cell numberings before. And we have our charts. But we're missing again in this format as we wereand all the others was this interactive cell. We don't even have a chart here.
+Interactive things can't be rendered in these static versions that we've been using.But everything else went through. We have our links that were contained throughout the notebook,
+code inputs, outputs, math, and so on.Now the final thing that we said we would do was convert to slides.
+We can actually try this. We can do convert to slides. And you'll see here that the new versionof this v1 statistics 2 file now has the extension dot slides dot HTML.
+We go back to our web browser. We can try to open this.I'll go here new tab and I'll press open and I'll go to this slides dot HTML file.
+Now when I open this, we'll see here that we have a slideshow version of our notebook.We have math. We have formatted text. Man if we go far enough, we will eventually find some plots.
+See if we can keep it. So it looks like in this exactwe're not going to see the plots because we'd have this scroll to block.
+But there are settings we could change that would allow us to scroll here.So this was an example of how we use the NB convert tool to generate four different versions of our notebook.
+We have the HTML version. We have the slides that can be shown on the web.We have our Python script and we have a PDF.
+The sharing methods we've discussed thus far have all produced a static output.By static, we mean that there was no way for the consumer or the user of our outputs
+to modify the contents of our analysis.The computations were done once beforehand and the outputs stored and reproduced in each of
+the output format. Now we will talk about how we may want to share our results in an interactivemanner where our audience and users can make modifications or requests of our analysis and we
+can provide real-time feedback. Now as Python programmer, we have many different options for sharingour notes. We did talk through a lot of the static ones like GitHub, Monty Condotes,
+or by using NB convert to generate a file. Some of the other sharing formats are interactive.Here our audience will be able to provide input or tweak parameters. This will then trigger our
+code to be executed and then we can return new output. We'll now talk a little more about some ofthese interactive methods of sharing our work. There are many different methods or technologies
+for sharing our analysis interactively. The traditional method is to publish a package or libraryof our code so that others can download it or install it and then run our code on their own.
+Then by passing in various arguments or position arguments or keyword arguments,the users or consumers of our product will be able to either replicate our analysis or do new
+things using our work. The standard way to distribute a Python library or package is by publishing itto the Python package repository of iPy, of pypi. Anything that is published here
+and be installed using PIP, there is no necessary review period or acceptance to publish. Anybodyis allowed to publish to this public space and it can be quite effective in simple way to share
+the code behind your analysis. If you choose to share your work in this way, the main audience islikely to be other program. The reason for this is that you're sharing the code that you may havedeveloped as part of your project and in order to interact with this, you need to know how to program.
+The content of course would be the source code. You'll be able to take a look at the PyPy page.So we get a little better understanding of what's there. I'll click this link and ask it to take
+me to a new tab and then I'll go there. So now here in the second tab, I'm on the PyPy page,which again is the Python package index and you'll see here that hosted on this site are 282,000
+projects over 2.3 million releases, 3.7 million files and these changes or projects were uploadedby about half a million different users. You can see that there are projects that are recently
+downloaded, recently updated and we can even search for the Pandas page and we'll see here thatwe have Pandas 1.2.0. If we click this, we'll be taken to a description of the Pandas project.
+You can see the release history of all the different versions of Pandas that have been releasedall the way back to version 0.1 on Christmas Day in 2009. You can see that the most recent as
+of this recording was just the day after Christmas in 2020. You can also have other statistics likethe number of stars, forks and open issues or pull requests on the app as well as some links
+to documentation or source code. PyPy is the defacto way or standard for distributing and sharingPython code. Another option for interactive sharing of analysis would be to create an API.
+If our work or analysis led to the creation of a novel dataset, it may be likely that otherprogrammers or researchers may want to be able to consume the data that we've collected
+or produced and use as part of their own analysis. A common way for sharing data like thiswould be to create an API. As we remember from our topics on web scraping and data collection,
+an API stands for application programming interface and a web API is a way for, is a common standardfor exposing data from one service to another. We in this setting, if we're trying to interactively
+share our results, we would be creating the web API and others would be using it.Again, here, the audience is most likely to be other programmers because in order to interact with
+or connect to web API, some knowledge of programming is required. There are other tools that you canuse to explore data using web API, so we'll also note that maybe more broadly data consumers
+instead of only programs. The type of content that we can distribute through a web APIincludes data or images that are produced by our code.
+Finally, the last method of interactive sharing that we'll talk about here is an interactiveapplication. We will talk about an application as a website that users can visit. There may be various
+widgets or toggles for the user to interact with, which will then cause our code to be executedand results to be sent back to the web page itself. This audience is the most broad of the three we'vetalked about. This would be anyone who would like to consume our analysis. It could be other programmers
+looking to get a feel for what is possible with our code or it could be researchersor other academics interested in our studies. Finally, it could be more broadly anyone who
+happens to take an interest in our work. The type of content in the web application is typicallygoing to be text, data, or images that is produced through our analysis.
+It is this third group of interactive sharing that we'll talk about here today. We won't talkabout how to publish to Pipy or how to create web APIs, but we will talk about how we can create
+interactive applications that others can use in order to interact with our work.We'll first talk about the Voila package. Voila is a Python package that allows you to expose a
+Jupyter notebook as an interactive web application. Voila works by rendering the content of theJupyter notebook as a website and then it connects this website to a live Python process
+for handling user input. This is different from the other web-based Jupyter notebook sharing methodswe talked about before. Those other methods like posting to GitHub, quanticon notes,
+were exporting to HTML, were all able to render the notebook as a website. However,they did not connect to a live Python process that could be used to execute code.
+Voila makes the website interactive by connecting widgets created inside of the notebookand then exposed on the website to a Python kernel so that updates can occur.
+Voila package is created by some of the core contributors of the Jupyter project and thus isvery tightly integrated with the Jupyter ecosystem. Its key feature is the ability to use Jupyter
+notebook widgets that are created in your notebook from a web page. We'll see what this looks likehere shortly. Why might we share with Voila? Well, the audience that we may target for this particular
+form of sharing could be the broad public, somebody that we would like to share our results withand it may be particularly helpful for co-authors or colleagues who would like to see some of the
+examples that we've worked on. One common workflow that happens or occurs when doing research orother data analytics work is one person may do an experiment or try out a particular model
+and then team members or co-authors would like to be able to tweak or make alterationsto that model or to that analysis and explore some of the different features.
+The Voila project makes this extremely easy and quite convenient. Now the type of content that wecan put inside of a Voila project is anything that is in a Jupyter notebook that could benefit from
+being interactive. Let's see an example how we might share our statistics notebook using Voila.To do this, we first will have installed the Voila package by running pip install Voila.
+Once we've done this, we can run from our command line Voila followed by the name of the notebookthat we would like to execute. Let's now give this a try by returning to my terminal.
+We're here. I will clear out the old output and I will run the command I indicated in our notebookor on Voila the zero one will pass the notebook file name. When I press enter here,
+we'll see some initial output from Voila and it opened our web browser here on the right hand path.We'll see that this is the URL we can put into our web browser to, oops, I put it again,
+see the file and we'll see here on the right that we have a nicely rendered version of our notebook.You'll notice here that we're this looks slightly different than we've seen before.
+In the actual notebook right underneath the heading statistics continue,we had a code cell where we imported packages like ipyplan or sorry, mapplotlib,
+numpy and pandas. This code cell seems to be missing.If we scroll further down, we'll see that we have a nice map output, the formatted text,
+and we'll even see here what looks like the print messages that our code generated.So here we're seeing that we have the output of our code but not the code itself.
+The reason for this is that by default Voila chooses tostrip or remove all of the code inputs so that what you're presented with on the web page
+is just the clean text and code outputs.One thing that we see in this format of sharing that we haven't any of the others is we now have
+our interactive sliders. So here we can move the new slider for example and the chart updateson the web page. If we move the signal one we get another update.
+And so now for the first time in the sharing methods we've talked about so far,we see that we have a fully interactive version of our notebook being shared inside of a web browser.We scroll down, we'll see all the other outputs that we had. We have more math, more printed text,
+and more of the charts. This is extremely powerful. As you can imagine,putting more than just these two widgets inside of the notebook would allow you to create
+some very powerful and flexible presentations or applications using Voila.Another form of interactive sharing. Python code and results is the Streamlit library.
+Streamlit is a Python library that translates Python scripts into interactive websites.This requires 0 HTML, JavaScript or CSS, and the output is a beautiful interactive dashboard
+or website. This is similar to the Voila project. However, the input is a Python scriptcreated using a text editor instead of a Jupyter notebook.
+Also, the interactive widgets are Python variables,instructed with a call to a Streamlit class instead of having to build out Jupyter widgets.
+Why might you share with Streamlit? Here, the answer is pretty simple, broad, and powerful.Your audience could be anyone in the public. It could be colleagues and coauthors,
+similar to the audience use case we had with Voila, or it could be more broad.It's just an opportunity to share publicly the features of your project.
+The type of content that you can display with Streamlit is anything that Python can generate,which is just about anything. The main type of content that you would be seeking to share or
+communicate with others would be an interactive version of your Python scripts.We will look at an example of how we can transform some of the codes from our
+B1 statistics to notebook into a Python script, and then we will use that to create a Streamlitapplication. To construct our Streamlit application, we will modify the script that was generated
+for us when we used MB convert to take our notebook into a Python script. We'll use our Visual StudioCode Editor to do this editing. So here, we'll open back up the editor in this file,
+and we will create one more file in the directory called the 01 statistics todo Streamlit.py. Then I will open the MB convert Python script off into the right.
+First thing we'll do is bring over the dependencies that we use throughout theJupyter notebook. Then what I'll do is I will copy over some of this text,
+and instead of having it be a comment, if I have this be a Stream, without any assignment,just a top-level Streamlit will actually interpret this as markdown, just how it was in the Jupyter
+notebook and will render it on our web page. One convenient thing that Streamlit provides is alive and interactive view while you're editing. Let's see how this works. I'll open my terminal
+here on the bottom, and I will type Streamlit, run, be 01 statistics toStreamlit.py. Now you can now view your Streamlit app in your browser, and I will click this
+URL and open up my browser. You'll see here that the only thing on our page as of right now is statisticscontinued. I will go back to our text editor, and I'm going to rearrange things one last time,
+now actually stack these one on top of each other,and to the left so that we can see the text, the code here on the left, the output at the bottom,
+and the Streamlit app running on the right. Now let's test out the theory of being able to putmarkdown code in a string and have it be rendered. I'm going to copy this long version.
+Actually, I'm going to start here at the new content in this notebook here about sufficientstatistics, and I'll continue to copy until I see code. I'm going to copy all this
+text, and we'll see if we can get it to show up on our application. I'll paste this in,and then I'll go to the top. I will remove the comment, and now I will add, I'll wrap the whole
+thing in a string. Now when I save this, you'll see here it says source file changed over here inmy web browser, and I'm going to say always rerun. What this will do is it will construct
+Streamlit to watch this Python file, and anytime it changes, it will update the website.
+Oops.Oops.
+This is telling me that I have an error. What does it say?
+Oh, okay. I think I need to make this a raw stream. There we go. So if the problem was,I was having the latex code in here that has like a slash t or slash all the other things for
+the latex, and Python was trying to interpret the slash t, for example, as a tab, and then there wereother slash commands in our code. For example, maybe this slash h that is not a proper what's
+called an escape sequence. So Python saw the slash t and made it a tab, and then it sloss somethinglike slash h and didn't know what to do with it. And Python away around this is to make the string
+in raw form so that these slash commands are don't actually have. Now we'll see here that except forthese block codes or block math, things seem to work. And so let's go ahead and find one of these,
+and I think the problem is we just need to wrap these with, I should sorry, with dollars.So if we can get this one rendered.
+Nope, not quite.
+Okay, so we need to have dollar signs, and then we need to change a line star to align. So I'mgoing to go ahead and use fs code to get all these, and change them to aligned. And now we're
+starting to see more, but we're just a few more of these equation groups down below,which you can already see that our streamlet version of this app is starting to take shape.
+Okay, now let's get to running some code. So we go down here, and if we run this,go ahead and we'll put in this code. Let's just copy over directly this cell,
+and we'll see what streamlet does with it. So nothing quite happened here. So the reason the problemis is when we print things, they showed up in our console. In order to have streamlet show them,
+they just need to be strings. So we'll go ahead and remove the pitfall, and now they showed up here.Great, this is successful so far. And in the interest of time, we're not going to go through and
+copy the entire Python script. We'll just go through and show some of the interactive examples.So we'll define the functions that were defined in Jupyter for us.
+Here we go, copy and over D1.
+And we're going to continue copying.And I'm really trying to get to the point where we have the interactive plot.
+Is that's what we're going to want to replicate here?Here we go, plot, scores, and then here's our interactive. So let's just test it out.
+So let's write the plot scores, and then let's just try it once. Let's do plot, scores.And we need to pass in the press scores. A mu, let's say a mu of 300, and a steady deviation of say
+100. Let's see what we get back.
+Big act is that, and now we can do the thing.And here we go. So we were able to, again, streamlets, main way of displaying things,
+is, or one of the convenient ways to do it is just to display a figure, or sorry, display a variableor a string or something and not assign it. So if we just write big on its own line,
+this shows the matplotlib figure over here with an upstream lit application.Now the next step will be to have the mu and the sigma be associated with a slider,
+like they were in the Jupiter version. To do this, we need to import the streamlit library.I'll actually jump back to the top of my file, and I will say import streamlit.
+Now that we have streamlit, I want to show you one thing, and then we'll work on the slide.So the first thing is that in addition to just writing a variable out like this,
+we can write streamlit.write, and this function can be called from anywhere, and thebig and the corresponding variable or value will be displayed properly in the website.
+To show that the figure is coming from this streamlit.write command,and comment this out, and see that it disappears, and then when we remove the comment,
+we'll see that it comes back. The streamlit.write function is more powerful than the write a variable namesomewhere in your script by itself, because it can be called from inside of a function or a loop
+inside of some if condition or anywhere your Python code can execute, and it doesn't havethe restriction of needing to be just at the top level of our script.
+Okay, so now there is in streamlit the notion of a sidebar. So what we'll do is we will say thatmu is equal to streamlit.sidebar.slider, and we will call the label for this slider equal to mu.
+The min value, looking down here at the Jupyter version, is 0, the max value was 550,and the step was 50.0. We'll create another slider for sigma, and we will label this as sigma,
+and we will copy the same arguments that we have in the Jupyter version. So 50, and then 150,with a step size of 10. We'll then replace the 300 and 100 with mu and sigma. So here, we,
+let's see what happens then we'll talk through. So we run this code,and okay, it's telling us that we need to have same data time. So here it says that I had
+a min value was an int, and the max value was an int, and the step was a flow. So if we make allof these floats, then you won't have the same kind of type of shape. So now what we see is streamlit
+has added on the left hand a panel, all the sidebar, that's where this name comes from, with oursliders. And now we can see that as we move these sliders around, our figures updated.
+So we kind of have here a control panel, that we have a label sigma, and when we move the slideraround, we see that the value of sigma changes in the text annotation, as well as the distribution
+line over here. So now streamlit is allowing us to change these variables. So you'll notice thatanywhere that mu and sigma were used throughout the script, you're seeing these values update. So
+here it says method of moment estimators are, and if we move mu around, they're going to change.And so what's happening is as these sliders get in the room, streamlit will send back to Python land,updated value for mu or sigma, and then it will execute all the code that depends on mu and sigma.Let's summarize what we've learned today. We started by talking about the importance of communication,
+and how it's essential in order to have an impact and be successful as knowledge workers.We discussed how effective communication requires an understanding of the audience
+that is receiving the communication, as well as the content and type of content to be communicated.Once these have been identified, being able to choose the correct medium and technology fordistribution will lead to success and communicate. There are many static ways we can share Jupyter Notebook.
+In this lecture, we talked about a few of them, including sharing the Notebook on GitHub,sharing on Quant Econ Notes, or using NB Convert to create a single file version of the Notebook
+in a different file format. The file formats NB Convert supports include a PDF,a Python script, each Gmail file, and slides.
+We also discussed how there are many interactive ways to share our Python analysis.One way is to publish the source code that we developed to PyPy as a Python package.
+This enables other programmers to pip install our code and use it within their own exercises.Another option would be to create an API that users of Python or any programming language could use
+and access in order to access the data or other outputs from our work.Another interactive solution for sharing or communicating is to create an interactive application.
+We saw examples of how to do this using Voila to transform a Jupyter Notebook into an interactiveapplication and also stream it to create an interactive website from a Python script.
+We hope that you've learned some things and that you now have a better sense of how you canaccess the tools and technologies within the Python ecosystem or sharing the results of your work
+and effectively communicating the lessons that you've learned.

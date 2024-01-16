@@ -1,0 +1,1252 @@
+1
+00:00:00,000 --> 00:00:06,160
+Hello, this is Spencer Lion and in this notebook we will be learning about the Altair
+
+2
+00:00:06,160 --> 00:00:14,160
+Library which is used for utilizing the Vega Light, JavaScript, Cherry Library from Python.
+
+3
+00:00:14,160 --> 00:00:21,640
+There are actually multiple Vega or Vega Light wrappers in libraries written in Python.
+
+4
+00:00:21,640 --> 00:00:28,840
+The Altair Library is the most widely used currently and this is what we'll be using now.
+
+5
+00:00:29,320 --> 00:00:35,640
+The purpose of this notebook will be to introduce the core concepts of Altair, not to provide an
+
+6
+00:00:35,640 --> 00:00:43,240
+exhaustive showcase of the all of its features. Further exploration and experimentation
+
+7
+00:00:43,240 --> 00:00:51,080
+will be left as an exercise. As a note, we do baroquate heavily from the official documentation
+
+8
+00:00:52,360 --> 00:00:58,520
+in parts of this notebook and we strongly encourage you to view this documentation for yourself
+
+9
+00:00:59,160 --> 00:01:03,480
+to get more detail on how you can utilize Altair in your own work.
+
+10
+00:01:04,520 --> 00:01:11,720
+If you haven't installed Altair yet on your machine, you can uncommit the second lion in this code
+
+11
+00:01:11,720 --> 00:01:24,280
+cell and then run this. Let's talk about the core concepts of Altair. There are three main concepts.
+
+12
+00:01:24,360 --> 00:01:31,400
+First is the chart. You can think of this as a container for our chart specification.
+
+13
+00:01:32,360 --> 00:01:39,160
+Typically when working with Altair, all charts will begin in one form or another by using the
+
+14
+00:01:40,040 --> 00:01:47,880
+Altair dot chart function for instantiating an instance of the chart class and we'll usually pass
+
+15
+00:01:47,880 --> 00:01:55,400
+into it an instance of a pandas dataframe. The main component called a mark.
+
+16
+00:01:56,520 --> 00:02:02,760
+This is a type of visual element that will be displayed on the screen. The examples are a line,
+
+17
+00:02:02,760 --> 00:02:09,960
+circle, a bar, a violin, a heatmap, coordinate, etc.
+
+18
+00:02:10,600 --> 00:02:18,280
+The next thing that we, the next main concept is the encoding concept.
+
+19
+00:02:18,280 --> 00:02:28,040
+So an encoding is a mapping or relation between the columns of our data set and what Vega calls
+
+20
+00:02:28,040 --> 00:02:38,040
+the visual encoding channels of the chart. Some of these channels are x, y, color, size, etc.
+
+21
+00:02:38,360 --> 00:02:45,800
+These three components form the basis of the Altair system. We have a chart that is the overall
+
+22
+00:02:45,800 --> 00:02:52,440
+container. We can request that certain type of visual elements be drawn and we can instruct
+
+23
+00:02:52,440 --> 00:03:00,440
+Altair where and how drawing should take place by encoding or mapping between our data and
+
+24
+00:03:00,440 --> 00:03:07,560
+the visual encoding channels that Altair understands. We'll look at a brief example.
+
+25
+00:03:08,040 --> 00:03:15,080
+First we will import Altair as ALT. This is the common prefix or the common way of importing
+
+26
+00:03:15,080 --> 00:03:21,560
+Altair. And then from the Vega data sets package will import the cars data set.
+
+27
+00:03:21,560 --> 00:03:27,720
+This is a common and popular data set that's used often in the R programming language.
+
+28
+00:03:27,720 --> 00:03:32,360
+You show examples and it's been made available to us through the Vega data set.
+
+29
+00:03:32,520 --> 00:03:39,960
+We see here that there are a number of columns. We have a name. The year that the car was made,
+
+30
+00:03:41,000 --> 00:03:46,440
+the country of origin and then some statistics about the car. Things like miles per gallon,
+
+31
+00:03:46,440 --> 00:03:51,800
+how many cylinders and things about the power and performance of it.
+
+32
+00:03:55,320 --> 00:03:59,400
+Now let's look at one example of a chart and we'll talk through a bit more detail how these
+
+33
+00:04:00,360 --> 00:04:05,640
+the first thing we'll do is we will create an instance of chart by passing in our data frame.
+
+34
+00:04:06,600 --> 00:04:13,080
+We'll then request that Altair use a point or a circle. As the marker,
+
+35
+00:04:13,960 --> 00:04:18,920
+then we will encode the data as follows. We'll say that the x position
+
+36
+00:04:18,920 --> 00:04:25,800
+to come from the horse power column, the y position of each mark to come from the miles per gallon
+
+37
+00:04:26,440 --> 00:04:30,840
+column and that each mark should be colored based on the country of origin.
+
+38
+00:04:31,880 --> 00:04:36,120
+We then will chain on one more method call which makes the chart interact.
+
+39
+00:04:36,680 --> 00:04:41,640
+When we do this, we see here that we do have a chart on the x-axis, we have horse power,
+
+40
+00:04:42,280 --> 00:04:46,920
+the y-axis we have miles per gallon and then we have three different colors.
+
+41
+00:04:47,640 --> 00:04:53,480
+We look here at the legend. It will tell us that the colors correspond to either countries or
+
+42
+00:04:53,480 --> 00:05:02,920
+regions where the car was manufactured. By making it interactive, we can roll around, we can zoom in,
+
+43
+00:05:02,920 --> 00:05:12,360
+and we can also double-click to reset the scrolling. Let's talk a bit more detail now about
+
+44
+00:05:12,360 --> 00:05:18,680
+marks and encoding. In the examples that we'll be working through, we will have the following data.
+
+45
+00:05:19,640 --> 00:05:24,920
+This is a nine-row data frame where we have columns A, B, and C.
+
+46
+00:05:25,960 --> 00:05:33,640
+FollowMkA is of type object because it has string data, and it has the values CCC,
+
+47
+00:05:33,640 --> 00:05:42,280
+DDDE. FollowMkB is filled with semi-random integer. And then column C is also integer,
+
+48
+00:05:42,280 --> 00:05:55,000
+but it repeats the pattern 123 times. Now the mark property of a chart tells
+
+49
+00:05:55,000 --> 00:06:02,520
+they go what type element to drop. These are going to be set on the chart object by using a method
+
+50
+00:06:02,520 --> 00:06:09,480
+of a chart instance that looks like mark underscore, followed by the type of mark that we'd like to drop.
+
+51
+00:06:10,200 --> 00:06:18,600
+For example, we created chart and then we asked for the point mark. What we get back is a single,
+
+52
+00:06:18,600 --> 00:06:28,360
+but it looks like single point. We can also ask for a rectangle, or maybe we can ask for a circle.
+
+53
+00:06:28,360 --> 00:06:30,680
+It would be similar to the point, but it's all filled in.
+
+54
+00:06:30,680 --> 00:06:42,200
+So these examples are very uninteresting charts. It looks like we have a single point,
+
+55
+00:06:42,200 --> 00:06:50,200
+single rectangle, single circle. And what we actually have though is we have one mark of the
+
+56
+00:06:50,200 --> 00:06:56,920
+corresponding type, or each of the nine rows in our data set. The issue is that all nine of these
+
+57
+00:06:56,920 --> 00:07:02,440
+marks are plotted exactly on top of one another because we didn't give all terranian information
+
+58
+00:07:02,440 --> 00:07:09,320
+about where they should be plotted. In order to remedy this, we would need to encode or map from
+
+59
+00:07:09,320 --> 00:07:17,480
+the variables, columns in our data set, into the visual channels of the chart. Do this, who will use the
+
+60
+00:07:17,480 --> 00:07:28,120
+chart dot encode method? You see here, one thing we'll point out is that when we call chart dot mark
+
+61
+00:07:28,840 --> 00:07:34,360
+point or mark rect, that method will actually return to us, our instance mark.
+
+62
+00:07:35,080 --> 00:07:42,200
+So after calling mark point, for example, we can immediately put period encode. We start with the chart,
+
+63
+00:07:42,840 --> 00:07:49,400
+after we call the mark method, it returns the chart, and we're ready again to call the encode method
+
+64
+00:07:49,400 --> 00:07:59,880
+anyway. So now we'll instruct all terranian to map the column A to the x-downal of the
+
+65
+00:08:00,680 --> 00:08:07,080
+this will set the horizontal position of each of the marks. You'll notice here that A was our
+
+66
+00:08:07,080 --> 00:08:12,520
+column of strings, A, C, D, and E. And now we have marks at each of these locations.
+
+67
+00:08:14,040 --> 00:08:19,320
+You can see that there are three distinct values of A, and that there is at least one mark here,
+
+68
+00:08:20,120 --> 00:08:26,200
+and it turns out that because of structure of our data frame, there's actually three marks
+
+69
+00:08:26,200 --> 00:08:34,360
+at each of these locations. Again, we can't see all of them because we didn't provide any information
+
+70
+00:08:34,360 --> 00:08:40,600
+for how a terranian layout the data vertically. We only said that in the extra mentioned,
+
+71
+00:08:41,320 --> 00:08:48,920
+we could use the HM. So in order to actually see all nine points, we need to say that x should be taken
+
+72
+00:08:48,920 --> 00:08:57,320
+from A and y should be taken from B. Now you'll see that for each of the x points in the A column,
+
+73
+00:08:57,400 --> 00:09:06,040
+here we look at x equals C. We have one two three points from the B column. You'll notice that
+
+74
+00:09:06,040 --> 00:09:14,840
+in addition to setting the position of each mark, the encode method will also set the x's title.
+
+75
+00:09:15,480 --> 00:09:23,080
+Not only are we getting positions at CD&E, but we also label this x's A, because that was the name
+
+76
+00:09:23,080 --> 00:09:34,280
+of the column we gave it. Now if we want to, we can use the C column in a different visual chat.
+
+77
+00:09:35,400 --> 00:09:41,240
+So because, so we talked before about how the mark family of methods returns the chart,
+
+78
+00:09:41,880 --> 00:09:48,200
+and that the encode family and that's also that. So here we have our chart. After calling this,
+
+79
+00:09:48,200 --> 00:09:53,160
+we still have our chart. We're calling this, we still have our chart. So now we're ready to
+
+80
+00:09:53,160 --> 00:10:00,840
+chain on more methods. If we're here, we're going to start from C2, and then all we're going to do is
+
+81
+00:10:00,840 --> 00:10:07,240
+add one additional encoding. And we'll say here that the color should be taken from the C column.
+
+82
+00:10:07,240 --> 00:10:13,560
+The only run this, now we'll see that within each of the columns, we have different colors.
+
+83
+00:10:14,280 --> 00:10:20,280
+We have a color bar here, where C is going from one, three, because those were the values that we
+
+84
+00:10:23,720 --> 00:10:30,440
+could also choose to use the third column, do encode to size dimension with a size channel.
+
+85
+00:10:30,440 --> 00:10:36,280
+And here we'll see that we have different sizes of circles or circles with different radii.
+
+86
+00:10:36,520 --> 00:10:44,040
+This is what it means to use the encoding channel of size, map to a particular column.
+
+87
+00:10:49,960 --> 00:10:56,680
+When we specified the encodings for our charts above, we used the encode method,
+
+88
+00:10:56,680 --> 00:11:01,480
+and then set keyword arguments like x and y equal to a string.
+
+89
+00:11:01,960 --> 00:11:07,720
+Above we're using strings that were exactly equal to column names of our data frame.
+
+90
+00:11:09,000 --> 00:11:15,240
+It's our alter has sort of mini language for expressing other types of operations using those strings.
+
+91
+00:11:15,960 --> 00:11:18,440
+We'll demonstrate this using some example.
+
+92
+00:11:20,920 --> 00:11:28,920
+Let's consider the want of plotting the mean of the values in column b or each value in column
+
+93
+00:11:28,920 --> 00:11:39,880
+a. As we are becoming pandas experts, our first idea might be to first do a group by operation.
+
+94
+00:11:40,520 --> 00:11:46,280
+We'll group by a, and then we'll compute the mean over the other columns here. This is only b.
+
+95
+00:11:47,080 --> 00:11:50,280
+And then we can reset the index, so we still have columns named a and b.
+
+96
+00:11:51,480 --> 00:11:54,840
+Now that we have this aggregated data, we can construct a
+
+97
+00:11:54,840 --> 00:12:03,960
+part with mark point and encode the channel. You'll see here that we now have three marks one for each
+
+98
+00:12:03,960 --> 00:12:13,000
+value of a and the position here vertically is the average of the b column for each value of a.
+
+99
+00:12:14,520 --> 00:12:22,600
+But this satisfied our one. However, there's actually a way to let all tear do the aggregation for us.
+
+100
+00:12:23,560 --> 00:12:31,240
+So notice here that instead of doing data.group by a dot mean that we index, just doing
+
+101
+00:12:31,960 --> 00:12:34,120
+alter dot chart and we're passing data.
+
+102
+00:12:35,400 --> 00:12:45,240
+Again, ask for a point mark. We set the x channel equal to a and now the y channel instead of being just b,
+
+103
+00:12:45,240 --> 00:12:51,560
+we'll set it equal to average. And if you compare this chart with these three marks
+
+104
+00:12:51,720 --> 00:12:55,240
+to the previous one, you'll see that the marks are at the same location.
+
+105
+00:12:58,280 --> 00:13:05,800
+So if we get the exact same chart, but doing it, the alter route causes us to learn a whole new syntax.
+
+106
+00:13:05,800 --> 00:13:12,360
+Why would we do this? There are at least three benefits. First, take careful attention.
+
+107
+00:13:12,360 --> 00:13:21,320
+You'll see that the y-axis label changed the average of b. Where when we did the aggregation by hand,
+
+108
+00:13:21,400 --> 00:13:27,560
+we actually labeled was equal to just b. So that was nice. I'll tear remembered the
+
+109
+00:13:28,120 --> 00:13:31,960
+ration we did and it applied the correct axis title.
+
+110
+00:13:33,480 --> 00:13:41,640
+Second is there may be more visual types of aggregations or operations we'd like to do,
+
+111
+00:13:41,640 --> 00:13:48,600
+but aren't readily expressed as pandas operate. In this case, taking the average across a group,
+
+112
+00:13:48,600 --> 00:13:53,960
+was easily done in either pandas or alter, but there could be situations where pandas
+
+113
+00:13:53,960 --> 00:13:56,200
+doesn't have a good representation for an operation.
+
+114
+00:13:58,920 --> 00:14:03,880
+In this case, we would like to learn how to use aggregations and transformations within a tick.
+
+115
+00:14:05,080 --> 00:14:13,000
+Third, the aggregations or transformations of our data, they happen within a context that is
+
+116
+00:14:13,000 --> 00:14:22,600
+aware of the rest. This can allow for additional optimizations or conveniences to be applied for.
+
+117
+00:14:24,760 --> 00:14:31,000
+Similar to what we saw with the y-axis title being set, the average of b that have just been.
+
+118
+00:14:33,320 --> 00:14:38,520
+I know that this is fairly abstract at this point, but if you look over some examples,
+
+119
+00:14:38,520 --> 00:14:42,760
+either in the exercises that will have you do or in the altered accumulation,
+
+120
+00:14:43,400 --> 00:14:48,280
+you'll see how leveraging their aggregation and transformation syntax
+
+121
+00:14:49,320 --> 00:14:53,800
+and lead to more concise or more readable and shareable code.
+
+122
+00:14:58,120 --> 00:15:07,080
+Now, the last thing we'll comment on here is that the fact that we made looked a little bit odd.
+
+123
+00:15:07,960 --> 00:15:15,640
+Usually when we have the summary statistic of some quantitative variable across a discrete base,
+
+124
+00:15:17,080 --> 00:15:24,200
+we will represent these as bars instead of the only thing we need to change now is we will start
+
+125
+00:15:24,200 --> 00:15:32,280
+from the chart, we constructed a minute ago, this C3, and we will just reassign or tweak what the mark
+
+126
+00:15:32,280 --> 00:15:37,720
+actually is. Instead of mark 0.8, we'll set mark of bar. Now, I'll tell you we'll remember
+
+127
+00:15:37,720 --> 00:15:43,000
+everything else specified as part of this chart and the only thing it will change is the type of mark
+
+128
+00:15:43,000 --> 00:15:53,640
+of the draw. If we wanted to, another tweak we might want to make is to have the bar be horizontal
+
+129
+00:15:53,640 --> 00:16:00,440
+bar. Do this, you only change we really need to make because we just swap x and y.
+
+130
+00:16:01,400 --> 00:16:08,680
+Previously, we were setting the x-channel equal to a and that made the a values appear on the horizontal.
+
+131
+00:16:09,880 --> 00:16:18,200
+Now, we'll set y equal to a and now a is laid out on the vertical act and average b is laid out on the horizontal act.
+
+132
+00:16:19,160 --> 00:16:36,280
+The main purpose of all tear is to make it convenient for Python users to make a Vega light
+
+133
+00:16:37,240 --> 00:16:41,160
+I and Json specification starting from a pandas data for.
+
+134
+00:16:44,120 --> 00:16:50,360
+Eventually, Vega light will need to consume Json or consume something that looks like a Python
+
+135
+00:16:50,360 --> 00:16:55,160
+dictionary before it can render the chart and I'll tell you what help us do that.
+
+136
+00:16:55,960 --> 00:17:01,000
+If we want to inspect what it all tear is producing and then handing off to Vega light,
+
+137
+00:17:01,000 --> 00:17:05,960
+we can use the two Json method from our chart. If you're we will take our chart
+
+138
+00:17:06,520 --> 00:17:10,200
+and we'll say we'll ask for the two Json method and then we'll print that out.
+
+139
+00:17:11,560 --> 00:17:20,840
+And we'll see here that we have a schema. This is a way for all tear to say the specific version
+
+140
+00:17:20,840 --> 00:17:27,480
+of Vega light that it would like to be using. Then it will encode our data sets for us. Here,
+
+141
+00:17:27,480 --> 00:17:33,480
+you'll see all the rows of our data frame. And then we have this encoding.
+
+142
+00:17:33,640 --> 00:17:41,480
+This is where we specified the channels X and Y and then we also have here that the mark type is bar.
+
+143
+00:17:44,520 --> 00:17:50,360
+If you in the Json output like this, it could be a very useful tool when debugging and trying to figure
+
+144
+00:17:50,360 --> 00:17:57,560
+out exactly what is going on behind the scenes. And it can also be helpful when following examples
+
+145
+00:17:57,560 --> 00:18:00,680
+found either in the Altair or Vega light documentation.
+
+146
+00:18:04,600 --> 00:18:11,240
+Let's take a closer look at the encoding section for the Json or the fourth chart.
+
+147
+00:18:11,240 --> 00:18:16,360
+Either we had a buck. We'll go ahead and we'll print out. We'll access just the encoding block of our chart
+
+148
+00:18:16,360 --> 00:18:19,640
+and we'll ask for that Json and we'll print it out.
+
+149
+00:18:20,040 --> 00:18:30,920
+You'll notice that the X channel has three properties. It has the field. This is the column name B.
+
+150
+00:18:31,720 --> 00:18:37,320
+It also has aggregate. This average. This comes from, it came from us writing average
+
+151
+00:18:37,320 --> 00:18:44,200
+parentheses B. But then we have this third field called type and it maps into a value of quantity.
+
+152
+00:18:44,280 --> 00:18:53,400
+The Y field for the Y channel also has a type and in this case it's nominal.
+
+153
+00:18:54,840 --> 00:19:01,000
+So this type property of each of these channels is actually very significant and it's a required
+
+154
+00:19:01,000 --> 00:19:07,240
+property for each channel in Vega light. When we're using a pandas data frame,
+
+155
+00:19:07,400 --> 00:19:13,960
+Altair can infer the appropriate value for this type property based on the
+
+156
+00:19:13,960 --> 00:19:21,720
+detail of the data frames column. Well, let's look at it in a little bit more about what Vega light.
+
+157
+00:19:23,960 --> 00:19:30,600
+There are five core types of encoding. And these are summarized below. You could have quantitative
+
+158
+00:19:31,560 --> 00:19:38,440
+ordinal or nominal. These three are all numeric. Actually the first two are numeric. So
+
+159
+00:19:39,320 --> 00:19:45,880
+quantitative is anything that's continuous and real value. Ordinal is anything that is
+
+160
+00:19:46,680 --> 00:19:55,080
+finite set but discrete set and has a specific order. An example of an ordinal set might be
+
+161
+00:19:55,800 --> 00:20:02,680
+good, better and best. This is a discrete set and there is a natural ordering that can be imposed.
+
+162
+00:20:03,960 --> 00:20:11,480
+Another type of encoding might be nominal. This would correspond to anything that is unordered.
+
+163
+00:20:12,920 --> 00:20:19,480
+When we passed in the column A which contained strings C, D and E, Altair
+
+164
+00:20:20,200 --> 00:20:26,760
+signed tight for that as nominal. It wasn't quantitative. There were no numbers. It's not obvious
+
+165
+00:20:27,640 --> 00:20:34,760
+out of order C, D and E unless you wanted to do this flexographically as strings or
+
+166
+00:20:34,760 --> 00:20:41,880
+alphabetically. Altair shows nominal as the safety one. These last two types. One is called
+
+167
+00:20:41,880 --> 00:20:48,120
+temporal. This is anything that has to do with time. It would be a timestamp or a date or anything
+
+168
+00:20:48,120 --> 00:20:56,120
+like that. Then the final one has to do a geography. There is some type in the map and charting
+
+169
+00:20:57,480 --> 00:21:05,240
+world of there's type of data called geojson. Altair knows how to handle this and how to display it.
+
+170
+00:21:05,240 --> 00:21:10,360
+So if you happen to have some you can assign the type of that encoding to geojson.
+
+171
+00:21:10,760 --> 00:21:19,000
+Now this first column is what they like is expecting to see. Third column is kind of our
+
+172
+00:21:19,000 --> 00:21:27,240
+helper description. We know what it is. This middle is an Altair specific feature that is a
+
+173
+00:21:30,200 --> 00:21:33,320
+short hand code. We'll show you what this is here.
+
+174
+00:21:33,960 --> 00:21:44,120
+So if you remember we were using the C column color or marked from before. If we have C,
+
+175
+00:21:45,240 --> 00:21:50,600
+we can specify the type of our encoding as well as we'll have the variable name followed by a
+
+176
+00:21:50,600 --> 00:21:58,840
+colon and then the short hand. Do you remember from the table, you was short hand for quantity.
+
+177
+00:21:59,800 --> 00:22:06,760
+So when we say that the color channel should come from the C column and interpreted as
+
+178
+00:22:06,760 --> 00:22:13,960
+quantitative, it applied a continuous scale here. Because the interpretation of quantitative means
+
+179
+00:22:13,960 --> 00:22:21,960
+numeric data on a continuous scale. We could have chosen ordinal instead of quantitative.
+
+180
+00:22:22,920 --> 00:22:32,520
+Here this is a discrete scale that has a natural ordering to it. You'll see that the color for
+
+181
+00:22:32,520 --> 00:22:37,720
+one is the lightest of the three and it gets progressively darker as we move from two.
+
+182
+00:22:37,720 --> 00:22:44,280
+Three. This happened because we instructed Altair to treat the C column as
+
+183
+00:22:44,280 --> 00:22:51,640
+discrete as fortimole rather than as continuous. The final option we would have for this column
+
+184
+00:22:51,640 --> 00:22:59,400
+would be nominal. We treat it as nominal. Altair will plot it in three very different colors.
+
+185
+00:22:59,400 --> 00:23:05,080
+The reason for this is nominal variables. Don't necessarily have any ordering to them.
+
+186
+00:23:05,880 --> 00:23:11,160
+They are just discrete unordered collection. So when there's no natural ordering,
+
+187
+00:23:11,160 --> 00:23:16,920
+there's no natural progression of shades or of color death. And in this case,
+
+188
+00:23:16,920 --> 00:23:21,480
+Altair will choose three completely different colors. They make it as clear as possible
+
+189
+00:23:22,520 --> 00:23:27,080
+where this section for SQL 3 is, SQL 2 and then C.
+
+190
+00:23:32,680 --> 00:23:37,320
+So the short hand for a specified type. If can also work when you're doing some aggregation
+
+191
+00:23:37,320 --> 00:23:43,640
+and transformation. Here we have average B, which we've seen before, and we also have this
+
+192
+00:23:43,640 --> 00:23:49,720
+Cullin Q at the end, which tells Altair that we want to compute the average of B, then using
+
+193
+00:23:49,720 --> 00:23:56,120
+those values interpret them as quantitative and plotting. It would have chosen nominal. And here it
+
+194
+00:23:56,120 --> 00:24:02,520
+would have just done three points, whatever the average is happening to be and same with fortimole.
+
+195
+00:24:03,480 --> 00:24:05,480
+It would just lay out the three points.
+
+196
+00:24:11,160 --> 00:24:17,240
+We've seen examples where in while we're encoding, we often set some channel or keyword equal to a string.
+
+197
+00:24:18,280 --> 00:24:23,000
+This works often, but it is not the most flexible version that Altair offer.
+
+198
+00:24:24,200 --> 00:24:30,840
+You are also able to construct the mappings to an encoding channel using the Altair
+
+199
+00:24:31,720 --> 00:24:36,600
+functions written as Alt dot the name of the channel.
+
+200
+00:24:40,360 --> 00:24:47,160
+The way this works is that when calling the encode method, if you pass in an arbitrary number
+
+201
+00:24:48,360 --> 00:24:57,480
+of Alt dot some channel name objects before any keyword arguments, it will treat this as if I wrote.
+
+202
+00:24:58,440 --> 00:25:04,200
+This is the same as writing. Oh, please me. This would be the same as writing x,
+
+203
+00:25:05,240 --> 00:25:13,000
+A, and then this would be the same as y equal to r and g quantity.
+
+204
+00:25:16,200 --> 00:25:21,720
+And notice that there's no keyword here. These are positional arguments, and they are
+
+205
+00:25:21,720 --> 00:25:25,720
+passed with four the other arguments. If I wanted to add another one,
+
+206
+00:25:26,840 --> 00:25:33,960
+I could either do ALT dot fillers, or I could just do color.
+
+207
+00:25:36,200 --> 00:25:38,680
+These would be equivalent. Let's verify that.
+
+208
+00:25:40,200 --> 00:25:45,000
+Oh, uncommon. Lower. We'll see here that we get the same thing at.
+
+209
+00:25:45,800 --> 00:25:51,640
+Whether we pass a positional argument with the name color or a keyword argument.
+
+210
+00:25:52,200 --> 00:25:52,680
+Okay.
+
+211
+00:25:56,920 --> 00:26:03,400
+The reason we might want to do this is that there are some more advanced features of the encoding.
+
+212
+00:26:03,400 --> 00:26:08,840
+Some other properties you might want to set that don't have a corresponding
+
+213
+00:26:09,640 --> 00:26:13,320
+door hand in just the channel equal string.
+
+214
+00:26:14,280 --> 00:26:19,720
+Remember you have to reach in to this Altair dot channel name in order to access all of the
+
+215
+00:26:20,440 --> 00:26:21,960
+possible tweaks and properties.
+
+216
+00:26:26,600 --> 00:26:31,320
+Next let's talk about how we can use data from a file.
+
+217
+00:26:32,200 --> 00:26:39,000
+So in the examples of both, we were passing in as the argument to the Altair dot chart
+
+218
+00:26:39,160 --> 00:26:44,520
+that's we were passing in a data frame. In this example, instead of doing that,
+
+219
+00:26:44,520 --> 00:26:51,320
+we're going to pass in a URL or where a particular data file could be downloaded on the internet.
+
+220
+00:26:52,200 --> 00:26:56,280
+But here we'll say Altair dot chart. We'll pass the URL to the cars,
+
+221
+00:26:56,280 --> 00:27:01,160
+the other set, and then we'll go through and we'll make the same chart we saw at the
+
+222
+00:27:02,120 --> 00:27:07,000
+we'll have a point mark. The encoding channels will be x this force power,
+
+223
+00:27:07,000 --> 00:27:14,680
+y is miles per gallon, color is origin. And you'll notice here that we specified explicitly the
+
+224
+00:27:14,680 --> 00:27:23,720
+type each of these three encoding channels. This is actually required when we don't use a data frame
+
+225
+00:27:23,720 --> 00:27:31,000
+and we're passing in the URL to some resource. We need to tell Altair what type of data it is
+
+226
+00:27:31,000 --> 00:27:40,040
+because when we had a data frame, look at the D type of the column and apply a reasonable default
+
+227
+00:27:40,040 --> 00:27:46,840
+based on the column D type. But now this isn't a vantage data frame. This string here doesn't have
+
+228
+00:27:46,840 --> 00:27:53,640
+D type. So we need to be more explicit until we're all there what type should these columns change.
+
+229
+00:27:53,640 --> 00:28:02,600
+We'll look here at one more example. We wanted to show you what a temporal chart would look like.
+
+230
+00:28:02,600 --> 00:28:10,760
+So here we're going to again pass in a URL to a CSV. The last time that you are out,
+
+231
+00:28:11,480 --> 00:28:17,640
+you noticed was to a JSON file. And this time is to a CSV. Altair understands those two
+
+232
+00:28:17,720 --> 00:28:26,120
+file types. We'll do Altair dot chart where we point to that URL. We then want a line mark.
+
+233
+00:28:26,120 --> 00:28:33,240
+We want it to draw a line for us. The x comes from the column apple underscore x. And we want
+
+234
+00:28:33,240 --> 00:28:41,560
+Altair to treat that as temporal. And then the y comes from the apple dot y. We want it to treat that
+
+235
+00:28:41,560 --> 00:28:47,320
+as quantitative. Now I just added this interactive. So now we can scroll in and you'll see
+
+236
+00:28:47,720 --> 00:28:54,680
+that Altair nicely handles for us, rolling of the dates. Here we now we see that we're Wednesday,
+
+237
+00:28:55,400 --> 00:29:00,520
+now we're April 20th. We scroll more into April. We'll see that we're at April 13th.
+
+238
+00:29:00,520 --> 00:29:09,000
+Thursday to 17th Monday to 21st. Altair does a nice job at handling the time series nature of this
+
+239
+00:29:09,000 --> 00:29:20,920
+image. So we know that pandas can read in JSON, it can read in CSV. And it wouldn't be that much more
+
+240
+00:29:20,920 --> 00:29:30,760
+work. First, just do a pd dot read CSV. Ask the URL to that data set. And then we'll get a data
+
+241
+00:29:30,760 --> 00:29:37,080
+brain. Once we have a data frame, we can give that straight to Altair. And we can move on. And if we do that,
+
+242
+00:29:37,080 --> 00:29:45,880
+we won't even have to specify the types these call them. So if pandas can do this work for us and
+
+243
+00:29:45,880 --> 00:29:50,680
+gives us the added benefit of not needing to think about call them types, why would we do it this
+
+244
+00:29:52,040 --> 00:30:00,440
+well, the real large benefit here is that the JSON spec of fourth chart will actually end up
+
+245
+00:30:00,440 --> 00:30:09,560
+just containing the URL. Then when Altair hands that to Viga light and Viga light starts to process,
+
+246
+00:30:10,840 --> 00:30:16,680
+it will see that there's a URL for the data set. It will go the Viga light library will
+
+247
+00:30:17,480 --> 00:30:24,120
+request the data set from the online resource, download it, process it, and then apply it
+
+248
+00:30:24,120 --> 00:30:32,120
+to the specification when it's rendering the chart. When we have a data frame as the first argument
+
+249
+00:30:32,120 --> 00:30:37,960
+for the argument to Altair dot chart, all of the data for the chart is going to be written out
+
+250
+00:30:37,960 --> 00:30:45,560
+or hard-coded into the JSON spec. This is before Viga light ever seen. Let's make this a little more
+
+251
+00:30:45,560 --> 00:30:53,720
+concrete example. So we have that large block from the very start of this notebook. And let's just
+
+252
+00:30:53,800 --> 00:30:59,720
+print out, we'll first ask for the JSON and this will give us a string containing all the JSON
+
+253
+00:30:59,720 --> 00:31:06,600
+for this chart specification and then we'll ask for the link. So this would be the number of characters
+
+254
+00:31:06,600 --> 00:31:15,480
+in that string. We'll see here that there are 120,000, 649 characters in the JSON spec for the
+
+255
+00:31:15,480 --> 00:31:25,240
+carousel chart. Then later on, we constructed a URL, sorry, the same carousel chart for the data
+
+256
+00:31:25,240 --> 00:31:31,800
+pointed to a URL instead of passing in a data frame. See how many characters the JSON spec for this?
+
+257
+00:31:32,920 --> 00:31:42,760
+Here we only have 686 characters in this JSON specification. What we can infer from these two numbers
+
+258
+00:31:43,720 --> 00:31:52,200
+is that in order to describe the chart, it takes about 690 characters. In order to describe the
+
+259
+00:31:52,200 --> 00:32:02,760
+data set, it took about 120,000. This is going to make the file for the chart specification
+
+260
+00:32:02,760 --> 00:32:10,440
+far larger and bigger than it would need to be. And we can actually just print out the full chart
+
+261
+00:32:10,440 --> 00:32:17,640
+specification for the URL version and we'll see here that in the data section, all we have here is
+
+262
+00:32:17,640 --> 00:32:25,240
+data where we have a URL. This is the URL that we handed it. The only other thing everything else
+
+263
+00:32:25,240 --> 00:32:30,440
+is just having to do with coding, mark, we selected and then how to make it interactive.
+
+264
+00:32:30,440 --> 00:32:45,080
+The benefit of having a smaller spec size is that the Vega-Lite specification can now be
+
+265
+00:32:45,080 --> 00:32:52,680
+more portable. It would be easier to inspect this specification right here, visually, and maybe
+
+266
+00:32:52,680 --> 00:33:01,000
+make some changes or tweaks. It would also be far more efficient to load this much into a website
+
+267
+00:33:02,120 --> 00:33:10,920
+rather than the entire 120,000 character version. It's also possible that we might want to put this
+
+268
+00:33:10,920 --> 00:33:18,040
+into a version control system, like yet, and start tracking a version history of our chat.
+
+269
+00:33:18,360 --> 00:33:26,840
+Just to see how this looks fairly reasonable and easy to think about, I am actually going to
+
+270
+00:33:26,840 --> 00:33:35,320
+print out another one or attempt to, and we'll see how this goes. What we'll do is copy this,
+
+271
+00:33:35,320 --> 00:33:40,600
+we'll get rid of the LAN argument and we'll just print the JSON itself. When I tried this earlier,
+
+272
+00:33:40,600 --> 00:33:49,320
+it got quite big. You'll see here, there's a little troll bar by up here, and if we just keep going
+
+273
+00:33:49,320 --> 00:34:05,400
+down, this is going to take a very long time. This is just data data data data. We haven't talked
+
+274
+00:34:05,400 --> 00:34:14,120
+about, oh, here we go. Finally, at the very bottom, starting here, we get to talk about our chart
+
+275
+00:34:14,120 --> 00:34:21,320
+and its specification, and everything that came before it was just the data. This would be
+
+276
+00:34:21,320 --> 00:34:27,560
+difficult to collaborate on with the colleague. It would be kind of unreasonable to think about
+
+277
+00:34:27,560 --> 00:34:34,680
+in Brazil control, and it would take quite a bit longer to serve a webpage that had this embedded
+
+278
+00:34:34,680 --> 00:34:44,280
+in it, and then it would just. Now, Altair has many other features that we didn't have a chance to
+
+279
+00:34:44,280 --> 00:34:50,120
+cover. These are things like different types of charts or marks. We can do maps, candlesticks,
+
+280
+00:34:50,120 --> 00:34:56,360
+we can do compound charts, which would be multiple charts, multiple marks within a chart,
+
+281
+00:34:57,080 --> 00:35:05,080
+eat maps, area chart, scatter chart. You could also do compound charts. This would be multiple
+
+282
+00:35:05,080 --> 00:35:11,560
+subplats within one figure. There are other options for interactivity. You can customize things
+
+283
+00:35:12,840 --> 00:35:20,600
+and the best way we've found to learn all the different features is by practice. By practice
+
+284
+00:35:20,600 --> 00:35:25,480
+and referring to the documentation. Typically, when I want to learn something, what I'll first do is
+
+285
+00:35:26,440 --> 00:35:32,520
+I'll work through the one operator. I'll say, I know I have a chart, and I'll be as specific as
+
+286
+00:35:32,520 --> 00:35:38,680
+it can for what I want it to look at, for sure. What I want it to look like. Then, I'll go through
+
+287
+00:35:38,680 --> 00:35:44,040
+examples. I'll look around on the internet, read the documentation. There will help me
+
+288
+00:35:44,040 --> 00:35:50,760
+kind of one step at a time, start from a blank canvas, we will, and build the chart that I want to end up with.
+
+289
+00:35:51,400 --> 00:35:58,520
+We'll have an opportunity for practice and looking at the documentation in the forthcoming homework
+
+290
+00:35:58,520 --> 00:36:08,680
+from this lecture. The very last thing that we want to show is how you could use an
+
+291
+00:36:08,680 --> 00:36:16,680
+all-terre-produced chart on web page. We saw above how the chart is part-time as a method to Jason.
+
+292
+00:36:17,640 --> 00:36:25,000
+Well, there's actually another, I've had called, to HTML. This will generate an HTML document.
+
+293
+00:36:26,120 --> 00:36:32,280
+A min HTML document is a website. This is what your web browser will receive whenever it visits
+
+294
+00:36:32,280 --> 00:36:39,800
+a particular website. I will receive HTML and know how to render that and display it on your web
+
+295
+00:36:39,800 --> 00:36:48,280
+browser's display. We can use the output of 2 HTML, either as a stand-alone web page. We want to
+
+296
+00:36:48,280 --> 00:36:55,480
+just put it somewhere on a web server and send a link to a colleague or we can copy and paste parts
+
+297
+00:36:55,480 --> 00:37:02,840
+of it and put it into an existing website. I'll show you briefly what this will look like.
+
+298
+00:37:03,800 --> 00:37:15,880
+We can ask to print out the HTML for the Apple Doctor. This is a fully functioning website,
+
+299
+00:37:15,880 --> 00:37:24,280
+or a web page. It has all the main tags. We have HTML, we have a header, we have some body
+
+300
+00:37:25,400 --> 00:37:32,520
+and you'll see here. Our spec, this is the JSON that we generated when we asked for the
+
+301
+00:37:32,840 --> 00:37:47,000
+Apple Doctor chart. This is going to be passed to a Vega method. Now, Vega Lite will take over
+
+302
+00:37:47,000 --> 00:37:54,440
+from this point and render our chart for it. Just to show that this is indeed a fully functioning
+
+303
+00:37:54,440 --> 00:38:02,120
+web page, what we'll do is we'll save this to a file. We'll use a context manager to open a file
+
+304
+00:38:02,200 --> 00:38:09,560
+in right-able mode, and then we will write to that file, all of the string associated with that
+
+305
+00:38:09,560 --> 00:38:19,320
+HTML. Now that we've created this HTML file, we can go out of the presentation into this folder.
+
+306
+00:38:20,600 --> 00:38:24,920
+I'm on a remote Jupyter server, so I'm going to download this in my local computer,
+
+307
+00:38:25,800 --> 00:38:33,240
+and I will open it up. When I click this, I'm opening up a file Apple Altair chart.
+
+308
+00:38:34,200 --> 00:38:42,120
+I see here that it is the chart that we constructed up above. This is an file on my computer,
+
+309
+00:38:42,920 --> 00:38:51,080
+and it contains just the chart. We wanted to look at the kind of developer tools for my browser
+
+310
+00:38:51,960 --> 00:39:01,000
+and look at what content is in this HTML page. You'll see here that it has our chart spec
+
+311
+00:39:01,880 --> 00:39:06,840
+that we saw before. I'm going to pass that to Vega embed, so we'll put the chart right here.
+
+312
+00:39:07,880 --> 00:39:14,280
+This is exactly the same text that we saw over in our notebook when we asked out there
+
+313
+00:39:14,280 --> 00:39:16,280
+to generate HTML for it.
+

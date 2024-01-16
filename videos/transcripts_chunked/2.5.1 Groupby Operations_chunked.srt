@@ -1,0 +1,492 @@
+1
+00:00:00.000 --> 00:00:38.000
+Hello, this is Spencer Lion and I'm really excited about our topic today today. We're talking about group-by operations and pandas, which in my opinion is one of the very coolest and most powerful operations we can do. Let's take a stock of our pandas journey thus far. We started out by learning about the core data types and pandas. This includes the series and the data frame. We then learned how we can do operations such as extracting values or subsets of values from our series and data frame objects.
+
+2
+00:00:35.000 --> 00:01:14.000
+from our series and data frame objects. We learned about how we can do arithmetic, either on single values or on entire columns or entire data frames, all at once. We then studied how we can organize our data in pandas using the index and the column names. We saw how a careful selection of the index and columns names could help with analysis because pandas will align the data for us using the index and column names. We then took some time to understand how to reshape data, how to maybe transform it from
+
+3
+00:01:08.000 --> 00:01:43.000
+We then took some time to understand how to reshape data, how to maybe transform it from why to long format, as well as how we can compute things like pivot tables and other summary forms of the data. Finally, we've learned how to merge two different data sets, different about related data sets on one or more key columns. Today we continue with what in my view is the kind of crowning functionality of pandas. It will help us utilize all the tools we've developed thus far and do some really compelling
+
+4
+00:01:38.000 --> 00:02:08.000
+It will help us utilize all the tools we've developed thus far and do some really compelling analysis. And that functionality we'll learn about today is called group bi. Our plan for today and the way the class will unfold is that we will be first understanding the split apply combined strategy for analyzing data. If you haven't heard of this before, don't worry. We're going to be learning a lot about it as we move the lecture today. Well then, learn once we've split the data, we'll learn how we can use some of the built-in
+
+5
+00:02:04.000 --> 00:02:42.000
+Well then, learn once we've split the data, we'll learn how we can use some of the built-in pandas routines for computing aggregate values based on subsets or groups of our data. Some of these built-in routines were already familiar with. They are things like the mean, median or variance. We'll also understand how we can create our own custom aggregation operations by defining Python functions and then ask pandas to apply our own functions to the group data. Finally we'll understand how we can use multiple keys to group by more than one column.
+
+6
+00:02:35.000 --> 00:03:15.000
+Finally we'll understand how we can use multiple keys to group by more than one column. The data we'll be using for today comes from the United States Bureau of Transportation Statistics and contains detailed data on all delayed flights in the domestic United States from December 2016. We'll begin by importing our standard packages that we'll be using throughout the class today. If you haven't installed the QEDS or Quant Econ data science library, you can uncomment that second line in this first code cell and have PIP install this for you.
+
+7
+00:03:10.000 --> 00:03:47.000
+that second line in this first code cell and have PIP install this for you. We've already done this, so we'll execute this cell which we'll just move us past it. Then we'll be able to actually import our libraries. Today we'll be using our well-known friends, pandas and numpy. In addition, we'll also be using Matplotlib to show some charts. We'll import the base Python random library and then we'll use QEDS to help us style our charts. We'll run this cell to import the libraries now. Begin by talking about the split apply combined strategy.
+
+8
+00:03:42.000 --> 00:04:22.000
+Begin by talking about the split apply combined strategy. As you might guess, there are three steps to this strategy. First is the split stage. Here we take our entire data set and based on the values in one or more columns, we will split the data set into different subsets. One subset is similar in the sense that these key columns all have the same value as any other row in the subset. After we've created these split data sets, we then apply some function or logic or operation on each of the subsets.
+
+9
+00:04:19.000 --> 00:04:52.000
+on each of the subsets. This will work through each set one of the time and it will apply the chosen function to each of them. Finally once we're done applying our operation to each subset of data, pandas will then combine all the data sets or all the outputs for us into a final data frame that we can continue our analysis with. We're going to cover these concepts right now one at the time and we'll cover the basics and the concepts behind it. However, there's a lot of power and functionality here and we won't have time to cover
+
+10
+00:04:47.000 --> 00:05:20.000
+However, there's a lot of power and functionality here and we won't have time to cover all of it in our time together today. So as with other topics, we strongly encourage you to look at the official pandas documentation for more information on what you can do using the group by machinery. So in order to describe the operations, we're going to need some data. We're going to start with this artificial data set that we're creating right here to the side. Notice that the data frame we end up with has three columns, A, B and C.
+
+11
+00:05:15.000 --> 00:05:54.000
+Notice that the data frame we end up with has three columns, A, B and C. Columns, A and B are filled with integers. You can see here that column A has the integers 1, 1, 2, 2, 2, 2. Column B has the same numbers but the order of the rows are different. And then finally, column C has floating point numbers with a few missing values. We're going to use this example data set to demonstrate the three steps in split apply combine. To begin, we'll start with the split step. In order to ask pandas to split the data for us, we use the group by method of a data
+
+12
+00:05:49.000 --> 00:06:28.000
+In order to ask pandas to split the data for us, we use the group by method of a data frame. You see here that we're calling DF dot group by and we're passing the string A. This instructs pandas to construct groups of our data using the values from the A column. This is the most basic and often most used form of the group by method to split on the values of a single column. We can check the type of this GBA object. And we see here a very long type name but we're just going to refer to this as a group
+
+13
+00:06:23.000 --> 00:07:03.000
+And we see here a very long type name but we're just going to refer to this as a group by for short. Once we have a group by object, there are a few things we can do with it. One thing we could do is we could ask to get the subset of data for a particular group. So here we're going to ask to get, we're going to say DBA dot get group and we're going to pass one and then we'll pass two. And notice when we do this, that the data we get in return has all the rows of our original data set where column A is equal to one.
+
+14
+00:06:59.000 --> 00:07:41.000
+data set where column A is equal to one. That's what we saw up there in our first example. And then all of the rows where A, the column A has the value of two is what we get in the second code cell. This is not a numerical index that Python would start counting at 0, 1, 2 and so on. This is actually, you give it a value from the data frame and it will return rows with that matching value. So let's do an example. This could be an exercise but we're going to do it here together in class. So once we have our group by object, in addition to selecting the rows that belong to a
+
+15
+00:07:35.000 --> 00:08:11.000
+So once we have our group by object, in addition to selecting the rows that belong to a particular group, we can apply some of our favorite aggregation functions directly to the group by object. So let's go ahead and remind ourselves what the data frame looks like and then we will compute the GBA dot sum. And when we do this, notice the following. So whenever A, the values of A ended up being on the index of our data frame. Notice here that there are only two rows, one with index A equal to one and the second with
+
+16
+00:08:06.000 --> 00:08:43.000
+Notice here that there are only two rows, one with index A equal to one and the second with index A equal to two. We end up with two rows because there are only two distinct values in the A column. Now in the output of the A column of the original data frame. Now in the output, notice that when A equal one, B has a value of four in the output of GBA dot sum. This is because if we look carefully at the values of the B column for any row where the A column equals one, we see that those values are one, one, two.
+
+17
+00:08:38.000 --> 00:09:20.000
+equals one, we see that those values are one, one, two. Some of these three numbers is of course four, which is what we see here in the A equal one column B row of the output. Similarly we can do a similar, the same operation for the C column. We look at the value of the C column when A equal one. And we see that we have the values 1.0, 2.0, 3.0. If we sum these things up, we get the answer 6.0. Now let's move down to the second row of our output. Here we have A equal two. And we see that the value for B is again four because we have the three numbers, two, one,
+
+18
+00:09:14.000 --> 00:09:54.000
+And we see that the value for B is again four because we have the three numbers, two, one, one from the original data frame. What's slightly more interesting is the value for C. Notice here that we have the value of C equal to five. This comes because in our data set we had three values. One, C is man, five, and man. When pandas did these operations, it decided to ignore the nands for S when we did the summation and only compute the sum of the single real value number five. That's why we're left with the number five as our solution.
+
+19
+00:09:47.000 --> 00:10:25.000
+That's why we're left with the number five as our solution. Now there's another example here that we're going to ask that you do as an exercise. So we'll describe what the exercise is and then we'll pause for a moment so that you can work through it. What we would like for you to do is take the GBA object that we computed earlier and use tab completion or introspection to see what other methods are available beyond just the sum. You may have already thought of some of these other aggregation methods that you've used on
+
+20
+00:10:21.000 --> 00:11:12.000
+You may have already thought of some of these other aggregation methods that you've used on a data frame and chances are they also exist on the group by object. So here you have a chance to interact with and interactively discover them. We'll go ahead and pause here and we'd like for you to find three methods and try applying them to your group by object. We'll pause at this time so that you can complete this exercise. Okay, welcome back. We were going to go ahead and we'll continue on, hopefully we were able to find three
+
+21
+00:11:09.000 --> 00:11:36.000
+We were going to go ahead and we'll continue on, hopefully we were able to find three methods, we'll continue on with the rest of the lecture. So in addition to grouping by a single column as we did with group by a last time, we can actually group by multiple columns. And the way we do this is instead of passing a single string with the column name in it, we can pass a list of strings with more than one column name. The result of applying this group by operation will be that the data frame will be split
+
+22
+00:11:32.000 --> 00:12:09.000
+The result of applying this group by operation will be that the data frame will be split into collections of rows where there are unique combinations of multiple columns. Let's see what this looks like. So now we're going to do a GBAB, which is equal to the data frame dot group by both a and b in a list. We see here that the type matches the type of GBA that we saw before. So all the same type of operations that we were doing, we'll still apply. Let's try the get group one. So before we were calling get group one when we had just GBA and here because we've chosen
+
+23
+00:12:04.000 --> 00:12:38.000
+So before we were calling get group one when we had just GBA and here because we've chosen to group by two columns we need to pass two values and we'll do this in a tuple. This is similar to the indexing behavior when you have a multi index data frame in that you pass a tuple where each element of the tuple represents one level of your index. Here each element of the tuple represents one level of the grouping. We're going to pass one one, which will extract pandas to give us all of the rows of the
+
+24
+00:12:33.000 --> 00:13:13.000
+We're going to pass one one, which will extract pandas to give us all of the rows of the data frame for which column A is equal to one and column B is equal to one. We see here that that's what we have in return to us. So we can still apply these aggregation methods like some mean count variants, maybe some of the ones that you found in the exercise. And notice what happens is on the index when we call count we have two levels down. We have an A level and a B level. We're left with a data frame with only a single column because from our original data
+
+25
+00:13:08.000 --> 00:13:45.000
+We're left with a data frame with only a single column because from our original data frame that had three columns we used two of them for grouping and we were left with a single column C that has values in it. Notice that the index for levels for A have values one and two and same thing for B. This is because the distinct values in columns A and B were both one and two. Now notice the values we have in the C column. It says two one one zero. What this means is that there were two rows in the original data frame where the column
+
+26
+00:13:40.000 --> 00:14:22.000
+What this means is that there were two rows in the original data frame where the column A had a value equal to one and column B had a value equal to one. Then there was only one row where we had a equal one b equal to or a equal to b equal one. That's what the second and third row of this output show. Finally there were zero rows that had a equal two and b equal two. We have here down underneath the data frame a reminder that when you do an aggregation operation the index you get back is going to be dictate or is going to be derived from
+
+27
+00:14:14.000 --> 00:14:53.000
+operation the index you get back is going to be dictate or is going to be derived from the columns you grouped by and the values that they took on in the original data frame. So far we've been applying some built-in aggregation functions to our group by objects but this is only a part of the power. What really ends up being extremely useful and very common is to apply custom operations to each group. In order to do this there's two steps. First we define a Python function that is supposed to receive a column and compute a single
+
+28
+00:14:47.000 --> 00:15:28.000
+First we define a Python function that is supposed to receive a column and compute a single number. This would be aggregating the values from that column into a scalar. Once we have defined this function we then pass it as an argument to the ag method of a group by object. Let's see how this works. So let's define a function that counts the number of missing values in each column. The way we would do that is we could utilize the is null method of a data frame or series and then compute the sum. And notice here I misspoke a moment ago what we need to define is something that contains
+
+29
+00:15:24.000 --> 00:16:01.000
+And notice here I misspoke a moment ago what we need to define is something that contains a date that consumes a data frame that may have multiple columns and returns one number per column. So in this case we are going to receive a data frame and at runtime when we actually constructed the groups. This would be a data frame with all rows of a single group and then we're going to compute is null will map over every element and check if it's null and we call sum that will sum each column and turn it into a series where the column names are on the index and
+
+30
+00:15:56.000 --> 00:16:35.000
+sum each column and turn it into a series where the column names are on the index and the values are the values of the series. So let's define this function and we'll move to checking out how it works. So if we do num missing on the whole data frame so this is not on the group by one. We'll see that there are no missing values in A or B but that there are two missing values in C. This looks correct based on how we define the data frame at the start. Now let's go back to our GBA object and then we'll use the dot ag method and pass num
+
+31
+00:16:28.000 --> 00:17:10.000
+Now let's go back to our GBA object and then we'll use the dot ag method and pass num missing. We'll see here that when A equal 1 both B and C had no missing values. This is consistent with what the raw data shows. Now when A equal 2, B does it have any missing values but C had 2. So you see here that the value at index A equal 2 and column C has a value of 2. Here's a little bit more rules about what the function should do. Either it consumes the data frame and returns a series which is what we showed or it consumes
+
+32
+00:17:05.000 --> 00:17:42.000
+Either it consumes the data frame and returns a series which is what we showed or it consumes a series and returns a scalar and this was what I had in mind when I first introduced this before. Sorry for the confusion but hopefully this clears it up. What happens then is pandas will call the function for each group. For a data frame the function will be called separately one for each column. Now in addition to doing what we call an aggregation where we reduce a column or an array into a single number there's something else called a transformation and this is a little
+
+33
+00:17:37.000 --> 00:18:11.000
+into a single number there's something else called a transformation and this is a little bit more general. We saw some transformations when we worked with data frames at the start but now that we combine transformations with a group by object it become even more powerful. Let's just see an example to try to understand how this works. So let's remind ourselves of what the data frame looks like and then we'll go ahead and we'll define a function and what this function does it will return the rows of the data
+
+34
+00:18:03.000 --> 00:18:45.000
+we'll define a function and what this function does it will return the rows of the data frame corresponding to the two smallest values in the column B. So one more time this is all rows or turn all rows of the data frame corresponding to the two smallest values of B. So when we apply the GBA and we're sorry when we use GBA dot apply and we pass this function what happens is we get back a data frame A is still on the index but now we have a second level of our index and what this is is it's actually going to be the rows from the original
+
+35
+00:18:38.000 --> 00:19:16.000
+level of our index and what this is is it's actually going to be the rows from the original index. We'll see what this means here in a minute. So hold on to that thought. The values though are going to be B is one all the way along and if you remember back from the original data we had B could be either one or two and it happened that when A was equal to one there were two instances of B equal one and then a single of A B equal to and the same thing when A was equal to two we had two rows with B equal one and a third row
+
+36
+00:19:11.000 --> 00:19:55.000
+the same thing when A was equal to two we had two rows with B equal one and a third row with B equal to. So with this in effect did was it extracted all the rows were B was equal to one. This was a feature of the particular data that we had but had we had values of B that were not just one and two we would have seen the two smallest rows of B for each group. Now here's a note about that index. So we saw again here that the first layer of our index is equal to A. The second layer of our index is equal to the values on the index from the original data frame.
+
+37
+00:19:48.000 --> 00:20:43.000
+of our index is equal to the values on the index from the original data frame. Here they are 0, 1, 4 and 5. Now why did this happen? So the reason for this is that the smallest by B function it actually kept the original index when it returned its value. And you'll notice here that at the top and output number 17 at the top of this cell we see that the values of the rows were B equal to one. The index is indeed 0, 1, 4, and 5. And this kind of demonstrates a rule of how the group by works. When you're doing a ply on a group by and you return more than one row whatever index
+
+38
+00:20:36.000 --> 00:21:19.000
+When you're doing a ply on a group by and you return more than one row whatever index is associated with your return value will be kept and not thrown away when pandas does the combining step at the very end. So in this instance it had the index for A is equal to 1 and 2 but it kept the 0, 1, 4, 5 that we originally had. Okay, so let's go ahead and work through this example together. We will now work through the solution to this exercise and you can see here down below that I have actually typed this out already and I've defined a function called deviation
+
+39
+00:21:13.000 --> 00:21:51.000
+that I have actually typed this out already and I've defined a function called deviation from mean that consumes one argument. And if we look at the documentation string we'll see that the purpose of this function is to compute the deviation from mean for an entire pandas series or for each column of a data frame. We'll go ahead and define our function and the body of this function is quite simple. It's just x minus x dot mean. We can then use our GBA object and call the apply method and pass in this deviation from
+
+40
+00:21:44.000 --> 00:22:22.000
+We can then use our GBA object and call the apply method and pass in this deviation from mean function we've just defined. We store the value or the output of this function called as deviations. When we look at deviations we see here that formerly B had values of 1 and 2 and now it takes on values of either minus a third or positive 2 thirds. This is because the mean of the B column was equal to 1 and 1 third. So only should track that from a value that he was equal to 1 we end up with minus a third
+
+41
+00:22:16.000 --> 00:22:56.000
+So only should track that from a value that he was equal to 1 we end up with minus a third and then we should subtract 1 and a third from 2 we get positive 2 thirds. We can see a similar result for the B for the C column. Now the second half of this exercise asked us to combine the result of this deviation computation with the actual values from our original data frame. So here we're going to call the data frame dot merge method and we'll pass in the deviations object as the right data frame. We can then say that we would like to use both the left index and the right index.
+
+42
+00:22:51.000 --> 00:23:40.000
+We can then say that we would like to use both the left index and the right index. And finally this last argument here the suffixes argument. But this does is we'll take a look at the output and then we'll talk about what happened here. So we see here that on the output one moment. Excellent. So we see here on the output we have two new columns B deviation and C deviation. Where we have our original columns ABC. This came this underscore deviation came from right here where we have the suffix argument.
+
+43
+00:23:34.000 --> 00:24:07.000
+This came this underscore deviation came from right here where we have the suffix argument. The first value in this tuple is the suffix that should be appended to the end of the columns from the left data frame in this case DF and then the second argument of the tuple here underscore deviations is what we would like to have appended to the end of the columns from the right data frame here are deviations data frame. So this is how we would combine the results and then put them back alongside the original
+
+44
+00:24:02.000 --> 00:24:40.000
+So this is how we would combine the results and then put them back alongside the original data. So we've seen some examples where the columns themselves contain the groups. We saw this with A and we also saw it when we combine both A and B. However, this isn't always the case. So sometimes you want to group by a column and for an a level of the index that could be something that's plausible or other times we may have a time series or a sequence of dates in a column and we would like to group them at a particular frequency.
+
+45
+00:24:35.000 --> 00:25:10.000
+dates in a column and we would like to group them at a particular frequency. For example suppose we have timestamps that include our minute and second and we would like to form a calculation based on all the data for a particular hour. In this case we would have to instruct pandas that we would like to use the timestamp column but we'd like to group it in buckets of one hour at a time. We could similarly ask it to group it in buckets of four hours or a day or a week. And this is not expressible by just passing the column name timestamp.
+
+46
+00:25:06.000 --> 00:25:39.000
+And this is not expressible by just passing the column name timestamp. We also have to add in the frequency that we'd like. And pandas does enable this behavior using the PD.grouper type. This is what we'll learn about now. So in order to see it in action we're going to make a copy of our data frame and we're going to move the a column to the index and we're going to add a date column. So let's just go ahead and show you what we end up with. So notice that the a column has that or sorry the a column is now in the index with
+
+47
+00:25:34.000 --> 00:26:23.000
+So notice that the a column has that or sorry the a column is now in the index with this original values of 1, 1, 1, 2, 2, 2, 2. The B and C columns are unchanged but now we have a date column that has some dates between 2020, 1222. Okay. Now that we have this date of frame we can use the PD.grouper to group by year. So let's take one more look here and we'll notice that there is one value in the year 2020 but then for the year 2021 we have a value in March, June, September and December. So now there's going to be four rows that happen in the year 2021.
+
+48
+00:26:18.000 --> 00:27:06.000
+So now there's going to be four rows that happen in the year 2021. So over in this next cell when we ask to group by the date column with a frequency equals A meaning annual will then be able to count the number of non-null rows in each column. Here we see that for the year ending December 31, 2020 we have one item in the B column that's non-empty and also one item in the C column that's non-empty. For the year ending 2021 we had four rows that were non-empty in the B column but only three that were non-empty in the C column and then finally for the year ending 2022 we only
+
+49
+00:26:58.000 --> 00:27:44.000
+three that were non-empty in the C column and then finally for the year ending 2022 we only had a single row the B value is non-zero, non-null but the C value was indeed null. Notice here the syntax of using the PDDog grouper. We pass two arguments. One is the key. Here this needs to reference the column name so we pass key equal date. The second argument here is the frequency. Here we're going to pass an abbreviation for the frequency that we'd like. Here we pass A for annual. We could have passed something different like 2A for two years or if we had timestamps
+
+50
+00:27:36.000 --> 00:28:20.000
+We could have passed something different like 2A for two years or if we had timestamps not just days we could pass H for our M for month and so on. But here we wanted the group by year so we passed A as our frequency. So we can also group by a level of the index. So remember when we created this DF2 we shifted the column named A and we brought it over to be the index. So if we do DF2.group by we construct another PD.grouper but here instead of setting the key argument which specializes the column name we set the level argument and we say that
+
+51
+00:28:14.000 --> 00:28:59.000
+key argument which specializes the column name we set the level argument and we say that level equals A meaning we would like to use the level from the index that has the name A. Now if we do this we call count we're going to see that we have three columns in our result, B, C and date. The B column has three and three because there were no null values same with the date column and then we'll notice here that the two null values in the C column both came when A was equal to two. Now we can get even more sophisticated here and when we're constructing our group by
+
+52
+00:28:53.000 --> 00:29:28.000
+Now we can get even more sophisticated here and when we're constructing our group by we can pass a list. So here this closing square bracket here ends our list before we passed a list of two strings for the two column names A and B. Now we're passing a list where we are grouping annually in this first argument and then we're going to group by level A for the index. We can do that and we'll see that the result has two levels on the index now one for the date and one for the A and then it has the B and C columns and we'll see here that it did
+
+53
+00:29:22.000 --> 00:30:07.000
+date and one for the A and then it has the B and C columns and we'll see here that it did compute the number of non-null values for each column B and C for the year and the level of A. Furthermore in addition to combining one instance of pd.grouper with another we can define a pd.grouper here again grouping by the year annually with a column B. When we do this we'll see here that the result only has a column C because we used the other two columns as part of our group by so they were both moved into the index and then this will
+
+54
+00:30:02.000 --> 00:30:44.000
+columns as part of our group by so they were both moved into the index and then this will have computed the number of non-null values in the C column for each unique combination of the date in the annual frequency as well as the column B. Okay so at this point we've been able to work through a number of examples of how the group by machinery works. The core framework we've been working with is called the split apply combined framework. The three steps are to split the data into subsets of the data frame where we have all
+
+55
+00:30:38.000 --> 00:31:23.000
+The three steps are to split the data into subsets of the data frame where we have all rows collected that share some key values in particular columns. This is done by using the dot group by method on our data frame. The second step would be to apply a function and this was done either by calling the name of an aggregation method, pandas defined like count or mean or some. Another option was that we use the dot ag method to reduce a series into a single number and we can use dot ag and pass in our own custom function or the third option would be
+
+56
+00:31:16.000 --> 00:31:52.000
+and we can use dot ag and pass in our own custom function or the third option would be to do the dot apply method after we've called group by which will allow us to not just summarize a column to a number but transform a column into another column. Those were the ways that we worked through that second step of applying and then the combined phase where we regroup all the results of applying this function group by group pandas to care that for us and we didn't actually have to write any code to do that combined
+
+57
+00:31:47.000 --> 00:32:22.000
+to care that for us and we didn't actually have to write any code to do that combined step. We also worked through how we can get different grouping based on columns, based on transformations of them levels of the index and now we're ready to do a case study. What we like to do now is load up a data set that was again collected from the USBR of transportation statistics and we're going to utilize the QEDS library and the very first time you run this particular line of code on your machine it'll take a little bit of time.
+
+58
+00:32:17.000 --> 00:32:46.000
+time you run this particular line of code on your machine it'll take a little bit of time. So you see here I started the computation minute ago which we can see that over on the far side of the cell there's a star and asterix in between the square brackets. That's Jupiter's way of letting us know that this computation is running. But what happens is the QEDS library will go and we'll fetch the data from online. It will clean it up, prepare it for us and then we'll save it to a file on our computer.
+
+59
+00:32:41.000 --> 00:33:14.000
+It will clean it up, prepare it for us and then we'll save it to a file on our computer. So the next time we run this cell you see here that it finished we now have a 33 in the square back it's instead of a star. If I'd run this again it wouldn't take quite as long because it's just finding the file that it saved on my computer and reading it back in the memory. And you'll see here that this already finished it says 34 instead of 33 letting us know that it's done. The first thing we'd like to do is compute the average delay in a rival time for all carriers
+
+60
+00:33:08.000 --> 00:33:39.000
+The first thing we'd like to do is compute the average delay in a rival time for all carriers in each week and we're going to do this in a number of steps. So first we're going to begin with our airline December data frame and then we're going to go right into a group by and here we're going to group by two things. We're going to group by the date column at a weekly frequency. We're also going to group by the carrier. The reason we chose these two arguments was because we wanted the average arrival time for
+
+61
+00:33:34.000 --> 00:34:08.000
+The reason we chose these two arguments was because we wanted the average arrival time for each carrier in each week and grouping by these two levels will give us that grouping. Then we're extracting only the column that we're interested in here is to the arrival delay column. Then we're going to compute the mean. So it's the average arrival delay for each flight across for the whole carrier within a week. And then finally once we're done what we end up with is we have two in two level index which
+
+62
+00:34:03.000 --> 00:34:38.000
+And then finally once we're done what we end up with is we have two in two level index which would be the date and the carrier. And then we're going to have a single level of column, which is the airline delay. And what we'd like to do is we're just going to rotate this carrier level of the index. We're going to rotate that up to become column names. So we're going to be left with the date going down the rows. The columns are carriers and the values are the average delay. Let's compute this and see what it looks like.
+
+63
+00:34:34.000 --> 00:35:12.000
+Let's compute this and see what it looks like. So we see here the shape we just we expected. We have dates going down the rows and along the columns we have carrier codes. So these may look a little difficult to understand. These are just two digit codes that the airline industry uses to keep track of which airline. This WN, for example, is Southwest Airlines and then way over at the other end, the AA is American Airlines. And we'll see here that we have one observation for each airline and each week.
+
+64
+00:35:05.000 --> 00:35:43.000
+And we'll see here that we have one observation for each airline and each week. The dates over here on the index. Those represent the last day of a week. So this first row represents the average delay for all flights in the week ending on December the 4th. The second row would be for the week ending December 11th, December 18th, and so on. Now, it's a little hard to see the pattern by looking just at the raw table of numbers. So let's go ahead and plot this data also and see what we can discover.
+
+65
+00:35:39.000 --> 00:36:20.000
+So let's go ahead and plot this data also and see what we can discover. So if we see here that we have plotted the following, we have on the horizontal axis, we have the date. On the vertical axis, we have the delay time and then each subplot represents one airline. So we have here a sequence of 12 charts where each of them are showing us the average delay time for that airline. And it looks like for every single almost every single one of these charts with two exceptions, one being this one and the other being the AS chart up here.
+
+66
+00:36:14.000 --> 00:36:55.000
+exceptions, one being this one and the other being the AS chart up here. But for every other chart, the third bar corresponding to the week ending December 18th has the largest average delay time. So this seems somewhat systemic or something that we could dig into a little bit more. And that's quite interesting. So we'll go ahead and we'll see if we can analyze that more. The way we're going to proceed with our analysis is to utilize a few more columns contained in this data frame. So in addition to just the total delay in minutes, we actually have a breakdown of what
+
+67
+00:36:49.000 --> 00:37:24.000
+So in addition to just the total delay in minutes, we actually have a breakdown of what contributed to that delay from five different categories. These categories include things like, was it the airline carriers fault? Was it a weather delay? Was it because there was a later craft? Was it security and so on? So we'll go ahead and we'll create a list called delay calls containing these column names so that we don't have to type them out later. And our goal here is to understand what contributed to the high delays in the week ending
+
+68
+00:37:18.000 --> 00:37:50.000
+And our goal here is to understand what contributed to the high delays in the week ending December 18th. And we're going to be using these five categories and we're going to try to understand how much that each contributed to those delays. So we'll just go ahead and we're just going to construct a data frame that has the raw delay values here. And we did kind of a lot in this step so we're going to break it down one of the time. The first thing we did up here in the code cell was that we extracted the data for only
+
+69
+00:37:45.000 --> 00:38:24.000
+The first thing we did up here in the code cell was that we extracted the data for only that week. We said we would like to get all the data where the date is greater than or equal to the 12th and less than or equal to the 18th. And then have a new function that we defined, a new aggregation function called positive. The purpose of this function is to compute the total number of rows where the value in a particular column was greater than 0. This will help us understand how many times a particular delay or a particular factor caused
+
+70
+00:38:16.000 --> 00:38:56.000
+This will help us understand how many times a particular delay or a particular factor caused a delay. Then the final thing we're going to do is we're going to take this pre-Christmas data frame so containing only data from December 12th to the 18th. We're going to group by the carrier. We're going to look at the delay columns and then we're going to call Ag. Now before we were calling Ag and passing it a single argument which then would take each column, use the Ag function and reduce it to a single number and then move to the next group.
+
+71
+00:38:49.000 --> 00:39:24.000
+column, use the Ag function and reduce it to a single number and then move to the next group. We're passing a list of functions. We want it to compute the sum, the mean and we want it to use our positive function. And so what we get back here, let's look at the shape of this output. You see here that the rows are equal to the carrier. Sorry, the index is equal to the carrier. This happened because that's what we chose to group by up here. Second, notice that we have two layers of column index. We have one here at the top and then a second one down here.
+
+72
+00:39:21.000 --> 00:39:58.000
+We have one here at the top and then a second one down here. This outer most layer of columns is actually coming from the delay columns. So this becomes the outer layer of our index. And then the inner layer has positive sum and mean. This comes from the functions we pass to the Ag method. So we have the group by argument on the index. The columns become the outer most column and then each Ag function becomes the inner most column level. And we have a bunch of Veta here. It's like last time it's a little hard to understand exactly what the patterns are
+
+73
+00:39:54.000 --> 00:40:30.000
+It's like last time it's a little hard to understand exactly what the patterns are just by staring at the numbers. So we'll go ahead and we'll make a chart. So what is it that we would like to do or what is our want? What we want to do is plot the total average and number of each type of delay by carrier. And to do this, we're going to have to reshape this delay total data frame a little bit. So what we'd like to see is that we would like to have the delay type be the horizontal axis on our charts.
+
+74
+00:40:28.000 --> 00:41:03.000
+axis on our charts. And the way pandas does its plotting is anything on the index will become the horizontal axis or the x axis values. So the first step is to move the delay type from being this outer most column level. We want to rotate it down to be on the index. The second thing we'd like to do is we'd like to have the aggregation method instead of being the bottom or the inner column level. We'd like to rotate it up so that it's the outer or top column labels. And then finally we want to move the carrier names from being on the index.
+
+75
+00:40:59.000 --> 00:41:35.000
+And then finally we want to move the carrier names from being on the index. We want to rotate them up and become the outer most column level. Or sorry, we can be the inner column level, not the outer one. It's a lot. And the code here is just one way to do it. We'll show you the output and then we'll work through how it happened. So here we have the carriers, sorry, the delay types going down rows. We have the outer level of these columns as the aggregation type here is some and the inner level of the column labels is the carrier code.
+
+76
+00:41:31.000 --> 00:42:07.000
+level of the column labels is the carrier code. So how do we do it? We started with our data and then we chose to stack it. And what this did was it moved the aggregation method down and it flipped it down. So before we had delay type aggregation method. But now we've rotated the aggregation method down to become a level on the index. So now we have carrier code and delay type on the index and then our column labels are now the aggregation type. Or sorry, the delay type. So then we're going to do a transpose.
+
+77
+00:42:05.000 --> 00:42:42.000
+So then we're going to do a transpose. So this dot t here in the second line will just invert that. So then we're going to end up with the delay type on the index. And then we're going to have the carrier code on the bottom level of the columns and the aggregation type on the top. Or actually vice versa. We're going to have the aggregation type close to the data and the carrier code on the outside. This happened because when before the transpose, the carrier code was on the outside and then the aggregation type was closer to the data.
+
+78
+00:42:38.000 --> 00:43:17.000
+then the aggregation type was closer to the data. That is preserved. So the aggregation type in the columns is going to be the lower level and the carrier code will be the higher one. The next step after the transpose is to swap the level of the column layers. So we're going to swap so that we flip the delay type or sorry, the aggregation type to be on the top and the carrier code to be underneath it. Finally we'll just sort by the index that we have a sorted column labels. That's a lot. If you didn't totally follow, that's okay.
+
+79
+00:43:15.000 --> 00:43:50.000
+If you didn't totally follow, that's okay. I encourage you to go back on your own time and to study these commands and make sure that you understand how we can start from where we were over here on this previous slide. We can start here, use these reshape commands to get down here. Once we have this, we're going to go ahead and plot it. What we're going to do is we're going to loop over the aggregation type, the mean, some, and positive. We're then going to extract all the columns for that one aggregation type and then we'll
+
+80
+00:43:44.000 --> 00:44:21.000
+We're then going to extract all the columns for that one aggregation type and then we'll plot it. The actual instructions in the plot command are similar to what we saw before, so we won't focus too much on it. We'll just get the free to study this on your own later. What we end up with is three different charts. The first chart shows the values for the average contribution of each delay type. Now this is not average across flights. Remember this is average across non-zero values for that delay type.
+
+81
+00:44:15.000 --> 00:45:01.000
+Remember this is average across non-zero values for that delay type. We'll see here on the x-axis, where the horizontal one, we have the delay type. On the subplots, we have carrier codes and then the value, the height of the barge is going to be the value of that aggregation type. We have the same thing for the sum as well as the positive total count. So we'll see here a few patterns. Let's just talk about them. So look down here at the number of positive delays. We see that southwest airlines down here at the bottom had very high counts of these three
+
+82
+00:44:54.000 --> 00:45:32.000
+We see that southwest airlines down here at the bottom had very high counts of these three delay types. It was the carrier delay in NA S delay. I'm not exactly sure what that one is. It has to look that up. And then the late aircraft delay. However, if we look at the average contribution, they don't seem quite as bad. The carrier delays are a bit smaller per occurrence than it is for other airlines. This may be indicative of southwest having many instances of that. So they know how to handle it and how to get back on track a little bit better than some
+
+83
+00:45:28.000 --> 00:46:06.000
+So they know how to handle it and how to get back on track a little bit better than some other airlines who don't frequently have carrier delays. This NA S delay, the average contribution is quite low. And then this later aircraft delay is still fairly high, but I would say lower on average than for other airlines. Another thing to notice is the height of this bar right here. So area with air line with carrier code B6 had a very large average delay for a later aircraft. Now if we look at what happened here, we see that that didn't happen very often for this
+
+84
+00:46:02.000 --> 00:46:33.000
+Now if we look at what happened here, we see that that didn't happen very often for this carrier. And so when it does, even though the sum is not that large, because the total number of occurrences is low, the bar is quite high, because even though it doesn't happen often when it does, it contributes quite a bit to the delay. Those are just some of the insights we can pick up. And we actually have an exercise here. We would like for you on your own time to come back and think through these charts and
+
+85
+00:46:29.000 --> 00:47:09.000
+We would like for you on your own time to come back and think through these charts and try to understand what factors contributed to delays for different airlines. In particular, we'd like for you to answer questions like, which type of delay was the most common or occurred the most, which type of delay caused the highest average, which type of, yeah, type of delay caused the average arrival delay to be the biggest. And also do these answers and ones to related questions vary by airline. We kind of saw a little bit of this variation by airline with Southwest before.
+
+86
+00:47:05.000 --> 00:47:39.000
+We kind of saw a little bit of this variation by airline with Southwest before. Now they have a lot of delays, but they tend to be un-average smaller than the corresponding delays for other airlines. Again, we'll encourage you to come back on your own time and think through this, maybe discuss it with one of your friends and write your thoughts down so that you can understand a bit more how to think through this analysis once we've done the computation. So let's take stock a little bit of what we've done.
+
+87
+00:47:36.000 --> 00:48:14.000
+So let's take stock a little bit of what we've done. We were able to compute for the month of December 2016, the average flight delay for all US domestic flights by airline and by week. And then just by plotting these numbers, we noticed that one week in particular seemed to have much higher delays than other weeks. This was the week ending in December 18th. Then we studied the contribution of delay from five different categories to try to understand what happened and you did some of this study on your own.
+
+88
+00:48:10.000 --> 00:48:45.000
+what happened and you did some of this study on your own. Now this was a fairly good analysis in the sense that we were able to utilize a lot of our tools and we were the uncover insights about this industry, but it's not the only type of analysis we may ever want to do. Suppose that after seeing our results, the somebody at the airline industry would say, hey, we loved your weekly analysis because you repeated for us at the daily frequency. Sure enough, it wouldn't be that hard what we could do is either go back through our code
+
+89
+00:48:40.000 --> 00:49:20.000
+Sure enough, it wouldn't be that hard what we could do is either go back through our code and change this W frequency, one of me grouped by, to a D for week. Sure I should move from week to day and then repeat an execute all the cells again, but there's a better way. So what we would like to do is actually compute the analysis we did in a container or in a function so that we can call it repeatedly, maybe tweaking a few of these values at a time. In particular what we're going to do now is we're going to wrap this analysis above
+
+90
+00:49:14.000 --> 00:49:54.000
+In particular what we're going to do now is we're going to wrap this analysis above into two functions. One, it will produce a set of bar charts for the average delays at a particular frequency. Then we're going to have a second set of bar charts for the sum, mean, and number of positive occurrences for each delay type again at the chosen frequency. Here we're going to do it at the delay. Or sorry, at the daily frequency. So let's go ahead and define these functions. So what we have here is we have a function that takes three arguments.
+
+91
+00:49:49.000 --> 00:50:27.000
+So what we have here is we have a function that takes three arguments. One has a default value. The first argument is our raw data frame. This would be kind of the air underscore DEC or airline December data frame we've been working with. Then it takes the second argument called Freak or Freakancy. Here's what it does. The first step is to take the raw data frame and group by the date at of a frequency passed into the function and the carrier. This looks just like the code we wrote above, but before we had hard coded a string
+
+92
+00:50:22.000 --> 00:50:59.000
+This looks just like the code we wrote above, but before we had hard coded a string W here for a frequency. And now we're allowing that to change with the argument to this function. Once we've done this grouping, we're going to again take our arrival delay column, we'll compute the average, and then we'll unstack it. So that we're left with only the date on the index and the carrier code has been moved from a level on the index up to be a level of the columns. So this is just the code we first saw when we analyzed the airline data.
+
+93
+00:50:55.000 --> 00:51:29.000
+So this is just the code we first saw when we analyzed the airline data. But now we've made this frequency argument customizable with a function argument. Next we're going to repeat the plotting code. So all this, the rest of this function does is it repeats the code necessary to compute that grid of plots for the average delay for each airline at the given frequency. We'll go ahead and define this and we'll show how to use it in just a moment. The second thing we wanted to do was be able to understand a bit more what contributed
+
+94
+00:51:24.000 --> 00:51:56.000
+The second thing we wanted to do was be able to understand a bit more what contributed to the delays. So here's what we're going to do. We're going to have a second function that takes three arguments. The first argument is going to be the data frame containing our data. Second argument is a string representing the starting date and the third argument is a string representing the ending date. Once we have these arguments, we do the following. We first construct a subset of the data. We'll hear we call it sub-df.
+
+95
+00:51:54.000 --> 00:52:32.000
+We'll hear we call it sub-df. What we're going to say, we want the data where the date column is at least start and the value that it column is no more than end. This will give us a subset of the data in between start and end. Then you'll see here that we have repeated that positive function. We're going to then pass positive alongside some and mean to this group by operation where we've grouped by the carrier. We're looking at only delay columns. Then we're aggregating with some mean and positive.
+
+96
+00:52:29.000 --> 00:53:14.000
+Then we're aggregating with some mean and positive. Then we're going to do the reshaping and plotting code. There's no new code here. All we've done is instead of hard coding December 18 for the end and December 12 for the start, we've made those be customized above the function arguments. We'll go ahead and evaluate that cell to define this function. That leaves us to an exercise. What we'd like for you to do is we'd like for you to call the mean delay plot function to replicate the chart we had before where we had the average delay per airline per week.
+
+97
+00:53:06.000 --> 00:53:48.000
+replicate the chart we had before where we had the average delay per airline per week. Then we'd like for you to call the second function the delay type plot to replicate the charts that we used to study the delays between December 12 and December 18. Doing this type of check or replication exercise is a good practice. What we did is we wrote out some analysis once. We decided that we might want to encapsulate some of it in a function so we could reuse it. We started with analysis. We put it in functions and now we're going to call the functions and this will allow us
+
+98
+00:53:43.000 --> 00:54:13.000
+We put it in functions and now we're going to call the functions and this will allow us to compare the function output to the original analysis output. If they match, then we have some confidence that we've written our functions correctly. We'd like for you to take a moment to call these two functions and see if you can replicate the charts we already have. Welcome back. We'll see here and we'll work through this together now. You'll see here that I've written out the code that I feel should be able to replicate
+
+99
+00:54:08.000 --> 00:54:40.000
+You'll see here that I've written out the code that I feel should be able to replicate the charts we saw before. What I'm going to do is I'm going to call the mean delay plot function. I'm going to give it our airline December data frame and then I'm going to pass as the frequency argument, the string W. Meaning we want to compute average delays across airlines by week. When we do this, we end up with the chart that we saw before. We see here that for almost all of these airlines, this third week and need in December
+
+100
+00:54:34.000 --> 00:55:19.000
+We see here that for almost all of these airlines, this third week and need in December 18th has the highest average delay. Great. The first and out part of our analysis was successfully replicated. Second was this delay type chart. So what I've done here, they've called delay type plot and the three arguments I passed were one, the airline December data frame containing our data. Two, I passed a string representing the date, the 12th of December 2016, as the starting point of our window and then I did the 12th, 18th of December 2016 as the ending date.
+
+101
+00:55:11.000 --> 00:55:55.000
+point of our window and then I did the 12th, 18th of December 2016 as the ending date. When we call this function and we execute this, we get back those same three charts we saw before. Here we have a chart for the average delay by delay type for airline. We have the total minutes delay per each delay type and then we have the number of positive number of times that delay type contributed to it delay. At this point we feel confident that we've successfully encapsulated our analysis in reusable functions.
+
+102
+00:55:50.000 --> 00:56:30.000
+in reusable functions. Now let's actually utilize this. What we'll do is we'll now take this mean delay plot function and instead of only looking at a weekly frequency, let's go ahead and look at a daily frequency. This is going to produce a lot more charts or a lot more numbers here on the X-axis because now instead of just the five week endings we have all 31 day endings. But what we're able to see is that there are a few days here on December 17th and 18th that seem to have larger delays for all the different airlines.
+
+103
+00:56:26.000 --> 00:57:15.000
+that seem to have larger delays for all the different airlines. We see it over here in this middle one, we see it over there on that side and then we also see it right here. So the airline, the average delays seem to be biggest on December 17th and December 18th. So let's go ahead and look at what contributed to these delays. We're going to use our delay type plot function and try to understand a bit more about what happened. So the way we're going to call this is we're going to call delay type plot.
+
+104
+00:57:09.000 --> 00:57:49.000
+So the way we're going to call this is we're going to call delay type plot. We're going to give it both, oh, sure, we're going to pass our airline December and we need to start in an end date. The start date we're choosing is December 17th, 2016. The end date is December 18th, 2016. So here we're going to see the average delay, pie delay type for both days together. We'll see here that it looks like what's causing most of the delays and we're going to look at the sum chart for this is that this late aircraft one is causing a lot of problems,
+
+105
+00:57:43.000 --> 00:58:23.000
+look at the sum chart for this is that this late aircraft one is causing a lot of problems, kind of generally across all these charts as well as the carrier delay. So these two types of delays seem to be troublesome. You also have a non-zero delay being caused by weather. It seems like weather may be, so there may be some bad weather in the United States at this time, which can make sense because we're looking at December which would be winter and those are times when maybe the weather would cause more delays than in more temperate seasons.
+
+106
+00:58:16.000 --> 00:58:56.000
+those are times when maybe the weather would cause more delays than in more temperate seasons. Now because we've written out our function, we were able to look at having a start and end date that we're different. So December 17th and 18th and look at both days together, but now we're able to just use one line of code to generate these plots for only December 17th. It looks like on this day the total delays, again, we're probably coming from these two columns, but there is some notion of the weather being a little bit high.
+
+107
+00:58:49.000 --> 00:59:31.000
+columns, but there is some notion of the weather being a little bit high. Let's look what happens on December 18th. To evaluate this sale, so now the start date is the 18th as well as the ending date. And now the weather delays are all but gone. We see here that the weather delays are just not apparent, especially here for Southwest, and it's almost entirely due to late aircraft or carriers. So we'll see here that the type of delay was different between the 17th where we did have a reasonable amount of weather related delays to the 18th where we really just don't have any weather delays.
+
+108
+00:59:24.000 --> 01:00:07.000
+a reasonable amount of weather related delays to the 18th where we really just don't have any weather delays. So now the purpose of the exercise we just did was we really want to underscore the ability of utilizing Python and good programming practices so that we can automate or make reproducible our analysis. We were able to write a pair of functions that allowed us to easily repeat the exact same analysis on different subsets of the data or maybe even different data sets. We could if we had data for December 2019 or September 2020, we would be able to pass this data
+
+109
+01:00:00.000 --> 01:00:40.000
+We could if we had data for December 2019 or September 2020, we would be able to pass this data frame in to these functions and it would work without a problem. There is nothing particular about it being December 2016. Now these same principles of being able to write a reusable or reproducible analysis can be applied in many many settings and we'll see this as a theme that continues to pop up throughout our studies together. So the last part of our lecture today will be to introduce an extended problem that we would like
+
+110
+01:00:33.000 --> 01:01:13.000
+So the last part of our lecture today will be to introduce an extended problem that we would like for you to work on on your own. And here's the setting that we're working with. The QEDS library contains some routines that concimulate the structure and distribution of data from some common sources. One of these sources is Shopify. This is an e-commerce platform or service used by many different retail companies in order to engage in online transactions with customers. When a firm utilizes the Shopify platform to sell their goods online, Shopify will
+
+111
+01:01:05.000 --> 01:01:46.000
+customers. When a firm utilizes the Shopify platform to sell their goods online, Shopify will keep a record of all the transactions and produce a report with a consistent format. And what we're going to do here is we're going to we were able to contain an actual Shopify report from a real retailer and we were able to uncover some of the distributional facts as well as the structure of the data. And we took this distributional awareness and the structural awareness and we wrote it and we encoded it in a simulation routine. So now what we can do is
+
+112
+01:01:40.000 --> 01:02:20.000
+awareness and we wrote it and we encoded it in a simulation routine. So now what we can do is simulate some random data that has the same structure and distribution of real life retailer data from the Shopify provider. And so what we've done here in order to do this, the first two lines here, they set the random generator seed. Now what this means is that if you were to come back and execute this cell again, you're going to get back the exact same set of randomly simulated data that you're going to get right now. Had we not put the seed here, every time you run this cell,
+
+113
+01:02:15.000 --> 01:02:52.000
+that you're going to get right now. Had we not put the seed here, every time you run this cell, be it today, two minutes from now, two weeks or two years from now, you'd end up with different data because it's randomly generated. But if we set the seed on the random generator, then it will kind of reset the randomness back to a known value and then all the numbers generated from that point will be consistent and we'll see the same ones today and then tomorrow. And every time we run this in the future. Now let's take a look at what we have here. So
+
+114
+01:02:46.000 --> 01:03:27.000
+And every time we run this in the future. Now let's take a look at what we have here. So the Shopify reports will contain a day, the customer type and the customer ID. The customer ID is a unique identifier for this customer and the customer type could either be returning or new. For our turning customers, we will have seen this customer ID previously, maybe in a different month report or in a different data set. It may not appear in our data set because we're just taking a snapshot but if we had the whole history of Shopify data, we would see the customer ID for our
+
+115
+01:03:20.000 --> 01:04:02.000
+a snapshot but if we had the whole history of Shopify data, we would see the customer ID for our returning customers had already been seen. The orders column tells us how many orders did that customer place on that day of the year on that date. We'll then have a column for the total dollar value in the sales. This is the revenue generated by that customer on that day. The returns is how much we owe the customer because they returned an object. Ordered quantity is the number of items purchased by the customer. We have here a gross sales and a net sales. So this would be the total
+
+116
+01:03:56.000 --> 01:04:33.000
+items purchased by the customer. We have here a gross sales and a net sales. So this would be the total sales net of any returns because there were no returns. These columns line up exactly with total sales. We're not going to include shipping or tax for now. That's a complication that we don't need in our analysis so far and we're also not going to worry about return or discounts. We're going to try to keep it a little more simple but it does have the structure of the full Shopify data set. Now the exercise we want to do has to do with a customer
+
+117
+01:04:24.000 --> 01:05:04.000
+structure of the full Shopify data set. Now the exercise we want to do has to do with a customer cohort. So we're going to define what that means or what we mean by customer cohort. So a customer cohort is identified or indexed by the month in which they place their first order. The customer type column tells us whether it's a new or returning customer. So for every customer ID we would like to identify which row, there's only going to be one, which row has type new and then we'll look at the month
+
+118
+01:04:57.000 --> 01:05:45.000
+which row, there's only going to be one, which row has type new and then we'll look at the month corresponding to that date and we'll see that that is the label or the index for that customer's cohort. Let's think of an example. If I were to place an order today in October of 2020 and I had a customer type of returning an idea of one, my cohort would not be October. If instead we look through the data set and see that customer with ID equal one had a new customer type in July of 2020, then July 2020 would be my cohort. If there were a customer with ID equal two whose
+
+119
+01:05:37.000 --> 01:06:25.000
+then July 2020 would be my cohort. If there were a customer with ID equal two whose new customer type occurred in October 2020, then this would be his cohort's label. So now here's the want that we would like to cover and I'm going to read it carefully and I'm going to read it twice. We want to compute the monthly total of orders, total sales and total quantity separated by customer cohort and customer type. One more time, we're going to compute the monthly total number of orders, total sales and total quantity separated by customer cohort and
+
+120
+01:06:17.000 --> 01:06:59.000
+monthly total number of orders, total sales and total quantity separated by customer cohort and customer type. So see here that we kind of have three groupings. We have the grouping on the dates which is going to be at a monthly frequency. We have the grouping on the customer type and then we have a grouping on the customer cohort. Now this is going to be kind of the heart of the exercise. So what we like for you to do is use the reshape and group by tools that you've learned so far to compute the want to find right here. We're not going to do this one together,
+
+121
+01:06:51.000 --> 01:07:37.000
+so far to compute the want to find right here. We're not going to do this one together, but we have here and I will let you read it on your own time. We'll have here a snapshot of what the data should look like when you're done and a note with some hints on how you can might do it. We'll let you look through this on your own time. We won't spend the time to read it together right now. I will encourage you to go through here. One kind of hint or note that Dr. Sargent would strongly encourage and so would Dr. Coleman and myself is don't skip steps. The hint here is quite
+
+122
+01:07:29.000 --> 01:08:05.000
+strongly encourage and so would Dr. Coleman and myself is don't skip steps. The hint here is quite helpful. So make sure you work from step one, just step two, think through the hints for how to do step two, and then move on to three, four, five. It seems like a lot and it's a fairly complicated operation, however, if you go one step at a time and you don't skip steps, you do have all the tools and the norms that you need to successfully complete this exercise. That's going to be it for our lecture today
+
+123
+01:07:59.000 --> 01:08:09.000
+the norms that you need to successfully complete this exercise. That's going to be it for our lecture today and good luck on the exercise and we'll see you next time. Thank you.
+

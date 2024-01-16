@@ -1,0 +1,448 @@
+1
+00:00:00,000 --> 00:00:11,600
+Hi, this is Tom and today I'm going to talk with you about the finite dimensional
+
+2
+00:00:11,600 --> 00:00:14,800
+Markov chains.
+
+3
+00:00:14,800 --> 00:00:23,680
+And my text for this for which I'm going to basically provide a reader's guide is the
+
+4
+00:00:23,680 --> 00:00:30,680
+Quanty Con lecture on Markov chains, which is on the Quanty Club website.
+
+5
+00:00:30,680 --> 00:00:39,240
+Okay, so basically the roadmap is we're going to define a Markov chain.
+
+6
+00:00:39,240 --> 00:00:43,920
+See how to construct it.
+
+7
+00:00:43,920 --> 00:00:54,320
+We'll talk about simulations and we'll construct marginal distributions in it.
+
+8
+00:00:54,320 --> 00:01:06,160
+And then we'll talk about these concepts of irreducibility and non-periodic markov chains.
+
+9
+00:01:06,160 --> 00:01:10,600
+And those are going to be important because how they relate to stationary distributions.
+
+10
+00:01:11,160 --> 00:01:14,800
+We'll talk about the concept of stationary distributions.
+
+11
+00:01:14,800 --> 00:01:19,800
+There's notion of stationary and irreducibility.
+
+12
+00:01:19,800 --> 00:01:23,000
+We'll talk about those.
+
+13
+00:01:23,000 --> 00:01:29,840
+And we'll talk about how to approximate expectations.
+
+14
+00:01:29,840 --> 00:01:34,080
+So let's get rolling.
+
+15
+00:01:34,080 --> 00:01:40,480
+Okay, so what you're going to find is a Markov chain is just widely used in economics.
+
+16
+00:01:40,480 --> 00:01:49,040
+In the arts machine learning actually encryption.
+
+17
+00:01:49,040 --> 00:01:58,800
+And it's the work force of building dynamic models with is some randomness.
+
+18
+00:01:58,800 --> 00:02:08,920
+So as powerful as they are, we already have the tools to study them.
+
+19
+00:02:08,920 --> 00:02:15,040
+The key tools are going to be a little bit of linear algebra.
+
+20
+00:02:15,040 --> 00:02:17,080
+And basic probability theory.
+
+21
+00:02:17,080 --> 00:02:25,320
+So this lecture is accompanied by a notebook, which you would be able to run a Jupyter notebook.
+
+22
+00:02:25,320 --> 00:02:36,280
+So as usual, here's our Quanty kind of various things we download.
+
+23
+00:02:36,320 --> 00:02:43,280
+We import if we're going to be using Python as we are.
+
+24
+00:02:43,280 --> 00:02:51,240
+Okay, so we'll just start with some definitions.
+
+25
+00:02:51,240 --> 00:02:54,840
+Key definition is there's going to be a matrix.
+
+26
+00:02:54,840 --> 00:02:58,440
+And it's going to be a stochastic matrix.
+
+27
+00:02:58,520 --> 00:03:03,400
+It's p, we'll call it p, and it's an n by n.
+
+28
+00:03:03,400 --> 00:03:07,680
+So it's a square matrix.
+
+29
+00:03:07,680 --> 00:03:12,320
+Each element, Pij is strictly positive.
+
+30
+00:03:12,320 --> 00:03:16,320
+Well, actually non-negative.
+
+31
+00:03:16,320 --> 00:03:19,960
+We'll see non-negative because it's going to be a probability.
+
+32
+00:03:19,960 --> 00:03:27,400
+And this is going to be a conditional probability.
+
+33
+00:03:27,400 --> 00:03:30,640
+So it's a matrix full of conditional probabilities.
+
+34
+00:03:30,640 --> 00:03:33,200
+And each the row sums.
+
+35
+00:03:33,200 --> 00:03:47,080
+So if we sum across it for every row, this is going to be one.
+
+36
+00:03:47,080 --> 00:03:57,880
+So each row of Pij is a probability distribution in itself.
+
+37
+00:03:57,880 --> 00:04:04,280
+It's itself a probability distribution over n possible outcomes because J goes from one to
+
+38
+00:04:04,280 --> 00:04:05,280
+n.
+
+39
+00:04:05,280 --> 00:04:08,880
+And we're going to talk about what these mean.
+
+40
+00:04:08,880 --> 00:04:14,440
+And we call this a stochastic matrix if it satisfies one into.
+
+41
+00:04:14,440 --> 00:04:17,800
+So that's how to read that.
+
+42
+00:04:17,800 --> 00:04:22,480
+So it's worthwhile staring at that.
+
+43
+00:04:22,480 --> 00:04:31,160
+So we have a set of non-negative matrices.
+
+44
+00:04:31,160 --> 00:04:32,200
+It's implied by this.
+
+45
+00:04:32,200 --> 00:04:33,640
+This actually implies.
+
+46
+00:04:33,640 --> 00:04:39,920
+These two things will imply that Pij itself is a probability.
+
+47
+00:04:39,920 --> 00:04:43,960
+It's some number of less than or equal to one greater than or equal to zero.
+
+48
+00:04:43,960 --> 00:04:47,240
+That's for all IJ.
+
+49
+00:04:47,240 --> 00:04:51,560
+So each element of the matrix is a probability.
+
+50
+00:04:51,560 --> 00:05:01,460
+And what you can find is, this is what this if P is a stochastic matrix is a stochastic
+
+51
+00:05:01,460 --> 00:05:03,260
+matrix.
+
+52
+00:05:03,260 --> 00:05:17,260
+What implies P to the K is also for any K greater than equal to one.
+
+53
+00:05:17,260 --> 00:05:22,940
+Well, actually greater yeah, greater than equal to one.
+
+54
+00:05:22,940 --> 00:05:30,060
+So that's what it's matrix is.
+
+55
+00:05:30,060 --> 00:05:37,900
+So a stochastic matrix is it's a key thing that it's a big part of a mark-off chain.
+
+56
+00:05:37,900 --> 00:05:43,100
+So one thing to define a mark-off chain is to define a mark-off chain.
+
+57
+00:05:43,100 --> 00:05:49,380
+We need a stochastic matrix P plus something else.
+
+58
+00:05:49,380 --> 00:05:52,620
+And we'll see what that something else is.
+
+59
+00:05:52,620 --> 00:06:03,180
+So to begin with, we're going to define some set of elements x1 through xn.
+
+60
+00:06:03,180 --> 00:06:11,540
+And we're going to call that a state space.
+
+61
+00:06:11,540 --> 00:06:14,660
+And these are the state values.
+
+62
+00:06:14,660 --> 00:06:18,220
+So that's what the set set is is.
+
+63
+00:06:18,220 --> 00:06:28,820
+So the mark-off chain is defined on a state space s.
+
+64
+00:06:28,820 --> 00:06:31,700
+And what it is, it's a sequence of random variables.
+
+65
+00:06:31,700 --> 00:06:33,940
+So it's a sequence of random variables.
+
+66
+00:06:33,940 --> 00:06:39,220
+On s, that have something called the mark-off property.
+
+67
+00:06:39,220 --> 00:06:42,780
+The key thing is what the mark-off property is.
+
+68
+00:06:42,780 --> 00:06:50,140
+And the mark-off property is something about conditional probabilities.
+
+69
+00:06:50,140 --> 00:06:56,300
+It's a restriction on conditional probabilities.
+
+70
+00:06:56,300 --> 00:06:57,940
+So here goes.
+
+71
+00:06:57,940 --> 00:07:12,380
+So we're going to have the where we're going to do this is x, that t is the random variable.
+
+72
+00:07:12,380 --> 00:07:16,300
+Remember this sequence at t.
+
+73
+00:07:16,300 --> 00:07:19,700
+And it could possibly take on various values.
+
+74
+00:07:19,700 --> 00:07:22,500
+It's going to take on some value.
+
+75
+00:07:22,500 --> 00:07:23,700
+It's going to belong.
+
+76
+00:07:23,700 --> 00:07:30,700
+It's going to take on a value inside this set, the x1 to xn.
+
+77
+00:07:30,700 --> 00:07:33,460
+So the mark-off property is this.
+
+78
+00:07:33,460 --> 00:07:39,260
+It's that the probability that xt plus 1 is equal to a particular value y,
+
+79
+00:07:39,260 --> 00:07:49,060
+condition on xt, that random variable, is equal to the probability that it takes
+
+80
+00:07:49,060 --> 00:07:55,500
+on the value y, condition on not only xt, but past values of xt.
+
+81
+00:07:55,500 --> 00:08:07,140
+So only xt carries information about future values of the random variable x.
+
+82
+00:08:07,140 --> 00:08:11,340
+So stare at this.
+
+83
+00:08:11,340 --> 00:08:23,360
+And this is intimately connected with this is the reason why we give this name, xt is the state
+
+84
+00:08:23,360 --> 00:08:26,000
+variable.
+
+85
+00:08:26,000 --> 00:08:27,160
+xt is the state variable.
+
+86
+00:08:27,160 --> 00:08:34,080
+It completely summarizes the current position of the system.
+
+87
+00:08:34,080 --> 00:08:42,080
+So we can write this.
+
+88
+00:08:42,080 --> 00:08:49,680
+The probability, if we write the probability of xt plus 1 is equal to y, given xt equals x,
+
+89
+00:08:49,680 --> 00:08:55,080
+as we write this is matrix, the p of xy for all xy.
+
+90
+00:08:55,080 --> 00:09:00,480
+And yes, that's going to give rise to a matrix.
+
+91
+00:09:00,480 --> 00:09:03,680
+And what this means is pxy.
+
+92
+00:09:03,680 --> 00:09:10,640
+It's the probability of going from x to y in one unit of time, one step.
+
+93
+00:09:10,640 --> 00:09:15,360
+So this is the one step transition probability.
+
+94
+00:09:15,360 --> 00:09:16,880
+That's what this is called.
+
+95
+00:09:16,880 --> 00:09:18,480
+So one step transition probability.
+
+96
+00:09:21,760 --> 00:09:26,480
+And actually, if we go back to where we started, these pijs,
+
+97
+00:09:26,480 --> 00:09:35,280
+those are just the one step transition probabilities from going from i to j.
+
+98
+00:09:35,280 --> 00:09:38,480
+So here we go.
+
+99
+00:09:38,480 --> 00:09:44,640
+Pij is the probability that we go from xy to xj in one step.
+
+100
+00:09:44,640 --> 00:09:49,120
+And the i's and j's both go from 1 to n.
+
+101
+00:09:49,120 --> 00:09:50,320
+That feels out of matrix.
+
+102
+00:09:56,480 --> 00:10:08,480
+So here's how we to complete a description of a markoff chain.
+
+103
+00:10:08,480 --> 00:10:12,240
+We need p.
+
+104
+00:10:12,240 --> 00:10:15,040
+And we also need something else.
+
+105
+00:10:15,040 --> 00:10:26,320
+We need a probability over states at time equals 0.
+
+106
+00:10:26,320 --> 00:10:28,320
+We need this pair.
+
+107
+00:10:28,320 --> 00:10:33,440
+And a markoff chain is going to be, it's going to consist of that pair.
+
+108
+00:10:42,320 --> 00:10:46,720
+And the way we can generate wealth.
+
+109
+00:10:46,720 --> 00:10:51,600
+So what this says is we're going to draw x0 from some initial distribution,
+
+110
+00:10:51,600 --> 00:10:54,000
+from this distribution.
+
+111
+00:10:54,000 --> 00:11:00,880
+And then for each subsequent t, we're going to draw xt plus 1 from the transition probability.
+
+112
+00:11:00,880 --> 00:11:04,000
+So this is how a markoff chain works.
+

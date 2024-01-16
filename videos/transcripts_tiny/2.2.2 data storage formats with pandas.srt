@@ -1,0 +1,996 @@
+1
+00:00:00,000 --> 00:00:14,000
+Hello, this is Spencer Lyon and today we'll be talking about different storage formats and their pros and cons for storing and accessing data from within Python and pandas.
+
+2
+00:00:14,000 --> 00:00:21,000
+Our goals for today will be to understand the various different file formats available to us.
+
+3
+00:00:21,000 --> 00:00:30,000
+We'll also understand where we can read more documentation and get help on how to get data in and out of our Python programs.
+
+4
+00:00:30,000 --> 00:00:37,000
+And finally we will learn some rules of thumb for when to use each of the following file formats.
+
+5
+00:00:37,000 --> 00:00:43,000
+CSV, Excel, Feather and SQL.
+
+6
+00:00:43,000 --> 00:00:54,000
+The outline of our discussion today will be that we'll first discuss what the different file formats are and talk about their relative strengths and weaknesses.
+
+7
+00:00:54,000 --> 00:01:03,000
+We'll then show some examples of how you can take existing data you already have in pandas and then write them to these different file formats.
+
+8
+00:01:03,000 --> 00:01:11,000
+Next we'll learn how to read them back from the file system into a Python session and we'll end with some practice.
+
+9
+00:01:11,000 --> 00:01:21,000
+We'll start by importing Python or sorry importing pandas as PD and numpy as np as we'll use these throughout the lecture today.
+
+10
+00:01:21,000 --> 00:01:24,000
+Let's talk about file formats.
+
+11
+00:01:24,000 --> 00:01:32,000
+As you may know data can be saved to your hard drive or a permanent storage location in a variety of different formats.
+
+12
+00:01:32,000 --> 00:01:47,000
+Pandas understands how to read these different file formats and construct a data frame from their contents as well as write the contents of an existing data frame to a file formatted in these special ways.
+
+13
+00:01:47,000 --> 00:02:01,000
+We will strongly encourage you to look at the official documentation for getting data in and out of pandas for a more complete understanding of the different options and features that are available.
+
+14
+00:02:01,000 --> 00:02:18,000
+Our goal today will be to cover the most widely used formats for storing your data so that you can understand them when you come across them as well as be able to use them in your day to day work.
+
+15
+00:02:18,000 --> 00:02:25,000
+The file type we'll talk about is called CSV which means comma separated values.
+
+16
+00:02:25,000 --> 00:02:32,000
+Data stored in the CSV file is stored as plain text or a Python string.
+
+17
+00:02:32,000 --> 00:02:39,000
+If we were to open a CSV file with a text editor we'd be able to read its contents without any problem.
+
+18
+00:02:39,000 --> 00:02:44,000
+The way a data frame would be stored in the CSV file is as follows.
+
+19
+00:02:44,000 --> 00:02:51,000
+Each row of our data frame would be represented as a single line in the CSV file.
+
+20
+00:02:51,000 --> 00:03:01,000
+The different columns in the row would be written out directly in their string representation and each column is separated by a comma.
+
+21
+00:03:01,000 --> 00:03:06,000
+This is where the name comma separated values comes from.
+
+22
+00:03:07,000 --> 00:03:14,000
+Some of the benefits of using a CSV file format are that they are widely used you're probably already familiar with it.
+
+23
+00:03:14,000 --> 00:03:21,000
+If not no worries you will be by the end of this course, but it's likely that you've come across them before.
+
+24
+00:03:21,000 --> 00:03:31,000
+Another benefit is that it's a plain text file that can be opened by any computer does not require any specialized drivers or software to open.
+
+25
+00:03:31,000 --> 00:03:38,000
+Which makes it in some sense future proof you know you'll be able to open your files in the future and access your data.
+
+26
+00:03:38,000 --> 00:03:49,000
+And finally the last major pro for a CSV file is that it is understood by almost all data software.
+
+27
+00:03:49,000 --> 00:03:59,000
+From spreadsheet programs like Excel to programming languages like Python or R they all have very strong support for using CSV files.
+
+28
+00:04:00,000 --> 00:04:03,000
+However there are some downsides using a CSV.
+
+29
+00:04:03,000 --> 00:04:11,000
+The first main one is that it's not the most efficient way to store or to retrieve data.
+
+30
+00:04:11,000 --> 00:04:22,000
+In the second slightly more subtle but perhaps more pernicious issue is that there's no formal standard for how a CSV file should be written.
+
+31
+00:04:22,000 --> 00:04:27,000
+So there's a little room for interpretation on how to handle some educations.
+
+32
+00:04:27,000 --> 00:04:35,000
+For example would be how do you handle a data value that itself contains a comma.
+
+33
+00:04:35,000 --> 00:04:40,000
+Perhaps you're writing currencies and you're having a comma separating the thousands.
+
+34
+00:04:40,000 --> 00:04:48,000
+How should that be encoded in a CSV file when there's already used a comma is being used to separate columns.
+
+35
+00:04:48,000 --> 00:04:56,000
+There are ways around this and some very common workgrounds or common implementations.
+
+36
+00:04:56,000 --> 00:05:14,000
+It can become be too worried about this problem but everyone's in a while you'll find that one data set that's produced by a particular software won't read nicely into another software because of a lack of a standard.
+
+37
+00:05:14,000 --> 00:05:16,000
+When should you use a CSV file.
+
+38
+00:05:16,000 --> 00:05:21,000
+My real of them is that it's a really great default option for most use cases.
+
+39
+00:05:21,000 --> 00:05:35,000
+I would use it if I don't have too much data meaning if I have data less than a million rows for example and less than maybe 30 or 40 columns see this view would be a great option.
+
+40
+00:05:35,000 --> 00:05:41,000
+Now let's talk about another very common format called excel s or excel sx.
+
+41
+00:05:41,000 --> 00:05:48,000
+This is a binary file format that is used by spreadsheet programs like Microsoft Excel.
+
+42
+00:05:48,000 --> 00:06:15,000
+When I say binary instead of plain text like a CSV what we mean is that if you were to open an excel sx file in your text editor you wouldn't see normal characters in your language you would instead see a computer representation of binary representation or bite representation of the data.
+
+43
+00:06:15,000 --> 00:06:23,000
+Some of the benefits to the excel sx file format are that it's very commonly used in a variety of industries.
+
+44
+00:06:23,000 --> 00:06:32,000
+In particular the finance industry uses a lot of spreadsheets and a lot of their data ends up living in the excel sx file format.
+
+45
+00:06:32,000 --> 00:06:42,000
+Another benefit is that because excel is very widely used in some of these industries it's very easy to collaborate with colleagues that are already using excel.
+
+46
+00:06:42,000 --> 00:06:49,000
+If you can exchange data using the excel sx file format.
+
+47
+00:06:49,000 --> 00:06:59,000
+An example would be if you do some analysis in Python with your new programming skills you could then save the output as the file ready to be read by excel.
+
+48
+00:06:59,000 --> 00:07:09,000
+Send that to a colleague and make it open immediately in their spreadsheet to analyze what your output looks like.
+
+49
+00:07:09,000 --> 00:07:26,000
+Some of the cons about an excel sx file format are that it can be very slow to read a lot of data from one of these files and popular data frame as well as it is very slow to write a large amount of data.
+
+50
+00:07:26,000 --> 00:07:36,000
+From a data frame into an excel file will show you an example of this later so you have some intuition for the order of magnitude we're talking about.
+
+51
+00:07:36,000 --> 00:07:41,000
+Another issue which some may term as a feature.
+
+52
+00:07:41,000 --> 00:07:49,000
+Is that the spreadsheet programs will store both the data itself as well as what I'll call metadata.
+
+53
+00:07:49,000 --> 00:07:56,000
+Things like what color should this column or cell be or what charts should be included in there.
+
+54
+00:07:56,000 --> 00:08:05,000
+And the reason this is a problem is that this metadata is not always easily understood by other programs.
+
+55
+00:08:05,000 --> 00:08:14,000
+You're sometimes locking yourself in to using a spreadsheet based program if you include all of this alongside your data.
+
+56
+00:08:14,000 --> 00:08:21,000
+The last major issue would be that it's not human readable if you were to open this in your text editor.
+
+57
+00:08:21,000 --> 00:08:27,000
+You wouldn't be able to interpret what's going on immediately.
+
+58
+00:08:27,000 --> 00:08:29,000
+So when should you use it?
+
+59
+00:08:29,000 --> 00:08:43,000
+I think the two main use cases that we would recommend are if you're already working with somebody else and there are using an excel based workflow and unable to learn a different environment at the time.
+
+60
+00:08:43,000 --> 00:08:48,000
+You should use what's easy for collaboration and in this case might be an excel file.
+
+61
+00:08:49,000 --> 00:09:06,000
+Another option would be if you're trying to present data and you would like to apply a special type of formatting or display to the data excel is the only option we'll talk about today that gives you that choice.
+
+62
+00:09:07,000 --> 00:09:11,000
+Next one we've onto the par k file system or file type.
+
+63
+00:09:11,000 --> 00:09:30,000
+So par k is a custom binary format that was specially designed for reading and writing data stored as columns and it was designed to make that operation is efficient and fast as possible on modern computer hardware.
+
+64
+00:09:30,000 --> 00:09:44,000
+This fits nicely with the notion of a data frame as we've learned because a data frame is a way to collect multiple columns or series of data alongside one another.
+
+65
+00:09:44,000 --> 00:09:53,000
+What are some of the benefits of the par k file system first it is extremely fast relative to CSV or excel sx you will often see.
+
+66
+00:09:53,000 --> 00:10:03,000
+100 or 1000 time improvements in the speed for writing or reading a large data set between pandas and a file system.
+
+67
+00:10:03,000 --> 00:10:17,000
+The second major benefit of the par k file system or file format is that it naturally understands all of the data types that are commonly used in pandas including a multi index data frame.
+
+68
+00:10:17,000 --> 00:10:30,000
+The reason this is significant is that you can store the data in a par k file format from a data frame and with the data par k will remember what each of the types were for every column.
+
+69
+00:10:30,000 --> 00:10:37,000
+Then later when you go to read this back into pandas during a subsequent analysis.
+
+70
+00:10:37,000 --> 00:10:46,000
+Data types will also be read in and your data will be immediately usable and you can resume exactly where you left off.
+
+71
+00:10:46,000 --> 00:11:02,000
+In contrast if you are using a CSV or xlsx file format you might have to remind pandas that a column should be a date for example or that a column full of numbers should actually be integer instead of floats.
+
+72
+00:11:02,000 --> 00:11:07,000
+This type of issue doesn't happen with par k.
+
+73
+00:11:07,000 --> 00:11:16,000
+Another benefit is that it's a very common it's almost the common denominator for big data systems like adup or spark.
+
+74
+00:11:16,000 --> 00:11:23,000
+And finally the last point here we've written that it supports various compression algorithms.
+
+75
+00:11:23,000 --> 00:11:41,000
+What this means is that it will take the data that you are storing and if there's a way to make the file size for this representation on your hard drive smaller it will make that happen and this will happen automatically for you.
+
+76
+00:11:42,000 --> 00:11:53,000
+The only major con for a par k file format is that it is a binary storage format meaning that you can't open it up and easily inspect.
+
+77
+00:11:53,000 --> 00:12:02,000
+It's contents without using software specifically written for handling the park a types of files.
+
+78
+00:12:03,000 --> 00:12:10,000
+When should you use it my rule of thumb is that I have a not small not necessarily big but.
+
+79
+00:12:10,000 --> 00:12:19,000
+100 megabytes or more amount of data that doesn't change very often but that I might read multiple times for repeated analysis.
+
+80
+00:12:19,000 --> 00:12:22,000
+I'll often store it in a par k file.
+
+81
+00:12:22,000 --> 00:12:29,000
+Also if I have a lot of data that I need to store and the compression.
+
+82
+00:12:29,000 --> 00:12:32,000
+I'll use it in a larger of par k matters to me.
+
+83
+00:12:32,000 --> 00:12:37,000
+It's often a reason why I'll choose it and then finally.
+
+84
+00:12:37,000 --> 00:12:46,000
+If I know that I will be reading this data from many different systems or if I need to write out multiple data sets.
+
+85
+00:12:46,000 --> 00:12:56,000
+The speed of par k can be a very large benefit over one of the other file types.
+
+86
+00:12:56,000 --> 00:13:02,000
+Now we'll talk about a sibling or a cousin of the par k file format called feather.
+
+87
+00:13:02,000 --> 00:13:11,000
+So again feather is a custom binary file format designed for efficient reading and writing of data stored in columns sounds familiar.
+
+88
+00:13:11,000 --> 00:13:14,000
+That's just what we heard about par k.
+
+89
+00:13:14,000 --> 00:13:25,000
+However, there are a couple differences so first it is extremely fast even faster than par k and one of the benefits for this is that or one of the reasons for this is that it doesn't do compression.
+
+90
+00:13:25,000 --> 00:13:35,000
+It will store the data in an ideal format for reading it for writing it very, very quickly to your hard drive and then reading it back out as fast as possible.
+
+91
+00:13:35,000 --> 00:13:45,000
+In fact, the main author or creator of this file format is named as west McKinney, who's also the original creator of pandas.
+
+92
+00:13:45,000 --> 00:13:51,000
+And when he finished writing the feather file format and was doing some tests to see how fast it was.
+
+93
+00:13:52,000 --> 00:14:11,000
+And how well it used all of the resources on his computer. He said he was not surprised at all the find that it completely saturated the input output capabilities of his CPU on the first try. It was designed specifically for that.
+
+94
+00:14:12,000 --> 00:14:19,000
+Some of the cons are that it can only be read or written from Python and a handful of other languages.
+
+95
+00:14:19,000 --> 00:14:40,000
+It's a relatively new file format only about four and a half years old and so most files out there won't be in this format to begin with often you may download them say as a CSV and then if you want this extremely fast reading and writing for later you can store it yourself as a feather file but it won't come that way.
+
+96
+00:14:40,000 --> 00:14:55,000
+And finally, it only supports the standard Python index or shri pandas index that goes starting at zero and then increasing integers up to the number of values minus one.
+
+97
+00:14:56,000 --> 00:15:14,000
+So in order to store your data in a feather format first you need to call reset index to get that default one and then once you read it back you also have to call set index to restore the index you are working with.
+
+98
+00:15:14,000 --> 00:15:23,000
+So when should you use this I kind of think of it as an alternative to parquet when that last bit of efficiency and speed really matters.
+
+99
+00:15:24,000 --> 00:15:35,000
+This will happen when I have a very stable data set that I'm not changing very much over time, but it's quite large and could take a significant amount of time to read in a less optimized file format.
+
+100
+00:15:35,000 --> 00:15:46,000
+And finally you should only use this when you know that you need to access the data from a program that supports the feather format.
+
+101
+00:15:47,000 --> 00:15:56,000
+Three languages that are common you use in data analytics and scientific modeling our Python are in Julia and they all do have good support for the feather format.
+
+102
+00:15:56,000 --> 00:16:04,000
+So if you're working with colleagues on a project using some some set of these languages you're okay to use the feather one.
+
+103
+00:16:04,000 --> 00:16:19,000
+Okay we're going to continue we're nearly finished with the different types of file formats we have one more dimension here and it's called SQL SQL is an acronym that means structured query language.
+
+104
+00:16:20,000 --> 00:16:29,000
+It itself isn't really a file format but it's often associated with and talked about as a way for reading and storing data.
+
+105
+00:16:29,000 --> 00:16:36,000
+It's used for interacting with what are known as relational databases or relational data management systems.
+
+106
+00:16:36,000 --> 00:16:48,000
+And if you want more information we encourage you to follow this link we won't talk too much about this because SQL SQL is a very large topic and we don't have time to cover that in class.
+
+107
+00:16:48,000 --> 00:17:00,000
+Some of the benefits are that it's well established in industry and much of the data in the world it's very likely that the vast majority of data lives inside a SQL database.
+
+108
+00:17:01,000 --> 00:17:15,000
+That's not some fact that I've done research on invalidated but given my experience in industry and talking to many people who have worked in industry for a while SQL is kind of a needed skill in today's work environment.
+
+109
+00:17:16,000 --> 00:17:33,000
+The major con is that it's complicated just like Python was a new language you needed to learn in order to do this course SQL or SQL is another language you need to learn in order to extract data or save it into these systems.
+
+110
+00:17:34,000 --> 00:17:52,000
+You should use it when you were workflow already incorporate SQL or you know that you'll need the benefits of a full database system and we'll maybe talk more about that in a future lecture time permitting.
+
+111
+00:17:52,000 --> 00:18:00,000
+Okay the next one would be what's called json or the JavaScript object notation.
+
+112
+00:18:00,000 --> 00:18:10,000
+JavaScript serialized object notation and this is a very common way to store data and it's especially common when getting data from an API.
+
+113
+00:18:11,000 --> 00:18:24,000
+And the way that you a Python programmer would maybe want to think about json is that it's stored as plain text and looks very much like constructing a dictionary by hand using the curly brace notation.
+
+114
+00:18:25,000 --> 00:18:38,000
+The pros of being familiar with and using the json file format are that it's extremely common and very frequently used when dealing with the web.
+
+115
+00:18:39,000 --> 00:18:45,000
+Another benefit is that it naturally maps into a Python dictionary a data type that you're likely already familiar with.
+
+116
+00:18:46,000 --> 00:18:56,000
+Another benefit is that it's very easy to read for humans and the final benefit and this is in contrast to the other file formats we've talked about today.
+
+117
+00:18:56,000 --> 00:19:09,000
+Is that it can store non tabular and on rectangular data you can have different columns or keys in each of the objects of a json file.
+
+118
+00:19:09,000 --> 00:19:19,000
+As well as you can have nested objects and in this sense json is the most flexible of the file formats we've talked about so far.
+
+119
+00:19:20,000 --> 00:19:26,000
+Some of the cons of using this file format are that it's pretty inefficient.
+
+120
+00:19:26,000 --> 00:19:32,000
+For example, if I had a data frame with five columns and 500 rows.
+
+121
+00:19:32,000 --> 00:19:45,000
+The standard way of writing the json would be one large array or list where each entry of this array is looks like a Python dictionary.
+
+122
+00:19:45,000 --> 00:19:53,000
+And I will list out that column a in the first row has a particular value and then column b column c column d column e.
+
+123
+00:19:53,000 --> 00:20:01,000
+And I'm actually going to have to repeat the column labels a b c d e for each of 500 rows for my data set.
+
+124
+00:20:01,000 --> 00:20:11,000
+And so you'll see that I'm repeating data somewhat unnecessarily and this is kind of the flip side of json's flexibility.
+
+125
+00:20:12,000 --> 00:20:18,000
+Is that because I'm allowed to have different keys or columns from one row to the next.
+
+126
+00:20:18,000 --> 00:20:27,000
+I have to specify what the keys columns are to make it unambiguous.
+
+127
+00:20:27,000 --> 00:20:34,000
+In addition to being inefficient in terms of storage capacity, it's also inefficient in terms of reading and writing speed.
+
+128
+00:20:34,000 --> 00:20:44,000
+And the final downside to json is that it is ambiguous for how to represent certain data.
+
+129
+00:20:44,000 --> 00:20:51,000
+The example I walked you through would be an example of having an array or a list of records.
+
+130
+00:20:51,000 --> 00:21:00,000
+But you could also think about it a different way and you could have a single record or object or dictionary filled with arrays.
+
+131
+00:21:00,000 --> 00:21:17,000
+And the five column example you might imagine that there is a single dictionary and the key a standing for column a would represent a list would be represented by a list or an array of all the values in column a.
+
+132
+00:21:17,000 --> 00:21:21,000
+You could move on to b c d and so on.
+
+133
+00:21:21,000 --> 00:21:25,000
+This would be a more efficient way to store the data.
+
+134
+00:21:25,000 --> 00:21:38,000
+But which one is chosen is somewhat ambiguous and you have to really inspect the data before you can tell us inside of it.
+
+135
+00:21:38,000 --> 00:21:47,000
+The rule of thumb that I follow for when to use the json data is when I'm going to be interacting with the web and using a web API.
+
+136
+00:21:47,000 --> 00:21:57,000
+And also if you want to store a relatively small amount of data that may not have a uniform rectangular structure.
+
+137
+00:21:57,000 --> 00:22:06,000
+Json is a great option for those two use cases.
+
+138
+00:22:06,000 --> 00:22:21,000
+Okay, now that we've discussed the various different file formats that Python and pandas are aware of let's talk about how we can take data that we have inside of a data frame and store it using one of these file formats.
+
+139
+00:22:22,000 --> 00:22:32,000
+The rule of thumb to keep in mind here is that if I have a data frame named df and I would like to save the data in the file format.
+
+140
+00:22:32,000 --> 00:22:40,000
+I would use the df dot to foo method so I would call the two foo method on my data frame.
+
+141
+00:22:40,000 --> 00:22:50,000
+For example, if I wanted to use a CSV I would write df dot to CSV and that would be the method that can allow me to write a CSV.
+
+142
+00:22:50,000 --> 00:22:53,000
+Let's see this in practice.
+
+143
+00:22:54,000 --> 00:22:59,000
+So first we're going to create a few data frames.
+
+144
+00:22:59,000 --> 00:23:08,000
+And they're going to be filled with totally random data and the first one is going to have four columns called abcd.
+
+145
+00:23:08,000 --> 00:23:13,000
+And then it's going to be filled with random integer between zero and 100.
+
+146
+00:23:13,000 --> 00:23:30,000
+The second data frame is going to be filled with random floating point numbers and it's going to have 100,000 rows and then we're going to target that the output data frame will be will require 10 megabytes of storage.
+
+147
+00:23:30,000 --> 00:23:44,000
+If you wanted to change this from 10 to say five or 200 just to experiment with the different efficiency properties of the file formats feel free to come back to this cell change the line that I've highlighted right here.
+
+148
+00:23:44,000 --> 00:23:51,000
+And we will construct for you a data frame of random numbers that is approximately this size.
+
+149
+00:23:51,000 --> 00:24:01,000
+So you'll see here when I ran this cell with a size of 10 I got a data frame that was about 9.91 megabytes large.
+
+150
+00:24:01,000 --> 00:24:05,000
+Okay, so let's start with df dot to CSV.
+
+151
+00:24:05,000 --> 00:24:14,000
+You'll notice that this heading here is a link and if you wanted to look at the documentation for all the different options you can follow this link.
+
+152
+00:24:14,000 --> 00:24:20,000
+This will be true for each of the different data frame dot to methods we will be discussing.
+
+153
+00:24:20,000 --> 00:24:38,000
+So first if we just call the dot to CSV method without any additional arguments pandas will return to us a string containing our data frame in CSV format.
+
+154
+00:24:38,000 --> 00:24:46,000
+You notice here as we discussed earlier this is just plain text it's a Python string that we can read by hand.
+
+155
+00:24:46,000 --> 00:24:54,000
+Notice also that our four columns are all represented here a bc and d and they're separated by a comma.
+
+156
+00:24:54,000 --> 00:25:03,000
+The first column here is blank on the first row because this is where the name of the index would go if we named it.
+
+157
+00:25:03,000 --> 00:25:15,000
+And you'll see here that the values after this first row of column labels in this first column we have zero through nine which is our standard index on our data frame.
+
+158
+00:25:15,000 --> 00:25:28,000
+All of the actual data would be included after this first column in each of these rows and it's just the random integers that pandas created for us.
+
+159
+00:25:28,000 --> 00:25:36,000
+Now if we do pass an argument to the two CSV method pandas will use the first argument as a file name.
+
+160
+00:25:36,000 --> 00:25:48,000
+Instead of returning to us a string with the CSV version of our data frame it will actually construct that string and save it to a file with the name we pass it in the first argument.
+
+161
+00:25:48,000 --> 00:25:54,000
+So here we're going to say two CSV and we'd like to name the file df1.se sv.
+
+162
+00:25:54,000 --> 00:26:09,000
+We could have this happens to match the name of our data frame object but we could have chosen anything we wanted here we could have written my nice data frame and it would have worked just as well.
+
+163
+00:26:10,000 --> 00:26:32,000
+We can actually use Python's file system integration to check to see if our df1.csv file exists or if you're working on a Linux or Mac based system you could also do exclamation point ls which will list the files in the directory.
+
+164
+00:26:32,000 --> 00:26:42,000
+Notice that we have this df1.csv we also have the my nice data frames CSV that we saved to the second time.
+
+165
+00:26:42,000 --> 00:26:48,000
+And these are the different Python notebooks we've been working through today.
+
+166
+00:26:49,000 --> 00:27:07,000
+So now if you remember we have df2 which is about 10 megabytes large as 100,000 rows and enough columns to take up 10 megabytes we can go ahead and see how long it takes Python to write this data frame out to a file.
+
+167
+00:27:07,000 --> 00:27:22,000
+We're going to use here the percent percent time this is the ipython or Jupiter way of calling what they call a sell magic in this case what it does is this is not actually run as code.
+
+168
+00:27:22,000 --> 00:27:26,000
+But it will tell Jupiter that the entire cell.
+
+169
+00:27:27,000 --> 00:27:32,000
+Should then be executed and we would like for Jupiter to keep track of how long it takes.
+
+170
+00:27:32,000 --> 00:27:47,000
+So we could have as many lines as we needed to after the percent percent time and Jupiter will record the total amount of time our computer spends running all of this code here it's the only line is to save df2 to a CSV.
+
+171
+00:27:47,000 --> 00:27:57,000
+And here we see that it takes 1.37 seconds not too bad but this is only 10 megabytes of data you can imagine having a much larger data set.
+
+172
+00:27:57,000 --> 00:28:00,000
+And then this time could could increase accordingly.
+
+173
+00:28:00,000 --> 00:28:05,000
+Keep it in mind though as we're going to compare this to the other file formats coming up.
+
+174
+00:28:06,000 --> 00:28:19,000
+The next file format we talked about was the XL as x file format and this is what's used by the excel spreadsheet program.
+
+175
+00:28:19,000 --> 00:28:23,000
+So pandas has a method to underscore excel.
+
+176
+00:28:23,000 --> 00:28:32,000
+Now when we call this what happens is the first argument is the name of the file and the second argument is going to be the name of the sheet.
+
+177
+00:28:32,000 --> 00:28:50,000
+The worksheet inside the spreadsheet inside the workbook and here we're going to say we'd like the file to be named df1 dot excel sx and then let's name the the worksheet let's name this first data frame.
+
+178
+00:28:51,000 --> 00:29:05,000
+So we run this and is created the XL file for us which we can verify if we were to run L s again now we have this df1 dot excel sx.
+
+179
+00:29:05,000 --> 00:29:15,000
+And if we were to open this in our spreadsheet program we would see that there's a sheet called first data frame whose contents match that of df1.
+
+180
+00:29:15,000 --> 00:29:27,000
+One other benefit or feature of the excel file format is that you could have multiple sheets of data.
+
+181
+00:29:28,000 --> 00:29:37,000
+In order to tell pandas to have a single file containing multiple sheets of data we use the pandas excel writer class.
+
+182
+00:29:37,000 --> 00:29:39,000
+Here's how it works.
+
+183
+00:29:39,000 --> 00:29:47,000
+We will say with pd dot excel writer and we'll pass the name of the file we'd like pandas to create.
+
+184
+00:29:48,000 --> 00:29:49,000
+As writer.
+
+185
+00:29:49,000 --> 00:30:02,000
+Column and we'll have an indented block here and we'll say right the df1 data frame to excel using this file writer so now instead of writing the file name here we pass this writer object.
+
+186
+00:30:02,000 --> 00:30:09,000
+The second argument is still the name of the sheet and then we can do another data frame here let's add 10 to our data frame.
+
+187
+00:30:10,000 --> 00:30:17,000
+Right it to excel using our excel writer and we'll name this sheet df1 plus 10.
+
+188
+00:30:17,000 --> 00:30:26,000
+If you haven't seen the with as syntax and Python before this is known as a context manager.
+
+189
+00:30:26,000 --> 00:30:30,000
+What it's used for in this scenario is.
+
+190
+00:30:31,000 --> 00:30:40,000
+Any the file after this line is executed this file will be created and open for the pandas process to interact with.
+
+191
+00:30:40,000 --> 00:30:57,000
+Then while the file is open all of the lines in the indented block will be executed in this case we're going to write these two sheets into the file and then when the indented block stops or closes the file will be closed also.
+
+192
+00:30:58,000 --> 00:31:06,000
+So this is a way for pandas and Python to manage opening and closing the file without us having to do that ourselves.
+
+193
+00:31:06,000 --> 00:31:15,000
+There's a additional but additional benefits to using the context manager in this way but that's effectively what's happening under the hood.
+
+194
+00:31:18,000 --> 00:31:23,000
+Here's where we describe what that is and.
+
+195
+00:31:24,000 --> 00:31:37,000
+There's some more slides that you can look back on to understand it so now what we'll do is I'm going to start writing this cell and we'll talk a little more about it so we're now going to take our very large.
+
+196
+00:31:37,000 --> 00:31:47,000
+How much larger 10 megabyte data set contained in DF2 and we're going to try to write this out to a file called DF2 dot excel sx.
+
+197
+00:31:47,000 --> 00:32:03,000
+As you can see since we arrived on this slide and I started it's still running that took my computer which has a very good CPU and very fast memory 18.8 seconds when I ran this on a different machine it took 25.7 seconds.
+
+198
+00:32:04,000 --> 00:32:13,000
+Compare this to this CSV version which took 1.37 seconds on my computer as you can see the excel file format was.
+
+199
+00:32:15,000 --> 00:32:21,000
+Quite a bit slower more than 10 times lower than the CSV for saving this larger data frame.
+
+200
+00:32:21,000 --> 00:32:31,000
+So now we talked above about the feather file format and it was.
+
+201
+00:32:32,000 --> 00:32:40,000
+Invented or created specifically to make writing data frames either in Python and are as efficient as possible.
+
+202
+00:32:41,000 --> 00:32:54,000
+The best support for this file format comes from a package called pie arrow is not installed by default so if you don't have it you should go ahead and uncomment this line by removing the first you characters and then run this cell.
+
+203
+00:32:54,000 --> 00:33:03,000
+I'll do this it's going to tell me that I've already have it installed but if you don't yet in your current environment you'll see some additional output here.
+
+204
+00:33:06,000 --> 00:33:20,000
+So now when we call the pie arrow feather dot right feather function we now have to pass the DF1 as the first argument this is a little different than the other methods we saw because it's not a method on our data frame.
+
+205
+00:33:20,000 --> 00:33:28,000
+It's actually just a function so in order to make it aware of which data we'd like it to write you have to pass that is the first argument.
+
+206
+00:33:29,000 --> 00:33:35,000
+So we can write the first data frame as the F1 dot feather and then let's check how long it takes.
+
+207
+00:33:35,000 --> 00:33:56,000
+Hi arrow to construct a data frame containing our 10 megabyte DF2 if we run this it took 18 milliseconds and I'm actually going to use a different so magic here called time it which will run the code many times and take an average for us so we get a sense of on average how long is this taking.
+
+208
+00:33:56,000 --> 00:34:07,000
+This should complete very soon so it says it was able to run that block a code in that couple seconds.
+
+209
+00:34:08,000 --> 00:34:20,000
+7 times per run and it did a hundred times so it actually constructed this file 700 times each time taking on average 14 milliseconds.
+
+210
+00:34:21,000 --> 00:34:34,000
+So now we had that the CSV file the CSV time was 1.37 seconds and the feather time was 0.014 seconds or 14 milliseconds.
+
+211
+00:34:35,000 --> 00:34:50,000
+It is almost a hundred times faster and this is what we were talking about earlier when we said that the feather file format is extremely efficient and fast for reading and writing data.
+
+212
+00:34:50,000 --> 00:35:18,000
+We constructed a table of the results for these three file formats when we initially ran this on a different machine we can see a similar pattern the CSV was about 10 times faster than the Excel which was and then the CSV was about 50 to a hundred times slower than the feather file format.
+
+213
+00:35:21,000 --> 00:35:42,000
+Now let's talk about how to read data from a file into pandas just like we had the DF dot 2 underscore methods we also have a similar pandas dot read underscore family of methods for reading data from a file into a data frame.
+
+214
+00:35:42,000 --> 00:35:59,000
+Note that the difference here is that the two methods are usually defined as a data frame method but because when we're trying to read data we don't have a data frame yet the reading routines are defined as functions within the pandas namespace.
+
+215
+00:36:00,000 --> 00:36:05,000
+Now the reading methods have quite a few more options because.
+
+216
+00:36:06,000 --> 00:36:17,000
+Depending on the preferences or behaviors of the person and software that created the file there may be different edge cases that need to be handled.
+
+217
+00:36:18,000 --> 00:36:26,000
+So there are going to be many more arguments on average for the read family of methods relative to the two family methods.
+
+218
+00:36:27,000 --> 00:36:40,000
+We'll explore these more in the future when we talk about how to clean a messy data set and for now we're just going to show you how you can read in the idea case for a few of these file formats.
+
+219
+00:36:40,000 --> 00:36:49,000
+And to do this we're actually just going to read the files that we just created so that we can ensure that what we get back matches the data frame that we started with.
+
+220
+00:36:50,000 --> 00:36:58,000
+One more time we started with a data frame DF1 we did dot 2 CSV for example.
+
+221
+00:36:59,000 --> 00:37:10,000
+And now we're going to try to read the data frame from the DF1 dot CSV file and make sure that what we get back matches the DF1 inside of our panda session.
+
+222
+00:37:12,000 --> 00:37:20,000
+First we're going to read the DF1 underscore CSV we're going to construct a new data frame by reading the CSV file.
+
+223
+00:37:20,000 --> 00:37:37,000
+If you remember for the first column was filled with our index so we're going to say pandas the index is contained in the first column which pandas starts counting at zero and let's just look at the first five rows for now that looks pretty good.
+
+224
+00:37:38,000 --> 00:37:41,000
+And check the same thing for the Excel file.
+
+225
+00:37:43,000 --> 00:37:55,000
+And if you remember we changed the name of that file of that sheet when we saved it so let's go back and we called the sheet name first data frame.
+
+226
+00:37:56,000 --> 00:37:59,000
+So this is what we need to use when we read it.
+
+227
+00:38:01,000 --> 00:38:17,000
+We'll change the DF1 here to first data frame and there we go we get back data frame that we started with we can see that this matches the first five rows of the F1 showing the head of that data frame also.
+
+228
+00:38:18,000 --> 00:38:34,000
+Next we can need the feather file that we saved and notice we didn't have to do the index call and the reason for this is that feather only ever saves.
+
+229
+00:38:35,000 --> 00:38:56,000
+Data frames that have the default range index starting from zero and going up so there were never actually saved it to the file so when we read it back in feather knows that because it didn't save the index and it was the default one when it reads the file it can just attach a default index and it will match what we gave it.
+
+230
+00:38:57,000 --> 00:39:03,000
+So a little shortcut they take to preserve both space and time when reading and writing the file.
+
+231
+00:39:04,000 --> 00:39:14,000
+One very nice feature of the read family of methods is that in addition to passing a file name for a file that lives on your local hard drive.
+
+232
+00:39:15,000 --> 00:39:20,000
+You can also pass a URL for a file that lives somewhere on the internet.
+
+233
+00:39:21,000 --> 00:39:28,000
+In this case we will pass the we will construct a URL for where you can find our DF1 data frame.
+
+234
+00:39:29,000 --> 00:39:41,000
+In the GitHub repository for this course will then tell pandas to read CSV from that URL and we'll again remind it that the first column should be treated as the index.
+
+235
+00:39:41,000 --> 00:39:49,000
+When we run this we see that the data again matches the F1 this happens because we saved.
+
+236
+00:39:50,000 --> 00:39:57,000
+Before the lecture I saved it to the F1 to a file uploaded it to GitHub so that when we read it it will match what we have.
+
+237
+00:39:58,000 --> 00:40:07,000
+The key here is to know that we can pass a URL here and pandas will do the necessary network operations to go find the file and use it.
+
+238
+00:40:08,000 --> 00:40:23,000
+Okay my turns over now is time to practice what I'll do is I'll set up and walk stuck you through a problem that will have you work on and then we'll be able to stop the video and have you work on the problem yourself.
+
+239
+00:40:24,000 --> 00:40:36,000
+So in the cell below you're going to have a variable called URL and this points to a file on the internet containing the result of all the united states NFL football.
+
+240
+00:40:37,000 --> 00:40:55,000
+The first thing that we do is to read the data from the game from September of 1920 all the way through February of 2017 the NFL stands for the national football league and is the official professional American football league in the United States.
+
+241
+00:40:55,000 --> 00:41:10,000
+This data is to do the following first you need to use the PD or pandas dot read CSV function to read the data from this URL from the file pointed to by the URL into a data frame that you'll call NFL.
+
+242
+00:41:11,000 --> 00:41:19,000
+You'll then print out the shape and the column names of NFL so that you can see what the data looks like.
+
+243
+00:41:20,000 --> 00:41:32,000
+Then we'd like for you to save this data to a file on your local hard drive called NFL dot excel sx and we'd like for you to use the appropriate.
+
+244
+00:41:32,000 --> 00:41:42,000
+Two method that matches the xlx file format if you need to look back at what we just work through together feel free to do that.
+
+245
+00:41:42,000 --> 00:41:51,000
+And then finally if possible we'd like for you to open this spreadsheet on your own computer if you have spreadsheets software install.
+
+246
+00:41:52,000 --> 00:42:04,000
+If you're able to work through that really quickly and it doesn't take you long maybe you can try doing some analysis we don't have any hard expectations for what you need to do here.
+
+247
+00:42:04,000 --> 00:42:15,000
+But here are some suggestions for what you might try these four bullet points contain them and you can go ahead and look at what they are and do your best to evaluate that.
+
+248
+00:42:15,000 --> 00:42:25,000
+That's the end of this lecture though and we please spend time working through this exercise and best of luck.
+
+249
+00:42:25,000 --> 00:42:26,000
+Thank you.
+

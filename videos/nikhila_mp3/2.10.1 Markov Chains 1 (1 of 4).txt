@@ -1,0 +1,94 @@
+Hi, this is Tom and today I'm going to talk with you about finite dimensional Markov
+chains.
+And my text for this, for which I'm going to basically provide a reader's guide, is
+the Quanticon lecture on Markov chains, which is on the Quanticon website.
+Okay, so what basically the roadmap is we're going to define a Markov chain, see how to
+construct it, talk about simulations, and we'll construct marginal distribution.
+And then we'll talk about these concepts of irreducibility and nonperiodic Markov chains.
+And those are going to be important because of how they relate to stationary distributions.
+We'll talk about the concept of stationary distributions, this notion of stationarity
+and air-godicity.
+We'll talk about those, and we'll talk about how to approximate expectations.
+And so let's get rolling.
+Okay, so what you're going to find is a Markov chain is just widely used in economics,
+finance, machine learning, actually encryption.
+And it's the workhorse of building dynamic models with this, some randomness.
+So there are as powerful as they are, we already have the tools to study them.
+The key tools are going to be a little bit of linear algebra and basic probability theory.
+So this lecture is accompanied by a notebook, which you would be able to run at Jupiter notebook.
+So as usual, here's our Quanticon, various things we download.
+We import if we're going to be using Python as we are.
+Okay, so we'll just start with some definitions.
+Key definitions, key notion is there's going to be a matrix, and it's going to be a stochastic matrix.
+It's p, we'll call it p, and it's an n by n, so it's a square matrix.
+Each element, P i j, is strictly positive.
+Well, actually non-negative, we'll see non-negative, because it's going to be a probability.
+And this is going to be a conditional probability.
+So it's a matrix full of conditional probabilities, and each the row sums, so if we sum across for every row, this is going to be one.
+So each row of peak is a probability distribution in itself.
+It's itself a probability distribution over n possible outcomes, because j goes from one to n.
+And we're going to talk about what these mean.
+And we call this a stochastic matrix if it satisfies one and two.
+So that's how to read that.
+So it's worthwhile staring at that.
+So we have a set of non-negative matrices.
+It's implied by this. This actually implies these two things will imply that p i j,
+itself, is a probability. It's some number less than or equal to one greater than or equal to zero.
+That's for all i j. So each element of the matrix is a probability.
+And what you can find is, this is what this, if p is a stochastic matrix, is a stochastic matrix, that implies
+p to the k is also for any k greater than or equal to one.
+Well actually, greater, yeah, greater than or equal to one.
+Okay.
+So that's what it's matrix is.
+So a stochastic matrix is, it's a key thing that it's a big part of a Markov chain.
+So one thing to define a Markov chain, to define a Markov chain, we need a stochastic matrix p plus something else.
+And we'll see what that something else is.
+So to begin with, we're going to define some set of elements, x1 through xn.
+And we're going to call that a state space.
+And these are the state values.
+So that's what the set is.
+So the Markov chain is defined on a state space s.
+And what it is, it's a sequence of random variables.
+So it's a sequence of random variables.
+On s, that have something called the Markov property.
+The key thing is what the Markov property is.
+And the Markov property is something about conditional probabilities.
+It's a restriction on conditional probabilities.
+So here goes.
+We're going to have the way we're going to do this is x at t is the random variable,
+it's a member of this sequence at t.
+And it could possibly take on various values.
+It's going to take on some value.
+It's going to take on a value inside this set, the x1 through x.
+So the Markov property is this.
+It's that the probability that xt plus 1 is equal to a particular value y,
+condition on xt, that random variable, is equal to the probability that it takes on the value y,
+condition on not only xt, but past values of xt.
+So only xt carries information about future values of the random variable x.
+So stare at this.
+And this is intimately connected with this is the reason why we give this name xt is the state of xt.
+Xt is the state variable.
+It completely summarizes the current position of the system.
+Lagged values don't add any information.
+So we could write this.
+The probability, if we write the probability of xt plus 1 is equal to y,
+given xt equals x.
+As we write that, this is matrix of p of xy for all xy and s.
+That's going to give rise to a matrix.
+And what this means is pxy is the probability of going from x to y in one unit of time, one step.
+So this is the one step transition probability.
+That's what this is called.
+So one step transition probability.
+And actually, if we go back to where we started, these pijs, those are just the one step transition probabilities from going from i to j.
+So here we go.
+Pij is the probability that we go from xy to xj in one step.
+And the i's and j's both go from one to n. That fills out our matrix.
+So here's how we, to complete, to complete a description of a Markov chain, we need p.
+And we also need something else.
+We need a probability over states at time equals zero.
+We need this pair.
+And a Markov chain is going to be, it's going to consist of that pair.
+And the way we can generate wealth.
+So what this says is we're going to draw x0 from some initial distribution, from this distribution.
+And then for each subsequent t, we're going to draw xt plus one from the transition to probability.
+So this is how a Markov chain works.

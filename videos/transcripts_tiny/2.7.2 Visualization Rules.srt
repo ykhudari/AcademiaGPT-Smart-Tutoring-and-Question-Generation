@@ -1,0 +1,1596 @@
+1
+00:00:00,000 --> 00:00:06,000
+This notebook is going to be about data visualizations and it's going to talk about some rules and guidelines.
+
+2
+00:00:06,000 --> 00:00:17,000
+Whereas our previous discussion was focused on how to create a graph, this discussion will be focused on creating the right graph or creating a compelling graph.
+
+3
+00:00:17,000 --> 00:00:23,000
+This material, my director, preface was coauthored with Paul Schreimpf, who's at UBC.
+
+4
+00:00:24,000 --> 00:00:30,000
+And what we're going to do is we're going to understand what steps go into creating a visualization.
+
+5
+00:00:30,000 --> 00:00:36,000
+We'll identify when is the right time to use each of the core types of plots.
+
+6
+00:00:36,000 --> 00:00:41,000
+And we'll introduce the ability to make effective visualizations.
+
+7
+00:00:41,000 --> 00:00:46,000
+And so we'll start by doing our normal imports.
+
+8
+00:00:47,000 --> 00:00:48,000
+And we'll start.
+
+9
+00:00:48,000 --> 00:00:55,000
+So an economist or a data scientist job goes beyond simply learning new things using data and theory.
+
+10
+00:00:55,000 --> 00:01:04,000
+Learning new things is actually a way to help economists or data scientists communicate these ideas to others.
+
+11
+00:01:04,000 --> 00:01:12,000
+And the medium in which these ideas are communicated is typically an academic paper or a business meeting.
+
+12
+00:01:13,000 --> 00:01:21,000
+And the most effective way to communicate ideas is via well done visualizations.
+
+13
+00:01:21,000 --> 00:01:28,000
+Well done visualizations allow you to communicate through two main channels.
+
+14
+00:01:28,000 --> 00:01:34,000
+The first is something that psychology researchers call pictures superiority.
+
+15
+00:01:35,000 --> 00:01:42,000
+And what this is is in work and psychology, they've found that individuals are able to identify pictures.
+
+16
+00:01:42,000 --> 00:01:50,000
+They had previously studied for approximately 500 milliseconds each with 75 to 85% accuracy.
+
+17
+00:01:50,000 --> 00:02:00,000
+But when they ran the same experiment with words, individuals could only identify things that they had previously seen with a 55 to 65% accuracy.
+
+18
+00:02:00,000 --> 00:02:04,000
+So you're seeing inability.
+
+19
+00:02:04,000 --> 00:02:11,000
+What they want to convey here is that pictures stay in an individual's mind better than words.
+
+20
+00:02:11,000 --> 00:02:18,000
+Additionally, data visualizations are a way to help people walk through the logic that you used to build your chart.
+
+21
+00:02:18,000 --> 00:02:22,000
+And this allows them to reason through the argument you're presenting.
+
+22
+00:02:22,000 --> 00:02:29,000
+And it makes your claim more convincing because now you're not telling them all you're doing them is showing them the data.
+
+23
+00:02:29,000 --> 00:02:33,000
+And they arrive at the conclusion you wanted to make on their own.
+
+24
+00:02:33,000 --> 00:02:40,000
+So throughout this lecture, we're going to discuss the process of creating a data visualization.
+
+25
+00:02:40,000 --> 00:02:47,000
+And we'll communicate some of the best ways to ensure that you can successfully communicate your ideas.
+
+26
+00:02:47,000 --> 00:02:54,000
+Along the way, we'll be introduced to many additional features of Matt Platelib that have not been previously discussed.
+
+27
+00:02:54,000 --> 00:03:05,000
+Obviously, we won't be able to discuss all of these features, but we encourage you to go back and continue to read and study the Matt Platelib online documentation.
+
+28
+00:03:05,000 --> 00:03:11,000
+So before we begin discussing specific recommendations, we'd like to start by doing two things.
+
+29
+00:03:11,000 --> 00:03:16,000
+The first is let's re-emphasize what the goal of data visualization is.
+
+30
+00:03:16,000 --> 00:03:22,000
+And the second is, let's develop a process by which we can create compelling data visualizations.
+
+31
+00:03:22,000 --> 00:03:30,000
+So the purpose of a data visualization is to facilitate the communication of a message or idea.
+
+32
+00:03:30,000 --> 00:03:40,000
+So the whole purpose for which we create graphs is to help communicate things that we know that someone else may not know.
+
+33
+00:03:40,000 --> 00:03:47,000
+And the steps by which we find our most effective are to do the following four things.
+
+34
+00:03:47,000 --> 00:03:52,000
+You start by identifying what is the message that you would like to communicate.
+
+35
+00:03:52,000 --> 00:03:57,000
+Second, you should describe to yourself in words.
+
+36
+00:03:57,000 --> 00:04:01,000
+The ideas that should be communicated by your visualization.
+
+37
+00:04:01,000 --> 00:04:08,000
+So you should say things like, I'd like to have dots that show the relationship between X and Y,
+
+38
+00:04:08,000 --> 00:04:12,000
+and the fact that they are increasing means X.
+
+39
+00:04:13,000 --> 00:04:16,000
+Three, you should create a draft of your visualization.
+
+40
+00:04:16,000 --> 00:04:23,000
+And this actually gives you a chance to verify your data and to verify that the story you're trying to tell is in your data.
+
+41
+00:04:23,000 --> 00:04:38,000
+Finally, you find two individual visualization details and remove any information or any piece of graph or color or line that will distract from the message that you're trying to tell.
+
+42
+00:04:38,000 --> 00:04:45,000
+We typically think that a graph should be focused on one message and not on many.
+
+43
+00:04:45,000 --> 00:04:56,000
+Now, obviously prior to doing steps one, two, three and four, you're going to have done a significant amount of time exploring the data and thinking about your message.
+
+44
+00:04:56,000 --> 00:05:07,000
+And in fact, you're going to find that during the research step, which we call step zero, you will actually almost certainly produce visualizations to help yourself understand the data.
+
+45
+00:05:08,000 --> 00:05:15,000
+These visualizations are great because they'll allow you to highlight outliers or unlikely combinations.
+
+46
+00:05:15,000 --> 00:05:30,000
+So the steps we've presented are going to be helpful also in your research process, but we're going to focus on kind of creating visualization after you know the story that you're going to tell.
+
+47
+00:05:30,000 --> 00:05:34,000
+So let's start by working through an example.
+
+48
+00:05:34,000 --> 00:05:45,000
+And the example we're going to start with is actually it comes from research done by an economist at MIT named David Otter and his coauthors.
+
+49
+00:05:45,000 --> 00:05:54,000
+But it was based and kind of motivated by a New York Times article that was about the research being done by Dr. Otter.
+
+50
+00:05:54,000 --> 00:06:04,000
+So this particular research investigates the observable changes over time between work opportunities in rural and urban locations.
+
+51
+00:06:04,000 --> 00:06:16,000
+So it turns out that earlier in the 20th century in the 1950s or so, there was a wage premium for both college and non college educated workers.
+
+52
+00:06:16,000 --> 00:06:27,000
+So this means that the wage paid to college workers and the wage paid to non college workers was higher if you were in a more dense area.
+
+53
+00:06:27,000 --> 00:06:45,000
+So more recently, we've observed that the city wage premium is still apparent for those with college educations, but for those without a college education, the wage premium for living in an urban area has disappeared.
+
+54
+00:06:46,000 --> 00:06:53,000
+So the first step for creating this visualization is going to be identify the message.
+
+55
+00:06:53,000 --> 00:07:00,000
+So think about what questions someone should be able to answer after observing your graph.
+
+56
+00:07:00,000 --> 00:07:11,000
+So in our example, we'd like someone to be able to say what happens to the rural slash urban wage gap for non college educated workers since the 1950s.
+
+57
+00:07:11,000 --> 00:07:20,000
+And the thing that makes this answer unique is that the wage gap changes are different for non college educated workers and college educated workers.
+
+58
+00:07:20,000 --> 00:07:26,000
+And we'd like to highlight the difference.
+
+59
+00:07:26,000 --> 00:07:31,000
+So step two is to visualize.
+
+60
+00:07:31,000 --> 00:07:43,000
+So choosing the type of visualization that will best illustrate your point is a skill that can only be developed with lots of practice.
+
+61
+00:07:43,000 --> 00:07:51,000
+Using the wrong type of visualization will actually can actually inhibit the flow of information from the graph to your audience's brain.
+
+62
+00:07:51,000 --> 00:08:01,000
+And so in our case, one of the most effective ways to demonstrate the relationship of two variables is using a scatter plot.
+
+63
+00:08:01,000 --> 00:08:04,000
+And so we want to place.
+
+64
+00:08:04,000 --> 00:08:06,000
+So now we're going to describe our visualization words.
+
+65
+00:08:06,000 --> 00:08:14,000
+We're going to place the log of population density on the x-axis and the log of wages on the y-axis.
+
+66
+00:08:14,000 --> 00:08:17,000
+And what we should see and we're going to plot this four times.
+
+67
+00:08:17,000 --> 00:08:22,000
+We're going to plot this for the 1950s and 1960s.
+
+68
+00:08:22,000 --> 00:08:24,000
+And so on.
+
+69
+00:08:24,000 --> 00:08:34,000
+And we're going to see how this relationship changes over time for the college and non college educated workers.
+
+70
+00:08:34,000 --> 00:08:42,000
+So now we will, we've kind of described in words the graph that we'd like to create.
+
+71
+00:08:42,000 --> 00:08:46,000
+And so now we should go about and create an early draft.
+
+72
+00:08:46,000 --> 00:08:56,000
+So sometimes you're going to get, and I think this has been a theme in lots of the processes that we've discussed.
+
+73
+00:08:56,000 --> 00:09:00,000
+So you're going to get to this step of visualizing your draft.
+
+74
+00:09:00,000 --> 00:09:08,000
+And a lot of times after you've drafted a version of your graph, you're going to realize that you need to go back to step one or step two.
+
+75
+00:09:08,000 --> 00:09:12,000
+It's okay to scrap what you have and restart.
+
+76
+00:09:12,000 --> 00:09:21,000
+And in fact, in our own work, we found that it's not uncommon to discard 10 or more versions of a graph before we settle on a draft that we're happy with.
+
+77
+00:09:21,000 --> 00:09:29,000
+So you're getting the benefit of other people have done this research and drafted this plot for us.
+
+78
+00:09:29,000 --> 00:09:33,000
+But here is our first version of this graph.
+
+79
+00:09:33,000 --> 00:09:39,000
+So what you see is in 1950, we have the log of population density.
+
+80
+00:09:39,000 --> 00:09:44,000
+So the higher this is is the more urban, particular area is.
+
+81
+00:09:44,000 --> 00:09:50,000
+So this is something like New York City, which is the most dense location in the United States.
+
+82
+00:09:50,000 --> 00:09:54,000
+And we're also plotting on the Y axis, the log of wages.
+
+83
+00:09:54,000 --> 00:10:02,000
+So the higher the log of wages is the more the average college or non college worker is paid in that area.
+
+84
+00:10:02,000 --> 00:10:06,000
+And the blues are college and the red are non college.
+
+85
+00:10:06,000 --> 00:10:11,000
+Again, this is a draft. So we internally know that and that's good enough.
+
+86
+00:10:11,000 --> 00:10:17,000
+And you'll see in 1980, there is still some kind of urban city premium.
+
+87
+00:10:17,000 --> 00:10:22,000
+So if you live in more dense locations, you're going to be paid more.
+
+88
+00:10:22,000 --> 00:10:27,000
+And then 2000, it's still there, but it starts flattening a little bit.
+
+89
+00:10:27,000 --> 00:10:31,000
+And in 2015, it's continued to flatten.
+
+90
+00:10:31,000 --> 00:10:36,000
+But it's still there for college workers.
+
+91
+00:10:36,000 --> 00:10:41,000
+So this is our draft.
+
+92
+00:10:41,000 --> 00:10:50,000
+And so we're not going to do this exercise in class today, but we'd encourage you to come back to this notebook after class.
+
+93
+00:10:50,000 --> 00:10:59,000
+And to create a draft of this plot, but organizing time and education differently.
+
+94
+00:11:00,000 --> 00:11:06,000
+And we think this draft will tell a different story probably.
+
+95
+00:11:06,000 --> 00:11:14,000
+So we might have two plots instead of four, where we have non college workers on the left and college workers on the right.
+
+96
+00:11:14,000 --> 00:11:18,000
+And we could just plot these slopes.
+
+97
+00:11:18,000 --> 00:11:21,000
+So each sub plot would then have four graphs.
+
+98
+00:11:21,000 --> 00:11:26,000
+But we'd like you to come back and do this on your own.
+
+99
+00:11:26,000 --> 00:11:40,000
+And then once you've done that, you should think about why Dr. Otter and his coauthors chose to organize the information the way they did with one plot per year.
+
+100
+00:11:40,000 --> 00:11:42,000
+And so why did they do it this way?
+
+101
+00:11:42,000 --> 00:11:47,000
+And what story would the other plot tell?
+
+102
+00:11:47,000 --> 00:11:55,000
+Okay, so up until this point, we've confirmed that the decisions we've made have made sense.
+
+103
+00:11:55,000 --> 00:12:01,000
+So the last step is to clean up the graph and to ensure that nothing distracts from our message.
+
+104
+00:12:01,000 --> 00:12:18,000
+Almost the entirety of the rest of the lecture is going to be dedicated to fine tuning, so we're not going to talk about the details, but this code here creates the plot that we're going to see below.
+
+105
+00:12:18,000 --> 00:12:28,000
+So what we have is two colors. So notice we've continued to highlight the education levels using different colors.
+
+106
+00:12:28,000 --> 00:12:36,000
+We've now labeled using the same text, college educated workers and non college educated workers.
+
+107
+00:12:36,000 --> 00:12:43,000
+We've changed the x-axis, so you'll remember on the previous slide.
+
+108
+00:12:43,000 --> 00:12:54,000
+It just was called a density log and it was to values two four six eight and wages log and values one point eight two point oh dot dot three point two.
+
+109
+00:12:54,000 --> 00:13:08,000
+And now we've actually converted this into average wage rather than log wages, but we've plotted them in log scale and we've done the same thing with population density.
+
+110
+00:13:08,000 --> 00:13:21,000
+So you can actually see, you know, nowhere in the United States has 10,000 individuals per square mile, but there's some places that come kind of close.
+
+111
+00:13:21,000 --> 00:13:37,000
+Okay, so we've worked through kind of our process for one graph and we're now going to proceed and talk about some of the different visualization types and what they and what types of situations that you would use them.
+
+112
+00:13:38,000 --> 00:13:45,000
+We've found Duke libraries data visualization guide to be a fantastic resource for thinking about this.
+
+113
+00:13:45,000 --> 00:14:02,000
+So we're only going to talk about kind of three to five visualization types today, but you can see probably 20 or 30 in this visualization guide and talk they talk about when they're appropriate to use why you might use them and how they can be used.
+
+114
+00:14:03,000 --> 00:14:18,000
+So the first one we'll talk about is scatter plots and the reason we're actually talking about this first is that Edward tough once estimated that more than 70% of all charts and scientific publications are scatter plots.
+
+115
+00:14:18,000 --> 00:14:29,000
+And why do they do this? It's because scatter plots are used to show how two variables are related to one another and to compare various of these various observations based on the two variables.
+
+116
+00:14:30,000 --> 00:14:40,000
+The core strength of a scatter plot is that it's pure simplicity because you're getting one point per observation just allows the data to speak for itself.
+
+117
+00:14:40,000 --> 00:14:49,000
+So a plot of two variables will allow viewers to immediately see whether the variables are linear related, quadratically related or maybe not related at all.
+
+118
+00:14:49,000 --> 00:14:56,000
+So we'll demonstrate in another example.
+
+119
+00:14:57,000 --> 00:15:10,000
+And so we have right here a scatter plot of unemployment rates and wages in the United States and it's kind of tough to see whether there's a relationship.
+
+120
+00:15:10,000 --> 00:15:19,000
+You think potentially the lower the wage, the higher the unemployment, there might be kind of a downward slope to it.
+
+121
+00:15:20,000 --> 00:15:44,000
+I guess the story there would be in places with high unemployment they have relatively weak labor markets and so the average wage at which people are paid is potentially lower so economically that kind of makes sense but you get lots of outliers that really I think we can that story.
+
+122
+00:15:44,000 --> 00:15:54,000
+One thing you'll find that we do to lots of our plots is we actually turn off the top and right spines.
+
+123
+00:15:54,000 --> 00:16:02,000
+They returned off here anyways probably by.
+
+124
+00:16:02,000 --> 00:16:07,000
+Let's try actively turning them on.
+
+125
+00:16:07,000 --> 00:16:22,000
+We often find that these lines are somewhat repetitive here they're not so bad but when you have just a big black square around your data sometimes it's distracting we have these lines across the.
+
+126
+00:16:22,000 --> 00:16:35,000
+Graph that are used for comparison so it doesn't look so out of place here here I think we could use true or false and not run into too much trouble.
+
+127
+00:16:35,000 --> 00:16:48,000
+The other thing we had previously talked about using annotations and so we've annotated each of our cities.
+
+128
+00:16:48,000 --> 00:17:04,000
+And we've kind of done this by hand so we said San Francisco we'd like to move 35 points to the left and 10.5 points down Atlanta Phoenix and Madison we're going to move.
+
+129
+00:17:04,000 --> 00:17:17,000
+Down and to the left a little bit otherwise we're going to move it up into the right a little bit so that's places like Seattle and we chose not to use any arrows or anything.
+
+130
+00:17:17,000 --> 00:17:24,000
+But you're able to see you know using the scatter plot the data.
+
+131
+00:17:24,000 --> 00:17:33,000
+So the next type of plot will discuss our line plots and so line plots are best used to show how a variable evolves over time.
+
+132
+00:17:33,000 --> 00:17:39,000
+Or it can also be used like a scatter plot to demonstrate the relationship between variables.
+
+133
+00:17:39,000 --> 00:17:46,000
+And it's important to note that it's going to differ from how a scatter plot displays this information.
+
+134
+00:17:46,000 --> 00:17:57,000
+Because it's not very practical to draw a line between all of your data points so if we go back to this plot.
+
+135
+00:17:57,000 --> 00:18:05,000
+If we tried to represent this with a line plot you would get something that looked slightly funny.
+
+136
+00:18:05,000 --> 00:18:10,000
+Actually so in the paper and in his slides.
+
+137
+00:18:10,000 --> 00:18:21,000
+Dr. Otter and his coauthors actually draw a least squares line representing the best fit and they use both the scatter plot and the line plot to convey their.
+
+138
+00:18:21,000 --> 00:18:24,000
+The relationship between the two variables.
+
+139
+00:18:24,000 --> 00:18:28,000
+So.
+
+140
+00:18:28,000 --> 00:18:31,000
+Let's go ahead and see.
+
+141
+00:18:31,000 --> 00:18:35,000
+Right and so we've now replicated this by.
+
+142
+00:18:35,000 --> 00:18:42,000
+We're placing the lines on the plot by running this regression and what you're seeing is that.
+
+143
+00:18:42,000 --> 00:18:51,000
+Now you can physically see that the line is getting more and more shallow for the non college educated workers and.
+
+144
+00:18:51,000 --> 00:19:03,000
+It's not getting any less steep and probably getting steeper for the college educated workers.
+
+145
+00:19:03,000 --> 00:19:07,000
+Next we're going to talk about bar plots.
+
+146
+00:19:07,000 --> 00:19:18,000
+So bar plots are used to display differences for a variable between groups so it's really about kind of how does group one compared a group to.
+
+147
+00:19:18,000 --> 00:19:23,000
+So we also be used to show how variable changes over time which.
+
+148
+00:19:23,000 --> 00:19:29,000
+You know changes over time is just you know a difference as grouped by time.
+
+149
+00:19:29,000 --> 00:19:33,000
+So that's a subset of what we previously said.
+
+150
+00:19:33,000 --> 00:19:42,000
+So bar charts use the differences show the differences by using the length of each bar and this makes comparing different groups.
+
+151
+00:19:42,000 --> 00:19:44,000
+Very straightforward.
+
+152
+00:19:45,000 --> 00:19:52,000
+In this plot below we're going to show the unemployment rate in different US cities and we've sorted it.
+
+153
+00:19:52,000 --> 00:20:05,000
+On our own so that the cities are sorted but if it was not sorted you would be able to quickly identify whether Detroit or New York had higher unemployment.
+
+154
+00:20:05,000 --> 00:20:25,000
+So we're going to multiply the numbers by comparing the length of these lines and so you can see Detroit's line is slightly longer it goes slightly above four and New York's line is slightly below four so you can tell that Detroit has higher unemployment rate than New York.
+
+155
+00:20:25,000 --> 00:20:30,000
+And histograms are the last type of visualization that we'll talk about.
+
+156
+00:20:30,000 --> 00:20:36,000
+So histograms try to display the distribution of a single variable.
+
+157
+00:20:36,000 --> 00:20:50,000
+So we think that histograms are particularly important when your variable is not normally distributed because typically you know when we think of means and variances we're thinking about a normal distribution.
+
+158
+00:20:50,000 --> 00:21:00,000
+So our plot below is going to show US GDP growth from 1948 to 2019 and we're going to plot the GDP growth.
+
+159
+00:21:00,000 --> 00:21:11,000
+The distribution of GDP growth so what you'll see is that the average is kind of in the high ones to 2% or so.
+
+160
+00:21:12,000 --> 00:21:25,000
+But you actually have kind of a long tail of high growth and a left tail that can start to get fat.
+
+161
+00:21:25,000 --> 00:21:34,000
+So but you can see very clearly what this distribution looks like.
+
+162
+00:21:34,000 --> 00:21:43,000
+And so we can change so here we've plotted with 23 bins we could increase this to 50.
+
+163
+00:21:43,000 --> 00:22:03,000
+And that gives us a slightly different plot and so the number of bins that goes into your histogram will affect what your graph looks like and there's some recommendations that people have made about what's the right number of bins to use for different data sets.
+
+164
+00:22:03,000 --> 00:22:15,000
+Okay, so those are the different plots that one can use and now we're going to talk about how to choose colors for your plots.
+
+165
+00:22:15,000 --> 00:22:29,000
+And we really like what Edward tough test to say about this so he says avoiding catastrophe becomes the first principle in bringing color to information above all do no harm.
+
+166
+00:22:29,000 --> 00:22:34,000
+So the question is how do we do no harm.
+
+167
+00:22:34,000 --> 00:22:44,000
+So to talk about how to do no harm we're first going to introduce a way in which we can reason about colors.
+
+168
+00:22:44,000 --> 00:22:51,000
+And this paradigm to reason about colors is called the hue saturation value paradigm.
+
+169
+00:22:52,000 --> 00:23:05,000
+So I don't know how you would have previously been introduced to colors but lots of times on a computer they're represented by red green and blue values and they call these RGB values.
+
+170
+00:23:05,000 --> 00:23:08,000
+And the reason they do this is that.
+
+171
+00:23:08,000 --> 00:23:17,000
+In color theory theoretically all colors can be created by combining red green and blue.
+
+172
+00:23:18,000 --> 00:23:29,000
+Kind of that is a great theory in kind of theory land but practically it actually creates lots of difficulties on a computer.
+
+173
+00:23:29,000 --> 00:23:40,000
+And so we'll introduce you to what hue saturation value discusses colors so the first is you.
+
+174
+00:23:40,000 --> 00:23:51,000
+And this is going to represent the share of each primary color as angles around a circle so red will be grid will begin at zero degrees.
+
+175
+00:23:51,000 --> 00:23:58,000
+Green begins at 120 degrees and blue begins at 240 degrees.
+
+176
+00:23:59,000 --> 00:24:08,000
+So in practice is going to convert these back to numbers between zero and one by dividing by 360.
+
+177
+00:24:08,000 --> 00:24:15,000
+And so different angles between these colors are going to be different mixes of primary colors.
+
+178
+00:24:15,000 --> 00:24:23,000
+Saturation is going to describe how rich a color is also using the numbers between zero and one.
+
+179
+00:24:23,000 --> 00:24:30,000
+Saturation one which one would call full saturation the color is as rich as possible.
+
+180
+00:24:30,000 --> 00:24:39,000
+Saturation the color the color has no color and is approximately a projection of the color into gray scale.
+
+181
+00:24:39,000 --> 00:24:50,000
+This isn't exactly true but it's a good way to reason about this and then value is going to be how dark a color is.
+
+182
+00:24:50,000 --> 00:24:54,000
+It's also represented with numbers from zero to one.
+
+183
+00:24:54,000 --> 00:24:58,000
+And you should think about this is how much black has been added to the color.
+
+184
+00:24:58,000 --> 00:25:04,000
+So if a color has value zero then it is as dark as possible.
+
+185
+00:25:04,000 --> 00:25:14,000
+It can be a color black and if the color has a value one then it's had no black added to the color and is just the original color.
+
+186
+00:25:14,000 --> 00:25:20,000
+So let's look at the following demonstrate at the following figure.
+
+187
+00:25:20,000 --> 00:25:28,000
+We can see moving around the circle so this would be somewhere around here would approximately be zero degrees.
+
+188
+00:25:28,000 --> 00:25:39,000
+And so it starts as red as we move we wind up at 120 degrees which is blue.
+
+189
+00:25:39,000 --> 00:25:46,000
+And as we continue going around our circle we would end up here at 240 degrees.
+
+190
+00:25:46,000 --> 00:25:56,000
+And so this part that's cut out would be our greens and then we'd complete our circle and we'd come back to 360 which is zero degrees.
+
+191
+00:25:56,000 --> 00:26:02,000
+Now the saturation is kind of how rich this color is.
+
+192
+00:26:02,000 --> 00:26:16,000
+So notice that if we completely desaturate the color and we have no black added to the color right here at the top center is the color white.
+
+193
+00:26:16,000 --> 00:26:23,000
+And then as we move the value to one we end up at a very black color.
+
+194
+00:26:23,000 --> 00:26:41,000
+And lots of these along along here is we move along what I'll call pure graze which are colors which are graze that have no color added to them so they're they have no red they have no blue they have no green.
+
+195
+00:26:42,000 --> 00:27:05,000
+And so and then we can see kind of we've already discussed this but value is the lower we go in value moving towards zero is the more black the colors in so when value is set to zero it's all black and we can see that in this very bottom section of our.
+
+196
+00:27:05,000 --> 00:27:09,000
+Little image so.
+
+197
+00:27:09,000 --> 00:27:20,000
+Next let's go ahead and demonstrate this so we've created a little function here called color swatches and it's going to create.
+
+198
+00:27:20,000 --> 00:27:24,000
+A bunch of colors and then plot them.
+
+199
+00:27:24,000 --> 00:27:34,000
+And what we're going to do is we're going to vary different pieces of the HSVs the hue saturation values and convert them to RGBs and then we're going to plot them.
+
+200
+00:27:34,000 --> 00:27:52,000
+So here we're going to set the saturation in the value to one so there will be no black added and it will be as rich of a color as possible and we'll move from zero to 360 in six steps.
+
+201
+00:27:52,000 --> 00:27:57,000
+We could potentially do more steps and you'll see that.
+
+202
+00:27:57,000 --> 00:28:02,000
+We see these colors.
+
+203
+00:28:03,000 --> 00:28:16,000
+So we can just see the circular nature that as we change hue it goes from red to green to blue to red.
+
+204
+00:28:16,000 --> 00:28:29,000
+So let's now fix for a particular color so let's set it to zero which is going to be red and let's plot some varying saturation.
+
+205
+00:28:30,000 --> 00:28:37,000
+So when our saturation is zero there's no color in that particular color so it's right.
+
+206
+00:28:37,000 --> 00:28:43,000
+And as we add red we get kind of a richer and richer red.
+
+207
+00:28:43,000 --> 00:28:58,000
+We could do this for green which is at 0.33 or blue which is at 0.66 and we see the same thing that as we add saturation we get a richer and richer color.
+
+208
+00:29:00,000 --> 00:29:07,000
+Next as you might guess we can also vary value so we'll start at zero.
+
+209
+00:29:07,000 --> 00:29:19,000
+And so there has been no zero is going to be black and as we increase the value we're adding less and less black to our color so this red.
+
+210
+00:29:20,000 --> 00:29:26,000
+Should be the same as this red which is the same as these reds.
+
+211
+00:29:26,000 --> 00:29:31,000
+But now it's moving as we change value from black to red.
+
+212
+00:29:31,000 --> 00:29:39,000
+We could also do this with green or blue.
+
+213
+00:29:39,000 --> 00:29:44,000
+And we see the same thing.
+
+214
+00:29:44,000 --> 00:29:50,000
+Okay so now that we understand kind of how color works.
+
+215
+00:29:50,000 --> 00:29:59,000
+Let's think about what kind of color palettes are going to help us emphasize information in a data visualization.
+
+216
+00:29:59,000 --> 00:30:10,000
+So if we're thinking about qualitatively different groups where we just want to identify separate groups but we don't want to describe a quantitative relationship between them.
+
+217
+00:30:10,000 --> 00:30:22,000
+You could fix a saturation and draw and evenly spaced values from hue space so all you need is that the different groups have different colors.
+
+218
+00:30:22,000 --> 00:30:33,000
+You could also think about what happens if you want to show that a particular color maybe color does matter in your plot.
+
+219
+00:30:33,000 --> 00:30:37,000
+Then you might want to vary the saturation.
+
+220
+00:30:37,000 --> 00:30:43,000
+So as you make your red darker maybe that's a higher and higher value.
+
+221
+00:30:43,000 --> 00:30:49,000
+So lots of times you'll see chloroplyth maps that have this.
+
+222
+00:30:49,000 --> 00:31:02,000
+So you can see so map plot lib and other Python packages actually have lots of different color palettes for you to choose from.
+
+223
+00:31:02,000 --> 00:31:11,000
+So again referring to map plot lib's documentation.
+
+224
+00:31:11,000 --> 00:31:17,000
+We can talk about some of the different ways that color maps are used so.
+
+225
+00:31:17,000 --> 00:31:28,000
+Sequential will be incrementally changing the lightness and often the saturation of the color so this is used to represent information that has some kind of ordering.
+
+226
+00:31:29,000 --> 00:31:42,000
+So this is what I was saying that we could make a value darker and darker in order to display that is one place has a higher value than another.
+
+227
+00:31:42,000 --> 00:31:50,000
+You could have a diverging so this should be used when information being plotted has some kind of a critical middle value.
+
+228
+00:31:50,000 --> 00:32:03,000
+So again this is if you think about a chloroplyth map if you want to see which states have had in the United States which states have positive GDP growth and which states have negative GDP growth.
+
+229
+00:32:03,000 --> 00:32:16,000
+You might make the middle color zero and then as you become more negative it becomes more red and it becomes more positive it might become blue or green.
+
+230
+00:32:16,000 --> 00:32:28,000
+So the color is going to change the lightness of two different colors that meet in the middle and beginning at the beginning slash in at a unsaturated color.
+
+231
+00:32:28,000 --> 00:32:37,000
+So this is going to be information that wraps around at its end points such as phase angles or wind direction also time of day.
+
+232
+00:32:37,000 --> 00:32:48,000
+And then qualitative are just miscellaneous colors that are going to not represent any ordering but rather just allow you to create groups.
+
+233
+00:32:48,000 --> 00:33:01,000
+Most of the examples we've used so far have just used qualitative color maps because there's simply meant to distinguish between different observations and the color is not meant to say anything about how they differ.
+
+234
+00:33:01,000 --> 00:33:06,000
+So there's three excellent sources of information on colors and colors palettes.
+
+235
+00:33:06,000 --> 00:33:16,000
+We think seaborn which is another python plotting package that builds on mat plot lib is a great place their documentation is a great place to talk about colors.
+
+236
+00:33:16,000 --> 00:33:26,000
+This talk given at the sci-py conference in 2015 by Nathaniel Smith is actually one of my favorite discussions of colors and is one of the things that really.
+
+237
+00:33:26,000 --> 00:33:51,000
+forced me to think carefully about the colors that I'm using in my plots and then this last is a website that was literally put together by rock and scientist at NASA who felt it was important enough that other people at NASA were using colors the right way and so they developed a website that described how it should be used.
+
+238
+00:33:51,000 --> 00:34:08,000
+So we've now kind of put forward some background on colors and we can use this as a common language and proceed with discussing how to use color effectively so this is do no harm.
+
+239
+00:34:08,000 --> 00:34:21,000
+So one of the first things we'd like to emphasize is sometimes value varying value which is the darkness of a particular color is more effective than you.
+
+240
+00:34:21,000 --> 00:34:28,000
+So this example actually comes from the NASA site that we linked to previously.
+
+241
+00:34:29,000 --> 00:34:37,000
+And let's just look at this plot so this is a plot that has a bunch of words and lines.
+
+242
+00:34:37,000 --> 00:34:49,000
+It has you can see the word important second order not important but it's kind of hard to distinguish between all of these.
+
+243
+00:34:49,000 --> 00:35:07,000
+So one thing that someone might choose to do is they might try to make this more readable by varying the color so now everything that's important is read everything that second order is green and everything that's not important is blue.
+
+244
+00:35:07,000 --> 00:35:17,000
+Well yeah and so I'm not sure I'm not sure using color here actually makes this graph any better I can probably read the first graph better than I can the second.
+
+245
+00:35:17,000 --> 00:35:23,000
+And there's green in particular I feel like was a very ineffective choice.
+
+246
+00:35:23,000 --> 00:35:37,000
+But the last way that we could use colors is instead of using just pure black or varying the hue we could vary the value.
+
+247
+00:35:37,000 --> 00:35:43,000
+And so what we're going to do now is the most important information will make a dark color.
+
+248
+00:35:43,000 --> 00:35:51,000
+And then the second order information will make slightly less dark and the information that's not important we make the lightest.
+
+249
+00:35:51,000 --> 00:36:02,000
+And at least me personally I found that this last graph of these three is the most readable and so.
+
+250
+00:36:02,000 --> 00:36:25,000
+Again we want to emphasize that the point of this exercise is not to not use color in your plots but we want to encourage you to think about whether hue or value will be more effective in communicating your message and in this case for this particular plot value was a better way to highlight what was important and what was not important.
+
+251
+00:36:26,000 --> 00:36:34,000
+Okay the next thing we'll talk about is that being careless with values can actually make grace gale impossible to read.
+
+252
+00:36:34,000 --> 00:36:44,000
+So lots of the plots that you produce whether that be kind of an annual report that goes out from a particular business or an academic paper.
+
+253
+00:36:45,000 --> 00:36:51,000
+We'll eventually be printed and the majority of printing happens in black and white.
+
+254
+00:36:51,000 --> 00:37:03,000
+And so if you're not careful in choosing your colors they're going to have the same projected values and once they've been converted to grace gale they'll be unidentifiable.
+
+255
+00:37:04,000 --> 00:37:09,000
+So this code is based on an example from the map plot lib documentation.
+
+256
+00:37:09,000 --> 00:37:20,000
+I think we we change the color so we can see here we have a purple for men and an orange for women.
+
+257
+00:37:20,000 --> 00:37:28,000
+And if we convert that image to grace gale we end up with the following graph.
+
+258
+00:37:28,000 --> 00:37:38,000
+You quickly see kind of what the problem was is these two colors were too close to one another and so again very different in terms of you.
+
+259
+00:37:38,000 --> 00:37:51,000
+But their values were very close together and so when you converted it to grace gale you ended up with a gray that was very close to one to not to another.
+
+260
+00:37:51,000 --> 00:38:03,000
+And so you see that you're going to be able to see what the difference between men and women is because you don't know which line which bark corresponds to which.
+
+261
+00:38:03,000 --> 00:38:11,000
+And so so you say it kind of who would do this and the answer is that in a really in a pretty prominent newspaper.
+
+262
+00:38:11,000 --> 00:38:24,000
+And so it happened to review all of their graphs in black and white and they printed this graph talking about the US elections in 2012.
+
+263
+00:38:24,000 --> 00:38:32,000
+So these are supposed to be some kind of a red and blue I'm sure but when they converted to grace gale they all look the same color.
+
+264
+00:38:32,000 --> 00:38:42,000
+And so no one knows what this what this graph is saying and this actually comes from on a site note a blog called flowing data.
+
+265
+00:38:42,000 --> 00:38:53,000
+We also encourage you to read pieces of this blog they have some great posts and some great examples of what not to do.
+
+266
+00:38:53,000 --> 00:39:03,000
+So please don't do this whatever you do we feel we will feel like we have failed you if you ever produce a graph that looks like this.
+
+267
+00:39:03,000 --> 00:39:11,000
+Okay, so the next point we'd like to talk about is you should use color to draw attention.
+
+268
+00:39:11,000 --> 00:39:21,000
+So if you're displaying information about various groups but you're really only interested in how one group differs from the remain from all the others.
+
+269
+00:39:21,000 --> 00:39:30,000
+Then you should just choose some close together used to represent all of the less important groups and a distinct color to display the group of interest.
+
+270
+00:39:30,000 --> 00:39:39,000
+So we're going to start with this plot and obviously we have the group of interest is going to be red.
+
+271
+00:39:39,000 --> 00:39:46,000
+And we're going to plot the others in kind of various shades of green and blue.
+
+272
+00:39:46,000 --> 00:39:49,000
+So that's pretty good.
+
+273
+00:39:50,000 --> 00:40:03,000
+So we'll talk about how we can improve a graph like this in a couple of slides but you can see that this makes it clear what we're trying to study.
+
+274
+00:40:03,000 --> 00:40:10,000
+So the next thing next bullet point we'd like to talk about is don't use color to differentiate small objects.
+
+275
+00:40:10,000 --> 00:40:21,000
+So color is a great differentiator when there's enough of the color to see but if it ever becomes too small it just becomes really difficult.
+
+276
+00:40:21,000 --> 00:40:29,000
+So here's the same plot we showed on the previous graph but we've now made the dot size much smaller.
+
+277
+00:40:30,000 --> 00:40:40,000
+And so I think here you can kind of make out where this is you can still see the group of interest but it becomes much harder to read.
+
+278
+00:40:40,000 --> 00:40:46,000
+So there is a lesson to be learned here I don't know if you could have told me that this was a red color.
+
+279
+00:40:46,000 --> 00:40:53,000
+But because it's so much darker than some of the other colors you can still separate out that group.
+
+280
+00:40:53,000 --> 00:40:58,000
+So keep that in mind as you produce graphs.
+
+281
+00:40:59,000 --> 00:41:15,000
+The next thing we'd like to talk about is that certain colors have connotations so for example red is typically to note it to represent losses and black is to note it to represent profits.
+
+282
+00:41:15,000 --> 00:41:26,000
+So choosing red to be to note positive profits and black to denote negative profits would be a very bad.
+
+283
+00:41:26,000 --> 00:41:35,000
+Would be a bad choice because this you know should just feel a little bit weird if you're looking at profits and red.
+
+284
+00:41:35,000 --> 00:41:47,000
+The same plot I think becomes much more intuitive if you just make the losses red and the others black.
+
+285
+00:41:47,000 --> 00:41:53,000
+The last thing we'd like to say about color is that nearly one in ten men have some form of color blindness.
+
+286
+00:41:53,000 --> 00:41:59,000
+The most prevalent form of color blindness actually makes differentiating between red and green.
+
+287
+00:41:59,000 --> 00:42:10,000
+So besides making your plots feel Christmas themed using red and green to illustrate differences in a plot will often make your visualization difficult to follow for some of your audience.
+
+288
+00:42:11,000 --> 00:42:15,000
+There are Python libraries that allow you to simulate different forms of color blindness.
+
+289
+00:42:15,000 --> 00:42:22,000
+We recommend reading about this on the documentation for color spacious and VizCM.
+
+290
+00:42:22,000 --> 00:42:27,000
+So we've now discussed some guidelines for color.
+
+291
+00:42:27,000 --> 00:42:35,000
+And what we're going to do now is discuss some guidelines for what elements to include and how to structure your graphs.
+
+292
+00:42:35,000 --> 00:42:50,000
+We think these are very much guidelines in the sense that they can and should be violated sometimes, but you should be able to explain why you violated each of these particular rules.
+
+293
+00:42:50,000 --> 00:42:55,000
+The main theme of these guidelines is to keep your plot as simple as possible.
+
+294
+00:42:55,000 --> 00:42:58,000
+And then attempt to make your plot eye catching.
+
+295
+00:42:58,000 --> 00:43:03,000
+Lots of people destroy the message that's contained in the graph.
+
+296
+00:43:03,000 --> 00:43:08,000
+So again, we're going to focus on some guidelines that we feel are the most abused.
+
+297
+00:43:08,000 --> 00:43:12,000
+But there have been lots of good books and blogs that have been written on this.
+
+298
+00:43:12,000 --> 00:43:19,000
+We've already linked to these books in the previous notebook on plotting.
+
+299
+00:43:19,000 --> 00:43:23,000
+But you should also check out the following blogs.
+
+300
+00:43:23,000 --> 00:43:29,000
+This is a flowing data in particular is a favorite of mine.
+
+301
+00:43:29,000 --> 00:43:40,000
+And so as you begin to create visualizations, you'll see examples either in news articles or on these blogs.
+
+302
+00:43:40,000 --> 00:43:45,000
+And we actually recommend kind of storing this information away.
+
+303
+00:43:45,000 --> 00:43:52,000
+Because seeing how others display information ensures that kind of in the future when you run into a similar problem.
+
+304
+00:43:52,000 --> 00:43:59,000
+That you have something to call on that you can say, oh, I've seen a plot that does something like this.
+
+305
+00:43:59,000 --> 00:44:02,000
+Let me see if I can find it.
+
+306
+00:44:02,000 --> 00:44:05,000
+One friend of ours actually takes this very seriously.
+
+307
+00:44:05,000 --> 00:44:12,000
+He has a organized binder of graphics organized by topics and types of graph.
+
+308
+00:44:12,000 --> 00:44:21,000
+And when he's creating presentations he'll actually sit with this binder and his drafts of plots.
+
+309
+00:44:21,000 --> 00:44:24,000
+And he'll just flip through the binder for hours.
+
+310
+00:44:24,000 --> 00:44:29,000
+And he'll find graphs that he thought were well done.
+
+311
+00:44:29,000 --> 00:44:34,000
+And that's a way that he prepares his presentations.
+
+312
+00:44:34,000 --> 00:44:41,000
+A couple more links are just a couple more links about creating good visualizations.
+
+313
+00:44:41,000 --> 00:44:44,000
+This financial times article is great.
+
+314
+00:44:44,000 --> 00:44:50,000
+This article we've linked to on towards data science is an exceptional job at redesigning graphics that were a real
+
+315
+00:44:50,000 --> 00:44:53,000
+thing that we're originally done very poorly.
+
+316
+00:44:53,000 --> 00:44:59,000
+And then we'll link again to this data, this Duke library data visualization guide.
+
+317
+00:44:59,000 --> 00:45:04,000
+They have a few concise rules that are also worth reviewing.
+
+318
+00:45:04,000 --> 00:45:10,000
+So let's look at some recommendations for barplats.
+
+319
+00:45:10,000 --> 00:45:15,000
+So don a long in her Wall Street guide for visualization,
+
+320
+00:45:15,000 --> 00:45:18,000
+and it's a lot of surprises against zebra patterns.
+
+321
+00:45:18,000 --> 00:45:22,000
+And instead, she proposes that you use different shades of the same color,
+
+322
+00:45:22,000 --> 00:45:25,000
+ordered from lightest to darkest.
+
+323
+00:45:25,000 --> 00:45:30,000
+So in this plot, we're using different shades of blue,
+
+324
+00:45:30,000 --> 00:45:36,000
+starting in a very light shade and moving to a darker shade in alphabetical order in this case.
+
+325
+00:45:36,000 --> 00:45:44,000
+And we then put a legend at the top to associate each bar with a particular country.
+
+326
+00:45:44,000 --> 00:45:57,000
+And again, and additionally, the general consensus is that starting a barplat at any number beside zero is a misrepresentation of the data,
+
+327
+00:45:57,000 --> 00:46:03,000
+because it's going to make the relative lengths of different bars look differently.
+
+328
+00:46:03,000 --> 00:46:09,000
+So let's look at a plot that originally came from the flowing data blog.
+
+329
+00:46:10,000 --> 00:46:17,000
+And this was a plot that a news organization in the United States published in, you know,
+
+330
+00:46:17,000 --> 00:46:21,000
+I think it was 20, 20, they wrote this article in 2012.
+
+331
+00:46:21,000 --> 00:46:36,000
+And so they compared the Bush tax cuts, so they tax rate that the highest income tax and individual could pay was going to move from 35% to 39%.
+
+332
+00:46:36,000 --> 00:46:44,000
+But if you look at this barplat, it actually looks like the tax rate was going to increase by, you know, 500%
+
+333
+00:46:44,000 --> 00:46:48,000
+because it was going to go up so much.
+
+334
+00:46:48,000 --> 00:46:55,000
+If you make this same plot, but you start at zero, you actually notice that,
+
+335
+00:46:55,000 --> 00:47:02,000
+while this is a non-trivial increase, you know, we're seeing a 5 to 10% increase in our tax rates,
+
+336
+00:47:02,000 --> 00:47:06,000
+it does not look like a 500% increase.
+
+337
+00:47:06,000 --> 00:47:13,000
+And we'll actually come back, this graphic that was originally published had all kinds of terrible things.
+
+338
+00:47:13,000 --> 00:47:23,000
+And additionally, we won't voice them now, but we have opinions about what type of person uses all caps in their graphs.
+
+339
+00:47:23,000 --> 00:47:27,000
+They're not good opinions, I'll say that.
+
+340
+00:47:28,000 --> 00:47:35,000
+The next rule, and you may or may not have heard this before, but you actually should just generally avoid pipelines.
+
+341
+00:47:35,000 --> 00:47:47,000
+And the reason is that when you're comparing groups, it's much easier for a reader to compare the height on a barg chart than it is to compare the size of different angles in a pie chart.
+
+342
+00:47:47,000 --> 00:47:50,000
+So let's see an example.
+
+343
+00:47:50,000 --> 00:47:56,000
+So on the left, we have a bar plot, and on the right, we have a pie chart.
+
+344
+00:47:57,000 --> 00:48:06,000
+In both cases, you can clearly tell that Charlie ate the most, and we've helped emphasize this by adding different colors to Charlie.
+
+345
+00:48:06,000 --> 00:48:20,000
+But if we were trying to figure out whether Alice Bob or Susan ate more, I can't really tell, I think maybe Susan had the most, and then,
+
+346
+00:48:21,000 --> 00:48:30,000
+Yeah, I just think it's pretty tough to tell, in any case, except for the most obvious.
+
+347
+00:48:30,000 --> 00:48:42,000
+So, if you were making the case that Charlie ate too much of the pie, and should pay more than his equal split, split, the pie chart can help you make this point.
+
+348
+00:48:42,000 --> 00:48:45,000
+The bar plot also makes that point.
+
+349
+00:48:46,000 --> 00:48:52,000
+In general, avoid pie charts.
+
+350
+00:48:52,000 --> 00:49:00,000
+When you create line charts, you should try and avoid fitting too much information into a single line plot.
+
+351
+00:49:00,000 --> 00:49:13,000
+We see lots of people do this, and the thing that we think is important that a visualization should have one main message, and you should not dilute or pollute your message with extra information.
+
+352
+00:49:13,000 --> 00:49:27,000
+So, in an example below, we're going to come back and revisit our age dependency ratio, and this is going to be the number of individuals aged 65 plus divided by the number of individuals who are aged 15 to 64.
+
+353
+00:49:27,000 --> 00:49:37,000
+So if you have a high age dependency ratio, the government will have a smaller tax base to collect from, but we'll have higher health and pension expenditures to pay from the old.
+
+354
+00:49:37,000 --> 00:49:44,000
+So, we download the data, and we create the plot.
+
+355
+00:49:44,000 --> 00:49:54,000
+So, this is kind of every developed country in the world, and we've plotted their age dependency ratios from 1960 to 2015.
+
+356
+00:49:54,000 --> 00:50:03,000
+And I guess you can see that Japan does have the highest age dependency ratio.
+
+357
+00:50:03,000 --> 00:50:16,000
+It also looks like lots of other countries are increasing, except for whatever this one is down here, but there's lots of colors, and I just think this isn't a very good graph.
+
+358
+00:50:16,000 --> 00:50:21,000
+So, our particular message gets hidden or polluted by so much noise.
+
+359
+00:50:21,000 --> 00:50:32,000
+So, if we wanted to illustrate that Japan is different than any of the other developed countries, we might plot Japan in dark red, and notice we've also made this line thicker.
+
+360
+00:50:32,000 --> 00:50:42,000
+And we've plotted all of the other developed countries in a light gray line, so you can see that they're there, but they're not emphasized so much.
+
+361
+00:50:42,000 --> 00:50:49,000
+So, this is clearly an improvement, but we think it can be better.
+
+362
+00:50:49,000 --> 00:50:54,000
+So, again, placing this many lines is definitely an exception to our rule.
+
+363
+00:50:54,000 --> 00:51:03,000
+We think it looks okay here, but we can also make this point by simply plotting a few different lines.
+
+364
+00:51:03,000 --> 00:51:14,000
+So, here we see that Japan diverges drastically from the UK, US, China, and India.
+
+365
+00:51:14,000 --> 00:51:32,000
+But again, we think it's distracting to have so many different types of line styles, and so now we can just do a slightly different version where all of these countries are in the same color, to kind of visually group them together.
+
+366
+00:51:32,000 --> 00:51:39,000
+We've labeled them with text, so you know what's being plotted, and then we plot Japan on its own.
+
+367
+00:51:39,000 --> 00:51:59,000
+And we think of the plots, either this plot, or this plot are the most effective at conveying how Japan's age dependency ratio is different than other developed countries.
+
+368
+00:51:59,000 --> 00:52:03,000
+It's important to use easy to interpret increments.
+
+369
+00:52:03,000 --> 00:52:17,000
+So, here we're going to create the same plot twice, but in one case we're going to use tick increments of 0, 3, 6, 9, 12, and the other will use 0, 5, 10, 15.
+
+370
+00:52:17,000 --> 00:52:28,000
+If you're trying to figure out where this line crossed for, here you'd see it happened just after 15, and maybe in the 16 range.
+
+371
+00:52:28,000 --> 00:52:43,000
+Here, it looks like it happens also in the 16 range, but it just, it looks a little weird to have something that's not relatively even there.
+
+372
+00:52:43,000 --> 00:52:49,000
+There's basically no reason to ever use a background color in your visualization.
+
+373
+00:52:49,000 --> 00:52:55,000
+Lots of research has shown that white or very light graze, provided the best contrast.
+
+374
+00:52:55,000 --> 00:53:00,000
+So we'll revisit our favorite plot.
+
+375
+00:53:00,000 --> 00:53:05,000
+And again, you can't make up some of the colors that have been chosen.
+
+376
+00:53:05,000 --> 00:53:18,000
+But in this case, we've now moved to at least 0, starting at 0, so you don't feel too big, but just the blue, I think really distracts your eyes, and it takes away from looking at the bar charts.
+
+377
+00:53:18,000 --> 00:53:28,000
+And I think this graph is much more compelling when you remove the background color.
+
+378
+00:53:28,000 --> 00:53:34,000
+You just, it takes a, you don't get distracted by what's happening around the data.
+
+379
+00:53:34,000 --> 00:53:45,000
+You just immediately are drawn to what was the data now, and what is the data on January 1, 2013.
+
+380
+00:53:45,000 --> 00:53:50,000
+So here's one that some people will find a bit controversial.
+
+381
+00:53:50,000 --> 00:54:00,000
+So it turns out that people use legends quite frequently, but many visualization experts advise you not to use them.
+
+382
+00:54:00,000 --> 00:54:08,000
+So the first person that really conveyed this to me was a professor at NYU named Dave Backez.
+
+383
+00:54:08,000 --> 00:54:18,000
+And we were working on a paper together, and every time I created a graph with legends, he would send it back to me and with just the words, take out legends, and then I'll look at it.
+
+384
+00:54:18,000 --> 00:54:27,000
+And so, so I didn't quite understand it, but over time, I've understood why legends have particular weaknesses.
+
+385
+00:54:27,000 --> 00:54:37,000
+So when you rely solely on light, line color, the black and white version of your plot becomes somewhat useless, because you don't know whether the colors will be distinguishable in gray scale.
+
+386
+00:54:38,000 --> 00:54:43,000
+Legends are going to require people to distinguish between small samples of color.
+
+387
+00:54:43,000 --> 00:54:58,000
+So when you have lines on a line plot, you don't get a really good, you know, thick sample of what that color is, and so someone with a weak eyesight or with color blindness, this makes interpreting the graph very difficult.
+
+388
+00:54:58,000 --> 00:55:03,000
+And the third point is that it adds distance between the data and its description.
+
+389
+00:55:04,000 --> 00:55:11,000
+And so this is going to force people to look at a line and then look back at the legend and then look at the line and look at the legend.
+
+390
+00:55:11,000 --> 00:55:29,000
+And this, I think, distracts from their ability to digest the story quickly and succinctly, whereas if you simply label your lines, you're observing the information all at once, and you're not having to look back and forth across different pieces of the graph.
+
+391
+00:55:29,000 --> 00:55:45,000
+So, so we're going to go back to our plot from before, our Japan's aging population plot, and when we add a legend, this is what it looks like.
+
+392
+00:55:45,000 --> 00:55:53,000
+And when we just use labels, it looks like this, and I think this is a much more structured plot.
+
+393
+00:55:53,000 --> 00:56:03,000
+You can see what's happening in the UK and the US, and here, you know, first of all, all these lines are the same color, so you have no idea where they're right up.
+
+394
+00:56:03,000 --> 00:56:11,000
+And then, except for Japan, I don't know.
+
+395
+00:56:11,000 --> 00:56:19,000
+This is just an objectively better plot.
+
+396
+00:56:19,000 --> 00:56:30,000
+We want to continue to emphasize this, so we want to put this in its own bullet point, but you should limit the amount of information you'd provide in any single plot.
+
+397
+00:56:30,000 --> 00:56:36,000
+I don't provide your audience with an information overload.
+
+398
+00:56:36,000 --> 00:56:41,000
+And then our last guideline is that we encourage you to talk with others about your visualization.
+
+399
+00:56:41,000 --> 00:56:47,000
+The best way to determine whether other people understand your message is to show them and talk to them about it.
+

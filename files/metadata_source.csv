@@ -1,0 +1,63 @@
+cmetadata,count
+videos/transcripts_tiny/2.1.1 pandas intro.srt,220
+videos/transcripts_tiny/2.7.2 Visualization Rules.srt,90
+videos/transcripts_tiny/2.6.3 Using the BLS Api (3 of 4).srt,70
+videos/transcripts_tiny/2.8.2 Intro to SQL (part 2 of 2).srt,68
+videos/transcripts_tiny/2.7.3 Web plotting introduction.srt,64
+videos/transcripts_tiny/2.3.2 Reshaping data with pandas.srt,62
+videos/transcripts_tiny/2.8.1 Intro to SQL (part 1 of 2).srt,60
+videos/transcripts_tiny/2.7.4 Altair.srt,58
+videos/transcripts_tiny/2.5.1 Groupby Operations.srt,58
+Parsed Notebooks/07.2_visualization_rules.md,58
+videos/transcripts_tiny/2.13.1 Sharing Results.srt,56
+videos/transcripts_tiny/2.2.1 the pandas index.srt,54
+videos/transcripts_tiny/2.12.1 Web Scraping Intro.srt,53
+videos/transcripts_tiny/2.11.2 Lake Model Meets Data (1 of 2).srt,50
+videos/transcripts_tiny/2.11.1 Lake Model.srt,46
+videos/transcripts_tiny/2.6.4 Exploring Labor Market Data from BLS (4 of 4).srt,42
+videos/transcripts_tiny/2.2.2 data storage formats with pandas.srt,36
+videos/transcripts_tiny/2.4.2 Pandas Review UN Population data (2 of 2).srt,34
+videos/transcripts_tiny/2.7.1 Plotting Introduction.srt,33
+videos/transcripts_tiny/2.3.3 Merging datasets with Pandas.srt,33
+videos/transcripts_tiny/2.4.1 Pandas Core Review (1 of 2).srt,32
+Parsed Notebooks/12.1_modeling_decisions.md,30
+videos/transcripts_tiny/2.1.2 pandas core functionality.srt,28
+Parsed Notebooks/11.1_employment_model.md,28
+videos/transcripts_tiny/2.11.3 Lake Model Meets Data (2 of 2).srt,24
+Parsed Notebooks/07.5_ft_plot_practice.md,24
+Parsed Notebooks/08.3_timeseries.md,23
+Parsed Notebooks/05.1_groupby.md,21
+Parsed Notebooks/03.3_pandas_data_merge.md,21
+Parsed Notebooks/01.2_pandas_basics.md,19
+Parsed Notebooks/02.1_the_index.md,19
+Parsed Notebooks/09.2_sql.md,19
+Parsed Notebooks/03.2_pandas_data_reshape.md,19
+Parsed Notebooks/15.1_maps.md,18
+Parsed Notebooks/06.3_bls_api.md,17
+videos/transcripts_tiny/2.3.1 cleaning data with pandas.srt,15
+videos/transcripts_tiny/2.6.1 Accessing Data via APIs (1 of 4).srt,14
+Parsed Notebooks/04.1_pandas_example_movieLens.md,13
+Parsed Notebooks/01.1_pandas_intro.md,13
+Parsed Notebooks/02.2_storage_formats.md,13
+videos/transcripts_tiny/2.10.4 Markov Chains 4 (4 of 4).srt,13
+Parsed Notebooks/04.2_pandas_review_population.md,13
+Parsed Notebooks/07.4_altair.md,12
+Parsed Notebooks/07.3_plotting_libraries.md,11
+Parsed Notebooks/03.1_pandas_data_clean.md,10
+videos/transcripts_tiny/2.10.3 Markov Chains 3 (3 of 4).srt,10
+Parsed Notebooks/09.1_data_description.md,9
+videos/transcripts_tiny/2.10.2 Markov Chains 2 (2 of 4).srt,9
+Parsed Notebooks/06.4_bls_exploration.md,9
+Parsed Notebooks/13.1_sharing-results.md,8
+Parsed Notebooks/06.5_labor_statistics_by_gender.md,8
+videos/transcripts_tiny/2.6.2 Data on Labor Markets (2 of 4).srt,8
+Parsed Notebooks/07.1_plotting_intro.md,7
+Parsed Notebooks/06.1_apis.md,6
+videos/transcripts_tiny/2.10.1 Markov Chains 1 (1 of 4).srt,6
+Parsed Notebooks/14.1_web-scraping.md,6
+Parsed Notebooks/06.2_labor_statistics.md,6
+Parsed Notebooks/08.1_class-exercises-in-class-chase.md,5
+Parsed Notebooks/10.1_chutes-ladders.md,3
+Parsed Notebooks/08.2_class-exercises.md,3
+Parsed Notebooks/09.3_class-exercises.md,2
+Parsed Notebooks/02.3_uniqueness_example.md,1

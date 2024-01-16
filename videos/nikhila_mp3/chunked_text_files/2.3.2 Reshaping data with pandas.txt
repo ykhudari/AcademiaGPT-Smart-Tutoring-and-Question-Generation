@@ -1,0 +1,370 @@
+Hi everyone, this is Chase and the next topic that we'll be discussing is data reshaping.
+The prerequisites to understanding data reshaping are the Pandas introduction and Pandas basiclecture and the lecture that Spencer gave about Pandas indexes.
+After today you'll understand the idea of tidy data and you'll be able to understandand apply the melt stack, unstack and pivot methods.
+So then practice the transformations of different indexes and we'll practice reshaping data.Our outline for today is we'll start by discussing the concept of tidy data and why you might
+want to consider reshaping your data for different questions or goals.We'll then discuss the idea of a long data set versus a wide data set and finally we'll
+begin discussing certain methods that are used for data reshaping and these include setindex, reset index and transpose, stack and unstack, melt, pivot and pivot table and then
+we'll wrap up by using some visualizations to understand these methods a little bit
+more.
+Let's get started.Let's get started.
+So the idea of tidy data is more generally pushed in the R language.
+It was originally developed by a guy named Hadley Wickham who has played an importantrole in developing the R data infrastructure.
+So he says a data set is a collection of values, usually either numbers if quantitative or
+strings if qualitative, values are organized in two ways.Every value belongs to a variable and an observation.
+A variable contains all values that measure the same underlying attribute across units.An observation contains all values measured on the same unit across attributes.
+So what does this mean?
+With this framing, a data set is going to be considered messy or tidy depending on howthe rows, columns and tables are structured.
+In tidy data, each variable is going to form a column, each observation is going to form
+a row and each type of observational unit will form a table.The column and row terms are going to map directly to pandas, columns and rows and table
+is going to refer to pandas data frame.So as we start solidifying this concept and once you master it, the first question that
+will come to mind anytime you're introduced to a data set is what uniquely identifiesan observation in your data.
+Is it a country, a year, a combination of country and year?
+Whatever this unique identifier is will become the index of your data frame.Now in the hard sciences, this is often relatively straightforward.
+When we get to the social sciences, the concept of an observation may not be unique to a data
+set.set.
+So for example, consider a data set that includes a time series of country level GDP for many
+countries.
+The purest form of tidy data would probably take the stance that the year and countryis the identifier and there's going to be a single variable of GDP.
+So what we would have is we'd have a series with GDP as the name of that column and thenthe index on that series would be the country year combination.
+But you might also consider the year to be the unique identifier and each country's GDP
+could be a variable.You could even consider the variable might be GDP in 1999 and the countries are the unique
+identifiers.
+And so depending on the question that you're asking, you really could represent your datain many different ways.
+So the data you receive is not always going to be in a shape that makes it easy to analyzeand sometimes even having tidy data will not be the shape that you want when you perform
+your analysis.
+So what do we mean by shape?By shape we mean the number of rows and columns in a data and how information is stored
+in the index and column names.The whole idea of this lecture is going to be to teach you how to reshape your data
+and to put it into the form that you want.
+So as we recommend with everything, look at the pandas documentation.They have extensive documentation on this and they have lots of useful things to say.
+So the data set we're going to use for today, we thought we'd have a little bit of fun.And so we're going to use a data set on basketball.
+And so what we're going to have is we'll have a year, a player, which team that playerwas associated with, the name of that team, and then we'll have a few variables.
+So we'll have how many games that player played in a particular season with a particular
+team.team.
+We'll say how many points they averaged, how many assists they averaged, and how many
+rebounds they averaged.
+So what's the idea of long versus wide data?So ignore this command for right now, but a long data set is going to be similar to what
+we just saw.
+But what we're going to have is there's going to be a unique identifier, which is goingto be, in this case, the year, player, team, and team name.
+And then the name of the variable we're interested in, games, points, assists, or rebounds.
+And then the value that that variable takes.This is what we would call a long form data set.
+And what you'll see is it's probably less efficient at storing data than the previous
+form that the data was in.So all we've done is we've taken games, points, assists, and rebounds, and we've turned
+it into four observations rather than one.And so now we have this unique identifier, which is 2015 Curry Golden State Warriors Warriors.
+And we've repeated it four times.
+So this is what long looks like.And you'll notice it's called long because it becomes very long and tall.
+So what does a wide data set look like?In a wide data set, you now have the as much identifying information as possible on the
+columns rather than on the rows.So now we have the player, whether it's Curry, Durant, or Ibaka, we have the variable,
+and then we have the which team they were on.And notice there's lots of missing data here because in the year 2015 Durant did not
+play with the Golden State Warriors.So a wide data set is simply going to be one that puts as much identifying information
+as possible in the columns rather than the rows.So depending on what we're doing, we may want a wide or a long data set.
+So you'll think if you think about, I don't know if you had to learn this, but when I wasfirst learning econometrics, I was forced to use a program called STATA.
+And STATA really likes to put things in a wide format.Because in a wide format, each column is going to be a particular variable or observation.
+And when you perform analysis, you're typically trying to compare one column to another.So because of this, depending on what we're trying to do, we may or may not want to have
+data in the wide or long format.
+So let's start talking about these methods.So the first methods we're going to see are set index, reset index, and transpose.
+And I suspect we saw some of these from Spencer's lecture.
+And so this will mostly just be a review.So if we start with our basketball data set, let's just remember, remind ourselves what
+it looks like.
+So look something like that.
+We could set the index to be player and a year.And let's see what that does.
+And all it does when we set this index is it takes the columns from the data frame and
+it shifts them to the index.So what transpose does is it does the same thing as a transpose does in the numpy array.
+It's going to swap the column names to become the index and the index to become the column
+names.names.
+So notice, Curry 2015 was on the index in the first data frame.
+But in the second data frame, Curry 2015 is on the columns.
+Okay.
+That's all we're going to talk about this.The other thing I guess you might say is I didn't.
+But you can reset the index in which case it's just going to move the index values back
+into the data frame.So this is roughly our original data frame, module, column order.
+Okay.
+So now we'll start talking about the stack and unstack methods.So stack is going to move certain levels, certain levels of the columns labels into the
+index.
+So what this is trying to do is we're moving from a wide format to a long format.So let's start with the wide data frame that we created.
+Remember this has almost all of the information up here in the column values.And so suppose that what we want to be able to do is compute the mean value for each
+stat for each player, regardless of the year or team.So to do that, so this is going to tie back to this idea of a want operator.
+So what do we want?
+We want to compute the mean of each statistics for each player, independent of what teamthey were playing for in a given year.
+So what do we need to do that?
+We need one column for each variable.
+Okay.
+So in some ways, this is good.
+Each variable and each player.So we have this information already.
+But we want that column to cover both the years and which team they were with.
+So the way that we're going to you do this is with this method stack.So be ball wide dot stack gives us the following.
+So what's happened?
+So you'll remember that in this data frame, golden state warriors was an identifier that
+was on the columns.was on the columns.
+And all it's done is it's moved those from the column to the index.
+So now they still identify the same value.
+Curry assists golden state warriors in 2015.But now it's curry assist and the golden state warriors in 2015.
+And notice Curry never played for the Oklahoma City in 2015.
+And so he doesn't show up.
+It's a man.It's a man.
+And so once we've done that, we can just compute the mean.
+And so what this says is that.
+Stefan Curry averages about six and a half assists a game independent of what team he's
+with.with.
+He's about 70 games a season and averages about 27 points and five rebounds.
+So what if instead of computing the average by player, we wanted to compute the averagefor each team and stat averaging over years and players.
+So we need to move now in this first example, we moved the team identifier from the columns
+to the rows.to the rows.
+Now we need to move the player identifier from the columns to the rows.
+And so how do we do this?
+All we have to do is we can specify a level.And so when we change the level that's being passed.
+So the default is that level passes the outer most.
+In this case, this would be team or the inner most.Or the past team, but because we're specifying player, now it's moved player from the columns
+to the index.
+And we could now compute the mean.So what we see is the players, again, this is only three players.
+So the golden state warriors across these three players averaged about 26 points per game.So without any arguments, this is what we were just saying.
+The stack method is going to move the level of column labels closest to the data to become
+the index level closest to the data.So it will go from the inner most column value, inner most column identifier to the inner
+most index identifier.
+When we specify a level, it's going to move that level of column labels to the innermost level of the index, which is on the right.
+And we could just point out that you can do multiple call multiple column identifiers
+at a time.at a time.
+So in this case, we moved both player and team to the index from the columns.
+So this takes a little bit of getting used to understanding what stack does.And we'll make sure to include some examples of doing this on your homework so you get
+lots of practice.
+When and if you have questions, please don't hesitate to ask.The idea of reshaping takes a lot of getting used to.
+And these methods are all things that took me kind of months to learn on my own.And I'm hoping we present them in a way that will help you learn them more quickly.
+But it's the kind of thing that will take a lot of practice.
+So now we're going to talk about unstack.And as you might guess, unstack is going to do the exact opposite thing as stack.
+So let's look at our player stats series.
+And we have a player and a variable.And then we have a value for that variable.
+So again, step on query had about six and a half assists per gain.
+Now we want to put the data in a format that will allow us to call the plot method thatautomatically is going to create a bar plot.
+So what you might remember is the plot method is going to automatically set the index to be
+the x value the x identifier in our plot.So when we unstack our data, what it does is it's going to move the intermost index to
+become the intermost column identifier.So it's just rotated assist games points rebounds to become values in the columns.
+And so now if we call plot on what we just created is it's going to put the player names
+as the x value.as the x value.
+So we have curried to rant Ibaca.
+And then it's going to create a bar for each of the variables of interest.So this particular plot is helpful if we're trying to compare which statistics a player
+is strongest at.
+So we might see that step on query scores a lot of points, but maybe rebounds a littlebit less and does a few more.
+There's lots of assists, whereas someone like Kevin Durant scores a similar number of
+points, but he has more rebounds and less assists.But what if we wanted to be able to compare a particular variable across players?
+In that case, it would be easier if the bars were grouped by a variable with a different
+bar for each player.And so just like the stack method allowed us to specify a level, the unstack method also
+allows us to specify which level we'd like to unstack.So if we specify that we'd like it to unstack player instead of the default, which is just
+the intermost, then we can create a bar plot like the following.And now we see that step on query typically plays more games than anyone else.
+And the only thing he doesn't do more of is rebound.
+So again, stack and unstack are going to be opposite operations.Stack is moving our data from wide to long, and unstack is going to be moving from long
+to wide.
+OK, so set index, reset index, stack and unstack are going to be the most fundamental reshapingoperations.
+If you know these four or five methods, what you can do is any of the other operations
+that we discussed today will typically be a combination of these operations.And in fact, some of them are exactly written as combinations of these operations in the
+pandas code base.
+One little hint is we remember stack versus unstack using the following mnemonic.Unstack moves index levels up.
+OK, so next we're going to start talking about some additional methods that again are
+going to be they could be performed using the methods we've already discussed.OK, so melt is going to be a method that moves from wide to long form.
+It's going to move all of the values stored in your data frame to a single column withall other columns being used to contain identifying information.
+Now this should sound a lot like changing data to tidy data, and it is.
+So let's look at our original data set.This data set we had a column for year, player, team, team name, games, points, assists and rebounds.
+Now one way that you might identify a particular variable is you might look across the year,player, team, team name, and then have a value for defining what variable you're interested in.
+So let's go ahead and just look at what this does.So notice we have this argument to the melt method called identification variables.
+So what are our unique identifiers?
+And so all this is done is it's taken our unique identifier, which was this.And now it's created a row for the variable games with the value 79, a row for the variable points
+with the value of 30.1.
+And if we went down, we would see more.And so what you see is it's created basically a separate row for each of these columns,
+but it's repeating this unique identifying information.And what it's done is it stored this new, well, this information that was already here in two new columns,one called variable, which is associated with any of the columns that were not an identifying variable
+and value, which contains the value of these columns.And as mentioned, this method is an effective way to get our data into tidy format.
+So we're going to pause for a minute.
+So we've seen kind of a lot of information.So let's just take a second and regroup.
+So and let's work through each of these questions.
+So what do you think would happen if we wrote bball.melt ID vars year player rather than what we wrote?In this case, just write some of your thoughts.
+Next, read the documentation of the melt function and focus on the argument value vars.How does this method call that we do right here compare to the one that we did in part one?
+And now think about the differences between bball.stack and bball.melt.Could you make them have the same output?
+Maybe take a minute and do some experimentations and think about whether you could do this.
+And let's go ahead.
+This will probably take about 10 minutes.And we'll get a sense when you're done.
+So go ahead and pause the video.
+Okay, everyone, welcome back.
+So let's talk through some of our answers.So in this first case, when we cut out the identifiers team and t name,
+what's going to happen?
+What it will do is team and t name are going to be possible values that the variable column takes.And the values are just going to be pulled from the team and team name column.
+So let's go ahead and see what that would look like.
+So here we see the variable.It can take the value team now and it can be associated with the team values,
+which were GSW, OKC and whatever the other one was.
+So what does the value bars argument to do?So we can open up the documentation remember by putting a question mark after the method.
+Let's read about value bars columns to unpivot.If not specified, uses all columns that are not set as ID variables.
+So in this case, what it's going to do, what this means is,
+it's only going to keep the columns points and rebound.And those are the only ones that are going to be brought to into the variable and values columns.So if we look at the output of this, the only variables that are going to show up are points and rebounds.
+And then there are associated values.Finally, let's think about the difference between stack and melt.
+Can we make them set the same output?
+The answer is yes, we can.So if we take our data frame and we set the index to be our ID variables,
+which were a year player team and team name,
+then we can stack the remaining columns,which are going to be the variable and the values,
+which don't have a name in the original data frame.
+And then we could reset index and notice this is now given us exactly the same output as melt,except we now have ugly names for these two columns.
+And we could always rename these.But we think it's a useful exercise to think about how you can recreate certain methods using the core functionality.OK, so the next two reshaping methods we'll talk about are called pivot and pivot table.
+You may already be familiar with some of these ideas because you've previously used pivot tables in Excel.If you have, that's great.
+We think that you'll be able to do even more than you can do with Excel using Python.
+And we think it's easier to use.If you haven't seen a pivot table, then we have other great news.
+You're about to use an extremely powerful tool that's used across the business and academic world.
+So let's begin with pivot.The pivot method is going to take unique values of one column and it's going to place them along the index.
+It will then take the unique values of another column and place them along the columns.And it will take the values that correspond to a third column and fill this data frame with values that correspond to that index column pair.
+So let's go ahead and take an example.So let's look at the following data frame.
+So let's just look at the first six observations of our basketball data frame.
+And now we're going to give pivot the arguments index equals here.Columns equal player and values equals points.
+And so now let's read what pivot does is it's going to take the unique values of one column and place them along the index.So we might think that it's going to place 2015, 2016 and 2017 on the index.
+It's going to take the unique values of another column and place them along the columns.So there might be curry and Durant.
+So we think, according to what I've described above, we have a three by two data frame.Now it's going to take the values from a third column and it will fill the data frame with values that correspond to that index column pair.
+So we put values equals points.And so the combination of 2015, which is on our index and curry, which is a column, should probably take the value 30.1.
+Let's go ahead.
+Maybe I should have been writing this down.So our unique values for the index were 2015, 2016 and 2017.
+And our unique values for player were curry and Durant.
+And we wanted to put points as the values associated in this data frame.And so in 2015, the player curry scored an average of 30.1 points,
+Durant scored an average of 28.2, dot, dot, dot, dot, dot.
+Let's see whether this is what we get.
+Excellent.Excellent.
+So if we read these instructions carefully, it looks like we got what I promised we would get.
+So we could always replicate pivot using our fundamental operations.You could call set index with the index and columns arguments, extract the particular values column,
+and then unstack the columns to the new index.So step one is we're going to set the index to be year in player.
+So let's go ahead and see what each of these steps would look like.So that gives us a data frame that has a year in player on the index and keeps all of this other information.
+We then want to select a particular column.In our case, it's the points column, which is going to move this back to a series because we only have a single column.
+And then finally, what we'll do is we're going to unstack the level player.And so notice the unstack is going to move these values into the column.
+It's going to make our data wider than it currently is.And we can compare the two data frames and we can see that we've successfully replicated pivot.
+So one thing that's important is that pivot will only work when the index or column pairs are unique.So in 2016, Ibaca is going to show up twice because he was traded in the middle of his seasons from the Orlando magic to the Toronto Raptors.
+So why would this create a problem?So if we look at our data set, what we see is that he has two values for the year 2016.
+So he played with both the magic and the raptors.And so if we tried to put just one value into our table, we couldn't we would not know whether it should be 15.1 or 14.2.
+So that will give us this error that I promised.So index contains duplicate entries cannot reshape.
+Luckily, we have a way to deal with this.
+So in addition to the pivot method, there's a method called pivot table.And it's going to be a generalization of pivot.
+And it's going to overcome two particular limitations.
+First, it will allow you to choose multiple columns for the index columns or values arguments.And second, it will allow you to deal with multiple with duplicate entries by having you choose how to combine them.
+So let's look at our data frame.
+We have our basketball data frame.And now let's do the same operation we just tried to do.
+We are instead of pivot, we now use pivot table.
+Oh, so that's right.
+So we can successfully do what we did with pivot.Let's go ahead and I think we are going to do this in a minute.
+But let's look at what happens when we don't take the year.
+So remember, in 2016, Ibaca played for two teams.And with those two teams, he averaged 15.1 and 14.2 points.
+So what happened was it took the average of those two values.
+And we'll talk more about why that is and what it can do in a second.So we can also choose multiple index or columns values.
+So now we can do a year and team.
+And notice this does become unique.
+So we get the 15.1 and the 14.2 with two different teams.But the downside is we get lots of missing data.
+So Durant never played with the Golden State Warriors in 2015.
+And he did a play with Orlando in 2016, where Ibaca has neverplayed with the Golden State Warriors.
+Similarly, we can put multiple values on the column rather
+than the index.
+Quick quiz.
+This is just 30 seconds.How could you convert from this data frame that's created
+by this command to this data frame converted by this command?
+So if you've been paying attention, you'll noticethat this is just simply an unstack.
+That we can unstack the team level.
+And it will move it to our columns rather than the index,
+just to see if you're paying attention.
+OK.OK.
+And so like I said, it now is going to allow us to deal with duplicated
+values.
+And the way it does that is it's going to perform an aggregation.
+And if you remember, an aggregationis an operation that takes multiple values
+and creates a one value.
+And so like I said, 14.65 was just the mean of 15.1 and 14.2.
+But pandas allows us to choose how we aggregate these data
+points.points.
+So we could choose to take the max, in which case we get 15.1.
+We could also just count how many values there were.
+And so in this case, what we're asking is how many teamsdid each of these players score points for in each year?
+And notice we see that Ibaca scored points for two
+different teams.
+And you can even pass multiple aggregation functions.So if we wanted to have the max, which was 15.2,
+but we wanted to know also how many teams they played for,
+we could get it here.
+So first, again, let's take a breath.
+This was a lot.This was a lot.
+And let's spend five minutes thinking about the next two
+questions.
+Can you think of a reason someone might ever want to use pivot
+rather than pivot table?
+Write down your thoughts.And second, create a pivot table with column
+as the index and team name with the column player as the index,
+with the column team name as the columns,
+and rebound and assist as the values.What happens when you use these aggregation functions?
+Describe how Python produced each of the values
+in the resulting pivot table.
+So let's go ahead and pause the video.OK, let's talk about our answers.
+So the reason that comes to my mind
+why you might want to use pivot rather than pivot table
+is when you want to enforce the uniqueness.You may not actually want any aggregations
+to happen behind the scenes.
+And pivot table will perform those aggregations
+behind the scenes.
+You could always check by this by seeing how many valuesappeared in each little cell by using the length argument
+as an aggregation function.
+But sometimes you just want to throw an error.
+Now we create the pivot table we described above.And how was this created?
+So what happened was we got the three unique players
+on the index.
+And we got the columns.
+First, in the innermost, we have the team names.And then what it's done is on the next level of index,
+it's added each of the variables that we were interested in,
+which in our case was just assists and rebounds.And then on the outermost, it's given us
+the values for each of these aggregation functions.
+So it gives us the max, the min, and the length, which
+is a counter.is a counter.
+And so the way that the index is ordered on the column side
+is first, on the innermost is whatever columns you pass
+into the columns argument.
+Then it has another layer where youcan pass the different values.
+And it has a final layer where you pass each of the aggregation
+functions.
+And so if we wanted to look at, so say we saved this,and we just wanted to look at the maxes,
+we could just select the max.
+Or if we wanted to get fancy, we could
+just let me space this out a little bit.
+So it's not so ugly.
+Great.Great.
+So we want all of the rows.
+But maybe we only want to get the max associated
+with assist and all.
+I don't remember whether we've talked about PDDAC
+index slice yet.index slice yet.
+But you'll notice it's just given us these particular.
+So it's selected a particular level on the outer most,
+a particular level on the next outer most.And then we've taken all of the values for team name.
+OK.
+So now that we've learned the basics,
+let's go ahead and circle back.
+And let's use a toy data frame and watchsome visualizations that perform these operations.
+So we're going to use the toy data frame
+that has columns, ABCDE, with the following values inside of them.
+OK.OK.
+So that's the data frame 2 and the data frame 3.
+OK.
+So this animation is going to perform how stack works.
+So let's take data frame 2 and see what happens when we stack.So when we stack, notice it takes each of the values 1, 10,
+and 2 associated with these columns.
+And it moves the columns c, d, and e.
+So we're about to see it again.So it's going to take this whole row and move it to here.
+So you have access to these.
+So I suggest if you're trying to figure out what stack and unstack do,
+watching this operation a few times,we can do the same thing for unstack.
+So notice it brings down the outer layer of the index.
+And then it's going to work.
+So we're going to use the toy data frame 2.And we're going to use the toy data frame 2.
+And then it's going to move the next layer across the columns.
+So let's see what that looks like.
+So again, we've now moved x, y, z here.And then the red values are kind of not randomly,
+but they're placed in a zero cx.
+So that's where we get the 1, 2, 3, 4, etc.
+And then finally, here is melt animated.And what we see is we create a new two new columns,
+variable in value.
+And then all of the c values get put into the first four,
+associated with their corresponding a's and b's,and then d's and then ease.
+So come back to these animations.
+Do a little bit of studying with them.
+And you should think Spencer.
+He spent a lot of time.
+These are animated in SVG.And he wrote this by hand.
+And I think it's really, it's really a miraculous animation.
+I think he actually improved my understanding
+of some of these operations when he created this.So that's everything we have on reshaping data.
+This was a dense topic.
+Please come back, study this again.
+It will take multiple times to master this.
+We'll talk soon.
+Bye.

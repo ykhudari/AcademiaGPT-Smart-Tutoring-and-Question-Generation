@@ -1,0 +1,2396 @@
+1
+00:00:00,000 --> 00:00:07,360
+Hello. This is Spencer Lion and in this lecture we will be learning about how to share
+
+2
+00:00:07,360 --> 00:00:11,360
+the results of our research and analysis.
+
+3
+00:00:14,640 --> 00:00:22,160
+So, agenda or outline for this lecture is follows. We will first talk about the purpose we have
+
+4
+00:00:22,160 --> 00:00:28,400
+in sharing results. We'll call this the introduction. We'll then focus for a little bit on how we
+
+5
+00:00:28,400 --> 00:00:35,280
+can share Jupiter notebooks in a variety of ways. And then we'll talk about interactive
+
+6
+00:00:35,280 --> 00:00:44,240
+shape. The section on Jupiter notebooks will cover how we can share a static representation
+
+7
+00:00:44,240 --> 00:00:51,200
+of our analysis. And when we say static we may not connect it to a running Jupiter kernel.
+
+8
+00:00:51,200 --> 00:00:58,000
+So, no code can be executed by a Python or the language of our notebook. And then the interactive
+
+9
+00:00:58,000 --> 00:01:04,320
+section. We will learn how we can actually have live feedback from the user on a website.
+
+10
+00:01:04,880 --> 00:01:11,600
+A trigger code to be executed in Python. And then results sent back to the user's website.
+
+11
+00:01:12,160 --> 00:01:13,600
+So, it becomes an interactive app.
+
+12
+00:01:20,960 --> 00:01:25,760
+As we've been learning tools of data analysis and computation,
+
+13
+00:01:26,400 --> 00:01:29,040
+we are becoming researchers and data analysts.
+
+14
+00:01:30,400 --> 00:01:35,840
+As a researcher or data analyst, we're called knowledge workers. This means that our
+
+15
+00:01:35,840 --> 00:01:39,840
+primary source of capital is knowledge information or data.
+
+16
+00:01:40,960 --> 00:01:48,000
+One primary responsibility of at knowledge workers have. And especially those who work with data
+
+17
+00:01:48,720 --> 00:01:51,840
+is to be able to use the information we have access to.
+
+18
+00:01:52,800 --> 00:01:55,920
+In order to assist a decision making process.
+
+19
+00:01:57,920 --> 00:02:03,040
+In order to be effective in a system of process like this, we need to do
+
+20
+00:02:03,360 --> 00:02:08,720
+we need to both perform analysis as well as have effective communication of our results.
+
+21
+00:02:13,520 --> 00:02:20,000
+Being able to effectively communicate at the output of our analysis and work is absolutely essential.
+
+22
+00:02:20,960 --> 00:02:25,360
+Without effective communication, the work we do will have little to know in back.
+
+23
+00:02:28,160 --> 00:02:33,440
+In order to be effective at communicating our results, we need to decide a number of things.
+
+24
+00:02:34,560 --> 00:02:37,120
+First, we need to determine who our audience is.
+
+25
+00:02:38,480 --> 00:02:47,680
+This is sometimes a broad category, such as the public at large. This would be for
+
+26
+00:02:48,640 --> 00:02:54,000
+anybody that's on the internet, for example, to be able to consume the output.
+
+27
+00:02:54,000 --> 00:02:59,840
+This might be writing to a particular body of research. Maybe we have a paper
+
+28
+00:02:59,840 --> 00:03:08,080
+or some analysis in a particular field. And we would like to present our work as a novel
+
+29
+00:03:08,080 --> 00:03:13,120
+contribution to the field. And so we're really reaching out to an audience of our peers
+
+30
+00:03:13,120 --> 00:03:16,480
+in order to demonstrate the new insights we've gained through our work.
+
+31
+00:03:17,680 --> 00:03:22,320
+We may have an audience be a client if we're working on a data project in the private sector.
+
+32
+00:03:23,520 --> 00:03:30,400
+They may or may not be technically inclined, so we'll have to be careful to tone both our language
+
+33
+00:03:30,400 --> 00:03:37,840
+as well as the types of rich output we show, the at tables, numbers, charts, etc.
+
+34
+00:03:38,720 --> 00:03:43,600
+So that the audience that will is supposed to receive our analysis will be able to understand it.
+
+35
+00:03:49,120 --> 00:03:54,080
+Then after we really understand who our audience is, we need to be able to determine what the
+
+36
+00:03:54,080 --> 00:04:02,080
+content should be. Or one audience, they may want just a few summary paragraphs and a chart or two.
+
+37
+00:04:02,960 --> 00:04:10,480
+However, for this may be suitable for the broad audience that is the public. However,
+
+38
+00:04:10,480 --> 00:04:14,880
+if we are publishing a paper and some of the work we're trying to show is in, for example,
+
+39
+00:04:14,880 --> 00:04:21,280
+a technical appendix. We will need to show in great detail various algorithms and derivations,
+
+40
+00:04:21,280 --> 00:04:26,640
+as well as the code and results. In this case, the content would be much more than a few
+
+41
+00:04:26,640 --> 00:04:35,120
+summary paragraphs chart. Finally, after we've identified who we're speaking to and what it is
+
+42
+00:04:35,120 --> 00:04:42,400
+we're supposed to say, we need to decide upon a medium or a technology or convey our insights
+
+43
+00:04:42,400 --> 00:04:53,760
+and information to our audience. These could be some standard technologies such as a PDF document or
+
+44
+00:04:53,760 --> 00:05:01,040
+other data document, on one end, or could range all the way to the other end as a full-blown
+
+45
+00:05:01,040 --> 00:05:08,720
+interactive web application or API for others to interact with and consume in their own research
+
+46
+00:05:08,720 --> 00:05:18,720
+and work. But in order to be effective at communicating, we need to identify these three key components.
+
+47
+00:05:19,520 --> 00:05:28,160
+Let's take an example. I have this class we've been working on together. We as the
+
+48
+00:05:28,160 --> 00:05:33,440
+instructional staff have made a decision to distribute most of the materials for this course as
+
+49
+00:05:33,440 --> 00:05:42,640
+Jupiter Notebook, coupled with three recorded videos. Why? Well, our audience is you,
+
+50
+00:05:43,280 --> 00:05:52,320
+fellow data enthusiasts and researchers and data workers, who are capable of downloading,
+
+51
+00:05:52,320 --> 00:05:59,520
+opening, and utilizing a Jupiter Notebook. We chose to give you the Notebook in its raw and original
+
+52
+00:05:59,520 --> 00:06:06,800
+form so that you can follow along, make changes, really dive in to how we do certain things and
+
+53
+00:06:06,800 --> 00:06:13,360
+provide you the full content of our lectures. An alternative could have been to present a PDF
+
+54
+00:06:13,360 --> 00:06:19,040
+version of our slides and distribute those. But that would have come at the limitation of not
+
+55
+00:06:19,040 --> 00:06:25,200
+being able to interact with code examples, change them, and re-run them. So for our particular audience,
+
+56
+00:06:27,920 --> 00:06:36,400
+this made sense to distribute as the full Jupiter Notebook. Another important factor that went
+
+57
+00:06:36,400 --> 00:06:42,880
+into our decision was the type of content we needed to display. We knew that we would need to write
+
+58
+00:06:42,880 --> 00:06:49,200
+some text that needed to be formatted. We have a number of equations or other rich formatting
+
+59
+00:06:49,200 --> 00:06:56,320
+like the list or italic or both content. We also knew that there would be a heavy portion of computer
+
+60
+00:06:56,320 --> 00:07:02,400
+code, specifically in the Python language, for this part of this course. And in addition to seeing
+
+61
+00:07:02,400 --> 00:07:09,040
+this code, we also wanted to be able to show and display the results or the output of that.
+
+62
+00:07:11,600 --> 00:07:19,200
+And then finally the medium that we would use would be our Jupiter Notebook and the technology we
+
+63
+00:07:19,200 --> 00:07:25,520
+used to distribute it was the co-cook derver of where we are hosting materials.
+
+64
+00:07:25,600 --> 00:07:35,920
+In order for, and then the other part of our delivery was the pre-recorded video.
+
+65
+00:07:36,560 --> 00:07:46,560
+We did this for a number of reasons. First, as we are teaching remotely and unable to be in person,
+
+66
+00:07:47,200 --> 00:07:54,560
+we felt like having an opportunity to have high quality and polished materials,
+
+67
+00:07:54,560 --> 00:08:02,960
+be a recording beforehand, the ability to edit, could increase the likelihood of student success.
+
+68
+00:08:04,320 --> 00:08:09,520
+Second, the other reason, another reason for using videos is so that you could have them to refer
+
+69
+00:08:09,520 --> 00:08:16,720
+back to and rewatch as you're reviewing the materials from the lecture. As we don't have as easy
+
+70
+00:08:16,720 --> 00:08:24,160
+access to things like in-person office hours. And then third, the final reason is a technology limit
+
+71
+00:08:24,160 --> 00:08:31,680
+where we did not want to be reliant on a live and high integrity internet connection
+
+72
+00:08:32,480 --> 00:08:37,520
+during the entirety of each of our lectures. If for some reason we can't connect via video
+
+73
+00:08:37,520 --> 00:08:41,680
+conferencing, you would still be able to consume the lecture material through the video.
+
+74
+00:08:46,720 --> 00:08:53,520
+Let's now talk about how to share Jupiter Notebooks. There are many options available to us
+
+75
+00:08:53,520 --> 00:08:58,800
+for sharing a Jupiter Notebook. This is one of the things that gives the Jupiter Notebook
+
+76
+00:08:58,800 --> 00:09:07,040
+or that makes the Jupiter Notebook such a powerful tool. Not only is it flexible in the types of input
+
+77
+00:09:07,040 --> 00:09:14,320
+and content it can represent, but it's also very flexible in how the content and results can be distributed.
+
+78
+00:09:15,840 --> 00:09:22,640
+We will cover a few of the main ways for sharing Jupiter Notebooks here in this video. And then
+
+79
+00:09:22,720 --> 00:09:31,680
+offers some suggestions and advice or which form of distribution you may choose based on your audience
+
+80
+00:09:31,680 --> 00:09:41,200
+and content. After discussing the why we would pick one option over another, we will show an example
+
+81
+00:09:41,200 --> 00:09:44,000
+of how to use that particular method of distribution.
+
+82
+00:09:44,400 --> 00:09:56,640
+First, we would recommend being able to share Jupiter Notebook via GitHub. GitHub is a web service
+
+83
+00:09:57,200 --> 00:10:04,800
+or website that provides both remote Git repositories as well as collaboration and sharing features.
+
+84
+00:10:05,200 --> 00:10:15,680
+As we know, a Git repository is a folder that sits when we're working with it on our computer
+
+85
+00:10:15,680 --> 00:10:23,440
+and is managed by the Git version control system. Git is used to keep track of changes to each of our files
+
+86
+00:10:25,440 --> 00:10:33,600
+at a history of checkpoints that we choose to keep track of. Typical workflow when using Git
+
+87
+00:10:33,680 --> 00:10:42,000
+would be to add a feature or make a change to some analysis or report and then create a
+
+88
+00:10:42,000 --> 00:10:48,880
+commit or saved version of our work at that moment in time before we begin on the next step.
+
+89
+00:10:49,680 --> 00:10:56,080
+And if we do this regularly, we will end up with an entire history of how our analysis and
+
+90
+00:10:56,080 --> 00:11:00,640
+work evolved from the start all the way through at the present time.
+
+91
+00:11:02,960 --> 00:11:07,040
+This is how we would use Git on our computer but we may also want to use Git
+
+92
+00:11:08,160 --> 00:11:12,560
+either on a different machine or with other people and that's where a service like GitHub would come
+
+93
+00:11:12,560 --> 00:11:20,160
+into play. After we've made the changes to our files on our computer, we can then push the Git
+
+94
+00:11:20,160 --> 00:11:27,040
+commits to a web resource like GitHub where they can be shared either publicly or privately with
+
+95
+00:11:27,040 --> 00:11:38,320
+others of our choosing. GitHub has become the home of millions of the most used open-source
+
+96
+00:11:38,320 --> 00:11:44,000
+projects in the world. There are many, many projects such as Python packages like
+
+97
+00:11:44,000 --> 00:11:52,560
+pandas and map plotlib that we've used as well as other analyses, technical appendix,
+
+98
+00:11:52,560 --> 00:12:02,480
+source for papers and so on. One benefit of using your of using GitHub within your Git workflow
+
+99
+00:12:03,840 --> 00:12:09,920
+is that you're able to go to the GitHub website and view the contents of your repository.
+
+100
+00:12:10,560 --> 00:12:17,040
+When you do this and you view the contents of your repository, the files on GitHub will be rendered
+
+101
+00:12:17,040 --> 00:12:25,120
+quite nicely. You may have some markup in a Markdown file. Instead of seeing the raw text when you
+
+102
+00:12:25,120 --> 00:12:33,200
+visit the Markdown file on GitHub, you will see a nicely formatted version and rendered version of
+
+103
+00:12:33,200 --> 00:12:39,280
+that file. The same goes for you but are no books. So when you go and you visit or browse or
+
+104
+00:12:39,280 --> 00:12:46,000
+repository on GitHub, you'll see syntax highlighting for code, images, will display natively,
+
+105
+00:12:46,000 --> 00:12:52,560
+you can open PDFs within GitHub and you can also see a fully rendered Jupyter notebook
+
+106
+00:12:54,000 --> 00:13:00,000
+right within the GitHub interface. Let's take a look at an example of what this looks like.
+
+107
+00:13:00,640 --> 00:13:06,880
+Through this, I will leave full screen mode and create a new tab in my web browser.
+
+108
+00:13:08,240 --> 00:13:15,120
+I will then go to GitHub.com and just have and as I'm already logged in,
+
+109
+00:13:15,840 --> 00:13:22,400
+I'm greeted with my default homepage. Let's go ahead and look at this first repository here
+
+110
+00:13:22,800 --> 00:13:30,320
+called dataframe.jl. Once I'm here, you'll see that this file is called readme.nd
+
+111
+00:13:31,520 --> 00:13:40,400
+and this is a markup file in the Markdown formatting language and this is not the true raw representation.
+
+112
+00:13:40,400 --> 00:13:45,680
+This is the nicely formatted one we mentioned before. I'll go to click raw. Now I will be
+
+113
+00:13:45,680 --> 00:13:52,160
+taking to a page that contains the actual code or the markup this file. You'll see here that it has the
+
+114
+00:13:52,160 --> 00:13:59,200
+same contents. There is tools for working with tabular data in Julia, followed by installation,
+
+115
+00:13:59,200 --> 00:14:06,960
+documentation, reporting issues and computing. Back off back, I'll see that I have the same content here,
+
+116
+00:14:06,960 --> 00:14:15,280
+but it's rendered quite nicely. Let's go back out again and let's move to the repository
+
+117
+00:14:15,280 --> 00:14:21,760
+that the instructor has been working on for parts of this class. I'll go here and I'll navigate to
+
+118
+00:14:23,040 --> 00:14:30,080
+one of these lectures on webplotting. When I go here, I click on a notebook, but I see
+
+119
+00:14:31,040 --> 00:14:38,080
+is after this loads is a nicely formatted version of all of our notebook. We'll see here that we have
+
+120
+00:14:38,480 --> 00:14:47,760
+the rich text. Here's a header, the monospace font link. We also have code cells. These are
+
+121
+00:14:47,760 --> 00:14:54,720
+going to be in the monospace font with the code cell background and the syntax highlighting.
+
+122
+00:14:55,600 --> 00:15:01,280
+This particular notebook has been stripped of all of its outputs. We won't see those here.
+
+123
+00:15:01,920 --> 00:15:10,880
+If we navigate to a different repository, we could see what the rich outputs may look like.
+
+124
+00:15:14,080 --> 00:15:19,360
+This particular repository is some machine learning tools that integrate
+
+125
+00:15:19,360 --> 00:15:23,760
+and us. We'll look here in the examples and we'll open up one of these
+
+126
+00:15:24,080 --> 00:15:32,000
+final books, Cborn 1 distribution. Now we see here that in addition to the code, we have some outputs.
+
+127
+00:15:32,000 --> 00:15:40,480
+This is a table and it is how Canvas data frames are rendered. And then we can see a number of
+
+128
+00:15:40,480 --> 00:15:49,040
+charts that throughout this file. Now if we were to have run the codes and Dave the results
+
+129
+00:15:49,040 --> 00:15:54,640
+for the notebooks for this course, we'd be able to see them output it like these are.
+
+130
+00:15:55,920 --> 00:16:03,280
+This all comes quote for free when we use GitHub as a means of sharing our resources.
+
+131
+00:16:04,160 --> 00:16:18,480
+Now we will talk about why we might share Jupyter notebooks on GitHub.
+
+132
+00:16:20,480 --> 00:16:24,640
+There are two main reasons that we have found we like to share in notebooks.
+
+133
+00:16:25,280 --> 00:16:32,400
+One would be to collaborate with others. Often we are doing analysis as part of a team or group
+
+134
+00:16:32,400 --> 00:16:38,560
+of coauthors. And in this setting, our audience for wanting to share our
+
+135
+00:16:39,280 --> 00:16:43,040
+communicate our results would be the colleagues or coauthors we are working with.
+
+136
+00:16:45,920 --> 00:16:51,440
+Second, are the content for this particular group? Would be the research code,
+
+137
+00:16:51,440 --> 00:16:56,320
+documentation for that code, or maybe some examples or experiments that we've been trying.
+
+138
+00:16:57,280 --> 00:17:03,200
+In each case, having the code be in the medium of a Jupyter notebook and shared via the GitHub
+
+139
+00:17:03,200 --> 00:17:11,600
+technology allows us to easily transfer or share all of this content with the right
+
+140
+00:17:11,600 --> 00:17:17,520
+audience so that they can also help and contribute. If we were in some stead,
+
+141
+00:17:17,520 --> 00:17:24,960
+sending back the PDF file and asking feedback, it would be difficult for our colleagues to edit
+
+142
+00:17:25,120 --> 00:17:31,840
+that PDF file or make changes using GitHub stillitates a back-and-forth collaboration.
+
+143
+00:17:33,200 --> 00:17:39,360
+The second main reason we may want to share our code, Marju Bittano books on GitHub,
+
+144
+00:17:40,160 --> 00:17:48,720
+is to share with a public audience. GitHub is a very popular and well-known and often used site.
+
+145
+00:17:49,200 --> 00:17:53,920
+And hosting our content there may allow us to get some publicity or some
+
+146
+00:17:55,040 --> 00:18:00,720
+extra viewers of our content that we may not pick up via other sharing technology.
+
+147
+00:18:01,680 --> 00:18:08,960
+The type of content that we share most often would be reports, maybe an appendix to a paper,
+
+148
+00:18:09,520 --> 00:18:16,480
+or even class course materials, if the learning materials that we develop, we often share
+
+149
+00:18:16,480 --> 00:18:26,160
+them publicly on GitHub. Let's do an example of how we could share some resources on GitHub.
+
+150
+00:18:26,880 --> 00:18:31,200
+We'll share one of the notebooks we've been through in this course, all of the ones statistics
+
+151
+00:18:31,200 --> 00:18:40,000
+too, that IPI and B. Let's first start a Jupyter notebook server and take a look at this
+
+152
+00:18:40,000 --> 00:18:45,520
+notebook to remind ourselves of the content. We won't go over it in detail, but we'll most of
+
+153
+00:18:45,520 --> 00:18:52,640
+look for the features contained in the notebook. What I'll do is I'll navigate over here to my terminal
+
+154
+00:18:53,680 --> 00:19:00,080
+and I will start a Jupyter notebook. I'll run a Jupyter notebook.
+
+155
+00:19:02,800 --> 00:19:12,880
+I'll first navigate to the repository and we will go into this. So now we will run Jupyter
+
+156
+00:19:13,840 --> 00:19:21,760
+notebook now that I'm in the correct directory and we will be taken to this landing page for
+
+157
+00:19:21,760 --> 00:19:29,200
+the Jupyter notebook. I'll then click to open the notebook we'd like to share the 0.1 statistics too.
+
+158
+00:19:29,840 --> 00:19:37,920
+And we'll take a quick look. So we have here some text, some code, we have a lot of math,
+
+159
+00:19:38,880 --> 00:19:49,920
+and we have some code output. As text, we also have some output that is some charts. Here's a chart,
+
+160
+00:19:50,560 --> 00:19:57,520
+that we've output. It looks like there are a handful of other charts.
+
+161
+00:20:00,720 --> 00:20:07,280
+And there's even one place in here where if we were to run the code right now, we would
+
+162
+00:20:08,400 --> 00:20:14,800
+see that there were some interactive widgets. So what we'll do is we will go and we will run
+
+163
+00:20:14,800 --> 00:20:20,480
+all the cells above so that we can see what these interactive widgets did. So we see here that we
+
+164
+00:20:20,480 --> 00:20:31,600
+have in blue a histogram of test scores on an exam in a class and we have in orange a
+
+165
+00:20:31,600 --> 00:20:41,280
+truncated normal distribution where we have sliders that allow us to change the mean and standard
+
+166
+00:20:41,280 --> 00:20:49,040
+deviation of the distribution and we can kind of get a sense or a feel for what the parameters
+
+167
+00:20:49,040 --> 00:21:00,000
+of best fit might be to capture this distribution. That looks like that's all the types of outputs.
+
+168
+00:21:00,320 --> 00:21:05,840
+So now let's work on getting them on to get have. So the first thing I'll do is I will go to get
+
+169
+00:21:05,840 --> 00:21:14,800
+hub.com and I will create after I've signed in, I will create a new repository and I will call this
+
+170
+00:21:15,520 --> 00:21:22,160
+test, do better shape. I'll allow this to be public and I'll press create.
+
+171
+00:21:22,320 --> 00:21:33,760
+Now what's here I have a couple options. What one option would be to use the command line
+
+172
+00:21:33,760 --> 00:21:38,880
+to upload this file, which I will show you how to do over here. We'll go back to our terminal
+
+173
+00:21:39,760 --> 00:21:51,920
+and I will close down this server. I'm going to move to an empty folder on my computer
+
+174
+00:21:51,920 --> 00:21:59,520
+and I will clone the repository you just created. So where this isn't a lecture really on get.
+
+175
+00:21:59,520 --> 00:22:04,240
+So if you're not following this, we're going to talk about the second way we can upload our result.
+
+176
+00:22:07,040 --> 00:22:13,600
+So here we're going to now go into the get repository that we just cloned. We can copy over
+
+177
+00:22:13,760 --> 00:22:19,600
+the materials, the notebook that we would like.
+
+178
+00:22:23,520 --> 00:22:29,040
+Now into this directory we'll see here, try checking get status.
+
+179
+00:22:30,000 --> 00:22:34,160
+That we do have one new file. We can get add,
+
+180
+00:22:34,160 --> 00:22:40,800
+these are the one and get the net and add it first notebook.
+
+181
+00:22:42,080 --> 00:22:51,760
+Then finally we can get push. So what just happened was we created a new commit on our computer
+
+182
+00:22:51,760 --> 00:22:56,800
+and pushed it to get help. If we refresh this page, we'll see that our file has been uploaded.
+
+183
+00:22:57,440 --> 00:23:06,560
+If we click it, we can see that get hub will render the contents of our notebook in a nice way.
+
+184
+00:23:06,560 --> 00:23:11,920
+We see here that we still have the format of text. We can see our code that we wrote.
+
+185
+00:23:12,960 --> 00:23:18,640
+We can see the math that was written and rendered here and we can even see some charts.
+
+186
+00:23:20,560 --> 00:23:26,240
+So here is one of the charts and we can see a few more. I don't think that we're missing
+
+187
+00:23:27,040 --> 00:23:33,520
+is that interactive cells. So we look here and this is where we had the two widgets, one for the
+
+188
+00:23:33,520 --> 00:23:39,360
+mean and one for the standard deviation. And we see that on get hub, this is just empty.
+
+189
+00:23:41,840 --> 00:23:48,640
+The reason for this is that there's two main reasons. One, the rendering of these sliders
+
+190
+00:23:48,640 --> 00:23:55,280
+created some interactive elements on our web page that needed to use what's called JavaScript
+
+191
+00:23:56,240 --> 00:24:02,400
+in order to be interactive and then to have some computation attached to them.
+
+192
+00:24:03,360 --> 00:24:08,880
+Get hub does not allow you to render JavaScript inside of a notebook. So it removes that
+
+193
+00:24:08,880 --> 00:24:16,080
+functionality and then the second problem is every time the slider moved our Python code needed
+
+194
+00:24:16,080 --> 00:24:23,680
+to run again in order to construct our plots. On get hub, there's no Python process or no
+
+195
+00:24:23,680 --> 00:24:27,840
+kernel that's connected to. So there's no way it could update and be interactive.
+
+196
+00:24:28,720 --> 00:24:34,640
+So the outputs missing because JavaScript was removed but even if it was there,
+
+197
+00:24:36,080 --> 00:24:41,840
+it would be totally static. The sliders would be kind of disconnected and you may be able to
+
+198
+00:24:41,840 --> 00:24:49,200
+move the sliders but the plot would not change. The reason the plot would stay the same is there's
+
+199
+00:24:49,280 --> 00:24:55,680
+no Python process provided by get hub that would be able to update the plot in response to the
+
+200
+00:24:55,680 --> 00:25:04,480
+new slider value. Now if you're not comfortable or familiar with using the command line,
+
+201
+00:25:04,480 --> 00:25:11,920
+but we'll get you can go to you can actually upload vials manually here. So I could go and I could
+
+202
+00:25:11,920 --> 00:25:19,360
+click add file and I can go click on upload files and when I upload them, this tells me I need to
+
+203
+00:25:19,360 --> 00:25:28,720
+drag the files there to add that. So I will do this and I will just make a copy of this file and I'll
+
+204
+00:25:28,720 --> 00:25:38,400
+call this actually we're not going to do that. We're going to look at that. What we'll do instead
+
+205
+00:25:38,560 --> 00:25:46,160
+is we'll just create a new file. We'll do you want to add a moment a lot, right?
+
+206
+00:25:50,880 --> 00:25:58,080
+Okay so what we've done is we created a second file called readme.md and we said the contents of that
+
+207
+00:25:58,080 --> 00:26:06,480
+file is just the string this is a test repository, your test repo. I'm going to open up my file browser
+
+208
+00:26:08,400 --> 00:26:15,040
+this is just the native browser for my computer. So let's see all the files and we'll see here
+
+209
+00:26:15,040 --> 00:26:21,440
+in this folder test to put our sharing, sorry if the file font is small. But we're in the test
+
+210
+00:26:21,440 --> 00:26:27,200
+to put our sharing folder. The notebook we worked on previously is here and the new file we just
+
+211
+00:26:27,200 --> 00:26:34,000
+created is right here. We could upload this using the get command line instructions we saw before
+
+212
+00:26:34,560 --> 00:26:41,200
+or if we're not comfortable with that we can just drag from our computer onto the website
+
+213
+00:26:41,200 --> 00:26:48,560
+the files we like to update. And here it says that the readme.md file kind of ready to be added.
+
+214
+00:26:48,560 --> 00:26:54,400
+And now I need to commit the changes. So here I'll say I added readme.
+
+215
+00:26:55,200 --> 00:27:05,760
+Yeah, file up over. Once I click commit I'll be then taken back to my repository.
+
+216
+00:27:06,720 --> 00:27:12,800
+And now you'll see here that in addition to the notebook we uploaded we have a second file readme.md.
+
+217
+00:27:14,560 --> 00:27:20,880
+Now it is a standard and get hub that when I visit any folder or any repository the contents
+
+218
+00:27:20,880 --> 00:27:28,080
+of the readme get rendered below. So we see here that this is the file readme.md and here is the
+
+219
+00:27:28,080 --> 00:27:35,600
+contents that we wrote. So we could either upload via the get command line or we can choose to
+
+220
+00:27:35,600 --> 00:27:40,960
+click the add file either create right here or upload them directly.
+
+221
+00:27:41,520 --> 00:27:46,400
+The next method of sharing.
+
+222
+00:27:48,560 --> 00:27:53,840
+The next method of sharing Jupyter notebooks we'll talk about is called Quant Econnodes.
+
+223
+00:27:54,880 --> 00:27:59,840
+Quant Econnodes is a free online service from the Quant Econteen
+
+224
+00:28:00,880 --> 00:28:08,320
+or sharing and distributing Jupyter notebooks. The purpose of the notes project is to be a library
+
+225
+00:28:09,280 --> 00:28:16,160
+of high quality notebooks on a variety of topics that are related to economics or computation.
+
+226
+00:28:17,520 --> 00:28:23,760
+The notebooks on the notes website can execute some JavaScript, which means that they are allowed
+
+227
+00:28:23,760 --> 00:28:29,040
+to have JavaScript embedded plots like those from an Altair plot or plotlet.
+
+228
+00:28:29,920 --> 00:28:38,320
+In addition, other users of the note system can give thumbs up or down to the notebooks,
+
+229
+00:28:38,320 --> 00:28:45,120
+providing some minimal form of feedback or a way to measure the popularity of a notebook.
+
+230
+00:28:46,160 --> 00:28:53,280
+And also the note system supports commenting on notebooks in order to facilitate a discussion
+
+231
+00:28:53,920 --> 00:28:59,920
+around the content of the notebook. Let's take a look at what the notes project looks like.
+
+232
+00:29:05,600 --> 00:29:09,520
+So we'll go here and as I'm signed in, you can see up here.
+
+233
+00:29:11,120 --> 00:29:15,760
+Here's my icon, my logo. And then you'll see that there are a number of notebooks from
+
+234
+00:29:15,760 --> 00:29:22,000
+different authors. And if we click on any of them, we'll see that here is the ability to write
+
+235
+00:29:23,280 --> 00:29:30,000
+thumbs up or thumb down for this particular notebook. Here is a type, sorry, title,
+
+236
+00:29:30,000 --> 00:29:35,440
+that the author here, John's Cherski, gave for this notebook as well as a description of
+
+237
+00:29:35,440 --> 00:29:44,000
+what the notebook covers. And now we see that we have a nicely rendered Jupyter notebook.
+
+238
+00:29:44,000 --> 00:29:49,600
+You'll see that relative to what we saw on GitHub or inside the Jupyter notebook itself.
+
+239
+00:29:49,840 --> 00:29:55,280
+We have a little bit more style applied to the fonts and typography.
+
+240
+00:29:56,320 --> 00:30:00,480
+The links here are orange to be consistent with the theme on the note site.
+
+241
+00:30:01,440 --> 00:30:10,800
+But we still are able to see code and outputs just as we would with our other Jupyter
+
+242
+00:30:11,760 --> 00:30:20,400
+systems or format. Let's look one more to see the other types of outputs that are possible.
+
+243
+00:30:20,400 --> 00:30:31,600
+Here we see some charts, some 3D graphs, more math. Here's a tree that was generated or rendered.
+
+244
+00:30:31,600 --> 00:30:44,320
+And so on. Now we'll return to our presentation on our notes.
+
+245
+00:30:45,520 --> 00:30:52,480
+So why might we want to share on quantity kind notes? And really the other way to ask this question
+
+246
+00:30:52,480 --> 00:31:00,400
+is who would the audience be and what would the content be in order for us to choose to share on
+
+247
+00:31:00,480 --> 00:31:07,120
+quantity kind notes rather than some alternative technology? The main audience for quantity
+
+248
+00:31:07,120 --> 00:31:17,680
+kind notes is the research community in academic in economics. The content that these notebooks
+
+249
+00:31:17,680 --> 00:31:25,040
+contain are academic facing content like an appendix or an explanation or an example
+
+250
+00:31:25,680 --> 00:31:34,000
+that either demonstrates a concept for instruction or an example as part of a paper or a research
+
+251
+00:31:34,000 --> 00:31:41,760
+project. The content should have something to do with computation or economics. And because this
+
+252
+00:31:41,760 --> 00:31:50,880
+is who the project is for. Let's see an example of how we might share our statistics notebook
+
+253
+00:31:50,880 --> 00:32:01,920
+on quantity kind notes. So I will create a new browser tab that will go to note.com.com.org.
+
+254
+00:32:02,560 --> 00:32:09,200
+And I'll be taken back to the landing page. Because I'm signed in, I have the option to submit a notebook.
+
+255
+00:32:09,200 --> 00:32:14,640
+And here it says I came drag and drop a notebook or I can click in order to find
+
+256
+00:32:14,640 --> 00:32:22,240
+notebooks on my computer. You'll see here if the font is not too small that I am in the
+
+257
+00:32:22,240 --> 00:32:33,040
+test Jupiter sharing folder that we were working with previously. And I have this V1 statistics to
+
+258
+00:32:33,680 --> 00:32:37,680
+notebook. I'll click open and this will be uploaded here to the site.
+
+259
+00:32:38,160 --> 00:32:46,240
+I'm going to put statistics as the title of the notebook. And if I wanted to make sure that
+
+260
+00:32:46,240 --> 00:32:51,760
+I'm uploading the correct thing, I can also click preview, which will open up a modal window
+
+261
+00:32:51,760 --> 00:32:57,840
+the preview of our notebook. This does look like the correct notebook. Here are some of those charts
+
+262
+00:32:57,840 --> 00:33:04,560
+we were seeing. So I'm going to go ahead and close this preview and fill out the rest of this form.
+
+263
+00:33:05,440 --> 00:33:12,400
+Now they'd like you to select some topics that will make sorting and identify notebooks a bit easier.
+
+264
+00:33:12,400 --> 00:33:18,080
+Here this is a notebook about statistics, which is most closely related to the feel of a
+
+265
+00:33:18,080 --> 00:33:22,160
+econometrics. But I'll also click other just in case.
+
+266
+00:33:23,760 --> 00:33:29,040
+This is a notebook under your name base at the front side.
+
+267
+00:33:34,720 --> 00:33:43,680
+Just go ahead and click. I can then click that I agree to these terms and conditions and submit.
+
+268
+00:33:46,480 --> 00:33:54,320
+So when I do this, if I want to discover or if I want to sort by the date, I will see this notebook
+
+269
+00:33:55,120 --> 00:34:01,440
+is the most recent one published on the site. And if I click it, I can see the notebook we've
+
+270
+00:34:01,520 --> 00:34:06,880
+been working with. We'll see that all the math here is rendered nicely. We have our
+
+271
+00:34:08,000 --> 00:34:15,680
+charts that are showing up without any problems. But one thing again that we'll see is we don't have
+
+272
+00:34:15,680 --> 00:34:24,240
+our interactive GUI. Now the reason for this is not an issue with JavaScript, but it's the issue that
+
+273
+00:34:24,240 --> 00:34:31,280
+there's no live Python kernel hosted by the quantum economics project. So there's no way for this
+
+274
+00:34:31,280 --> 00:34:37,440
+sell to be updated because there's no Python kernel connected.
+
+275
+00:34:42,960 --> 00:34:48,160
+Now that this is here, other users can view it. And there's also at the very top here,
+
+276
+00:34:49,760 --> 00:34:55,520
+an opportunity for people to comment on my notebook and I could then respond to the comments.
+
+277
+00:34:55,520 --> 00:35:04,480
+So if I go back out to the beginning, I can click on a notebook. This one by John has a few comments
+
+278
+00:35:04,480 --> 00:35:12,240
+to it and we can go and kind of see what this discussion looks like. And now this is a social way
+
+279
+00:35:12,240 --> 00:35:17,760
+for us to have some back and forth with other professionals in our field.
+
+280
+00:35:17,760 --> 00:35:27,600
+I'm sharing a static version or non interactive version of a Jupyter notebook that we'll
+
+281
+00:35:27,600 --> 00:35:36,240
+talk about is the NBConvert tool. NBConvert is a tool from the Jupyter team who enable the
+
+282
+00:35:36,240 --> 00:35:45,920
+conversion or export of a Jupyter notebook to other file type. NBConvert is a pip installable
+
+283
+00:35:46,080 --> 00:35:52,560
+Python package that must be installed on your local computer and then you will run it from the command
+
+284
+00:35:52,560 --> 00:36:01,200
+line. NBConvert and invert your Jupyter notebooks into many different file types such as a PDF,
+
+285
+00:36:02,080 --> 00:36:09,120
+a standalone HTML or web page, a slideshow, a latex document, and more.
+
+286
+00:36:10,080 --> 00:36:20,000
+Why might you share with NBConvert or who read your audience beat and what might the content be?
+
+287
+00:36:21,360 --> 00:36:27,200
+The audience is very broad for NBConvert. It could be anyone public or private,
+
+288
+00:36:27,920 --> 00:36:33,760
+but the main condition is that they need a static single file version of your notebook in order to
+
+289
+00:36:33,760 --> 00:36:42,560
+consume it. The content that can be included can be just as diverse as the audience.
+
+290
+00:36:43,840 --> 00:36:50,720
+NBConvert has been successfully used to create websites, to write books, reports, and other
+
+291
+00:36:50,720 --> 00:37:02,240
+documents that will create it in Jupyter. NBConvert is an integral part of the Jupyter ecosystem,
+
+292
+00:37:02,320 --> 00:37:06,480
+specifically when trying to use Jupyter for authoring documents.
+
+293
+00:37:11,280 --> 00:37:18,000
+Let's see some examples of how we can use NBConvert. We're going to use NBConvert to share
+
+294
+00:37:18,000 --> 00:37:28,000
+our document as a Python script, as an HTML page, as a PDF, as some slides that can be used
+
+295
+00:37:28,000 --> 00:37:33,040
+of an HTML or an web browser, similar to the slides we're looking at right now.
+
+296
+00:37:34,400 --> 00:37:39,920
+In each case, we will use a command on the command line that looks something like this.
+
+297
+00:37:39,920 --> 00:37:47,920
+It will read Jupyter and be Convert, and then we'll pass the name of our notebook and an argument
+
+298
+00:37:47,920 --> 00:37:57,680
+saying dash dash 2 xxx where this xxx is a placeholder or the format we would like to generate.
+
+299
+00:37:59,200 --> 00:38:02,080
+Let's switch back over to my terminal and give it a try.
+
+300
+00:38:06,080 --> 00:38:09,280
+Here in my terminal, we can see that we have
+
+301
+00:38:10,240 --> 00:38:18,080
+just the statistics file and the reading we created before.
+
+302
+00:38:18,960 --> 00:38:23,120
+Let's now run Jupyter and be Convert.
+
+303
+00:38:24,720 --> 00:38:29,680
+We're going to pass in our notebook and then let's do dash 2 Python.
+
+304
+00:38:30,240 --> 00:38:37,280
+The convert to a Python script. Now, if we look, we'll see that in addition to the notebook we had,
+
+305
+00:38:37,280 --> 00:38:43,760
+we also have another file that has the dot py extension. This is a Python file.
+
+306
+00:38:45,600 --> 00:38:51,840
+We can open up a x-fideter in this directory. If you're
+
+307
+00:38:51,840 --> 00:39:00,480
+open up Visual Studio code and if we open up this Python file, we'll see here that this is a Python
+
+308
+00:39:00,560 --> 00:39:06,960
+file containing all of the code from our notebook. A few other of the features are
+
+309
+00:39:08,000 --> 00:39:16,320
+first that we have all of the marked down or all of the text is included here as comments.
+
+310
+00:39:18,960 --> 00:39:22,160
+Here we see all of the math and the equations that we wrote.
+
+311
+00:39:22,320 --> 00:39:33,440
+Then also, we have here the comment for each code cell. Here it says in bracket 1,
+
+312
+00:39:34,160 --> 00:39:41,520
+polling. This allows the Visual Studio code to recognize that these are cells of a Jupyter
+
+313
+00:39:41,520 --> 00:39:48,320
+notebook. If we want to use if we have Jupyter configured properly, we can click run cell,
+
+314
+00:39:48,960 --> 00:39:53,840
+and it will attempt to run this computation. I'm not sure if this will work.
+
+315
+00:39:54,800 --> 00:39:59,920
+It may not have Python totally configured properly, but the
+
+316
+00:40:02,000 --> 00:40:09,680
+using Visual Studio code is not a focus of this lecture, so we won't spend too much more time on it.
+
+317
+00:40:10,400 --> 00:40:16,400
+But we do have a fully run-able Python script containing all the code from our notebook.
+
+318
+00:40:18,400 --> 00:40:26,880
+Next we said that we would try to convert our notebook to a HTML page.
+
+319
+00:40:26,880 --> 00:40:32,240
+So here we'll do two and we'll replace the Python at the end with HTML.
+
+320
+00:40:33,440 --> 00:40:39,520
+Now when we check the contents of our directory, we have three files that start with
+
+321
+00:40:39,520 --> 00:40:45,840
+B1 statistics too. We have the notebook that we shared with. The Python script we just looked at
+
+322
+00:40:45,920 --> 00:40:53,040
+as well as an HTML file. We go back to our code editor. We'll see that this, if we open up
+
+323
+00:40:53,040 --> 00:41:01,920
+this HTML file, we'll see that there are a number of styling things added. We'll kind of skip
+
+324
+00:41:01,920 --> 00:41:08,160
+through for a little while, but eventually we make our way all the way down. We can start to see
+
+325
+00:41:08,160 --> 00:41:12,880
+some of the content for our notebook and jotted it's really far down. Okay, here we go.
+
+326
+00:41:13,840 --> 00:41:23,760
+Here are some of the equations that we had. And I think if we look carefully, we'll be able to see some code.
+
+327
+00:41:24,480 --> 00:41:31,840
+Yep, this believe it or not is actually the code. You'll see here we have variables like
+
+328
+00:41:31,840 --> 00:41:42,240
+Mu hat 1 equals np.something. So all of this ugly stuff going on is how our web browser
+
+329
+00:41:42,240 --> 00:41:48,320
+will be able to put nice colors on all the code. We'll take a look at a more
+
+330
+00:41:50,000 --> 00:41:59,200
+or actually if we go back to our web browser that we were using for our slides, we can go here,
+
+331
+00:41:59,200 --> 00:42:04,720
+make a neat hand and I will open a file and I will tell it to open this HTML file.
+
+332
+00:42:05,680 --> 00:42:14,640
+And when I do that, we see here that we have a nicely formatted HTML version of our number.
+
+333
+00:42:14,640 --> 00:42:21,920
+We have all of the code. Here maybe is some of the code we were working with with all those
+
+334
+00:42:21,920 --> 00:42:29,120
+crazy HTML elements in text. But we see plots. We see math. We see formatted text and code.
+
+335
+00:42:29,600 --> 00:42:38,000
+You see output. And so after we've used nbConvert and we've been introduced in HTML file,
+
+336
+00:42:38,560 --> 00:42:45,120
+we can either share this with a colleague, upload it to some web server somewhere and have it be
+
+337
+00:42:45,120 --> 00:42:54,400
+available publicly. We also mentioned that we may want to convert to a p.k. Let's try this.
+
+338
+00:42:54,400 --> 00:43:01,120
+By running this Jupyter and be convert command again and this time, passing dash dash to
+
+339
+00:43:01,120 --> 00:43:13,840
+PDF. When we run this, going to do some work and actually ends up generating a PDF via the
+
+340
+00:43:13,840 --> 00:43:19,840
+late tech program. If you don't have late tech installed on your machine, this will probably fail.
+
+341
+00:43:20,480 --> 00:43:25,760
+I did have it. And we see here the output that the PDF was successfully created.
+
+342
+00:43:26,560 --> 00:43:33,280
+And if we list the contents of my directory, we now see four versions of files starting with
+
+343
+00:43:33,280 --> 00:43:40,160
+V01 statistics too. Notebook HTML Python and now this new file is a PDF.
+
+344
+00:43:41,040 --> 00:43:45,520
+If we try to open this file,
+
+345
+00:43:49,840 --> 00:43:56,560
+my PDF browser on my computer will open. And now we have a PDF version of our notebook.
+
+346
+00:43:57,360 --> 00:44:04,000
+We again have beautifully types at math. We have code that syntax highlighted for us
+
+347
+00:44:04,000 --> 00:44:11,680
+with these code cell numberings before. And we have our charts. But we're missing again in this
+
+348
+00:44:11,680 --> 00:44:17,440
+format as we were in all the other was this interactive cell. We don't even have a chart here
+
+349
+00:44:18,400 --> 00:44:24,400
+interactive things can't be rendered in these static versions that we've been using.
+
+350
+00:44:25,040 --> 00:44:30,240
+But everything else went through. We have our links that were contained throughout the notebook,
+
+351
+00:44:30,240 --> 00:44:40,560
+code inputs, outputs, math, and so on. Now the final thing that we said we would do was convert
+
+352
+00:44:40,560 --> 00:44:48,320
+to slides. And then we can actually try this. We can do convert to slides. And you'll see here
+
+353
+00:44:49,040 --> 00:44:57,360
+that the new version of this V01 statistics to file now has the extension dot slides dot HTML.
+
+354
+00:44:58,560 --> 00:45:06,800
+We go back to our web browser and we can try to open this. I'll go here, new tab, and I'll press
+
+355
+00:45:06,800 --> 00:45:16,160
+open. And I'll go to this slides.html file. Now when I open this, we'll see here that we have a
+
+356
+00:45:16,160 --> 00:45:25,360
+slideshow version of our notebook. We have math. We have formatted text. And if we go far enough,
+
+357
+00:45:25,440 --> 00:45:34,960
+we will eventually find some plots. Let's see if we can see.
+
+358
+00:45:36,320 --> 00:45:46,160
+Oh, it looks like in this exact, we're not going to see the plots because we'd have this
+
+359
+00:45:46,160 --> 00:45:50,560
+scroll check mark. But there are settings. We could change that would allow us to scroll here.
+
+360
+00:45:55,840 --> 00:46:02,800
+So this is, was it an example of how we use the NB convert tool to generate four different
+
+361
+00:46:02,800 --> 00:46:10,640
+versions of our notebook. We have the HTML version. We have the slides that can be shown on the web.
+
+362
+00:46:11,280 --> 00:46:13,840
+We have our Python script and we have a PDF.
+
+363
+00:46:16,960 --> 00:46:21,920
+The sharing methods we've discussed thus far have all produced a static help.
+
+364
+00:46:23,120 --> 00:46:32,080
+My static, we mean that there was no way for the consumer or the user of our outputs to modify
+
+365
+00:46:32,240 --> 00:46:41,920
+the contents of our analysis. The computations were done once beforehand and the outputs stored
+
+366
+00:46:41,920 --> 00:46:49,280
+and reproduced in each of the output format. Now we will talk about how we may want to share
+
+367
+00:46:50,400 --> 00:47:01,520
+our results in an interactive manner where our audience and users and make modifications or
+
+368
+00:47:01,520 --> 00:47:05,840
+requests of our analysis and we can provide real-time feedback.
+
+369
+00:47:08,480 --> 00:47:15,120
+Now as Python programmers we have many different options for sharing our numbers. We did talk
+
+370
+00:47:15,120 --> 00:47:24,480
+through a lot of the static ones. Life, GitHub, want to condolts or by using NB convert to generate a file.
+
+371
+00:47:25,200 --> 00:47:32,080
+Some of the other sharing formats are interactive. Here our audience will be able to provide
+
+372
+00:47:32,080 --> 00:47:38,720
+input or tweak parameters. This will then trigger our code to be executed and then we can return
+
+373
+00:47:38,720 --> 00:47:45,120
+new output. We'll now talk a little more about some of these interactive methods of sharing our work.
+
+374
+00:47:45,440 --> 00:47:55,520
+There are many different methods or technologies for sharing our analysis interactively.
+
+375
+00:47:57,360 --> 00:48:06,480
+The traditional method is to publish a package or library of our code so that others can
+
+376
+00:48:06,480 --> 00:48:14,640
+download it or install it and then run our code on their own. By passing in various arguments
+
+377
+00:48:15,440 --> 00:48:24,640
+or additional arguments or keyword arguments, the users or consumers of our product will be able
+
+378
+00:48:24,640 --> 00:48:34,000
+to either replicate our analysis or do new things using our work. The standard way to
+
+379
+00:48:34,000 --> 00:48:41,120
+distribute a Python library or package is by publishing it to the Python package repository of
+
+380
+00:48:41,760 --> 00:48:50,080
+IPy, built of py, py, py. Anything that is published here can be installed using pit.
+
+381
+00:48:51,600 --> 00:49:02,000
+There is no necessary review period or acceptance to publish anybody is allowed to publish
+
+382
+00:49:02,000 --> 00:49:10,320
+to this public space and it can be a quite effective and simple way to share the code
+
+383
+00:49:10,320 --> 00:49:17,680
+behind your analysis. If you choose to share your work in this way, the main audience is likely
+
+384
+00:49:17,680 --> 00:49:25,600
+to be other program. The reason for this is that you're sharing the code that you may have developed
+
+385
+00:49:25,600 --> 00:49:30,640
+as part of your project and in order to interact with this, you need to know how to program.
+
+386
+00:49:31,280 --> 00:49:35,920
+The content of course would be the source code. You'll be able to take a look.
+
+387
+00:49:40,800 --> 00:49:46,560
+Let's go ahead and look at the PyPy page so we get a little better understanding of what's
+
+388
+00:49:46,560 --> 00:49:53,040
+there. I'll click this link and ask it to take me to a new tab and then I'll go there.
+
+389
+00:49:53,680 --> 00:50:00,320
+So now here in the second tab, I'm on the PyPy page which again is the Python package index
+
+390
+00:50:01,120 --> 00:50:09,680
+and you'll see here that hosted on this site are 282,000 projects over 2.3 million releases
+
+391
+00:50:10,320 --> 00:50:20,080
+3.7 million files and these changes or projects were uploaded by about 1,5 million different users.
+
+392
+00:50:21,120 --> 00:50:26,560
+You can see that there are projects that are recently downloaded, recently updated and we can
+
+393
+00:50:26,560 --> 00:50:35,120
+even search for the Pandas page and we'll see here that we have Pandas 1.2.0.
+
+394
+00:50:36,080 --> 00:50:41,200
+If we click this, we'll be taken to a description of the Pandas project.
+
+395
+00:50:42,000 --> 00:50:47,840
+You can see the release history of all the different versions of Pandas that have been released.
+
+396
+00:50:49,200 --> 00:50:54,080
+All the way back to version 0.1 on Christmas Day in 2009.
+
+397
+00:50:55,120 --> 00:51:01,360
+You can see that the most recent as of this recording was just the day after Christmas in 2020.
+
+398
+00:51:01,760 --> 00:51:06,720
+You can also have other statistics like the number of stars,
+
+399
+00:51:06,720 --> 00:51:14,080
+forks and open issues or pull requests at the tab as well as some links to documentation or source code.
+
+400
+00:51:14,240 --> 00:51:23,200
+Hi Pai is the dev acto way or standard for distributing and sharing Python code.
+
+401
+00:51:28,000 --> 00:51:33,760
+Another option for interactive sharing of analysis would be to create an API.
+
+402
+00:51:34,720 --> 00:51:42,720
+If our work or analysis led to the creation of a novel dataset, it may be likely that other
+
+403
+00:51:43,680 --> 00:51:50,560
+programmers or researchers may want to be able to consume the data that we've collected or produced
+
+404
+00:51:51,120 --> 00:51:58,880
+and use as part of their own analysis. A common way for sharing data like this would be to create an API.
+
+405
+00:52:01,040 --> 00:52:06,960
+As we remember from our topics on web scraping and data collection, an API stands for
+
+406
+00:52:06,960 --> 00:52:16,960
+application programming interface and a web API is a way for it is a common standard for exposing
+
+407
+00:52:17,760 --> 00:52:26,320
+data from one service to another. We in this setting, if we're trying to interactively share
+
+408
+00:52:26,320 --> 00:52:31,360
+our results, we would be creating the web API and others would be using it.
+
+409
+00:52:32,320 --> 00:52:39,520
+Again, here the audience is most likely to be other programmers because in order to interact with or connect
+
+410
+00:52:39,520 --> 00:52:49,200
+to a web API, some knowledge of programming is required. There are other tools that you can use to
+
+411
+00:52:49,200 --> 00:52:57,120
+explore data using web API's solution of that may be more broadly data consumers instead of
+
+412
+00:52:57,120 --> 00:53:06,080
+only programming. The type of content that we can distribute through a web API includes data or
+
+413
+00:53:06,080 --> 00:53:20,000
+images that are produced by our code. Finally, the last method of interactive sharing that we'll
+
+414
+00:53:20,080 --> 00:53:28,240
+talk about here is an interactive application and we will talk about an application as a website
+
+415
+00:53:28,240 --> 00:53:35,680
+that users can visit. There may be various widgets or toggles for the user to interact with
+
+416
+00:53:35,680 --> 00:53:42,640
+which will then cause our code to be executed and results to be sent back to the web page itself.
+
+417
+00:53:43,920 --> 00:53:49,520
+This audience is the most broad of the free we've talked about. This would be anyone who would like
+
+418
+00:53:49,520 --> 00:53:56,960
+to consume our analysis. It could be other programmers looking to get a feel for what is possible
+
+419
+00:53:56,960 --> 00:54:04,720
+with our code or it could be researchers or other academics interested in our studies.
+
+420
+00:54:05,600 --> 00:54:13,040
+And finally, it could be more broadly anyone who happens to take an interest in our work.
+
+421
+00:54:13,360 --> 00:54:21,920
+The type of content in the web application is typically going to be text, data or images that
+
+422
+00:54:21,920 --> 00:54:31,840
+it's produced through our analysis. It is this third group of interactive sharing that we'll
+
+423
+00:54:31,840 --> 00:54:37,920
+talk about here today. We won't talk about how to publish a pipeline or how to create web APIs,
+
+424
+00:54:37,920 --> 00:54:44,400
+but we will talk about how we can create interactive applications that others can use in order
+
+425
+00:54:44,400 --> 00:54:55,040
+to interact with our work. We'll first talk about the Voila package. Voila is a Python package
+
+426
+00:54:55,600 --> 00:55:01,200
+that allows you to expose a Jupyter notebook as an interactive web application.
+
+427
+00:55:01,840 --> 00:55:11,200
+Voila works by rendering the content of the Jupyter notebook as a website and then it connects
+
+428
+00:55:11,200 --> 00:55:16,240
+this website to a live Python process for handling user input.
+
+429
+00:55:19,760 --> 00:55:26,320
+This is different from the other web-based Jupyter notebook sharing methods we talked about before.
+
+430
+00:55:27,200 --> 00:55:32,960
+Those other methods like posting to GitHub want eConn notes or exporting to HTML,
+
+431
+00:55:33,840 --> 00:55:39,200
+we're all able to render the notebook as a website. However, they did not connect to
+
+432
+00:55:39,200 --> 00:55:47,040
+the live Python process that could be used to execute code. Voila makes the website interactive
+
+433
+00:55:47,040 --> 00:55:55,120
+by connecting widgets created inside of the notebook and then exposed on the website to a Python
+
+434
+00:55:56,080 --> 00:56:03,120
+that updates can occur. Voila package is created by some of the core tributers
+
+435
+00:56:04,400 --> 00:56:10,880
+of the Jupyter project and that is very tightly integrated with the Jupyter ecosystem.
+
+436
+00:56:13,280 --> 00:56:20,640
+Its key feature is the ability to use Jupyter notebook widgets that are created in your notebook
+
+437
+00:56:20,800 --> 00:56:25,360
+from a web page. We'll see what this looks like here short.
+
+438
+00:56:29,200 --> 00:56:35,440
+Why might we share with Voila? Well, the audience that we may target for this particular form
+
+439
+00:56:35,440 --> 00:56:40,640
+of sharing could be the broad public, somebody that we would like to share our results with,
+
+440
+00:56:41,200 --> 00:56:48,480
+and maybe particularly helpful for co-authors or colleagues who would like to see some of the
+
+441
+00:56:48,560 --> 00:56:54,960
+examples that we've worked on. One common workflow that happens or occurs when doing research
+
+442
+00:56:54,960 --> 00:57:04,400
+or other data analytics work is one person may do an experiment or try out a particular
+
+443
+00:57:04,400 --> 00:57:12,480
+model and then team members or co-authors would like to be able to tweak or make alterations
+
+444
+00:57:12,800 --> 00:57:19,920
+to that model or to that analysis and explore some of the different features.
+
+445
+00:57:21,520 --> 00:57:26,880
+The Voila project makes this extremely easy and quite convenient.
+
+446
+00:57:28,000 --> 00:57:34,800
+Now the type of content that we can put inside of a Voila project is anything
+
+447
+00:57:35,680 --> 00:57:39,440
+that is in a Jupyter notebook that can benefit from being interactive.
+
+448
+00:57:45,520 --> 00:57:50,960
+Let's see an example how we might share our statistics notebook using Voila.
+
+449
+00:57:52,080 --> 00:57:59,040
+To do this we first will have installed the Voila package by running PIP install Voila.
+
+450
+00:58:00,000 --> 00:58:06,320
+Once we've done this we can run from our command line Voila followed by the name of the
+
+451
+00:58:06,320 --> 00:58:18,480
+notebook that we would like to execute. Let's now give this a try by returning to my terminal.
+
+452
+00:58:19,120 --> 00:58:25,440
+We're here. I will clear out the old output and I will run the command. I indicated in our
+
+453
+00:58:25,440 --> 00:58:31,520
+notebook or on Voila the serial one will pass the notebook file name.
+
+454
+00:58:32,320 --> 00:58:38,800
+When I press enter here we'll see some initial output from Voila and it opened our web browser here
+
+455
+00:58:38,800 --> 00:58:47,840
+on the right handpad. We'll see that this is the URL we can put into our web browser
+
+456
+00:58:48,560 --> 00:58:54,800
+to oops they put it together to see the file and we'll see here on the right that we have a nice
+
+457
+00:58:54,880 --> 00:59:02,080
+the rendered version of our notebook. You'll notice here that we're this looks slightly different than
+
+458
+00:59:02,080 --> 00:59:08,800
+we've seen before. In the actual notebook right underneath the heading statistics continue
+
+459
+00:59:09,440 --> 00:59:17,200
+we had a code cell where we imported packages like iPypthon or sorry map plot lib, numpy and
+
+460
+00:59:17,280 --> 00:59:25,040
+panpantist. This code cell seems to be missing. If we scroll further down we'll see that we have
+
+461
+00:59:25,040 --> 00:59:33,680
+a nice map output the formatted text and we'll even see here what looks like the print messages
+
+462
+00:59:33,680 --> 00:59:39,840
+that are code generated. So here we're seeing that we have the output of our code but not the code
+
+463
+00:59:39,840 --> 00:59:49,600
+itself. The reason for this is that by default Voila chooses to strip or remove all of the code
+
+464
+00:59:49,600 --> 00:59:57,520
+inputs so that what you're presented with on the web page is just the clean text and code outputs.
+
+465
+01:00:00,720 --> 01:00:06,640
+One thing that we see in this formatted sharing that we haven't any of the others is we now have
+
+466
+01:00:06,720 --> 01:00:14,560
+our interactive sliders. So here we can move the new slider for example and the chart updates
+
+467
+01:00:14,560 --> 01:00:21,520
+on the web page. If we move the sigma 1 we get another update. And so now for the first time
+
+468
+01:00:22,240 --> 01:00:29,520
+in the sharing methods we've talked about so far we see that we have a fully interactive version
+
+469
+01:00:29,520 --> 01:00:39,920
+of our notebook being shared inside of a web browser. We scroll down we'll see all the other
+
+470
+01:00:39,920 --> 01:00:44,960
+outputs that we had. We have more math, more printed text and more of the chart.
+
+471
+01:00:46,560 --> 01:00:52,400
+This is extremely powerful as you can imagine putting more than just these two widgets
+
+472
+01:00:53,280 --> 01:01:01,200
+inside of the notebook would allow you to create some very powerful and flexible presentations
+
+473
+01:01:02,240 --> 01:01:13,280
+or applications using Voila. Another form of interactive sharing. Python code and results
+
+474
+01:01:13,280 --> 01:01:21,120
+is the streamlet library. Streamlet is a Python library that translates Python scripts into
+
+475
+01:01:21,120 --> 01:01:30,320
+interactive websites. This requires 0 HTML, JavaScript or CSS and the output is a beautiful
+
+476
+01:01:30,320 --> 01:01:42,080
+interactive dashboard or website. This is similar to the Voila project. However the input is a Python
+
+477
+01:01:42,240 --> 01:01:53,440
+script created using a text editor instead of a Jupyter notebook. Also the interactive widgets
+
+478
+01:01:54,640 --> 01:02:04,800
+are Python variables constructed with a call to a streamlet class instead of having to build
+
+479
+01:02:04,800 --> 01:02:14,880
+out Jupyter widgets. Why might you share with Streamlet? Here the answer is pretty simple,
+
+480
+01:02:14,880 --> 01:02:20,880
+broad and powerful. Your audience could be anyone in the public. It could be colleagues and co-authors
+
+481
+01:02:20,880 --> 01:02:28,800
+similar to the audience use case we had with Voila or it could be more broad and it's just an
+
+482
+01:02:28,800 --> 01:02:39,200
+opportunity to share publicly the features of your project. The type of content that you can display
+
+483
+01:02:39,600 --> 01:02:47,680
+with Streamlet is anything that Python can generate which is just about anything and the main type of
+
+484
+01:02:47,680 --> 01:02:55,280
+content that you would be seeking to share or communicate with others would be a put that can be
+
+485
+01:02:55,280 --> 01:03:00,320
+interactively generated with Python or an interactive version of your Python scripts.
+
+486
+01:03:04,880 --> 01:03:10,480
+We will look at an example of how we can transform some of the codes from our
+
+487
+01:03:11,120 --> 01:03:19,040
+e1 statistics to notebook into a Python script and then we will use that to create a streamlet application.
+
+488
+01:03:19,120 --> 01:03:27,520
+Who can select our streamlet application? We will modify the script that was generated for us
+
+489
+01:03:27,520 --> 01:03:35,280
+when we used MB convert to take our notebook into a Python script. We'll use our Visual Studio code
+
+490
+01:03:35,280 --> 01:03:42,880
+editor to do this editing. So here we'll open back up the editor in this file and we will create
+
+491
+01:03:42,960 --> 01:03:54,080
+one more file in this directory. We'll be 01 statistics to streamlet.py and then I will open the
+
+492
+01:03:54,640 --> 01:04:04,800
+MB convert Python script off into the right. First thing we'll do is bring over the dependencies that
+
+493
+01:04:04,880 --> 01:04:14,320
+we use throughout the Jupyter notebook. Then what I'll do is I will copy over some of this text
+
+494
+01:04:15,600 --> 01:04:23,920
+and instead of having it be a comment, if I have this be a stream without any
+
+495
+01:04:24,160 --> 01:04:30,480
+without any assignment just a top level string streamlet will actually interpret this as markdown.
+
+496
+01:04:30,560 --> 01:04:34,400
+Just how it was in the Jupyter notebook and we're rendering it on our webpage.
+
+497
+01:04:36,880 --> 01:04:44,640
+One convenient thing that streamlet provides is a live and interactive view while you're editing.
+
+498
+01:04:45,440 --> 01:04:50,480
+Let's see how this works. I'll open my terminal here on the bottom and I will type streamlet.
+
+499
+01:04:51,360 --> 01:05:02,960
+Run, be 01, 6, 2, pretty in that.py. And now we'll say you can now view your streamlet app in your browser
+
+500
+01:05:02,960 --> 01:05:10,320
+and I will click this URL and open up my browser. And you'll see here that the only thing on our
+
+501
+01:05:10,320 --> 01:05:20,080
+page as of right now is statistics continued. So I will go back to our text editor
+
+502
+01:05:21,200 --> 01:05:27,600
+and I'm going to rearrange things one last time. Now I'll actually stack these one on top of each other
+
+503
+01:05:29,440 --> 01:05:35,920
+and to the left so that we can see the text that we're code here on the left, the output at the bottom
+
+504
+01:05:35,920 --> 01:05:42,880
+and the streamlet app running on the right. Now let's test out the theory of being able to put
+
+505
+01:05:42,880 --> 01:05:48,160
+markdown code in a string and have it be rendered. I'm going to copy this long version.
+
+506
+01:05:49,120 --> 01:05:57,840
+Actually I'm going to start here at the new content in this notebook here about sufficient statistics.
+
+507
+01:05:59,040 --> 01:06:06,320
+And I'll continue to copy until I see code and copy all this text. I'll see if we can get it to show
+
+508
+01:06:06,320 --> 01:06:12,160
+up our application. I'll paste this in and I'll go to the top.
+
+509
+01:06:12,560 --> 01:06:19,120
+I will remove the comment and now I will add a wrap to the whole thing in the stream.
+
+510
+01:06:20,160 --> 01:06:25,120
+Now when I save this you'll see here it says source file changed over here in my web browser
+
+511
+01:06:25,920 --> 01:06:31,440
+and I'm going to say always rerun and what this will do is it will instruct the streamlet
+
+512
+01:06:31,440 --> 01:06:36,000
+to watch this Python file and anytime it changes it will update the website.
+
+513
+01:06:38,160 --> 01:06:38,640
+Oops.
+
+514
+01:06:43,040 --> 01:06:48,320
+This is telling me that I haven't paired. What does it say?
+
+515
+01:06:51,680 --> 01:07:01,040
+Oh, okay. I think I need to make this a raw stream. There we go. So if the problem was
+
+516
+01:07:02,160 --> 01:07:08,640
+I was you have the late tech code in here that has like a slash t or slash all the other things
+
+517
+01:07:08,640 --> 01:07:14,400
+for the late tech and Python was trying to interpret the slash t for example as a tab and
+
+518
+01:07:14,400 --> 01:07:21,920
+then there were other slash commands in our code. For example, we'll be this slash h that is not
+
+519
+01:07:21,920 --> 01:07:28,720
+a proper what's called the mistake sequence. So Python saw the slash t and made it a tab
+
+520
+01:07:28,720 --> 01:07:32,800
+and then it's lost something like slash h and didn't know what to do with it.
+
+521
+01:07:33,760 --> 01:07:40,240
+And Python away around this you make a string in a raw form so that these slash commands are
+
+522
+01:07:40,240 --> 01:07:48,640
+don't actually have. Now we'll see here that except for these block boats or the block map
+
+523
+01:07:48,640 --> 01:07:53,200
+things seem to work. So let's go ahead and find one of these and I think the problem is we just need
+
+524
+01:07:53,200 --> 01:08:02,240
+to wrap these with I should share sorry with dollars. See if we can get this one rendered.
+
+525
+01:08:03,200 --> 01:08:08,160
+Nope, not quite.
+
+526
+01:08:18,880 --> 01:08:26,000
+Okay, so we need to have dollar science and then we need to change the line star to align. So I'm
+
+527
+01:08:26,000 --> 01:08:32,560
+going to go ahead and we use fs code to get all these. We'll change them to aligned. And now we're
+
+528
+01:08:32,640 --> 01:08:37,840
+starting to see more broadly. There's just a few more of these equation groups down below.
+
+529
+01:08:39,280 --> 01:08:44,400
+But you can already see that our streamlit version of this app is starting to take shape.
+
+530
+01:08:51,360 --> 01:08:58,960
+Okay, now let's get to running some code. So we go down here and if we run this
+
+531
+01:08:59,920 --> 01:09:04,640
+go ahead and we'll put in this code. That's just copy over directly this cell.
+
+532
+01:09:05,760 --> 01:09:12,320
+And we'll see what the streamlit does with it. So nothing quite happened here. So the reason the problem
+
+533
+01:09:12,320 --> 01:09:18,080
+is is when we print things they showed up in our console. In order to have streamlit show them,
+
+534
+01:09:18,080 --> 01:09:24,320
+they just need to be strings. So we'll go ahead and remove the pick-off and now they showed up here.
+
+535
+01:09:24,480 --> 01:09:35,040
+Great, this is successful so far. And in the interest of time, we're not going to go through and copy
+
+536
+01:09:35,040 --> 01:09:40,560
+the entire iPhone script. We'll just go through and show some of the interactive examples.
+
+537
+01:09:41,600 --> 01:09:45,840
+So we'll define the functions that we're defined in jupiter for us.
+
+538
+01:09:46,480 --> 01:09:50,320
+Here we go, copy over, you want.
+
+539
+01:09:54,160 --> 01:10:02,160
+And we're going to continue copying.
+
+540
+01:10:05,920 --> 01:10:11,120
+And I'm really trying to get to the point where we have the interactive thought.
+
+541
+01:10:11,760 --> 01:10:22,080
+Is that what we're going to want to replicate here? Here we go, plot scores and then here's
+
+542
+01:10:22,080 --> 01:10:26,160
+our interactive. So let's just test it out. So let's write the plot scores and then let's just
+
+543
+01:10:26,160 --> 01:10:34,560
+try it once. Let's do plot scores. We need to pass in the test scores. A new, let's say a
+
+544
+01:10:34,560 --> 01:10:41,360
+view of 300 and a standard deviation of say 100. Let's see what we get back.
+
+545
+01:10:46,880 --> 01:10:54,640
+And that is that and now we can do the thing. And here we go. So we were able to again,
+
+546
+01:10:54,640 --> 01:11:01,360
+streamlit's main way of displaying things is, are one of the convenient ways to do it,
+
+547
+01:11:01,360 --> 01:11:08,400
+is just to display a figure or try to display a variable or a string or something and not assign
+
+548
+01:11:08,400 --> 01:11:14,000
+it. So if we just write big on its own line, this shows the map plot lib figure over here
+
+549
+01:11:14,000 --> 01:11:24,800
+with an or streamlit application. Now the next step will be to have the view and the sigma
+
+550
+01:11:24,800 --> 01:11:31,760
+be associated with a slider, like they were in the Jupiter version. To do this, we need to import
+
+551
+01:11:31,760 --> 01:11:38,160
+the streamlit library. I'll actually jump back to the top of my final and I will say import streamlit.
+
+552
+01:11:40,000 --> 01:11:45,120
+Now that we have streamlit, I want to show you one thing and then we'll work on the slider.
+
+553
+01:11:45,120 --> 01:11:51,200
+So the first thing is that in addition to just writing a variable out like this, we can write
+
+554
+01:11:51,280 --> 01:11:59,520
+streamlit.write and this function can be called from anywhere and the big and the corresponding
+
+555
+01:11:59,520 --> 01:12:08,480
+variable or value will be displayed properly in the website. To show that the figure is coming from
+
+556
+01:12:08,480 --> 01:12:14,320
+this streamlit write command, and comment this out and see that it disappears and then when we remove
+
+557
+01:12:14,400 --> 01:12:22,960
+the comment, we'll see that it comes back. The streamlit.write function is more powerful than the
+
+558
+01:12:22,960 --> 01:12:32,080
+write a variable name somewhere in your script by itself because it can be called from inside of a
+
+559
+01:12:32,080 --> 01:12:37,440
+function or a loop inside of some if condition or anywhere your Python code can execute.
+
+560
+01:12:38,560 --> 01:12:44,160
+And it doesn't have the restriction of needing to be just at the top level of our script.
+
+561
+01:12:45,280 --> 01:12:53,200
+OK, so now there is instrument, the notion of a sidebar. What we'll do is we will say that
+
+562
+01:12:53,200 --> 01:13:01,440
+new is equal to streamlit.sidebar.slider and we will call the label for this slider equal to
+
+563
+01:13:01,440 --> 01:13:12,800
+mu. The min value looking down here at the jibiter version is zero. The max value was 550 and the
+
+564
+01:13:12,800 --> 01:13:23,360
+step was 50.0. We'll create another slider for sigma and we will label this as sigma and we will
+
+565
+01:13:23,360 --> 01:13:31,360
+copy the same arguments that we have in the jibiter version. 50 and then 150.
+
+566
+01:13:33,760 --> 01:13:41,840
+If they step sidebar, we'll then replace the 300 and 100 with mu and sigma.
+
+567
+01:13:41,840 --> 01:13:48,400
+So here we let's see what happens then we'll talk if you're. So we run this code
+
+568
+01:13:48,480 --> 01:13:59,040
+and OK, it's telling us that we need to have seeing data types. So here it says that I had a min value
+
+569
+01:13:59,040 --> 01:14:06,000
+was an int and the max value was an int and the step was a float. So if we make all of these
+
+570
+01:14:06,720 --> 01:14:13,200
+floats then we won't have this same kind of type of shape. The now what we see is streamlit
+
+571
+01:14:13,200 --> 01:14:20,400
+has added on the left hand a panel all the sidebar that's where this name comes from with our
+
+572
+01:14:20,400 --> 01:14:30,160
+sliders. And now we can see that as we move these sliders around our figures updated. So we
+
+573
+01:14:30,160 --> 01:14:36,400
+kind of have here a control panel that we have a label sigma and when we move the slider around
+
+574
+01:14:36,480 --> 01:14:44,640
+we see that the value of sigma changes in the text annotation as well as the distribution line
+
+575
+01:14:44,640 --> 01:14:52,800
+over here. So now streamlit is allowing us to change these variables and you'll notice that anywhere
+
+576
+01:14:53,440 --> 01:14:59,520
+that mu and sigma were used throughout the script you're seeing these values update. So here
+
+577
+01:14:59,520 --> 01:15:05,120
+it says method of moment estimators are and if we move mu around they're going to change.
+
+578
+01:15:09,360 --> 01:15:15,120
+And so what's happening is as the sliders get in the throw out bring that will send
+
+579
+01:15:15,840 --> 01:15:22,720
+back to Python land updated value for mu or sigma and then it will execute all the code that
+
+580
+01:15:22,720 --> 01:15:31,680
+depends on mu and sigma. Let's summarize what we've learned today. We started by talking about the
+
+581
+01:15:31,680 --> 01:15:39,520
+importance of communication and how it's essential in order to have an impact and be successful as
+
+582
+01:15:39,520 --> 01:15:47,760
+knowledge workers. We discussed how effective communication requires an understanding of the audience
+
+583
+01:15:48,640 --> 01:15:54,320
+that is receiving the communication as well as the content and type of content to be communicated.
+
+584
+01:15:55,360 --> 01:16:01,280
+Once these have been identified, being able to choose the correct medium and technology for
+
+585
+01:16:01,280 --> 01:16:11,360
+distribution will lead to success in communicating. There are many static ways we can share
+
+586
+01:16:11,680 --> 01:16:17,840
+to put an open. In this lecture we talked about a few of them including sharing the notebook on
+
+587
+01:16:17,840 --> 01:16:27,040
+GitHub, sharing on Quant Econ notes or using NB convert to create a single file version of the
+
+588
+01:16:27,040 --> 01:16:36,080
+notebook in a different via format. The via formats and be convert supports include a PDF, a Python script,
+
+589
+01:16:37,040 --> 01:16:46,480
+each shiml file and slides. We also discussed how there are many interactive ways to share our Python
+
+590
+01:16:46,480 --> 01:16:54,000
+analysis. One way is to publish the source code that we developed to PIPI as a Python package.
+
+591
+01:16:54,800 --> 01:17:02,000
+This enables other programmers to PIP install our code and use it within their own exercises.
+
+592
+01:17:02,960 --> 01:17:10,480
+Another option would be to create an API that users of Python or any programming language could use
+
+593
+01:17:11,120 --> 01:17:18,160
+an access in order to access the data or other outputs from our work.
+
+594
+01:17:20,240 --> 01:17:25,760
+Another interactive solution for sharing or communicating is to create an interactive application.
+
+595
+01:17:26,480 --> 01:17:32,480
+We saw examples of how to do this using Voila to transform a Jupyter notebook into an
+
+596
+01:17:32,480 --> 01:17:39,760
+interactive application and also stream it to create an interactive website from a Python script.
+
+597
+01:17:41,200 --> 01:17:45,920
+We hope that you've learned some things and that you now have a better sense of how you can
+
+598
+01:17:45,920 --> 01:17:53,040
+access the tools and technologies within the Python ecosystem or sharing the results of your work
+
+599
+01:17:53,040 --> 01:17:57,520
+and effectively communicating the lessons that you've learned.
+

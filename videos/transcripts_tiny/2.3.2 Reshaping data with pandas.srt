@@ -1,0 +1,2016 @@
+1
+00:00:00,000 --> 00:00:07,000
+Hi everyone, this is Chase and the next topic that we'll be discussing is Data Re shaping.
+
+2
+00:00:07,000 --> 00:00:13,160
+The prerequisites to understanding data reshaping are the Pandas introduction in Pandas-based
+
+3
+00:00:13,160 --> 00:00:18,000
+lecture and the lecture that Spencer gave about Pandas indexes.
+
+4
+00:00:18,000 --> 00:00:24,640
+After today you'll understand the idea of tidy data and you'll be able to understand and
+
+5
+00:00:24,640 --> 00:00:29,520
+apply the melt, stack, unstack and pivot methods.
+
+6
+00:00:29,520 --> 00:00:33,720
+We'll then practice the transformations of different indexes and we'll practice reshaping
+
+7
+00:00:33,720 --> 00:00:36,080
+data.
+
+8
+00:00:36,080 --> 00:00:41,940
+Our outline for today is we'll start by discussing the concept of tidy data and why you
+
+9
+00:00:41,940 --> 00:00:47,160
+might want to consider reshaping your data for different questions or goals.
+
+10
+00:00:47,160 --> 00:00:53,280
+We'll then discuss the idea of a long data set versus a wide data set and finally we'll
+
+11
+00:00:53,280 --> 00:00:58,080
+begin discussing certain methods that are used for data reshaping and using include set
+
+12
+00:00:58,080 --> 00:01:06,520
+index, reset index and transpose, stack and unstack, melt, pivot and pivot table and then
+
+13
+00:01:06,520 --> 00:01:14,280
+we'll wrap up by using some visualizations to understand these methods a little bit more.
+
+14
+00:01:14,280 --> 00:01:15,840
+Let's get started.
+
+15
+00:01:15,840 --> 00:01:21,160
+So the idea of tidy data is more generally pushed in the R language.
+
+16
+00:01:21,160 --> 00:01:27,400
+It was originally developed by a guy named Hadley Wickham who has played an important role
+
+17
+00:01:27,400 --> 00:01:32,160
+in developing the R data infrastructure.
+
+18
+00:01:32,160 --> 00:01:37,660
+So he says a data set is a collection of values, usually either numbers of quantitative or
+
+19
+00:01:37,660 --> 00:01:40,040
+strings if qualitative.
+
+20
+00:01:40,040 --> 00:01:41,960
+Values are organized in two ways.
+
+21
+00:01:41,960 --> 00:01:45,200
+Every value belongs to a variable in an observation.
+
+22
+00:01:45,200 --> 00:01:51,120
+A variable contains all values that measure the same underlying attribute across units.
+
+23
+00:01:51,120 --> 00:01:57,040
+An observation contains all values measured on the same unit across attributes.
+
+24
+00:01:57,040 --> 00:01:59,760
+So what does this mean?
+
+25
+00:01:59,760 --> 00:02:05,760
+With this framing, a data set is going to be considered messy or tidy depending on how
+
+26
+00:02:05,760 --> 00:02:09,960
+the rows, columns and tables are structured.
+
+27
+00:02:09,960 --> 00:02:15,160
+In tidy data each variable is going to form a column.
+
+28
+00:02:15,160 --> 00:02:20,680
+Each observation is going to form a row and each type of observational unit will form a
+
+29
+00:02:20,680 --> 00:02:22,040
+table.
+
+30
+00:02:22,040 --> 00:02:27,160
+The column and row terms are going to map directly to pandas, columns and rows and table
+
+31
+00:02:27,160 --> 00:02:32,280
+is going to refer to pandas data frame.
+
+32
+00:02:32,280 --> 00:02:39,320
+So as we start solidifying this concept and once you master it, the first question that
+
+33
+00:02:39,320 --> 00:02:43,800
+will come to mind anytime you're introduced to a data set is what uniquely identifies an
+
+34
+00:02:43,800 --> 00:02:46,040
+observation in your data.
+
+35
+00:02:46,040 --> 00:02:50,280
+Is it a country, a year, a combination of country and year?
+
+36
+00:02:50,280 --> 00:02:55,560
+Whatever this unique identifier is, will become the index of your data frame.
+
+37
+00:02:55,560 --> 00:03:01,240
+Now in the hard sciences, this is often relatively straightforward.
+
+38
+00:03:01,240 --> 00:03:05,880
+When we get to the social sciences, the concept of an observation may not be unique to a
+
+39
+00:03:05,880 --> 00:03:07,280
+data set.
+
+40
+00:03:07,280 --> 00:03:12,480
+So for example, consider a data set that includes a time series of country level GDP for
+
+41
+00:03:12,480 --> 00:03:14,440
+many countries.
+
+42
+00:03:14,440 --> 00:03:19,960
+The purest form of tidy data would probably take the stance that the year in country
+
+43
+00:03:19,960 --> 00:03:24,520
+is the identifier and there's going to be a single variable of GDP.
+
+44
+00:03:24,520 --> 00:03:31,960
+So what we would have is we'd have a series with GDP as the name of that column and then
+
+45
+00:03:31,960 --> 00:03:37,240
+the index on that series would be the country year combination.
+
+46
+00:03:37,240 --> 00:03:43,400
+But you might also consider the year to be the unique identifier and each country's GDP
+
+47
+00:03:43,400 --> 00:03:45,800
+could be a variable.
+
+48
+00:03:45,800 --> 00:03:52,360
+Or you could even consider the variable might be GDP in 1999 and the countries are the
+
+49
+00:03:52,360 --> 00:03:53,960
+unique identifiers.
+
+50
+00:03:53,960 --> 00:03:57,680
+And so depending on the question that you're asking, you really could represent your
+
+51
+00:03:57,680 --> 00:04:02,320
+data in many different ways.
+
+52
+00:04:02,320 --> 00:04:08,360
+So the data you receive is not always going to be in a shape that makes it easy to analyze
+
+53
+00:04:08,360 --> 00:04:14,240
+and sometimes even having tidy data will not be the shape that you want when you perform
+
+54
+00:04:14,240 --> 00:04:16,320
+your analysis.
+
+55
+00:04:16,320 --> 00:04:19,200
+So what do we mean by shape by shape?
+
+56
+00:04:19,200 --> 00:04:23,600
+We mean the number of rows and columns in a data and how information is stored in the
+
+57
+00:04:23,600 --> 00:04:26,520
+index and column names.
+
+58
+00:04:26,520 --> 00:04:31,400
+The whole idea of this lecture is going to be to teach you how to reshape your data and
+
+59
+00:04:31,400 --> 00:04:34,240
+to put it into the form that you want.
+
+60
+00:04:34,240 --> 00:04:39,840
+So as we recommend with everything, look at the pandas documentation.
+
+61
+00:04:39,840 --> 00:04:45,920
+They have extensive documentation on this and they have lots of useful things to say.
+
+62
+00:04:45,920 --> 00:04:48,840
+So the data set we're going to use for today.
+
+63
+00:04:48,840 --> 00:04:55,200
+We thought we'd have a little bit of fun and so we're going to use a data set on basketball.
+
+64
+00:04:55,200 --> 00:05:03,240
+And so what we're going to have is we'll have a year, a player, which team that player
+
+65
+00:05:03,240 --> 00:05:08,080
+was associated with, the name of that team.
+
+66
+00:05:08,080 --> 00:05:10,960
+And then we'll have a few variables.
+
+67
+00:05:10,960 --> 00:05:15,760
+So we'll have how many games that player played in a particular season with a particular
+
+68
+00:05:15,760 --> 00:05:16,760
+team.
+
+69
+00:05:16,760 --> 00:05:22,960
+We'll say how many points they average, how many assists they averaged and how many rebounds
+
+70
+00:05:22,960 --> 00:05:26,200
+they averaged.
+
+71
+00:05:26,200 --> 00:05:30,960
+So what's the idea of long versus wide data?
+
+72
+00:05:30,960 --> 00:05:32,880
+So ignore this command for right now.
+
+73
+00:05:32,880 --> 00:05:41,040
+But a long data set is going to be similar to what we just saw.
+
+74
+00:05:41,040 --> 00:05:45,840
+But what we're going to have is there's going to be a unique identifier which is going to
+
+75
+00:05:45,840 --> 00:05:51,600
+be, in this case, the year player, team and team name.
+
+76
+00:05:51,600 --> 00:05:58,080
+And then the name of the variable we're interested in, games, points, assists, or rebounds.
+
+77
+00:05:58,080 --> 00:06:01,240
+And then the value that that variable takes.
+
+78
+00:06:01,240 --> 00:06:04,840
+This is what we would call a long form data set.
+
+79
+00:06:04,840 --> 00:06:11,800
+And what you'll see is it's probably less efficient at storing data than the previous
+
+80
+00:06:11,800 --> 00:06:13,560
+form that the data was in.
+
+81
+00:06:13,560 --> 00:06:23,720
+So all we've done is we've taken games, points, assists, and rebounds.
+
+82
+00:06:23,720 --> 00:06:27,240
+And we've turned it into four observations rather than one.
+
+83
+00:06:27,240 --> 00:06:36,360
+So now we have this unique identifier, which is 2015, Curie, Golden State Warriors, Warriors.
+
+84
+00:06:36,360 --> 00:06:43,640
+And we've repeated it four times.
+
+85
+00:06:43,640 --> 00:06:47,000
+So this is what long looks like.
+
+86
+00:06:47,000 --> 00:06:53,680
+And you'll notice it's called long because it becomes very long and tall.
+
+87
+00:06:54,640 --> 00:06:58,240
+So what does a wide data set look like?
+
+88
+00:06:58,240 --> 00:07:05,840
+In a wide data set, you now have the, as much identifying information as possible,
+
+89
+00:07:05,840 --> 00:07:09,200
+on the columns rather than on the rows.
+
+90
+00:07:09,200 --> 00:07:15,120
+So now we have the player, whether it's Curie, Durant, or Ibaka.
+
+91
+00:07:15,120 --> 00:07:17,840
+We have the variable.
+
+92
+00:07:17,840 --> 00:07:21,920
+And then we have the which team they were on.
+
+93
+00:07:21,920 --> 00:07:27,600
+And notice there's lots of missing data here because in the year 2015,
+
+94
+00:07:27,600 --> 00:07:34,480
+Durant did not play with the Golden State Warriors.
+
+95
+00:07:34,480 --> 00:07:39,200
+So a wide data set is simply going to be one that puts as much identifying information as
+
+96
+00:07:39,200 --> 00:07:44,560
+possible in the columns rather than the rows.
+
+97
+00:07:44,560 --> 00:07:51,360
+So depending on what we're doing, we may want a wide or a long data set.
+
+98
+00:07:51,360 --> 00:07:56,560
+So you'll think, if you think about, I don't know if you had to learn this, but when I was
+
+99
+00:07:56,560 --> 00:08:01,200
+first learning econometrics, I was forced to use a program called Stata.
+
+100
+00:08:01,200 --> 00:08:06,240
+And Stata really likes to put things in a wide format.
+
+101
+00:08:06,240 --> 00:08:12,880
+Because in a wide format, each column is going to be a particular variable or
+
+102
+00:08:12,880 --> 00:08:13,600
+observation.
+
+103
+00:08:13,600 --> 00:08:20,000
+And when you perform analysis, you're typically trying to compare one column to another.
+
+104
+00:08:20,000 --> 00:08:28,640
+So because of this, depending on what we're trying to do, we may or may not want to have
+
+105
+00:08:28,640 --> 00:08:32,240
+data in the wide or long format.
+
+106
+00:08:32,240 --> 00:08:35,680
+So let's start talking about these methods.
+
+107
+00:08:35,680 --> 00:08:42,400
+So the first methods we're going to see are set index, reset index, and transpose.
+
+108
+00:08:42,400 --> 00:08:46,240
+And I suspect we saw some of these from Spencer's lecture.
+
+109
+00:08:46,240 --> 00:08:49,440
+And so this will mostly just be a review.
+
+110
+00:08:49,440 --> 00:08:55,920
+So if we start with our basketball data set, let's just remember, remind ourselves what it looks
+
+111
+00:08:55,920 --> 00:08:56,920
+like.
+
+112
+00:08:56,920 --> 00:08:59,760
+So look something like that.
+
+113
+00:08:59,760 --> 00:09:04,200
+We could set the index to be player and a year.
+
+114
+00:09:04,200 --> 00:09:05,760
+And let's see what that does.
+
+115
+00:09:05,760 --> 00:09:11,600
+And all it does when we set this index is it takes the columns from the data frame, and
+
+116
+00:09:11,600 --> 00:09:16,800
+it shifts them to the index.
+
+117
+00:09:16,880 --> 00:09:22,720
+What transpose does is it does the same thing as a transpose does in the number in the
+
+118
+00:09:22,720 --> 00:09:24,720
+number pi array.
+
+119
+00:09:24,720 --> 00:09:32,000
+It's going to swap the column names to become the index and the index to become the column
+
+120
+00:09:32,000 --> 00:09:33,000
+names.
+
+121
+00:09:33,000 --> 00:09:37,680
+So notice, Curie 2015 was on the index in the first data frame.
+
+122
+00:09:37,680 --> 00:09:43,560
+But in the second data frame, Curie 2015 is on the columns.
+
+123
+00:09:44,560 --> 00:09:49,160
+OK, so that's all we're going to talk about this.
+
+124
+00:09:49,160 --> 00:09:52,160
+The other thing I guess you might say is I didn't.
+
+125
+00:09:52,160 --> 00:10:00,920
+But you can reset the index in which case it's just going to move the index values back
+
+126
+00:10:00,920 --> 00:10:02,480
+into the data frame.
+
+127
+00:10:02,480 --> 00:10:06,200
+So this is roughly our original data frame, much a low column order.
+
+128
+00:10:09,560 --> 00:10:10,760
+OK.
+
+129
+00:10:10,760 --> 00:10:17,760
+So now we'll start talking about the stack and unstack methods.
+
+130
+00:10:17,760 --> 00:10:24,760
+Stack is going to move certain levels of the columns, labels into the index.
+
+131
+00:10:24,760 --> 00:10:30,360
+So what this is trying to do is we're moving from a wide format to a long format.
+
+132
+00:10:30,360 --> 00:10:34,560
+So let's start with the wide data frame that we created.
+
+133
+00:10:34,560 --> 00:10:41,160
+Remember this has almost all of the information appear in the column values.
+
+134
+00:10:41,160 --> 00:10:48,200
+And so suppose that what we want to be able to do is compute the mean value for each
+
+135
+00:10:48,200 --> 00:10:54,160
+stat for each player regardless of the year or team.
+
+136
+00:10:54,160 --> 00:10:59,360
+So to do that, so this is going to tie back to this idea of a want operator.
+
+137
+00:10:59,360 --> 00:11:01,440
+So what do we want?
+
+138
+00:11:01,440 --> 00:11:09,000
+We want to compute the mean of each statistics for each player independent of what team they were
+
+139
+00:11:09,000 --> 00:11:12,960
+playing for in a given year.
+
+140
+00:11:12,960 --> 00:11:14,760
+So what do we need to do that?
+
+141
+00:11:14,760 --> 00:11:18,960
+We need one column for each variable.
+
+142
+00:11:18,960 --> 00:11:22,200
+OK, so in some ways this is good.
+
+143
+00:11:22,200 --> 00:11:26,520
+Each variable and each player, so we have this information already.
+
+144
+00:11:26,520 --> 00:11:33,600
+But we want that column to cover both the years and which team they were with.
+
+145
+00:11:33,600 --> 00:11:38,760
+So the way that we're going to do this is with this method stack.
+
+146
+00:11:38,760 --> 00:11:44,640
+So beballwide.stack gives us the following.
+
+147
+00:11:44,640 --> 00:11:47,680
+So what's happened?
+
+148
+00:11:47,680 --> 00:11:54,720
+So you'll remember that in this data frame, Golden State Warriors was an identifier that was
+
+149
+00:11:54,720 --> 00:11:57,160
+on the columns.
+
+150
+00:11:57,160 --> 00:12:03,360
+And all it's done is it's moved those from the column to the index.
+
+151
+00:12:03,360 --> 00:12:07,680
+So now this still identifies the same value.
+
+152
+00:12:07,680 --> 00:12:11,560
+Curie assists Golden State Warriors in 2015.
+
+153
+00:12:11,560 --> 00:12:19,520
+But now it's Curie assists and the Golden State Warriors in 2015.
+
+154
+00:12:19,520 --> 00:12:25,840
+Notice Curie never played for the Oklahoma City in 2015.
+
+155
+00:12:25,840 --> 00:12:26,840
+So he doesn't show up.
+
+156
+00:12:26,840 --> 00:12:34,480
+It's a man.
+
+157
+00:12:34,480 --> 00:12:38,800
+And so once we've done that, we can just compute the mean.
+
+158
+00:12:38,800 --> 00:12:46,280
+And so what this says is that Stefan Curie averages about six and a half assists a game
+
+159
+00:12:46,280 --> 00:12:48,400
+independent of what team he's with.
+
+160
+00:12:48,400 --> 00:12:56,240
+He plays about 70 games a season and averages about 27 points and five rebounds.
+
+161
+00:12:56,240 --> 00:13:02,720
+So what if instead of computing the average by player, we wanted to compute the average
+
+162
+00:13:02,720 --> 00:13:07,920
+for each team and stat, averaging over years and players.
+
+163
+00:13:07,920 --> 00:13:10,280
+So we need to move now.
+
+164
+00:13:10,320 --> 00:13:20,160
+In this first example, we moved the team identifier from the columns to the rows.
+
+165
+00:13:20,160 --> 00:13:26,000
+Now we need to move the player identifier from the columns to the rows.
+
+166
+00:13:26,000 --> 00:13:27,840
+And so how do we do this?
+
+167
+00:13:27,840 --> 00:13:32,240
+All we have to do is we can specify a level.
+
+168
+00:13:32,240 --> 00:13:39,320
+And so when we change the level that's being passed, so the default is that level passes
+
+169
+00:13:39,360 --> 00:13:41,840
+the outermost.
+
+170
+00:13:41,840 --> 00:13:47,360
+In this case this would be team or the inner roast or past team.
+
+171
+00:13:47,360 --> 00:13:54,280
+But because we're specifying player, now it's moved player from the columns to the index.
+
+172
+00:13:54,280 --> 00:14:00,080
+And we could now compute the mean.
+
+173
+00:14:00,080 --> 00:14:06,080
+So what we see is the players, again, this is only three players.
+
+174
+00:14:06,080 --> 00:14:13,920
+So the Golden State Warriors across these three players averaged about 26 points per game.
+
+175
+00:14:13,920 --> 00:14:20,480
+So without any arguments is what we were just saying, the stack method is going to move
+
+176
+00:14:20,480 --> 00:14:26,480
+the level of column labels closest to the data to become the index level closest to the data.
+
+177
+00:14:26,480 --> 00:14:34,600
+So it will go from the innermost column value, innermost column identifier to the innermost index identifier.
+
+178
+00:14:34,600 --> 00:14:42,760
+When we specify a level, it's going to move that level of column labels to the innermost
+
+179
+00:14:42,760 --> 00:14:45,840
+level of the index, which is on the right.
+
+180
+00:14:45,840 --> 00:14:52,920
+And we could just point out that you can do multiple column identifiers at a time.
+
+181
+00:14:52,920 --> 00:15:01,960
+So in this case we moved both player and team to the index from the columns.
+
+182
+00:15:01,960 --> 00:15:08,960
+So this takes a little bit of getting used to understanding what stack does.
+
+183
+00:15:08,960 --> 00:15:14,640
+And we'll make sure to include some examples of doing this on your homework, so you get lots of practice.
+
+184
+00:15:14,640 --> 00:15:17,600
+When and if you have questions, please don't hesitate to ask.
+
+185
+00:15:17,600 --> 00:15:21,200
+The idea of reshaping takes a lot of getting used to.
+
+186
+00:15:21,200 --> 00:15:27,040
+And these methods are all things that took me months to learn on my own.
+
+187
+00:15:27,040 --> 00:15:31,160
+And I'm hoping we present them in a way that will help you learn them more quickly.
+
+188
+00:15:31,160 --> 00:15:35,040
+But it's the kind of thing that will take a lot of practice.
+
+189
+00:15:35,040 --> 00:15:38,680
+So now we're going to talk about unstack.
+
+190
+00:15:38,680 --> 00:15:44,280
+And as you might guess, unstack is going to do the exact opposite thing is stack.
+
+191
+00:15:44,280 --> 00:15:52,640
+So let's look at our player stats series.
+
+192
+00:15:52,640 --> 00:15:56,320
+And we have a player and a variable.
+
+193
+00:15:56,320 --> 00:15:59,520
+And then we have a value for that variable.
+
+194
+00:15:59,520 --> 00:16:04,280
+So again, Stephon Curry had about six and a half assists per game.
+
+195
+00:16:04,280 --> 00:16:10,480
+Now we want to put the data in a format that will allow us to call the plot method that automatically
+
+196
+00:16:10,480 --> 00:16:15,120
+is going to create a bar plot.
+
+197
+00:16:15,120 --> 00:16:23,640
+So what you might remember is the plot method is going to automatically set the index to be
+
+198
+00:16:23,640 --> 00:16:29,720
+the x value, the x identifier in our plot.
+
+199
+00:16:29,720 --> 00:16:37,360
+So when we unstack our data, what it does is it's going to move the inner most index to
+
+200
+00:16:37,360 --> 00:16:41,640
+become the inner most column identifier.
+
+201
+00:16:41,640 --> 00:16:51,600
+So it's just rotated assist games, points, rebounds to become values in the columns.
+
+202
+00:16:51,600 --> 00:17:00,520
+And so now if we call plot on what we just created is it's going to put the player names
+
+203
+00:17:00,520 --> 00:17:01,680
+as the x value.
+
+204
+00:17:01,680 --> 00:17:04,600
+So we have Curry, Durant, Ibaqa.
+
+205
+00:17:04,600 --> 00:17:10,960
+And then it's going to create a bar for each of the variables of interest.
+
+206
+00:17:10,960 --> 00:17:19,160
+So this particular plot's helpful if we're trying to compare which statistics a player is
+
+207
+00:17:19,160 --> 00:17:20,320
+strongest at.
+
+208
+00:17:20,320 --> 00:17:26,000
+So we might see that Stephon Curry scores a lot of points, but maybe rebounds a little
+
+209
+00:17:26,000 --> 00:17:32,180
+bit less and does a few more of those lots of assists, whereas someone like Kevin Durant
+
+210
+00:17:32,180 --> 00:17:41,040
+scores a similar number of points, but he has more rebounds and less assists.
+
+211
+00:17:41,040 --> 00:17:46,040
+But what if we wanted to be able to compare a particular variable across players?
+
+212
+00:17:46,040 --> 00:17:50,520
+In that case it would be easier if the bars were grouped by a variable with a different
+
+213
+00:17:50,520 --> 00:17:52,280
+bar for each player.
+
+214
+00:17:52,280 --> 00:17:58,120
+And so just like the stack method allowed us to specify a level, the unstack method also
+
+215
+00:17:58,120 --> 00:18:02,280
+allows us to specify which level we'd like to unstack.
+
+216
+00:18:02,280 --> 00:18:07,800
+So if we specify that we'd like it to unstack player instead of the default which is just
+
+217
+00:18:07,800 --> 00:18:13,040
+the inner most, then we can create a bar plot like the following.
+
+218
+00:18:13,040 --> 00:18:18,840
+Now we see that Stephon Curry typically plays more games than anyone else and the only
+
+219
+00:18:18,840 --> 00:18:26,400
+thing he doesn't do more of is rebound.
+
+220
+00:18:26,400 --> 00:18:33,040
+So again, stack and unstack are going to be opposite operations.
+
+221
+00:18:33,040 --> 00:18:41,040
+Stack is moving our data from wide to long and unstack is going to be moving from long
+
+222
+00:18:41,040 --> 00:18:46,320
+to wide.
+
+223
+00:18:46,320 --> 00:18:47,720
+Okay.
+
+224
+00:18:47,720 --> 00:18:53,960
+So set index, reset index, stack and unstack are going to be the most fundamental reshaping
+
+225
+00:18:53,960 --> 00:18:56,160
+operations.
+
+226
+00:18:56,160 --> 00:19:03,160
+If you know these four or five methods, what you can do is any of the other operations
+
+227
+00:19:03,160 --> 00:19:08,600
+that we discussed today will typically be a combination of these operations.
+
+228
+00:19:08,600 --> 00:19:13,160
+And in fact, some of them are exactly written as combinations of these operations in the
+
+229
+00:19:13,160 --> 00:19:16,360
+pandas code base.
+
+230
+00:19:16,360 --> 00:19:22,000
+One little hint is, we remember stack for unstack using the following nomonic.
+
+231
+00:19:22,000 --> 00:19:27,160
+unstack moves index levels up.
+
+232
+00:19:27,160 --> 00:19:28,160
+Okay.
+
+233
+00:19:28,160 --> 00:19:33,880
+So next we're going to start talking about some additional methods that again are going
+
+234
+00:19:33,880 --> 00:19:40,880
+to be, they could be performed using the methods we've already discussed.
+
+235
+00:19:40,880 --> 00:19:42,200
+Okay.
+
+236
+00:19:42,200 --> 00:19:48,920
+So melt is going to be a method that moves from wide to long form.
+
+237
+00:19:48,920 --> 00:19:53,320
+It's going to move all of the values stored in your data frame to a single column with
+
+238
+00:19:53,320 --> 00:19:57,800
+all other columns being used to contain identifying information.
+
+239
+00:19:57,800 --> 00:20:03,560
+Now this should sound a lot like changing data to tidy data and it is.
+
+240
+00:20:03,560 --> 00:20:08,360
+So let's look at our original data set.
+
+241
+00:20:08,360 --> 00:20:14,720
+This data set we had a column for year, player team, team name, games, points, assists, and
+
+242
+00:20:14,720 --> 00:20:16,720
+rebounds.
+
+243
+00:20:16,720 --> 00:20:28,560
+Now one way that you might identify a particular variable is you might look across the year,
+
+244
+00:20:28,560 --> 00:20:38,200
+player team, team name, and then have a value for defining what variable you're interested
+
+245
+00:20:38,200 --> 00:20:39,960
+in.
+
+246
+00:20:39,960 --> 00:20:43,320
+So let's go ahead and just look at what this does.
+
+247
+00:20:43,320 --> 00:20:51,080
+So notice we have this argument to the melt method called identification variables.
+
+248
+00:20:51,080 --> 00:20:55,080
+So what are our unique identifiers?
+
+249
+00:20:55,080 --> 00:21:10,760
+And so all this is done is it's taken our unique identifier, which was this.
+
+250
+00:21:10,760 --> 00:21:20,240
+Now it's created a row for the variable games with the value 79, a row for the variable
+
+251
+00:21:20,240 --> 00:21:25,120
+points with the value of 30.1.
+
+252
+00:21:25,120 --> 00:21:29,800
+And if we went down, we would see more.
+
+253
+00:21:29,800 --> 00:21:36,080
+And so what you see is it's created basically a separate row for each of these columns,
+
+254
+00:21:36,080 --> 00:21:51,640
+but it's repeating this unique identifying information.
+
+255
+00:21:51,640 --> 00:21:57,800
+And what it's done is it's stored this new, well, this information that was already here
+
+256
+00:21:57,800 --> 00:22:04,080
+in two new columns, one called a variable, which is associated with any of the columns
+
+257
+00:22:04,080 --> 00:22:14,200
+that were not an identifying variable, and the value which contains the value of these columns.
+
+258
+00:22:14,200 --> 00:22:20,880
+And as mentioned, this method is an effective way to get our data into tidy format.
+
+259
+00:22:20,880 --> 00:22:24,160
+So we're going to pause for a minute.
+
+260
+00:22:24,160 --> 00:22:29,320
+So we've seen kind of a lot of information, so let's just take a second and regroup.
+
+261
+00:22:29,320 --> 00:22:33,080
+So and let's work through each of these questions.
+
+262
+00:22:33,080 --> 00:22:41,520
+So what do you think would happen if we wrote Bball.Melt ID vars year player rather than what we wrote?
+
+263
+00:22:41,520 --> 00:22:45,000
+In this case, just write some of your thoughts.
+
+264
+00:22:45,000 --> 00:22:51,440
+Next, read the documentation of the melt function and focus on the argument value vars.
+
+265
+00:22:51,440 --> 00:23:01,480
+How does this method call that we do right here, compared to the one that we did in part one?
+
+266
+00:23:01,480 --> 00:23:07,360
+And now think about the differences between Bball.stack and Bball.Melt.
+
+267
+00:23:07,360 --> 00:23:10,760
+Could you make them have the same output?
+
+268
+00:23:10,760 --> 00:23:17,000
+Maybe take a minute and do some experimentations and think about whether you could do this.
+
+269
+00:23:17,000 --> 00:23:22,440
+And let's go ahead, this will probably take about 10 minutes.
+
+270
+00:23:22,440 --> 00:23:24,280
+And we'll get a sense when you're done.
+
+271
+00:23:24,280 --> 00:23:29,280
+So go ahead and pause the video.
+
+272
+00:23:29,280 --> 00:23:31,040
+Okay, everyone, welcome back.
+
+273
+00:23:31,040 --> 00:23:34,240
+So let's talk through some of our answers.
+
+274
+00:23:34,240 --> 00:23:41,480
+So in this first case, when we cut out the identifiers team and team name, what's going to happen?
+
+275
+00:23:41,480 --> 00:23:48,920
+What it will do is team and team name are going to be possible values that the variable column takes.
+
+276
+00:23:48,920 --> 00:23:53,520
+And the values are just going to be pulled from the team and team name column.
+
+277
+00:23:53,520 --> 00:24:05,320
+So let's go ahead and see what that would look like.
+
+278
+00:24:05,320 --> 00:24:10,440
+So here we see the variable, it can take the value team now.
+
+279
+00:24:10,440 --> 00:24:20,200
+And it can be associated with the team values, which were GSW, okay, C, and whatever the other one was.
+
+280
+00:24:20,200 --> 00:24:24,480
+So what does the value bars argument do?
+
+281
+00:24:24,480 --> 00:24:29,120
+So we can open up the documentation, remember, by putting a question mark after the method.
+
+282
+00:24:29,120 --> 00:24:33,400
+And let's read about value bars, columns to unpivot.
+
+283
+00:24:33,400 --> 00:24:39,400
+If not specified, uses all columns that are not set as ID variables.
+
+284
+00:24:39,400 --> 00:24:45,800
+So in this case, what it's going to do, what this means is, it's only going to keep the
+
+285
+00:24:45,800 --> 00:24:48,000
+columns points and rebound.
+
+286
+00:24:48,000 --> 00:24:54,600
+And those are the only ones that are going to be brought to into the variable and values columns.
+
+287
+00:24:54,600 --> 00:25:02,000
+So if we look at the output of this, the only variables that are going to show up are points and
+
+288
+00:25:02,000 --> 00:25:07,000
+rebounds, and then they're associated values.
+
+289
+00:25:07,000 --> 00:25:12,200
+Finally, let's think about the difference between stack and melt.
+
+290
+00:25:12,200 --> 00:25:15,920
+Can we make them set the same output?
+
+291
+00:25:15,920 --> 00:25:18,400
+The answer is yes, we can.
+
+292
+00:25:18,400 --> 00:25:24,400
+So if we take our data frame and we set the index to be our ID variables, which were a year,
+
+293
+00:25:24,400 --> 00:25:32,560
+player, team, and team name, then we can stack the remaining columns, which are going to be
+
+294
+00:25:32,560 --> 00:25:38,360
+the variable and the values, which don't have a name in the original data frame.
+
+295
+00:25:38,360 --> 00:25:40,760
+And then we could reset index.
+
+296
+00:25:40,760 --> 00:25:48,600
+And notice this is now given us exactly the same output as melt, except we now have ugly names
+
+297
+00:25:48,600 --> 00:25:51,440
+for these two columns.
+
+298
+00:25:51,440 --> 00:25:54,080
+And we could always rename these.
+
+299
+00:25:54,080 --> 00:26:00,760
+But we think it's a useful exercise to think about kind of how you can recreate certain
+
+300
+00:26:00,760 --> 00:26:04,200
+methods using the core functionality.
+
+301
+00:26:04,200 --> 00:26:14,560
+Okay, so the next two reshaping methods we'll talk about are called pivot and pivot table.
+
+302
+00:26:14,560 --> 00:26:18,440
+You may already be familiar with some of these ideas because you've previously used pivot
+
+303
+00:26:18,440 --> 00:26:20,440
+tables in Excel.
+
+304
+00:26:20,440 --> 00:26:22,840
+If you have, that's great.
+
+305
+00:26:22,840 --> 00:26:27,720
+We think that you'll be able to do even more than you can do with Excel using Python.
+
+306
+00:26:27,720 --> 00:26:29,800
+And we think it's easier to use.
+
+307
+00:26:29,800 --> 00:26:34,160
+If you haven't seen a pivot table, then we have other great news.
+
+308
+00:26:34,160 --> 00:26:39,000
+You're about to use an extremely powerful tool that's used across the business and academic
+
+309
+00:26:39,000 --> 00:26:40,480
+world.
+
+310
+00:26:40,480 --> 00:26:43,640
+So let's begin with pivot.
+
+311
+00:26:43,640 --> 00:26:48,760
+The pivot method is going to take unique values of one column and it's going to place
+
+312
+00:26:48,760 --> 00:26:51,120
+them along the index.
+
+313
+00:26:51,120 --> 00:26:56,640
+It will then take the unique values of another column and place them along the columns.
+
+314
+00:26:56,640 --> 00:27:01,200
+And it will take the values that correspond to a third column and fill this data frame
+
+315
+00:27:01,200 --> 00:27:05,640
+with values that correspond to that index column pair.
+
+316
+00:27:05,640 --> 00:27:10,320
+So let's go ahead and take an example.
+
+317
+00:27:10,320 --> 00:27:15,200
+So let's look at the following data frame.
+
+318
+00:27:15,200 --> 00:27:23,960
+So let's just look at the first six observations of our basketball data frame.
+
+319
+00:27:23,960 --> 00:27:32,840
+And now we're going to give pivot the arguments index equals year columns equal player
+
+320
+00:27:32,840 --> 00:27:35,680
+and values equals points.
+
+321
+00:27:35,680 --> 00:27:37,880
+And so now let's read what pivot does.
+
+322
+00:27:37,880 --> 00:27:42,800
+It's going to take the unique values of one column and place them along the index.
+
+323
+00:27:42,800 --> 00:27:50,080
+So we might think that it's going to place 2015, 2016 and 2017 on the index.
+
+324
+00:27:51,040 --> 00:27:56,040
+It's going to take the unique values of another column and place them along the columns.
+
+325
+00:27:56,040 --> 00:28:00,560
+So there might be curry and a rant.
+
+326
+00:28:00,560 --> 00:28:08,400
+So we think, according to what I've described above, we have a three by two data frame.
+
+327
+00:28:08,400 --> 00:28:12,960
+Now it's going to take the values from a third column and it will fill the data frame with
+
+328
+00:28:12,960 --> 00:28:16,080
+values that correspond to that index column pair.
+
+329
+00:28:17,040 --> 00:28:19,640
+So we put values equals points.
+
+330
+00:28:19,640 --> 00:28:27,520
+And so the combination of 2015, which is on our index and curry, which is a column,
+
+331
+00:28:27,520 --> 00:28:31,920
+should probably take the value 30.1.
+
+332
+00:28:31,920 --> 00:28:32,840
+Let's go ahead.
+
+333
+00:28:32,840 --> 00:28:34,320
+Maybe I should have been writing this down.
+
+334
+00:28:34,320 --> 00:28:43,120
+So our unique values for the index were 2015, 2016 and 2017.
+
+335
+00:28:43,120 --> 00:28:49,040
+And our unique values for player were curry and rant.
+
+336
+00:28:49,040 --> 00:28:53,280
+And we wanted to put points as the values associated in this data frame.
+
+337
+00:28:53,280 --> 00:29:01,120
+And so in 2015, the player curry scored an average of 30.1 points,
+
+338
+00:29:01,120 --> 00:29:05,120
+to rant scored an average of 28.2.
+
+339
+00:29:05,120 --> 00:29:07,360
+Dot dot dot dot.
+
+340
+00:29:07,360 --> 00:29:11,080
+Let's see whether this is what we get.
+
+341
+00:29:11,080 --> 00:29:12,720
+Excellent.
+
+342
+00:29:12,720 --> 00:29:17,920
+So if we read these instructions carefully, it looks like we got what I promised
+
+343
+00:29:17,920 --> 00:29:22,160
+we would get.
+
+344
+00:29:22,160 --> 00:29:28,760
+So we could always replicate pivot using our fundamental operations.
+
+345
+00:29:28,760 --> 00:29:34,800
+You could call set index with the index and columns arguments, extract the particular
+
+346
+00:29:34,800 --> 00:29:39,920
+values column, and then unstack the columns to the new index.
+
+347
+00:29:39,920 --> 00:29:48,440
+So step one is we're going to set the index to be year and player.
+
+348
+00:29:48,440 --> 00:29:54,000
+So let's go ahead and see what each of these steps would look like.
+
+349
+00:29:54,000 --> 00:29:58,080
+So that gives us a data frame that has a year and player on the index and keeps all of this
+
+350
+00:29:58,080 --> 00:30:00,680
+other information.
+
+351
+00:30:00,680 --> 00:30:05,360
+We then want to select a particular column in our case.
+
+352
+00:30:05,440 --> 00:30:11,360
+It's the points column, which is going to move this back to a series because we only have
+
+353
+00:30:11,360 --> 00:30:14,920
+a single column.
+
+354
+00:30:14,920 --> 00:30:19,600
+And then finally, what we'll do is we're going to unstack the level player.
+
+355
+00:30:19,600 --> 00:30:26,880
+And so notice the unstack is going to move these values into the column.
+
+356
+00:30:26,880 --> 00:30:30,360
+It's going to make our data wider than it currently is.
+
+357
+00:30:30,360 --> 00:30:33,120
+And we can compare the two data frames.
+
+358
+00:30:33,120 --> 00:30:39,520
+And we can see that we've successfully replicated pivot.
+
+359
+00:30:39,520 --> 00:30:47,640
+So one thing that's important is that pivot will only work when the index or column pairs
+
+360
+00:30:47,640 --> 00:30:50,040
+are unique.
+
+361
+00:30:50,040 --> 00:30:57,320
+So in 2016, Ebaq is going to show up twice because he was traded in the middle of his
+
+362
+00:30:57,320 --> 00:31:01,160
+seasons from the Orlando magic to the Toronto Raptors.
+
+363
+00:31:01,160 --> 00:31:02,640
+So why would this create a problem?
+
+364
+00:31:02,640 --> 00:31:11,800
+So if we look at our data set, what we see is that he has two values for the year 2016.
+
+365
+00:31:11,800 --> 00:31:14,720
+So he played with both the magic and the Raptors.
+
+366
+00:31:14,720 --> 00:31:21,960
+And so if we tried to put just one value into our table, we could, we would not know whether
+
+367
+00:31:21,960 --> 00:31:28,560
+it should be 15.1 or 14.2.
+
+368
+00:31:28,560 --> 00:31:31,640
+So that will give us this error that I promised.
+
+369
+00:31:31,680 --> 00:31:36,440
+So index contains duplicate entries, cannot reshape.
+
+370
+00:31:36,440 --> 00:31:38,920
+Luckily we have a way to deal with this.
+
+371
+00:31:38,920 --> 00:31:43,960
+So in addition to the pivot method, there's a method called pivot table.
+
+372
+00:31:43,960 --> 00:31:46,640
+And it's going to be a generalization of pivot.
+
+373
+00:31:46,640 --> 00:31:50,600
+And it's going to overcome two particular limitations.
+
+374
+00:31:50,600 --> 00:31:56,880
+First it will allow you to choose multiple columns for the index columns or values arguments.
+
+375
+00:31:56,880 --> 00:32:02,120
+In second, it will allow you to deal with multiple with duplicate entries by having
+
+376
+00:32:02,120 --> 00:32:04,880
+you choose how to combine them.
+
+377
+00:32:04,880 --> 00:32:07,520
+So let's look at our data frame.
+
+378
+00:32:07,520 --> 00:32:10,680
+We have our basketball data frame.
+
+379
+00:32:10,680 --> 00:32:14,400
+And now let's do the same operation we just tried to do.
+
+380
+00:32:14,400 --> 00:32:18,480
+We are instead of pivot, we now use pivot table.
+
+381
+00:32:18,480 --> 00:32:21,200
+Oh, so that's right.
+
+382
+00:32:21,200 --> 00:32:26,440
+So we can successfully do what we did with pivot.
+
+383
+00:32:26,440 --> 00:32:30,320
+Let's go ahead and I think we are going to do this in a minute.
+
+384
+00:32:30,320 --> 00:32:33,840
+But let's look at what happens when we don't take the year.
+
+385
+00:32:33,840 --> 00:32:38,040
+So remember, in 2016, I back up played for two teams.
+
+386
+00:32:38,040 --> 00:32:43,360
+And with those two teams, he averaged 15.1 and 14.2 points.
+
+387
+00:32:43,360 --> 00:32:48,480
+So what happened was it took the average of those two values.
+
+388
+00:32:48,480 --> 00:32:56,080
+And we'll talk more about why that is and what it can do in a second.
+
+389
+00:32:56,080 --> 00:32:59,880
+So we can also choose multiple indexer columns values.
+
+390
+00:32:59,880 --> 00:33:03,840
+So now we can do a year and team.
+
+391
+00:33:03,840 --> 00:33:05,520
+And notice this does become unique.
+
+392
+00:33:05,520 --> 00:33:11,080
+So we get the 15.1 and the 14.2 with two different teams.
+
+393
+00:33:11,080 --> 00:33:13,960
+But the downside is we get lots of missing data.
+
+394
+00:33:13,960 --> 00:33:18,360
+So Durant never played with the Golden State Warriors in 2015.
+
+395
+00:33:18,360 --> 00:33:23,600
+And he did a play with Orlando in 2016.
+
+396
+00:33:23,600 --> 00:33:30,280
+Where Ebaqa has never played with the Golden State Warriors.
+
+397
+00:33:30,280 --> 00:33:38,160
+Similarly, we can put multiple values on the column rather than the index.
+
+398
+00:33:38,160 --> 00:33:39,760
+Quick quiz.
+
+399
+00:33:39,760 --> 00:33:43,200
+This is just 30 seconds.
+
+400
+00:33:43,200 --> 00:33:45,880
+How could you convert from this data frame?
+
+401
+00:33:45,880 --> 00:33:49,720
+That's created by this command to this data frame,
+
+402
+00:33:49,760 --> 00:33:50,720
+converted by this command.
+
+403
+00:33:57,440 --> 00:34:00,240
+So if you've been paying attention,
+
+404
+00:34:00,240 --> 00:34:05,440
+you'll notice that this is just simply an unstack that we can unstack the team level
+
+405
+00:34:05,440 --> 00:34:10,840
+and it will move it to our columns rather than the index.
+
+406
+00:34:10,840 --> 00:34:14,040
+Just to see if you're paying attention.
+
+407
+00:34:14,040 --> 00:34:14,840
+OK.
+
+408
+00:34:14,840 --> 00:34:21,400
+And so like I said, it now is going to allow us to deal with duplicated values.
+
+409
+00:34:21,400 --> 00:34:24,880
+And the way it does that is it's going to perform in aggregation.
+
+410
+00:34:24,880 --> 00:34:29,720
+And if you remember, an aggregation is an operation that takes multiple values
+
+411
+00:34:29,720 --> 00:34:32,720
+and creates a one value.
+
+412
+00:34:32,720 --> 00:34:41,640
+And so like I said, 14.65 was just the mean of 15.1 and 14.2.
+
+413
+00:34:41,640 --> 00:34:47,560
+But pandas allows us to choose how we aggregate these data points.
+
+414
+00:34:47,560 --> 00:34:54,760
+So we could choose to take the max in which case we get 15.1.
+
+415
+00:34:54,760 --> 00:34:57,440
+We could also just count how many values there were.
+
+416
+00:34:57,440 --> 00:35:03,080
+And so in this case, what we're asking is how many teams did each of these players score
+
+417
+00:35:03,080 --> 00:35:05,240
+points for any year.
+
+418
+00:35:05,240 --> 00:35:10,440
+And notice we see that Ibachus scored points for two different teams.
+
+419
+00:35:10,440 --> 00:35:14,120
+And you can even pass multiple aggregation functions.
+
+420
+00:35:14,120 --> 00:35:19,440
+So if we wanted to have the max, which was 15.2, but we wanted to know also how many teams
+
+421
+00:35:19,440 --> 00:35:24,440
+they played for, we could get it here.
+
+422
+00:35:24,440 --> 00:35:28,000
+So first, again, let's take a breath.
+
+423
+00:35:28,000 --> 00:35:30,760
+This was a lot.
+
+424
+00:35:30,760 --> 00:35:36,000
+And let's spend five minutes thinking about the next two questions.
+
+425
+00:35:36,000 --> 00:35:42,480
+And you think of a reason someone might ever want to use pivot rather than pivot table
+
+426
+00:35:42,480 --> 00:35:44,720
+right down your thoughts.
+
+427
+00:35:44,720 --> 00:35:51,720
+And second, create a pivot table with column as the index and team name with the column
+
+428
+00:35:51,720 --> 00:35:58,080
+player as the index with the column team name as the columns and rebound and assist as
+
+429
+00:35:58,080 --> 00:36:00,000
+the values.
+
+430
+00:36:00,000 --> 00:36:05,040
+What happens when you use these aggregation functions?
+
+431
+00:36:05,040 --> 00:36:09,520
+Describe how Python produced each of the values in the resulting pivot table.
+
+432
+00:36:09,520 --> 00:36:14,280
+So let's go ahead and pause the video.
+
+433
+00:36:14,280 --> 00:36:16,280
+Okay, let's talk about our answers.
+
+434
+00:36:16,280 --> 00:36:20,400
+So the reason that comes to my mind why you might want to use pivot rather than pivot
+
+435
+00:36:20,400 --> 00:36:23,960
+table is when you want to enforce the uniqueness.
+
+436
+00:36:23,960 --> 00:36:28,160
+You may not actually want any aggregations to happen behind the scenes and pivot table will
+
+437
+00:36:28,160 --> 00:36:31,240
+perform those aggregations behind the scenes.
+
+438
+00:36:31,280 --> 00:36:38,080
+You could always check by this by seeing how many values appeared in each little cell by
+
+439
+00:36:38,080 --> 00:36:41,080
+using the link argument as an aggregation function.
+
+440
+00:36:41,080 --> 00:36:45,160
+But sometimes you just want to throw an error.
+
+441
+00:36:45,160 --> 00:36:52,000
+Now we create the pivot table we described above and how was this created.
+
+442
+00:36:52,000 --> 00:37:00,440
+So what happened was we got the three unique players on the index and we got the columns
+
+443
+00:37:01,440 --> 00:37:08,840
+first in the innermost we have the team names and then what it's done is on the next level of
+
+444
+00:37:08,840 --> 00:37:14,520
+index it's added each of the variables that we were interested in which in our case was just
+
+445
+00:37:14,520 --> 00:37:17,520
+assists and rebounds.
+
+446
+00:37:17,520 --> 00:37:24,360
+And then on the outer most it's given us the values for each of these aggregation functions.
+
+447
+00:37:24,360 --> 00:37:32,000
+So it gives us the max, the min and the length with just a counter.
+
+448
+00:37:32,000 --> 00:37:38,400
+And so the way that the index is ordered on the column side is first on the innermost is
+
+449
+00:37:38,400 --> 00:37:42,600
+whatever columns you pass into the column's argument.
+
+450
+00:37:42,600 --> 00:37:49,320
+Then it has another layer where you can pass the different values and it has a final layer
+
+451
+00:37:49,360 --> 00:37:53,760
+where you pass each of the aggregation functions.
+
+452
+00:37:53,760 --> 00:38:01,640
+And so if we wanted to look at, so say we saved this and we just wanted to look at the
+
+453
+00:38:01,640 --> 00:38:09,160
+maxes, we could just select the max or if we wanted to get fancy we could.
+
+454
+00:38:09,160 --> 00:38:12,120
+So let me space this out a little bit.
+
+455
+00:38:12,120 --> 00:38:13,880
+So it's not so ugly.
+
+456
+00:38:13,880 --> 00:38:14,880
+Great.
+
+457
+00:38:14,880 --> 00:38:30,320
+I don't remember whether we've talked about PDDact index lys yet, but you'll notice it's just
+
+458
+00:38:30,320 --> 00:38:33,440
+given us these particular elements.
+
+459
+00:38:33,440 --> 00:38:35,840
+So we've already done the same thing.
+
+460
+00:38:35,840 --> 00:38:37,840
+So we've already done the same thing.
+
+461
+00:38:37,840 --> 00:38:39,840
+So we've already done the same thing.
+
+462
+00:38:39,840 --> 00:38:48,320
+So you'll notice it's just given us these particular, so it's selected a particular level
+
+463
+00:38:48,320 --> 00:38:51,840
+on the outermost, a particular level on the next outermost.
+
+464
+00:38:51,840 --> 00:38:57,560
+And then we've taken all of the values for team name.
+
+465
+00:38:57,560 --> 00:38:58,800
+Okay.
+
+466
+00:38:58,800 --> 00:39:04,560
+So now that we've learned to the basics, let's go ahead and circle back and let's use
+
+467
+00:39:04,560 --> 00:39:12,040
+a toy data frame and watch some visualizations that perform these operations.
+
+468
+00:39:12,040 --> 00:39:18,720
+So we're going to use the toy data frame that has columns ABCDE with the following values
+
+469
+00:39:18,720 --> 00:39:20,120
+inside of them.
+
+470
+00:39:20,120 --> 00:39:21,120
+Okay.
+
+471
+00:39:21,120 --> 00:39:29,600
+So that data frame two and data frame three.
+
+472
+00:39:29,600 --> 00:39:30,600
+Okay.
+
+473
+00:39:31,080 --> 00:39:34,160
+This animation is going to perform how stack works.
+
+474
+00:39:34,160 --> 00:39:41,200
+So let's take data frame two and see what happens when we stack.
+
+475
+00:39:41,200 --> 00:39:49,840
+So when we stack, notice it takes each of the values 1, 10, and 2 associated with these columns.
+
+476
+00:39:49,840 --> 00:39:52,680
+And it moves the columns CD and E.
+
+477
+00:39:52,680 --> 00:39:54,320
+So we're about to see it again.
+
+478
+00:39:54,320 --> 00:39:57,960
+So it's going to take this whole row and move it to here.
+
+479
+00:39:57,960 --> 00:40:08,440
+So you have access to these.
+
+480
+00:40:08,440 --> 00:40:16,600
+So I suggest if you're trying to figure out what stack and unstack do, watching this operation
+
+481
+00:40:16,600 --> 00:40:23,280
+a few times, we can do the same thing for unstack.
+
+482
+00:40:23,280 --> 00:40:28,120
+So notice it brings down the outer layer of the index.
+
+483
+00:40:28,120 --> 00:40:38,240
+And then it's going to move the next layer across the columns.
+
+484
+00:40:38,240 --> 00:40:43,680
+So let's see what that looks like.
+
+485
+00:40:43,680 --> 00:40:53,840
+So again, we've now moved XYZ here.
+
+486
+00:40:53,840 --> 00:41:03,280
+And then the red values are kind of not randomly, but they're placed in A0 CX.
+
+487
+00:41:03,280 --> 00:41:12,360
+So that's where we get the 1, 2, 3, 4, etc.
+
+488
+00:41:12,360 --> 00:41:22,280
+And then finally here is melt animated.
+
+489
+00:41:22,280 --> 00:41:28,320
+What we see is we create a new two new columns, variable in value.
+
+490
+00:41:28,320 --> 00:41:34,960
+And then all of the C values get put into the first four associated with their corresponding
+
+491
+00:41:34,960 --> 00:41:40,520
+A's and B's, and then D's, and then E's.
+
+492
+00:41:40,520 --> 00:41:44,760
+So come back to these animations.
+
+493
+00:41:44,760 --> 00:41:47,040
+Do a little bit of studying with them.
+
+494
+00:41:47,040 --> 00:41:51,440
+And you should think Spencer, he spent a lot of time these are animated in SVG and he wrote
+
+495
+00:41:51,440 --> 00:41:52,760
+this by hand.
+
+496
+00:41:52,760 --> 00:41:56,360
+And I think it's really, it's really a miraculous animation.
+
+497
+00:41:56,360 --> 00:42:00,480
+I think he actually improved my understanding of some of these operations when he created
+
+498
+00:42:00,480 --> 00:42:01,480
+this.
+
+499
+00:42:01,480 --> 00:42:05,400
+So that's everything we have on reshaping data.
+
+500
+00:42:05,400 --> 00:42:07,080
+This was a dense topic.
+
+501
+00:42:07,080 --> 00:42:09,040
+Please come back, study this again.
+
+502
+00:42:09,080 --> 00:42:12,880
+It will take multiple times to master this.
+
+503
+00:42:12,880 --> 00:42:13,680
+We'll talk soon.
+
+504
+00:42:13,680 --> 00:42:13,880
+Bye.
+

@@ -1,0 +1,1600 @@
+id,question_type,question_text,content,strings_solution,ints_solution,topics,difficulty,setup_code,test_code,author_id,inserted_at,updated_at,search_index
+6,multiple_selection,"If you see the following code
+
+```python
+import pandas as pd
+```
+
+what would you use to access the `DataFrame` attribute of the pandas library","{pd,pandas,""You can't access the `DataFrame` attribute""}",,{0},{programming},1,,,1,2023-06-27 03:54:03,2023-06-27 03:54:03,"'access':6,25 'attribut':28 'attributeif':9 'code':14 'datafram':8,27 'follow':13 'import':16 'librari':32 'panda':2,17,31 'pd':1,19 'program':33 'python':15 'see':11 'use':23 'would':21"
+7,code,"How would you plot a diagram that is similar to (a sequence of 100 random normal draws)
+
+![](https://python-programming.quantecon.org/_images/test_program_1_updated.png)","{""import numpy as np
+import matplotlib.pyplot as plt
+
+ϵ_values = np.random.randn(100)""}","{""import numpy as np
+import matplotlib.pyplot as plt
+
+ϵ_values = np.random.randn(100)
+fig, ax = plt.subplots()
+ax.plot(ϵ_values)
+""}",,{matplotlib},2,"import numpy as np
+import matplotlib.pyplot as plt
+
+ϵ_values = np.random.randn(100)","# NOTE: this question is ungraded
+assert True",1,2023-06-27 03:56:54,2023-08-10 01:32:20,"'/_images/test_program_1_updated.png)':32 '100':12,26 'diagram':18 'draw':29 'import':1,5 'matplotlib':33 'matplotlib.pyplot':6 'normal':28 'np':4 'np.random.randn':11 'numpi':2 'plot':16 'plt':8 'python-programming.quantecon.org':31 'python-programming.quantecon.org/_images/test_program_1_updated.png)':30 'random':27 'sequenc':24 'similar':21 'valu':10 'would':14 'ϵ':9"
+8,code,"Given
+
+```
+x = 1
+y = 2
+```
+
+How do you assign `z` the sum of `x` and `y` and print the value","{""x = 1
+y = 2""}","{""x = 1
+y = 2
+z = x + y
+print(z)""}",,"{python,arthmetic}",2,,assert z == 3,1,2023-06-27 04:02:35,2023-06-27 04:02:35,"'1':2,6 '2':8 '2given':4 'arthmet':25 'assign':12 'print':21 'python':24 'sum':15 'valu':23 'x':1,5,17 'y':3,7,19 'z':13"
+9,single_selection,Can you open a Jupyter notebook?,"{Yes,No,""What is a Jupyter Notebook?""}",,{0},"{jupyter,notebook}",1,,,1,2023-06-29 01:34:28,2023-06-29 01:34:28,"'jupyt':6,12,14 'notebook':7,13,15 'open':10 'yes':1"
+10,single_selection,Is the world Round?,"{Yes,No,Almost}",,{0},{planet},2,,,1,2023-06-30 02:21:12,2023-06-30 02:21:12,"'almosti':3 'planet':7 'round':6 'world':5 'yes':1"
+11,single_selection,Are you receiving email notifications from Jupyteach?,"{Yes,No}",,{0},{survey1},1,,,1,2023-07-07 09:39:25,2023-07-07 09:39:25,"'email':5 'jupyteach':8 'noar':2 'notif':6 'receiv':4 'survey1':9 'yes':1"
+14,single_selection,What Python package would you consider using if you wanted to construct a dataset?,"{pandas,numpy,matplotlib,dask}",,{0},"{python,programming,pandas,data-work}",1,,,1,2023-07-12 01:59:44,2023-07-12 02:47:57,"'consid':9 'construct':15 'daskwhat':4 'data':22 'data-work':21 'dataset':17 'matplotlib':3 'numpi':2 'packag':6 'panda':1,20 'program':19 'python':5,18 'use':10 'want':13 'work':23 'would':7"
+15,single_selection,What python packages would you consider using if you wanted to work with numerical data in arrays?,"{random,matplotlib,dask,numpy}",,{3},"{python,programming,numpy,numerical-computing}",1,,,1,2023-07-12 02:01:43,2023-07-12 02:47:31,"'array':20 'comput':26 'consid':9 'dask':3 'data':18 'matplotlib':2 'numer':17,25 'numerical-comput':24 'numpi':23 'numpywhat':4 'packag':6 'program':22 'python':5,21 'random':1 'use':10 'want':13 'work':15 'would':7"
+16,single_selection,"What would the following code block evaluate to:
+
+```python
+a = 4
+b = 6
+c = a + b
+print(c)
+```","{0,10,NaN,6}",,{1},"{python,programming,core,essentials}",1,,,1,2023-07-12 02:03:49,2023-07-12 02:03:49,"'0':1 '10':2 '4':14 '6':16 '6what':4 'b':15,19 'block':9 'c':17,21 'code':8 'core':24 'essenti':25 'evalu':10 'follow':7 'nan':3 'print':20 'program':23 'python':12,22 'would':5"
+17,code,"How would you reverse the order of the following list in python
+
+```python
+a = [1, 'hi', 3, 'there']
+```
+
+and save the result in an object `b`","{""a = [1, 'hi', 3, 'there']
+# Reverse the order of the list and save the result in an object called b""}","{""a = [1, 'hi', 3, 'there']
+b = a[::-1]""}",,"{python,programming,lists}",1,# none,"assert b == ['there', 3, 'hi', 1]",1,2023-07-12 02:09:29,2023-07-14 02:18:54,"'1':2,34 '3':4,36 'b':45 'bhow':20 'call':19 'follow':28 'hi':3,35 'list':11,29,48 'object':18,44 'order':8,25 'program':47 'python':31,32,46 'result':15,41 'revers':6,23 'save':13,39 'would':21"
+18,single_selection,"What does the following code show?
+
+```python
+x = [1, 2, 3]
+y = [4, 5, 6]
+print(x + y)
+```","{""`[1, 2, 3, 4, 5, 6]`"",""`[[1, 2, 3], [4, 5, 6]]`"",`ValueError`,""`[1, 2, 3, [4, 5, 6]]`""}",,{0},"{collections,lists}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'1':1,7,14,28 '2':2,8,15,29 '3':3,9,16,30 '4':4,10,17,32 '5':5,11,18,33 '6':6,12,19,34 'code':24 'collect':38 'follow':23 'list':39 'print':35 'python':26 'show':25 'valueerror':13 'x':27,36 'y':31,37"
+19,code,Fill in the function below to compute the mean of a list of numbers.,"{""def mean(xs: list):
+    ## TODO: your code here""}","{""def mean(xs: list):
+    return sum(xs) / len(xs)""}",,"{functions,numbers,lists}",2,"x = [1, 2, 3]
+y = [1, 2, 3, 4, 5]","assert mean(x) == 2.0
+assert mean(y) == 3.0",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'code':7 'comput':14 'def':1 'function':11,22 'herefil':8 'list':4,19,24 'mean':2,16 'number':21,23 'todo':5 'xs':3"
+20,single_selection,"What do you think the value of z is after running the code below?
+
+```python
+z = 3
+z = z + 4
+print(""z is"", z)
+```","{3,4,5,7,other}",,{3},"{basics,numbers}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'3':1,21 '4':2,24 '5':3 '7':4 'basic':29 'code':17 'number':30 'otherwhat':5 'print':25 'python':19 'run':15 'think':8 'valu':10 'z':12,20,22,23,26,28"
+21,code,"You are given a 3 dimensional numpy array as specified below:
+
+```
+A = np.array([[[0.0, 1.0], [2.0, 3.0]], [[4.0, 5.0], [6.0, 7.0]]])
+```
+
+Create a variable `idx` (define as a tuple) that you could use to select the `4.0` element of this array.
+
+For example,
+
+```
+idx = (0, 0, 0)
+```
+
+would select the `0.0` element of the array.","{""idx = (0, 0, 0)  # Fill this in with the correct index""}","{""x = (1, 0, 0)""}",,{numpy},3,"import numpy as np
+
+A = np.array([[[0.0, 1.0], [2.0, 3.0]], [[4.0, 5.0], [6.0, 7.0]]])","assert A[idx] == A[1, 0, 0]",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':2,3,4,55,56,57 '0.0':24,61 '1.0':25 '2.0':26 '3':15 '3.0':27 '4.0':28,47 '5.0':29 '6.0':30 '7.0':31 'array':18,51,65 'correct':10 'could':42 'creat':32 'defin':36 'dimension':16 'element':48,62 'exampl':53 'fill':5 'given':13 'idx':1,35,54 'indexyou':11 'np.array':23 'numpi':17,66 'select':45,59 'specifi':20 'tupl':39 'use':43 'variabl':34 'would':58"
+22,fill_in_blank,"One of our favorite (and most frequently used) string methods is `replace`.
+
+It substitutes all occurrences of a particular pattern with a different pattern.
+
+For the variable test below, use the replace method to change the `c` to a `d`.
+
+```python
+test = ""abc""
+```","{""test.replace(___X, ___X)""}","{'c','d'}",,"{strings,functions}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'abc':46 'c':40 'chang':38 'd':43 'differ':26 'favorit':7 'frequent':10 'function':48 'method':13,36 'occurr':19 'one':4 'particular':22 'pattern':23,27 'python':44 'replac':15,35 'string':12,47 'substitut':17 'test':31,45 'test.replace':1 'use':11,33 'variabl':30 'x':2,3"
+23,multiple_selection,Which of the following matrices are symmetric?,"{""`np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]])`"",""`np.array([[1.5, 2.0, 0.0], [0.0, 1.5, 1.5], [0.0, 2.0, 1.5]])`"",""`np.array([[1.0, 1.0, 0.0], [1.0, 1.0, 1.0], [0.0, 1.0, 1.0]])`"",""`np.ones((5, 5))`""}",,"{0,2,3}","{""linear algebra"",numpy}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0.0':3,4,5,7,8,9,14,15,18,24,28 '1.0':2,6,10,22,23,25,26,27,29,30 '1.5':12,16,17,20 '2.0':13,19 '5':32,33 'algebra':42 'follow':37 'linear':41 'matric':38 'np.array':1,11,21 'np.ones':31 'numpi':43 'symmetr':40"
+24,multiple_selection,Which of the following snippets will create a variable `z` with a value equal to the float `3.0`?,"{""`z = float('3')`"",""`z = 3.0`"",""`z = 3`"",""`z = float(3)`"",""`x = 3.0`"",""`z = '3.0'`""}",,"{0,1,3}","{variables,numbers}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'3':3,7,10 '3.0':5,12,14,32 'creat':21 'equal':28 'float':2,9,31 'follow':18 'number':34 'snippet':19 'valu':27 'variabl':23,33 'x':11 'z':1,4,6,8,13,24"
+25,code,"Write the code necessary create the following variables:
+- `D`:  A floating point number with the value 10,000
+- `r`:  A floating point number with value 0.025
+- `T`:  An integer with value 30
+","{""# your code here""}","{""D = 10000.0
+r = 0.025
+T = 30""}",,"{variables,numbers}",1,,"assert D == 10000
+assert r == 0.025
+assert T == 30",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0.025':28 '000':20 '10':19 '30':34 'code':2,5 'creat':7 'd':11 'float':13,23 'follow':9 'herewrit':3 'integ':31 'necessari':6 'number':15,25,36 'point':14,24 'r':21 'valu':18,27,33 'variabl':10,35"
+26,code,"Find the mean of the series `s` and save as variable `mu_s`
+
+```python
+values = [5.6, 5.3, 4.3, 4.2, 5.8, 5.3, 4.6, 7.8, 9.1, 8., 5.7]
+years = list(range(1995, 2017, 2))
+
+s = pd.Series(data=values, index=years, name=""Unemployment"")
+```","{""mu_s = 0.0  # TODO: What is the mean of s?""}","{""mu_s = s.mean()""}",,"{pandas,""pandas basics""}",1,"import pandas as pd
+
+values = [5.6, 5.3, 4.3, 4.2, 5.8, 5.3, 4.6, 7.8, 9.1, 8., 5.7]
+years = list(range(1995, 2017, 2))
+
+s = pd.Series(data=values, index=years, name=""Unemployment"")",assert(abs(mu_s - s.mean()) < 1e-8),1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0.0':3 '1995':40 '2':42 '2017':41 '4.2':29 '4.3':28 '4.6':32 '5.3':27,31 '5.6':26 '5.7':36 '5.8':30 '7.8':33 '8':35 '9.1':34 'basic':53 'data':45 'find':11 'index':47 'list':38 'mean':8,13 'mu':1,22 'name':49 'panda':51,52 'pd.series':44 'python':24 'rang':39 'save':19 'seri':16 'todo':4 'unemploy':50 'valu':25,46 'variabl':21 'year':37,48"
+27,code,"The code below is invalid Python code
+
+Can you fix it? Write the code needed properly create the variable `x`.","{""x = 'What's wrong with this string'""}","{""x = \""What's wrong with this string\""""}",,"{strings,syntax,errors}",1,,"assert x == ""What's wrong with this string""",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'code':9,14,21 'creat':24 'error':30 'fix':17 'invalid':12 'need':22 'proper':23 'python':13 'string':7,28 'syntax':29 'variabl':26 'write':19 'wrong':4 'x':1,27"
+28,code,"Given the following bi-variate probability mass function,
+
+```python
+pi = np.array([
+    [0.25, 0.05, 0.15],
+    [0.4, 0.1, 0.15],
+])
+```
+
+Let the variable `x` run across the rows (i.e. there are three possible values for `x`) and the variable `y` run across the columns (i.e. there are two possible outcomes for `y`).
+
+Compute the marginal distribution of `x` and store it as `pi_x`.","{""pi_x =  # TODO: Your code here""}","{""pi_x = pi.sum(axis=0)""}",,{probability},1,"import numpy as np
+
+pi = np.array([
+    [0.25, 0.05, 0.15],
+    [0.4, 0.1, 0.15],
+])","assert np.allclose(pi_x, pi.sum(axis=0))",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0.05':19 '0.1':22 '0.15':20,23 '0.25':18 '0.4':21 'across':29,45 'bi':10 'bi-vari':9 'code':5 'column':47 'comput':56 'distribut':59 'follow':8 'function':14 'heregiven':6 'i.e':32,48 'let':24 'margin':58 'mass':13 'np.array':17 'outcom':53 'pi':1,16,66 'possibl':36,52 'probabl':12,68 'python':15 'row':31 'run':28,44 'store':63 'three':35 'todo':3 'two':51 'valu':37 'variabl':26,42 'variat':11 'x':2,27,39,61,67 'y':43,55"
+29,code,Create a univariate discrete probability mass function as an array `pi`. This can be stored as a one dimensional numpy array.,"{""import numpy as np
+
+pi =  # TODO: Your code here""}","{""import numpy as np
+
+pi = np.array([0.5, 0.5])""}",,{probability},1,import numpy as np,"assert np.all(pi >= 0)
+assert abs(np.sum(pi) - 1) < 1e-8",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'array':18,29 'code':8 'dimension':27 'discret':12 'function':15 'herecr':9 'import':1 'mass':14 'np':4 'numpi':2,28 'one':26 'pi':5,19 'probabl':13,30 'store':23 'todo':6 'univari':11"
+30,code,"Suppose you are working with price data and encounter the value `""$6.50""`.
+
+We (as humans) recognize this as being a number representing the quantity “six dollars and fifty cents.”
+
+However, Python interprets the value as the string `""$6.50""`. (Pause! Why is this a problem?)
+
+In this exercise, your task is create a new string named `clean_price` by using string methods such that you could call `float(clean_price)` to get a number.","{""price = \""$6.50\""
+clean_price = None  # TODO: replace this line""}","{""clean_price = price.replace(\""$\"", \""\"")""}",,"{strings,numbers,cleaning}",1,"price = ""$6.50""",assert float(clean_price) == 6.5,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'6.50':2,20,46 'call':74 'cent':37 'clean':3,64,76,84 'could':73 'creat':59 'data':15 'dollar':34 'encount':17 'exercis':55 'fifti':36 'float':75 'get':79 'howev':38 'human':23 'interpret':40 'linesuppos':9 'method':69 'name':63 'new':61 'none':5 'number':29,81,83 'paus':47 'price':1,4,14,65,77 'problem':52 'python':39 'quantiti':32 'recogn':24 'replac':7 'repres':30 'six':33 'string':45,62,68,82 'task':57 'todo':6 'use':67 'valu':19,42 'work':12"
+31,single_selection,"How many rows will `result` have after running the following code?
+
+```python
+data = {'Arizona': [4.1, 4.1, 4.0, 4.0, 4.0],
+ 'California': [5.0, 5.0, 5.0, 5.1, 5.1],
+ 'Florida': [3.7, 3.7, 3.7, 3.7, 3.7],
+ 'Illinois': [4.2, 4.2, 4.3, 4.3, 4.3],
+ 'Michigan': [3.3, 3.2, 3.2, 3.3, 3.5],
+ 'New York': [4.7, 4.7, 4.6, 4.6, 4.6],
+ 'Texas': [4.6, 4.6, 4.5, 4.4, 4.3]}
+
+df = pd.DataFrame(data)
+
+result = df.loc[(df[""California""] < 5.1) & (df[""Texas""].isin([4.6, 4.3]))]
+```","{5,2,1,4,3,0}",,{1},"{pandas,dataframe,indexing,""boolean selection""}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0how':6 '1':3 '2':2 '3':5 '3.2':45,46 '3.3':44,47 '3.5':48 '3.7':32,33,34,35,36 '4':4 '4.0':22,23,24 '4.1':20,21 '4.2':38,39 '4.3':40,41,42,61,74 '4.4':60 '4.5':59 '4.6':53,54,55,57,58,73 '4.7':51,52 '5':1 '5.0':26,27,28 '5.1':29,30,69 'arizona':19 'boolean':78 'california':25,68 'code':16 'data':18,64 'datafram':76 'df':62,67,70 'df.loc':66 'florida':31 'follow':15 'illinoi':37 'index':77 'isin':72 'mani':7 'michigan':43 'new':49 'panda':75 'pd.dataframe':63 'python':17 'result':10,65 'row':8 'run':13 'select':79 'texa':56,71 'york':50"
+32,code,"Verify the ""trick"" where the percent difference ($\frac{x-y}{x}$) between two numbers close to 1 can be well approximated by the difference between the log of the two numbers ($\log(x) - \log(y)$)
+
+Use the numbers `x` and `y` below and save the percent difference into a variable called `z2`.
+
+> Hint: You will want to use the `math.log` function, which will need to be imported","{""x = 1.05
+y = 1.02
+
+z1 = (x - y) / x
+z2 = None  # TODO: your code here
+
+print(\""The difference is\"", z1 - z2)""}","{""import math
+
+z2 = math.log(x) - math.log(y)""}",,"{numbers,math,modules}",2,"x = 1.05
+y = 1.02
+
+z1 = (x - y) / x",assert abs(z1 - z2) < 1e-3,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'1':38 '1.02':4 '1.05':2 'approxim':42 'call':72 'close':36 'code':13 'differ':17,27,45,68 'frac':28 'function':82 'hint':74 'import':88 'log':48,53,55 'math':90 'math.log':81 'modul':91 'need':85 'none':10 'number':35,52,59,89 'percent':26,67 'print':15 'save':65 'todo':11 'trick':23 'two':34,51 'use':57,79 'variabl':71 'verifi':21 'want':77 'well':41 'x':1,6,8,30,32,54,60 'x-i':29 'y':3,7,31,56,62 'z1':5,19 'z2':9,20,73"
+33,single_selection,"Below is the docstring for the built-in function `len`:
+
+```
+In [1]: len?
+Signature: len(obj, /)
+Docstring: Return the number of items in a container.
+Type:      builtin_function_or_method
+```
+
+What do you think the output will be when we call `len(x)`, given the variable x as defined below
+
+```python
+x = ""some string""
+```","{1,`None`,2,11,0}",,{3},"{functions,strings,docstrings}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0below':5 '1':1,17 '11':4 '2':3 'built':12 'built-in':11 'builtin':32 'call':46 'contain':30 'defin':54 'docstr':8,22,62 'function':14,33,60 'given':49 'item':27 'len':15,18,20,47 'method':35 'none':2 'number':25 'obj':21 'output':41 'python':56 'return':23 'signatur':19 'string':59,61 'think':39 'type':31 'variabl':51 'x':48,52,57"
+34,fill_in_blank,"Please fill in the blanks below with your personal information. Make sure you use your name, your university email address, and university student id.","{""{
+    \""name\"": \""___X\"",
+    \""email\"": \""___X\"",
+    \""student_id\"": \""___X\"",
+}""}","{"""","""",""""}",,{student_info},1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'address':27 'blank':12 'email':3,26 'fill':9 'id':6,31 'info':33 'inform':17 'make':18 'name':1,23 'person':16 'pleas':8 'student':5,30,32 'sure':19 'univers':25,29 'use':21 'x':2,4,7"
+35,code,"Sum all odd numbers between 1 and 1,000. Save this to the variable x","{""x = # Write your code here""}","{""x = sum(range(1, 1000, 2))""}",,"{list,range}",1,,assert(x == 250000),1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'000':13 '1':10,12 'code':4 'heresum':5 'list':20 'number':8 'odd':7 'rang':21 'save':14 'variabl':18 'write':2 'x':1,19"
+36,code,"Given the dataframe `unemp_region`, calculate the 5th, 25th percentile, 50th percentile, 75 percentile, and 95 percentile unemployment rates in each region with regions as columns and percentiles as the index. Save this as `unemp_percentiles` 
+
+```python
+data = {
+""NorthEast"": [5.9, 5.6, 4.4, 3.8, 5.8, 4.9, 4.3, 7.1, 8.3, 7.9, 5.7],
+""MidWest"": [4.5, 4.3, 3.6, 4. , 5.7, 5.7, 4.9, 8.1, 8.7, 7.4, 5.1],
+""South"": [5.3, 5.2, 4.2, 4. , 5.7, 5.2, 4.3, 7.6, 9.1, 7.4, 5.5],
+""West"": [6.6, 6., 5.2, 4.6, 6.5, 5.5, 4.5, 8.6, 10.7, 8.5, 6.1],
+""National"": [5.6, 5.3, 4.3, 4.2, 5.8, 5.3, 4.6, 7.8, 9.1, 8., 5.7]
+}
+years = list(range(1995, 2017, 2))
+
+unemp_region = pd.DataFrame(data, index=years)
+```","{""unemp_percentiles = None  # replace this line""}","{""unemp_percentiles = unemp_region.quantile([0.05, 0.25, 0.5, 0.75, 0.95])""}",,"{pandas,""pandas transform""}",2,"import pandas as pd
+
+data = {
+""NorthEast"": [5.9, 5.6, 4.4, 3.8, 5.8, 4.9, 4.3, 7.1, 8.3, 7.9, 5.7],
+""MidWest"": [4.5, 4.3, 3.6, 4. , 5.7, 5.7, 4.9, 8.1, 8.7, 7.4, 5.1],
+""South"": [5.3, 5.2, 4.2, 4. , 5.7, 5.2, 4.3, 7.6, 9.1, 7.4, 5.5],
+""West"": [6.6, 6., 5.2, 4.6, 6.5, 5.5, 4.5, 8.6, 10.7, 8.5, 6.1],
+""National"": [5.6, 5.3, 4.3, 4.2, 5.8, 5.3, 4.6, 7.8, 9.1, 8., 5.7]
+}
+years = list(range(1995, 2017, 2))
+
+unemp_region = pd.DataFrame(data, index=years)","assert ((unemp_percentiles - unemp_region.quantile([0.05, 0.25, 0.5, 0.75, 0.95])).sum() < 1e-8).all()
+assert unemp_percentiles.shape == (5, 5)",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'10.7':89 '1995':107 '2':109 '2017':108 '25th':14 '3.6':59 '3.8':48 '4':60,72 '4.2':71,96 '4.3':51,58,75,95 '4.4':47 '4.5':57,87 '4.6':84,99 '4.9':50,63 '5.1':67 '5.2':70,74,83 '5.3':69,94,98 '5.5':79,86 '5.6':46,93 '5.7':55,61,62,73,103 '5.8':49,97 '5.9':45 '50th':16 '5th':13 '6':82 '6.1':91 '6.5':85 '6.6':81 '7.1':52 '7.4':66,78 '7.6':76 '7.8':100 '7.9':54 '75':18 '8':102 '8.1':64 '8.3':53 '8.5':90 '8.6':88 '8.7':65 '9.1':77,101 '95':21 'calcul':11 'column':31 'data':43,113 'datafram':8 'index':36,114 'linegiven':6 'list':105 'midwest':56 'nation':92 'none':3 'northeast':44 'panda':116,117 'pd.dataframe':112 'percentil':2,15,17,19,22,33,41 'python':42 'rang':106 'rate':24 'region':10,27,29,111 'replac':4 'save':37 'south':68 'transform':118 'unemp':1,9,40,110 'unemploy':23 'west':80 'year':104,115"
+37,single_selection,"What output is shown when the code below is executed?
+
+```python
+x = ""Hello""
+y = ""World!""
+print(x + y)
+```","{""Hello World!"",HelloWorld!,`None`,""None of the above""}",,{1},"{strings,variables}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'abovewhat':8 'code':14 'execut':17 'hello':1,20 'helloworld':3 'none':4,5 'output':9 'print':23 'python':18 'shown':11 'string':26 'variabl':27 'world':2,22 'x':19,24 'y':21,25"
+38,code,"The equation for computing the present discounted value of a payment (`D`) made in 
+`T`  years assuming an annual interest rate of 2.5% (`r`) is given as:
+
+$$
+PDV=\frac{D}{(1+r)^T}
+$$
+
+We'll practice computing this below. 
+
+Your task is to create a new variable called `PDV` that uses variables `D`, `r`, and `T` to compute the present discounted value.","{""D = 10000
+r = 0.025
+T = 30
+
+PDV = None # TODO: replace with your code""}","{""PDV = D / ((1 +r) ** T)""}",,"{numbers,math,economics}",2,"D = 10000
+r = 0.025
+T = 30",assert abs(PDV - 4767.4268) < 1e-3,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0.025':4 '1':43 '10000':2 '2.5':35 '30':6 'annual':31 'assum':29 'call':60 'codeth':13 'comput':16,49,70 'creat':56 'd':1,24,42,65 'discount':19,73 'econom':77 'equat':14 'frac':41 'given':38 'interest':32 'll':47 'made':25 'math':76 'new':58 'none':8 'number':75 'payment':23 'pdv':7,40,61 'practic':48 'present':18,72 'r':3,36,44,66 'rate':33 'replac':10 'task':53 'todo':9 'use':63 'valu':20,74 'variabl':59,64 'year':28"
+39,code,"Given the DataFrame `unemp_region` below, create a new variable called `rows` that contains the first 3 rows of data.
+
+```python
+data = {
+    ""NorthEast"": [5.9,  5.6,  4.4,  3.8,  5.8,  4.9,  4.3,  7.1,  8.3,  7.9,  5.7],
+    ""MidWest"": [4.5,  4.3,  3.6,  4. ,  5.7,  5.7,  4.9,  8.1,  8.7,  7.4,  5.1],
+    ""South"": [5.3,  5.2,  4.2,  4. ,  5.7,  5.2,  4.3,  7.6,  9.1,  7.4,  5.5],
+    ""West"": [6.6, 6., 5.2, 4.6, 6.5, 5.5, 4.5, 8.6, 10.7, 8.5, 6.1],
+    ""National"": [5.6, 5.3, 4.3, 4.2, 5.8, 5.3, 4.6, 7.8, 9.1, 8., 5.7]
+}
+years = list(range(1995, 2017, 2))
+
+unemp_region = pd.DataFrame(data, index=years)
+```","{""rows = None  # Replace this line""}","{""rows = unemp_region.head(3)""}",,"{pandas,dataframe,head}",1,"import pandas as pd
+
+data = {
+    ""NorthEast"": [5.9,  5.6,  4.4,  3.8,  5.8,  4.9,  4.3,  7.1,  8.3,  7.9,  5.7],
+    ""MidWest"": [4.5,  4.3,  3.6,  4. ,  5.7,  5.7,  4.9,  8.1,  8.7,  7.4,  5.1],
+    ""South"": [5.3,  5.2,  4.2,  4. ,  5.7,  5.2,  4.3,  7.6,  9.1,  7.4,  5.5],
+    ""West"": [6.6, 6., 5.2, 4.6, 6.5, 5.5, 4.5, 8.6, 10.7, 8.5, 6.1],
+    ""National"": [5.6, 5.3, 4.3, 4.2, 5.8, 5.3, 4.6, 7.8, 9.1, 8., 5.7]
+}
+years = list(range(1995, 2017, 2))
+
+unemp_region = pd.DataFrame(data, index=years)","assert rows.shape == (3, 5)
+assert list(rows.index) == [1995, 1997, 1999]",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'10.7':72 '1995':90 '2':92 '2017':91 '3':21 '3.6':42 '3.8':31 '4':43,55 '4.2':54,79 '4.3':34,41,58,78 '4.4':30 '4.5':40,70 '4.6':67,82 '4.9':33,46 '5.1':50 '5.2':53,57,66 '5.3':52,77,81 '5.5':62,69 '5.6':29,76 '5.7':38,44,45,56,86 '5.8':32,80 '5.9':28 '6':65 '6.1':74 '6.5':68 '6.6':64 '7.1':35 '7.4':49,61 '7.6':59 '7.8':83 '7.9':37 '8':85 '8.1':47 '8.3':36 '8.5':73 '8.6':71 '8.7':48 '9.1':60,84 'call':15 'contain':18 'creat':11 'data':24,26,96 'datafram':7,100 'first':20 'head':101 'index':97 'linegiven':5 'list':88 'midwest':39 'nation':75 'new':13 'none':2 'northeast':27 'panda':99 'pd.dataframe':95 'python':25 'rang':89 'region':9,94 'replac':3 'row':1,16,22 'south':51 'unemp':8,93 'variabl':14 'west':63 'year':87,98"
+40,single_selection,Which of the following describes Bayes Law?,"{""P(A | B) = (P(B | A) * P(A)) / P(B)"",""P(A | B) = (P(B | A) * P(B)) / P(A)"",""P(A | B) = P(A) / P(B)"",""P(A | B) = 0""}",,{0},"{probability,bayes}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0which':31 'b':3,5,10,13,15,18,23,27,30 'bay':36,39 'describ':35 'follow':34 'law':37 'p':1,4,7,9,11,14,17,19,21,24,26,28 'probabl':38"
+41,code,"Given the following bi-variate probability mass function,
+
+```python
+pi = np.array([
+    [0.25, 0.05, 0.15],
+    [0.4, 0.1, 0.15],
+])
+```
+
+Let the variable `x` run across the rows (i.e. there are three possible values for `x`) and the variable `y` run across the columns (i.e. there are two possible outcomes for `y`).
+
+Compute the marginal distribution of `y` and store it as `pi_y`.","{""pi_y =  # TODO: Your code here""}","{""pi_y = pi.sum(axis=1)""}",,{probability},2,"import numpy as np
+
+pi = np.array([
+    [0.25, 0.05, 0.15],
+    [0.4, 0.1, 0.15],
+])","assert np.allclose(pi_y, pi.sum(axis=1))",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0.05':19 '0.1':22 '0.15':20,23 '0.25':18 '0.4':21 'across':29,45 'bi':10 'bi-vari':9 'code':5 'column':47 'comput':56 'distribut':59 'follow':8 'function':14 'heregiven':6 'i.e':32,48 'let':24 'margin':58 'mass':13 'np.array':17 'outcom':53 'pi':1,16,66 'possibl':36,52 'probabl':12,68 'python':15 'row':31 'run':28,44 'store':63 'three':35 'todo':3 'two':51 'valu':37 'variabl':26,42 'variat':11 'x':27,39 'y':2,43,55,61,67"
+42,multiple_selection,Which of the following expressions results in the number 42 (or 42.0 -- int or float would be accepted)?,"{""`40 + 2`"",""`np.array([1, 2, 3, 36]).sum()`"",""`np.array([20, 2]) @ np.array([2, 1])`"",""`np.array([20, 2]) @ np.array([1, 2])`"",""`np.array([[1, 2], [3, 36]]).sum()`"",""`sum(np.array([[1, 2], [3, 36]]))`""}",,"{0,1,2,4}","{""linear algebra"",numpy}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'1':4,14,19,22,29 '2':2,5,11,13,17,20,23,30 '20':10,16 '3':6,24,31 '36':7,25,32 '40':1 '42':42 '42.0':44 'accept':50 'algebra':52 'express':37 'float':47 'follow':36 'int':45 'linear':51 'np.array':3,9,12,15,18,21,28 'number':41 'numpi':53 'result':38 'sum':8,26,27 'would':48"
+43,code,"Imagine that you are given a 2 dimensional numpy array, `A`. Use numpy to compute the transpose of `A` and save it as a variable `x`","{""x = None  # TODO: Set x equal to A transpose""}","{""x = A.T""}",,"{""linear algebra"",numpy}",1,"import numpy as np
+
+A = np.random.randn(5, 5)","assert np.allclose(x, A.T)",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'2':15 'algebra':36 'array':18 'comput':23 'dimension':16 'equal':6 'given':13 'linear':35 'none':2 'numpi':17,21,37 'save':29 'set':4 'todo':3 'transpos':25 'transposeimagin':9 'use':20 'variabl':33 'x':1,5,34"
+44,code,"Given the DataFrame below, find all values of unemployment for the North East in the odd years from 1999 to 2007
+
+```python
+import pandas as pd
+
+years = list(range(1995, 2017, 2))
+data = {
+    ""NorthEast"": [5.9,  5.6,  4.4,  3.8,  5.8,  4.9,  4.3,  7.1,  8.3,  7.9,  5.7],
+    ""MidWest"": [4.5,  4.3,  3.6,  4. ,  5.7,  5.7,  4.9,  8.1,  8.7,  7.4,  5.1],
+    ""South"": [5.3,  5.2,  4.2,  4. ,  5.7,  5.2,  4.3,  7.6,  9.1,  7.4,  5.5],
+    ""West"": [6.6, 6., 5.2, 4.6, 6.5, 5.5, 4.5, 8.6, 10.7, 8.5, 6.1],
+    ""National"": [5.6, 5.3, 4.3, 4.2, 5.8, 5.3, 4.6, 7.8, 9.1, 8., 5.7]
+}
+unemp_region = pd.DataFrame(data, index=years)
+```","{""ne_unemp =  # TODO: Your code here""}","{""ne_unemp = unemp_region.loc[1999:2007, \""NorthEast\""]""}",,"{pandas,index,selection}",1,"import pandas as pd
+
+years = list(range(1995, 2017, 2))
+data = {
+    ""NorthEast"": [5.9,  5.6,  4.4,  3.8,  5.8,  4.9,  4.3,  7.1,  8.3,  7.9,  5.7],
+    ""MidWest"": [4.5,  4.3,  3.6,  4. ,  5.7,  5.7,  4.9,  8.1,  8.7,  7.4,  5.1],
+    ""South"": [5.3,  5.2,  4.2,  4. ,  5.7,  5.2,  4.3,  7.6,  9.1,  7.4,  5.5],
+    ""West"": [6.6, 6., 5.2, 4.6, 6.5, 5.5, 4.5, 8.6, 10.7, 8.5, 6.1],
+    ""National"": [5.6, 5.3, 4.3, 4.2, 5.8, 5.3, 4.6, 7.8, 9.1, 8., 5.7]
+}
+unemp_region = pd.DataFrame(data, index=years)","assert abs(ne_unemp.sum() - unemp_region.loc[1999:2007, ""NorthEast""].sum()) < 1e-8",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'10.7':84 '1995':35 '1999':24 '2':37 '2007':26 '2017':36 '3.6':54 '3.8':43 '4':55,67 '4.2':66,91 '4.3':46,53,70,90 '4.4':42 '4.5':52,82 '4.6':79,94 '4.9':45,58 '5.1':62 '5.2':65,69,78 '5.3':64,89,93 '5.5':74,81 '5.6':41,88 '5.7':50,56,57,68,98 '5.8':44,92 '5.9':40 '6':77 '6.1':86 '6.5':80 '6.6':76 '7.1':47 '7.4':61,73 '7.6':71 '7.8':95 '7.9':49 '8':97 '8.1':59 '8.3':48 '8.5':85 '8.6':83 '8.7':60 '9.1':72,96 'code':5 'data':38,102 'datafram':8 'east':18 'find':10 'heregiven':6 'import':28 'index':103,106 'list':33 'midwest':51 'nation':87 'ne':1 'north':17 'northeast':39 'odd':21 'panda':29,105 'pd':31 'pd.dataframe':101 'python':27 'rang':34 'region':100 'select':107 'south':63 'todo':3 'unemp':2,99 'unemploy':14 'valu':12 'west':75 'year':22,32,104"
+45,fill_in_blank,"Imagine that you have a dataset with food item sales.
+
+```
+| item name       | quantity | total price | 
+| --------------- | -------- | ----------- |
+| chicken fingers |        1 |       $5.00 |
+| Chicken bowl    |        2 |      $12.00 |
+| steak bowl      |        1 |       $8.00 |
+| Chicken bowl    |        1 |       $6.00 |
+| french fries    |        1 |       $2.00 |
+```
+
+Now suppose that you would like to find the average price of all of the items that have chicken in them. How would you do that?
+
+","{""data[\""price\""] = data[\""price\""].str.___X(\""$\"", \""\"")
+
+# Make all names lower case so you can find
+# the string 'chicken'
+contains_chicken = data[\""item name\""].str.___X.str.contains(___X)
+
+avg_price_chicken = data.loc[contains_chicken, :].eval(\""price / quantity\"").___X()""}","{replace,lower(),""\""chicken\"""",mean}",,"{pandas,string,cleaning}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'1':52,60,64,68 '12.00':57 '2':56 '2.00':69 '5.00':53 '6.00':65 '8.00':61 'averag':79 'avg':25 'bowl':55,59,63 'case':10 'chicken':17,19,27,30,50,54,62,88 'clean':98 'contain':18,29 'data':1,3,20 'data.loc':28 'dataset':40 'eval':31 'find':14,77 'finger':51 'food':42 'french':66 'fri':67 'imagin':35 'item':21,43,45,85 'like':75 'lower':9 'make':6 'name':8,22,46 'panda':96 'price':2,4,26,32,49,80 'quantiti':33,47 'sale':44 'steak':58 'str.___x':5 'str.___x.str.contains':23 'string':16,97 'suppos':71 'total':48 'would':74,92 'x':24,34"
+46,fill_in_blank,"Suppose you have already executed the following code:
+
+```python
+import numpy as np
+
+A = np.array([[1, 2], [3, 4]])
+b = np.array([10, 42])
+```
+
+Fill in the blanks below to solve the matrix equation $Ax = b$ for $x$","{""from scipy.linalg import ___X
+
+x = ___X(A, ___X)""}","{solve,solve,b}",,"{""linear algebra"",regression,numpy}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'1':24 '10':30 '2':25 '3':26 '4':27 '42':31 'algebra':47 'alreadi':12 'ax':42 'b':28,43 'blank':35 'code':16 'equat':41 'execut':13 'fill':32 'follow':15 'import':3,18 'linear':46 'matrix':40 'np':21 'np.array':23,29 'numpi':19,49 'python':17 'regress':48 'scipy.linalg':2 'solv':38 'suppos':9 'x':4,5,6,8,45"
+47,single_selection,"What does `.loc` do?
+
+Below is an example of how it might be used
+
+```python
+df.loc[1995, ""NorthEast""]
+```","{""The `.loc` method allows a user to select rows/columns by name"",""The `.loc` method allows a  user to select rows/columns by their position"",""The `.loc` method is for aggregating data""}",,{0},"{pandas,index}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'1995':46 'aggreg':29 'allow':4,15 'datawhat':30 'df.loc':45 'exampl':37 'index':49 'loc':2,13,25,32 'method':3,14,26 'might':41 'name':11 'northeast':47 'panda':48 'posit':23 'python':44 'rows/columns':9,20 'select':8,19 'use':43 'user':6,17"
+48,multiple_selection,"Given at DataFrame that would be printed as follows, what are the column names of the DataFrame:
+
+```
+                          GDP  Consumption
+country        year                       
+United Kingdom 2010  2.452900     1.598563
+               2011  2.493244     1.588172
+               2012  2.529323     1.612550
+               2013  2.581080     1.642336
+               2014  2.657159     1.675716
+Germany        2010  3.417095     1.915481
+               2011  3.542160     1.941340
+               2012  3.559587     1.967390
+               2013  3.577015     1.979458
+               2014  3.654924     1.999953
+
+```","{country,""United Kingdom"",year,Consumption,GDP,2010}",,"{3,4}","{pandas,dataframe,index}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'1.588172':35 '1.598563':32 '1.612550':38 '1.642336':41 '1.675716':44 '1.915481':48 '1.941340':51 '1.967390':54 '1.979458':57 '1.999953':60 '2.452900':31 '2.493244':34 '2.529323':37 '2.581080':40 '2.657159':43 '2010':30,46 '2010given':7 '2011':33,49 '2012':36,52 '2013':39,55 '2014':42,58 '3.417095':47 '3.542160':50 '3.559587':53 '3.577015':56 '3.654924':59 'column':19 'consumpt':5,25 'countri':1,26 'datafram':9,23,62 'follow':15 'gdp':6,24 'germani':45 'index':63 'kingdom':3,29 'name':20 'panda':61 'print':13 'unit':2,28 'would':11 'year':4,27"
+49,single_selection,"What does `.iloc` do?
+
+Below is an example of how it might be used
+
+```python
+df.iloc[0, 1]
+```","{""The `.iloc` method allows a user to select rows/columns by name"",""The `.iloc` method allows a  user to select rows/columns by their position"",""The `.iloc` method is for aggregating data""}",,{1},"{pandas,index}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':46 '1':47 'aggreg':29 'allow':4,15 'datawhat':30 'df.iloc':45 'exampl':37 'iloc':2,13,25,32 'index':49 'method':3,14,26 'might':41 'name':11 'panda':48 'posit':23 'python':44 'rows/columns':9,20 'select':8,19 'use':43 'user':6,17"
+50,single_selection,"Given a DataFrame that would be `print`ed as follows, determine how many levels are in the index:
+
+```
+                          GDP  Consumption
+country        year                       
+United Kingdom 2010  2.452900     1.598563
+               2011  2.493244     1.588172
+               2012  2.529323     1.612550
+               2013  2.581080     1.642336
+               2014  2.657159     1.675716
+Germany        2010  3.417095     1.915481
+               2011  3.542160     1.941340
+               2012  3.559587     1.967390
+               2013  3.577015     1.979458
+               2014  3.654924     1.999953
+
+```","{0,1,2,3,4,5,other}",,{2},"{pandas,index,""hierarchical index""}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':1 '1':2 '1.588172':36 '1.598563':33 '1.612550':39 '1.642336':42 '1.675716':45 '1.915481':49 '1.941340':52 '1.967390':55 '1.979458':58 '1.999953':61 '2':3 '2.452900':32 '2.493244':35 '2.529323':38 '2.581080':41 '2.657159':44 '2010':31,47 '2011':34,50 '2012':37,53 '2013':40,56 '2014':43,59 '3':4 '3.417095':48 '3.542160':51 '3.559587':54 '3.577015':57 '3.654924':60 '4':5 '5':6 'consumpt':26 'countri':27 'datafram':9 'determin':17 'ed':14 'follow':16 'gdp':25 'germani':46 'hierarch':64 'index':24,63,65 'kingdom':30 'level':20 'mani':19 'othergiven':7 'panda':62 'print':13 'unit':29 'would':11 'year':28"
+51,fill_in_blank,"Consider a DataFrame that can be printed as follows
+
+```
+  numbers nums  colors  other_column
+0     #23   23   green             0
+1     #24   24     red             1
+2     #18   18  yellow             0
+3     #14   14  orange             2
+4     #12  NaN  purple             1
+5     #10  XYZ    blue             0
+6     #35   35    pink             2
+```
+
+Please fill in the blanks necessary to convert the `numbers` column to have dtype float instead of string.","{""df[\""numbers\""].___X.replace(___X, \""\"").astype(___X)""}","{str,""\""#\"""",float}",,"{pandas,""string methods"",cleaning}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':21,25,35,50 '1':26,30,45 '10':47 '12':42 '14':37,38 '18':32,33 '2':31,40,55 '23':22,23 '24':27,28 '3':36 '35':52,53 '4':41 '5':46 '6':51 'astyp':5 'blank':60 'blue':49 'clean':77 'color':18 'column':20,66 'consid':7 'convert':63 'datafram':9 'df':1 'dtype':69 'fill':57 'float':70 'follow':15 'green':24 'instead':71 'method':76 'nan':43 'necessari':61 'num':17 'number':2,16,65 'orang':39 'panda':74 'pink':54 'pleas':56 'print':13 'purpl':44 'red':29 'string':73,75 'x':4,6 'x.replace':3 'xyz':48 'yellow':34"
+52,Freeform,"Is the following data set in tidy form? Explain your reasoning
+
+```
+   Year  Player Team  TeamName  Games   Pts  Assist  Rebound
+0  2015   Curry  GSW  Warriors     79  30.1     6.7      5.4
+1  2016   Curry  GSW  Warriors     79  25.3     6.6      4.5
+2  2017   Curry  GSW  Warriors     51  26.4     6.1      5.1
+3  2015  Durant  OKC   Thunder     72  28.2     5.0      8.2
+4  2016  Durant  GSW  Warriors     62  25.1     4.8      8.3
+5  2017  Durant  GSW  Warriors     68  26.4     5.4      6.8
+6  2015   Ibaka  OKC   Thunder     78  12.6     0.8      6.8
+7  2016   Ibaka  ORL     Magic     56  15.1     1.1      6.8
+8  2016   Ibaka  TOR   Raptors     23  14.2     0.7      6.8
+
+```","{""Answer here""}",{0},,"{pandas,""tidy data""}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':21 '0.7':100 '0.8':82 '1':30 '1.1':91 '12.6':81 '14.2':99 '15.1':90 '2':39 '2015':22,49,76 '2016':31,58,85,94 '2017':40,67 '23':98 '25.1':63 '25.3':36 '26.4':45,72 '28.2':54 '3':48 '30.1':27 '4':57 '4.5':38 '4.8':64 '5':66 '5.0':55 '5.1':47 '5.4':29,73 '51':44 '56':89 '6':75 '6.1':46 '6.6':37 '6.7':28 '6.8':74,83,92,101 '62':62 '68':71 '7':84 '72':53 '78':80 '79':26,35 '8':93 '8.2':56 '8.3':65 'answer':1 'assist':19 'curri':23,32,41 'data':5,104 'durant':50,59,68 'explain':10 'follow':4 'form':9 'game':17 'gsw':24,33,42,60,69 'herei':2 'ibaka':77,86,95 'magic':88 'okc':51,78 'orl':87 'panda':102 'player':14 'pts':18 'raptor':97 'reason':12 'rebound':20 'set':6 'team':15 'teamnam':16 'thunder':52,79 'tidi':8,103 'tor':96 'warrior':25,34,43,61,70 'year':13"
+53,single_selection,What is a model?,"{""A model is a mathematical equation that I create"",""A probability distribution over outcomes indexed by parameters"",""A function of the data""}",,{1},"{statistics,probability}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'creat':9 'datawhat':22 'distribut':12 'equat':6 'function':19 'index':15 'mathemat':5 'model':2,25 'outcom':14 'paramet':17 'probabl':11,27 'statist':26"
+54,multiple_selection,"Below is a printout of the DataFrame df:
+
+```
+                          GDP  Consumption
+country        year                       
+United Kingdom 2010  2.452900     1.598563
+               2011  2.493244     1.588172
+               2012  2.529323     1.612550
+               2013  2.581080     1.642336
+               2014  2.657159     1.675716
+Germany        2010  3.417095     1.915481
+               2011  3.542160     1.941340
+               2012  3.559587     1.967390
+               2013  3.577015     1.979458
+               2014  3.654924     1.999953
+
+```
+
+Given this data, which of the following snippets of code would let us extract GDP in Germany for 2010 and 2014?","{""df.loc[('Germany', [2010, 2014]), 'GDP']"",""df.loc[('Germany', [2010, 2014]), ['GDP']]"",""df.GDP.loc[('Germany', [2010, 2014])]"",""df.GDP.loc['Germany', [2010, 2014]]""}",,"{0,1,2,3}","{pandas,index}",3,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'1.588172':38 '1.598563':35 '1.612550':41 '1.642336':44 '1.675716':47 '1.915481':51 '1.941340':54 '1.967390':57 '1.979458':60 '1.999953':63 '2.452900':34 '2.493244':37 '2.529323':40 '2.581080':43 '2.657159':46 '2010':3,8,13,17,33,49,82 '2011':36,52 '2012':39,55 '2013':42,58 '2014':4,9,14,18,45,61,84 '3.417095':50 '3.542160':53 '3.559587':56 '3.577015':59 '3.654924':62 'code':73 'consumpt':28 'countri':29 'data':66 'datafram':25 'df':26 'df.gdp.loc':11,15 'df.loc':1,6 'extract':77 'follow':70 'gdp':5,10,27,78 'germani':2,7,12,16,48,80 'given':64 'index':86 'kingdom':32 'let':75 'panda':85 'printout':22 'snippet':71 'unit':31 'us':76 'would':74 'year':30"
+55,multiple_selection,"Consider the DataFrame `df` created by the following code
+
+```python
+import numpy as np
+import pandas as pd
+
+d = {'numbers': ['#23', '#24', '#18', '#14', '#12', '#10', '#35'],
+ 'nums': ['23', '24', '18', '14', nan, 'XYZ', '35'],
+ 'colors': ['green', 'red', 'yellow', 'orange', 'purple', 'blue', 'pink'],
+ 'other_column': [0, 1, 0, 2, 1, 0, 2]}
+
+df = pd.DataFrame(d)
+```
+
+Which of the following statements evaluates to `True`?","{`df.isna().any()`,`np.any(df.isna())`,`df.isna().any()['nums']`,`df.isna()['nums'].any()`}",,"{1,2,3}","{pandas,""missing data""}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':56,58,61 '1':57,60 '10':36 '12':35 '14':34,42 '18':33,41 '2':59,62 '23':31,39 '24':32,40 '35':37,45 'blue':52 'code':19 'color':46 'column':55 'consid':11 'creat':15 'd':29,65 'data':76 'datafram':13 'df':14,63 'df.isna':1,4,5,8 'evalu':71 'follow':18,69 'green':47 'import':21,25 'miss':75 'nan':43 'np':24 'np.any':3 'num':7,9,38 'number':30 'numpi':22 'orang':50 'panda':26,74 'pd':28 'pd.dataframe':64 'pink':53 'purpl':51 'python':20 'red':48 'statement':70 'true':73 'xyz':44 'yellow':49"
+56,single_selection,"In Bayes Law, f(theta | y) = (f(y | theta) f(theta)) / f(y), what word do we use to reference f(theta)?","{likelihood,data,posterior,prior}",,{3},"{""bayes law"",probability}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'bay':5,26 'data':2 'f':7,10,13,15,24 'law':6,27 'likelihood':1 'posterior':3 'priorin':4 'probabl':28 'refer':23 'theta':8,12,14,25 'use':21 'word':18 'y':9,11,16"
+57,fill_in_blank,"Given two dataframes
+
+**dfL**
+
+```
+  key      col1
+0   A  1.764052
+1   B  0.400157
+2   C  0.978738
+3   D  2.240893
+```
+
+**dfR**
+
+```
+  key      col2
+0   B  1.867558
+1   D -0.977278
+2   E  0.950088
+3   F -0.151357
+```
+
+Replace the blank that you would need to create the following dataframe
+
+```
+  key      col1      col2
+0   B  0.400157  1.867558
+1   D  2.240893 -0.977278
+```","{""pd.merge(dfL, dfR, on=\""Key\"", how=\""___X\"")""}",{inner},,"{pandas,merge}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'-0.151357':40 '-0.977278':34,63 '0':14,29,56 '0.400157':19,58 '0.950088':37 '0.978738':22 '1':17,32,60 '1.764052':16 '1.867558':31,59 '2':20,35 '2.240893':25,62 '3':23,38 'b':18,30,57 'blank':43 'c':21 'col1':13,54 'col2':28,55 'creat':49 'd':24,33,61 'datafram':10,52 'dfl':2,11 'dfr':3,26 'e':36 'f':39 'follow':51 'given':8 'key':5,12,27,53 'merg':65 'need':47 'panda':64 'pd.merge':1 'replac':41 'two':9 'would':46 'x':7"
+58,single_selection,What is a statistic?,"{""A statistic is my subjective (personal uncertainty) about a parameter"",""A statistic is the mean of the data"",""A statistic is a function of the data"",""A device used to punish students""}",,{2},"{statistics,probability}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'data':18,26 'devic':28 'function':23 'mean':15 'paramet':10 'person':6 'probabl':37 'punish':31 'statist':2,12,20,35,36 'studentswhat':32 'subject':5 'uncertainti':7 'use':29"
+59,single_selection,"What is the difference between `pd.concat([df1, df2], axis=0)` and `pd.concat([df1, df2], axis=1)`?","{""When you set axis to 0 it combines the dataframes by concatentating them _vertically_ and axis set to 1 combines the dataframes by concatentating them _horizontally_"",""When you set axis to 0 it combines the dataframes by concatentating them _horizontally_ and axis set to 1 combines things by concatentating them _vertically_"",""They do the same thing"",""One merges on the left data while the other merges on the right data""}",,{0},"{pandas,merge}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':6,32,79 '1':19,45,85 'axi':4,16,30,42,78,84 'combin':8,20,34,46 'concatent':12,24,38,49 'data':62 'datafram':10,22,36 'datawhat':70 'df1':76,82 'df2':77,83 'differ':73 'horizont':26,40 'left':61 'merg':58,66,87 'one':57 'panda':86 'pd.concat':75,81 'right':69 'set':3,17,29,43 'thing':47,56 'vertic':14,51"
+60,code,"The following dataset contains survey responses from individuals asked about their religious affiliation and annual income. This data is not in tidy form
+
+```
+import pandas as pd
+
+d = {'10-20k': [34, 27, 21, 617, 14, 869, 9, 244, 27, 19, 495, 40, 7, 17, 7, 33, 2, 299],
+ '100-150k': [109, 59, 39, 792, 17, 723, 48, 81, 11, 87, 753, 49, 8, 42, 14, 40, 4, 321],
+ '20-30k': [60, 37, 30, 732, 15, 1064, 7, 236, 24, 25, 619, 48, 9, 23, 11, 40, 3, 374],
+ '30-40k': [81, 52, 34, 670, 11, 982, 9, 238, 24, 25, 655, 51, 10, 32, 13, 46, 4, 365],
+ '40-50k': [76, 35, 33, 638, 10, 881, 11, 197, 21, 30, 651, 56, 9, 32, 13, 49, 2, 341],
+ '50-75k': [137, 70, 58, 1116, 35, 1486, 34, 223, 30, 95, 1107, 112, 23, 47, 14, 63, 7, 528],
+ '75-100k': [122, 73, 62, 949, 21, 949, 47, 131, 15, 69, 939, 85, 16, 38, 18, 46, 3, 407],
+ '<10k': [27, 12, 27, 418, 15, 575, 1, 228, 20, 19, 289, 29, 6, 13, 9, 20, 5, 217],
+ '>150k': [84, 74, 53, 633, 18, 414, 54, 78, 6, 151, 634, 42, 6, 46, 12, 41, 4, 258],
+ 'refused': [96, 76, 54, 1489, 116, 1529, 37, 339, 37, 162, 1328, 69, 22, 73, 18, 71, 8, 597],
+ 'religion': ['Agnostic', 'Atheist', 'Buddhist', 'Catholic', 'refused', 'Evangelical Prot', 
+              'Hindu', 'Historically Black Prot', ""Jehovah's Witness"", 'Jewish', 
+              'Mainline Prot', 'Mormon', 'Muslim', 'Orthodox', 'Other Christian', 
+              'Other Faiths', 'Other World Religions', 'Unaffiliated']}
+
+df = pd.DataFrame(d)
+```
+
+A printed version of the DataFrame is given below
+
+```
+                   religion  <10k  10-20k  20-30k  30-40k  40-50k  50-75k  75-100k  100-150k  >150k  refused
+0                  Agnostic    27      34      60      81      76     137      122       109     84       96
+1                   Atheist    12      27      37      52      35      70       73        59     74       76
+2                  Buddhist    27      21      30      34      33      58       62        39     53       54
+3                  Catholic   418     617     732     670     638    1116      949       792    633     1489
+4                   refused    15      14      15      11      10      35       21        17     18      116
+5          Evangelical Prot   575     869    1064     982     881    1486      949       723    414     1529
+6                     Hindu     1       9       7       9      11      34       47        48     54       37
+7   Historically Black Prot   228     244     236     238     197     223      131        81     78      339
+8         Jehovah's Witness    20      27      24      24      21      30       15        11      6       37
+9                    Jewish    19      19      25      25      30      95       69        87    151      162
+10            Mainline Prot   289     495     619     655     651    1107      939       753    634     1328
+11                   Mormon    29      40      48      51      56     112       85        49     42       69
+12                   Muslim     6       7       9      10       9      23       16         8      6       22
+13                 Orthodox    13      17      23      32      32      47       38        42     46       73
+14          Other Christian     9       7      11      13      13      14       18        14     12       18
+15             Other Faiths    20      33      40      46      49      63       46        40     41       71
+16    Other World Religions     5       2       3       4       2       7        3         4      4        8
+17             Unaffiliated   217     299     374     365     341     528      407       321    258      597
+```
+
+Please write code that creates a second DataFrame named `df2` that puts this into tidy form with three columns named `religion`, `income`, `n`","{""# TODO Your code here
+df2 = ...""}","{""# TODO Your code here
+df2 = df.melt(\""religion\"", var_name=\""income\"", value_name=\""n\"")""}",,"{pandas,reshape}",3,"import pandas as pd
+
+d = {'10-20k': [34, 27, 21, 617, 14, 869, 9, 244, 27, 19, 495, 40, 7, 17, 7, 33, 2, 299],
+ '100-150k': [109, 59, 39, 792, 17, 723, 48, 81, 11, 87, 753, 49, 8, 42, 14, 40, 4, 321],
+ '20-30k': [60, 37, 30, 732, 15, 1064, 7, 236, 24, 25, 619, 48, 9, 23, 11, 40, 3, 374],
+ '30-40k': [81, 52, 34, 670, 11, 982, 9, 238, 24, 25, 655, 51, 10, 32, 13, 46, 4, 365],
+ '40-50k': [76, 35, 33, 638, 10, 881, 11, 197, 21, 30, 651, 56, 9, 32, 13, 49, 2, 341],
+ '50-75k': [137, 70, 58, 1116, 35, 1486, 34, 223, 30, 95, 1107, 112, 23, 47, 14, 63, 7, 528],
+ '75-100k': [122, 73, 62, 949, 21, 949, 47, 131, 15, 69, 939, 85, 16, 38, 18, 46, 3, 407],
+ '<10k': [27, 12, 27, 418, 15, 575, 1, 228, 20, 19, 289, 29, 6, 13, 9, 20, 5, 217],
+ '>150k': [84, 74, 53, 633, 18, 414, 54, 78, 6, 151, 634, 42, 6, 46, 12, 41, 4, 258],
+ 'refused': [96, 76, 54, 1489, 116, 1529, 37, 339, 37, 162, 1328, 69, 22, 73, 18, 71, 8, 597],
+ 'religion': ['Agnostic', 'Atheist', 'Buddhist', 'Catholic', 'refused', 'Evangelical Prot', 
+              'Hindu', 'Historically Black Prot', ""Jehovah's Witness"", 'Jewish', 
+              'Mainline Prot', 'Mormon', 'Muslim', 'Orthodox', 'Other Christian', 
+              'Other Faiths', 'Other World Religions', 'Unaffiliated']}
+
+df = pd.DataFrame(d)","assert df2.shape == (180, 3)
+assert set(df2.columns) == set([""religion"", ""income"", ""n""])",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'-100':161,297 '-150':56,300 '-20':35,282 '-30':77,285 '-40':98,288 '-50':119,291 '-75':140,294 '0':304 '1':188,316,379 '10':34,112,125,281,358,429,459 '100':55,299 '1064':84,369 '109':58,313 '10k':181,280 '11':66,93,104,127,357,383,414,442,483 '1107':152,437 '1116':145,347 '112':153,449 '116':224,363 '12':183,215,318,454,489 '122':163,312 '13':114,135,195,466,468,484,485 '131':170,399 '1328':230,441 '137':142,311 '14':41,72,156,355,478,486,488 '1486':147,372 '1489':223,351 '15':83,171,186,354,356,413,491 '150k':200,302 '151':210,427 '1529':225,376 '16':175,462,504 '162':229,428 '17':50,62,361,469,518 '18':177,205,234,362,487,490 '19':46,191,419,420 '197':128,397 '2':53,137,328,509,512 '20':76,190,197,284,407,494 '21':39,129,167,331,360,411 '217':199,520 '22':232,465 '223':149,398 '228':189,393 '23':92,154,461,470 '236':86,395 '238':107,396 '24':87,108,409,410 '244':44,394 '25':88,109,421,422 '258':218,528 '27':38,45,182,184,306,319,330,408 '289':192,432 '29':193,444 '299':54,521 '3':95,179,340,510,514 '30':81,97,130,150,287,332,412,423 '32':113,134,471,472 '321':75,527 '33':52,123,334,495 '339':227,402 '34':37,102,148,307,333,384 '341':138,524 '35':122,146,322,359 '365':117,523 '37':80,226,228,320,388,416 '374':96,522 '38':176,474 '39':60,337 '4':74,116,217,352,511,515,516 '40':48,73,94,118,290,445,496,501 '407':180,526 '41':216,502 '414':206,375 '418':185,342 '42':71,212,452,475 '46':115,178,214,476,497,500 '47':155,169,385,473 '48':64,90,386,446 '49':69,136,451,498 '495':47,433 '5':198,364,508 '50':139,293 '51':111,447 '52':101,321 '528':159,525 '53':203,338 '54':207,222,339,387 '56':132,448 '575':187,367 '58':144,335 '59':59,325 '597':237,529 '6':194,209,213,377,415,456,464 '60':79,308 '617':40,343 '619':89,434 '62':165,336 '63':157,499 '633':204,350 '634':211,440 '638':124,346 '651':131,436 '655':110,435 '670':103,345 '69':172,231,425,453 '7':49,51,85,158,381,389,457,482,513 '70':143,323 '71':235,503 '723':63,374 '73':164,233,324,477 '732':82,344 '74':202,326 '75':160,296 '753':68,439 '76':121,221,310,327 '78':208,401 '792':61,349 '8':70,236,403,463,517 '81':65,100,309,400 '84':201,314 '85':174,450 '869':42,368 '87':67,426 '881':126,371 '9':43,91,106,133,196,380,382,417,458,460,481 '939':173,438 '949':166,168,348,373 '95':151,424 '96':220,315 '982':105,370 'affili':18 'agnost':239,305 'annual':20 'ask':14 'atheist':240,317 'black':248,391 'buddhist':241,329 'cathol':242,341 'christian':260,480 'code':3,532 'column':548 'contain':9 'creat':534 'd':33,269 'data':23 'datafram':275,537 'dataset':8 'df':267 'df2':5,539 'evangel':244,365 'faith':262,493 'follow':7 'form':28,545 'given':277 'hindu':246,378 'histor':247,390 'import':29 'incom':21,551 'individu':13 'jehovah':250,404 'jewish':253,418 'k':36,57,78,99,120,141,162,283,286,289,292,295,298,301 'mainlin':254,430 'mormon':256,443 'muslim':257,455 'n':552 'name':538,549 'orthodox':258,467 'panda':30,553 'pd':32 'pd.dataframe':268 'pleas':530 'print':271 'prot':245,249,255,366,392,431 'put':541 'refus':219,243,303,353 'religi':17 'religion':238,265,279,507,550 'reshap':554 'respons':11 'second':536 'survey':10 'three':547 'tidi':27,544 'todo':1 'unaffili':266,519 'version':272 'wit':252,406 'world':264,506 'write':531"
+61,multiple_selection,Which of the following scenarios could be modeled using the Bernoulli distribution?,"{""A coin flip"",""Two coin flips"",""A borrower defaulting or not on a single loan"",""The outcome of a penalty kick in football (soccer)"",""The number face up after rolling a standard 6-sided die""}",,"{0,2,3}","{probability,distributions}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'6':33 'bernoulli':45 'borrow':8 'coin':2,5 'could':40 'default':9 'diewhich':35 'distribut':46,48 'face':27 'flip':3,6 'follow':38 'footbal':23 'kick':21 'loan':15 'model':42 'number':26 'outcom':17 'penalti':20 'probabl':47 'roll':30 'scenario':39 'side':34 'singl':14 'soccer':24 'standard':32 'two':4 'use':43"
+62,fill_in_blank,"Given two dataframes
+
+**dfL**
+
+```
+  key      col1
+0   A  1.764052
+1   B  0.400157
+2   C  0.978738
+3   D  2.240893
+```
+
+**dfR**
+
+```
+  key      col2
+0   B  1.867558
+1   D -0.977278
+2   E  0.950088
+3   F -0.151357
+```
+
+Replace the blank that you would need to create the following dataframe
+
+```
+  key      col1      col2
+0   A  1.764052       NaN
+1   B  0.400157  1.867558
+2   C  0.978738       NaN
+3   D  2.240893 -0.977278
+4   E       NaN  0.950088
+5   F       NaN -0.151357
+```","{""pd.merge(dfL, dfR, on=\""Key\"", how=\""___X\"")""}",{outer},,"{pandas,merge}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'-0.151357':40,79 '-0.977278':34,71 '0':14,29,56 '0.400157':19,62 '0.950088':37,75 '0.978738':22,66 '1':17,32,60 '1.764052':16,58 '1.867558':31,63 '2':20,35,64 '2.240893':25,70 '3':23,38,68 '4':72 '5':76 'b':18,30,61 'blank':43 'c':21,65 'col1':13,54 'col2':28,55 'creat':49 'd':24,33,69 'datafram':10,52 'dfl':2,11 'dfr':3,26 'e':36,73 'f':39,77 'follow':51 'given':8 'key':5,12,27,53 'merg':81 'nan':59,67,74,78 'need':47 'panda':80 'pd.merge':1 'replac':41 'two':9 'would':46 'x':7"
+63,multiple_selection,Which of the following scenarios could be modeled using the Binomial distribution?,"{""A single coin flip being heads"",""The number of heads in 10 coin flips"",""The number of cracked eggs in a carton of 12 eggs"",""A borrower defaulting or not on a single loan"",""The number of defaults in a pool of 100 loans"",""The number face up after rolling a standard 6-sided die""}",,"{1,2,4}","{probability,distributions}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'10':12 '100':43 '12':24 '6':53 'binomi':65 'borrow':27 'carton':22 'coin':3,13 'could':60 'crack':18 'default':28,38 'diewhich':55 'distribut':66,68 'egg':19,25 'face':47 'flip':4,14 'follow':58 'head':6,10 'loan':34,44 'model':62 'number':8,16,36,46 'pool':41 'probabl':67 'roll':50 'scenario':59 'side':54 'singl':2,33 'standard':52 'use':63"
+64,fill_in_blank,"Given two dataframes
+
+**dfL**
+
+```
+  key      col1
+0   A  1.764052
+1   B  0.400157
+2   C  0.978738
+3   D  2.240893
+```
+
+**dfR**
+
+```
+  key      col2
+0   B  1.867558
+1   D -0.977278
+2   E  0.950088
+3   F -0.151357
+```
+
+Replace the blank that you would need to create the following dataframe
+
+```
+  key      col1      col2
+0   A  1.764052       NaN
+1   B  0.400157  1.867558
+2   C  0.978738       NaN
+3   D  2.240893 -0.977278
+```","{""pd.merge(dfL, dfR, on=\""Key\"", how=\""___X\"")""}",{left},,"{pandas,merge}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'-0.151357':40 '-0.977278':34,71 '0':14,29,56 '0.400157':19,62 '0.950088':37 '0.978738':22,66 '1':17,32,60 '1.764052':16,58 '1.867558':31,63 '2':20,35,64 '2.240893':25,70 '3':23,38,68 'b':18,30,61 'blank':43 'c':21,65 'col1':13,54 'col2':28,55 'creat':49 'd':24,33,69 'datafram':10,52 'dfl':2,11 'dfr':3,26 'e':36 'f':39 'follow':51 'given':8 'key':5,12,27,53 'merg':73 'nan':59,67 'need':47 'panda':72 'pd.merge':1 'replac':41 'two':9 'would':46 'x':7"
+65,multiple_selection,Which of the following scenarios could be modeled using the Poisson distribution?,"{""A single coin flip being heads"",""Number of typos in a text message"",""The number of heads in 10 coin flips"",""The number of cracked eggs in a carton of 12 eggs"",""The total number of baby boys born each day in a specific hospital"",""The number of penalty kicks made per game in the English premier league""}",,"{1,4,5}","{probability,distributions}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'10':19 '12':31 'babi':37 'born':39 'boy':38 'carton':29 'coin':3,20 'could':63 'crack':25 'day':41 'distribut':69,71 'egg':26,32 'english':56 'flip':4,21 'follow':61 'game':53 'head':6,17 'hospit':45 'kick':50 'leaguewhich':58 'made':51 'messag':13 'model':65 'number':7,15,23,35,47 'penalti':49 'per':52 'poisson':68 'premier':57 'probabl':70 'scenario':62 'singl':2 'specif':44 'text':12 'total':34 'typo':9 'use':66"
+66,fill_in_blank,"Given two dataframes
+
+**dfL**
+
+```
+  key      col1
+0   A  1.764052
+1   B  0.400157
+2   C  0.978738
+3   D  2.240893
+```
+
+**dfR**
+
+```
+  key      col2
+0   B  1.867558
+1   D -0.977278
+2   E  0.950088
+3   F -0.151357
+```
+
+Replace the blank that you would need to create the following dataframe
+
+```
+  key      col1      col2
+0   B  0.400157  1.867558
+1   D  2.240893 -0.977278
+2   E       NaN  0.950088
+3   F       NaN -0.151357
+```","{""pd.merge(dfL, dfR, on=\""Key\"", how=\""___X\"")""}",{right},,"{pandas,merge}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'-0.151357':40,71 '-0.977278':34,63 '0':14,29,56 '0.400157':19,58 '0.950088':37,67 '0.978738':22 '1':17,32,60 '1.764052':16 '1.867558':31,59 '2':20,35,64 '2.240893':25,62 '3':23,38,68 'b':18,30,57 'blank':43 'c':21 'col1':13,54 'col2':28,55 'creat':49 'd':24,33,61 'datafram':10,52 'dfl':2,11 'dfr':3,26 'e':36,65 'f':39,69 'follow':51 'given':8 'key':5,12,27,53 'merg':73 'nan':66,70 'need':47 'panda':72 'pd.merge':1 'replac':41 'two':9 'would':46 'x':7"
+67,single_selection,"In the samuelson model we have the following consumption function:
+
+$$C_t = aY_{t-1} + \gamma$$
+
+What does the parameter $a$ represent?","{""Investment rate"",""Marginal propensity to consume"",""Investment accelerator"",""Government spending parameter""}",,{1},"{""samuelson model""}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'-1':25 'acceler':8 'ay':23 'c':21 'consum':6 'consumpt':19 'follow':18 'function':20 'gamma':26 'govern':9 'invest':1,7 'margin':3 'model':14,34 'paramet':30 'parameterin':11 'propens':4 'rate':2 'repres':32 'samuelson':13,33 'spend':10"
+68,multiple_selection,"When analyzing economic models we often use what is called an impulse response function, or IRF. The IRF can be used for which of the following:","{""Observing response of system to a known shock"",""Observe rate of convergence after shock"",""Predicting real-world stock prices in all future conditions"",""See the impact of a permanent increase in government spending"",""Find the roots of the characteristic polynomial""}",,"{0,1,3}","{""samuelson model"",""linear state space""}",3,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'analyz':42 'call':50 'characterist':40 'condit':24 'converg':12 'econom':43 'find':35 'follow':66 'function':54 'futur':23 'govern':33 'impact':27 'impuls':52 'increas':31 'irf':56,58 'known':7 'linear':69 'model':44,68 'observ':1,9 'often':46 'perman':30 'polynomialwhen':41 'predict':15 'price':20 'rate':10 'real':17 'real-world':16 'respons':2,53 'root':37 'samuelson':67 'see':25 'shock':8,14 'space':71 'spend':34 'state':70 'stock':19 'system':4 'use':47,61 'world':18"
+69,single_selection,"In the Samuelson model we have the equation
+
+$$I_t = b(Y_{t-1} - Y_{t-2}).$$
+
+What role does the parameter $b$ play?","{""Investment rate"",""Marginal propensity to consume"",""Investment accelerator"",""Government spending parameter"",""Real interest rate""}",,{2},"{""samuelson model""}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'-1':27 '-2':30 'acceler':8 'b':24,36 'consum':6 'equat':21 'govern':9 'interest':13 'invest':1,7 'margin':3 'model':17,39 'paramet':11,35 'play':37 'propens':4 'rate':2 'ratein':14 'real':12 'role':32 'samuelson':16,38 'spend':10 'y':25,28"
+70,code,"Consider the `dogs` data frame below:
+
+```
+                            breed          type  longevity    size  weight
+0                 German Shepherd       herding       9.73   large     NaN
+1                          Beagle         hound      12.30   small     NaN
+2               Yorkshire Terrier           toy      12.60   small     5.5
+3                Golden Retriever      sporting      12.04  medium    60.0
+4                         Bulldog  non-sporting       6.29  medium    45.0
+5              Labrador Retriever      sporting      12.04  medium    67.5
+6                           Boxer       working       8.81  medium     NaN
+7                          Poodle  non-sporting      11.95  medium     NaN
+8                       Dachshund         hound      12.63   small    24.0
+9                      Rottweiler       working       9.11   large     NaN
+10                 Boston Terrier  non-sporting      10.92  medium     NaN
+11                       Shih Tzu           toy      13.20   small    12.5
+12            Miniature Schnauzer       terrier      11.81   small    15.5
+13              Doberman Pinscher       working      10.33   large     NaN
+14                      Chihuahua           toy      16.50   small     5.5
+15                 Siberian Husky       working      12.58  medium    47.5
+16                     Pomeranian           toy       9.67   small     5.0
+17                 French Bulldog  non-sporting       9.00  medium    27.0
+18                     Great Dane       working       6.96   large     NaN
+19              Shetland Sheepdog       herding      12.53   small    22.0
+20  Cavalier King Charles Spaniel           toy      11.29   small    15.5
+21     German Shorthaired Pointer      sporting      11.46   large    62.5
+22                        Maltese           toy      12.25   small     5.0
+```
+
+Please write the code necessary to create a DataFrame named `df` that transforms the `dogs` DataFrame into the following:
+
+```
+          sum       mean   min
+size                          
+large    62.5  62.500000  62.5
+medium  247.0  49.400000  27.0
+small   110.5  12.277778   5.0
+```","{""# your code below
+df = ...""}","{""# your code below
+df = dogs.groupby(\""size\"")[\""weight\""].agg([\""sum\"", \""mean\"", \""min\""])""}",,"{pandas,groupby}",3,"import pandas as pd
+import io
+
+csv = '''
+breed,type,longevity,size,weight
+German Shepherd,herding,9.73,large,
+Beagle,hound,12.3,small,
+Yorkshire Terrier,toy,12.6,small,5.5
+Golden Retriever,sporting,12.04,medium,60.0
+Bulldog,non-sporting,6.29,medium,45.0
+Labrador Retriever,sporting,12.04,medium,67.5
+Boxer,working,8.81,medium,
+Poodle,non-sporting,11.95,medium,
+Dachshund,hound,12.63,small,24.0
+Rottweiler,working,9.11,large,
+Boston Terrier,non-sporting,10.92,medium,
+Shih Tzu,toy,13.2,small,12.5
+Miniature Schnauzer,terrier,11.81,small,15.5
+Doberman Pinscher,working,10.33,large,
+Chihuahua,toy,16.5,small,5.5
+Siberian Husky,working,12.58,medium,47.5
+Pomeranian,toy,9.67,small,5.0
+French Bulldog,non-sporting,9.0,medium,27.0
+Great Dane,working,6.96,large,
+Shetland Sheepdog,herding,12.53,small,22.0
+Cavalier King Charles Spaniel,toy,11.29,small,15.5
+German Shorthaired Pointer,sporting,11.46,large,62.5
+Maltese,toy,12.25,small,5.0
+'''
+
+dogs = pd.read_csv(io.StringIO(csv))
+
+want = dogs.groupby(""size"")[""weight""].agg([""sum"", ""mean"", ""min""])",assert (df - want).abs().max().max() < 1e-5,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':16 '1':23 '10':84 '10.33':111 '10.92':90 '11':93 '11.29':162 '11.46':170 '11.81':104 '11.95':69 '110.5':211 '12':100 '12.04':40,55 '12.25':176 '12.277778':212 '12.30':26 '12.5':99 '12.53':153 '12.58':124 '12.60':33 '12.63':75 '13':107 '13.20':97 '14':114 '15':120 '15.5':106,164 '16':127 '16.50':117 '17':133 '18':142 '19':149 '2':29 '20':156 '21':165 '22':173 '22.0':155 '24.0':77 '247.0':207 '27.0':141,209 '3':36 '4':43 '45.0':50 '47.5':126 '49.400000':208 '5':51 '5.0':132,178,213 '5.5':35,119 '6':58 '6.29':48 '6.96':146 '60.0':42 '62.5':172,203,205 '62.500000':204 '67.5':57 '7':64 '8':72 '8.81':61 '9':78 '9.00':139 '9.11':81 '9.67':130 '9.73':20 'beagl':24 'boston':85 'boxer':59 'breed':11 'bulldog':44,135 'cavali':157 'charl':159 'chihuahua':115 'code':2,182 'consid':5 'creat':185 'dachshund':73 'dane':144 'data':8 'datafram':187,194 'df':4,189 'doberman':108 'dog':7,193 'follow':197 'frame':9 'french':134 'german':17,166 'golden':37 'great':143 'groupbi':215 'herd':19,152 'hound':25,74 'huski':122 'king':158 'labrador':52 'larg':21,82,112,147,171,202 'longev':13 'maltes':174 'mean':199 'medium':41,49,56,62,70,91,125,140,206 'min':200 'miniatur':101 'name':188 'nan':22,28,63,71,83,92,113,148 'necessari':183 'non':46,67,88,137 'non-sport':45,66,87,136 'panda':214 'pinscher':109 'pleas':179 'pointer':168 'pomeranian':128 'poodl':65 'retriev':38,53 'rottweil':79 'schnauzer':102 'sheepdog':151 'shepherd':18 'shetland':150 'shih':94 'shorthair':167 'siberian':121 'size':14,201 'small':27,34,76,98,105,118,131,154,163,177,210 'spaniel':160 'sport':39,47,54,68,89,138,169 'sum':198 'terrier':31,86,103 'toy':32,96,116,129,161,175 'transform':191 'type':12 'tzu':95 'weight':15 'work':60,80,110,123,145 'write':180 'yorkshir':30"
+71,fill_in_blank,"Consider the `dogs` data frame below:
+
+```
+                            breed          type  longevity    size  weight
+0                 German Shepherd       herding       9.73   large     NaN
+1                          Beagle         hound      12.30   small     NaN
+2               Yorkshire Terrier           toy      12.60   small     5.5
+3                Golden Retriever      sporting      12.04  medium    60.0
+4                         Bulldog  non-sporting       6.29  medium    45.0
+5              Labrador Retriever      sporting      12.04  medium    67.5
+6                           Boxer       working       8.81  medium     NaN
+7                          Poodle  non-sporting      11.95  medium     NaN
+8                       Dachshund         hound      12.63   small    24.0
+9                      Rottweiler       working       9.11   large     NaN
+10                 Boston Terrier  non-sporting      10.92  medium     NaN
+11                       Shih Tzu           toy      13.20   small    12.5
+12            Miniature Schnauzer       terrier      11.81   small    15.5
+13              Doberman Pinscher       working      10.33   large     NaN
+14                      Chihuahua           toy      16.50   small     5.5
+15                 Siberian Husky       working      12.58  medium    47.5
+16                     Pomeranian           toy       9.67   small     5.0
+17                 French Bulldog  non-sporting       9.00  medium    27.0
+18                     Great Dane       working       6.96   large     NaN
+19              Shetland Sheepdog       herding      12.53   small    22.0
+20  Cavalier King Charles Spaniel           toy      11.29   small    15.5
+21     German Shorthaired Pointer      sporting      11.46   large    62.5
+22                        Maltese           toy      12.25   small     5.0
+```
+
+Please fill in the blanks necessary to generate the following dataframe:
+
+```
+              longevity  weight
+type                           
+herding           12.53    22.0
+hound             12.63    24.0
+non-sporting      11.95    45.0
+sporting          12.04    67.5
+terrier           11.81    15.5
+toy               16.50    15.5
+working           12.58    47.5
+```","{""(
+    dogs.groupby(___X)
+    [___X]
+    .___X()
+)""}","{""\""type\"""",""[\""longevity\"", \""weight\""]"",max}",,"{pandas,groupby}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':16 '1':23 '10':84 '10.33':111 '10.92':90 '11':93 '11.29':162 '11.46':170 '11.81':104,208 '11.95':69,202 '12':100 '12.04':40,55,205 '12.25':176 '12.30':26 '12.5':99 '12.53':153,194 '12.58':124,214 '12.60':33 '12.63':75,197 '13':107 '13.20':97 '14':114 '15':120 '15.5':106,164,209,212 '16':127 '16.50':117,211 '17':133 '18':142 '19':149 '2':29 '20':156 '21':165 '22':173 '22.0':155,195 '24.0':77,198 '27.0':141 '3':36 '4':43 '45.0':50,203 '47.5':126,215 '5':51 '5.0':132,178 '5.5':35,119 '6':58 '6.29':48 '6.96':146 '60.0':42 '62.5':172 '67.5':57,206 '7':64 '8':72 '8.81':61 '9':78 '9.00':139 '9.11':81 '9.67':130 '9.73':20 'beagl':24 'blank':183 'boston':85 'boxer':59 'breed':11 'bulldog':44,135 'cavali':157 'charl':159 'chihuahua':115 'consid':5 'dachshund':73 'dane':144 'data':8 'datafram':189 'doberman':108 'dog':7 'dogs.groupby':1 'fill':180 'follow':188 'frame':9 'french':134 'generat':186 'german':17,166 'golden':37 'great':143 'groupbi':217 'herd':19,152,193 'hound':25,74,196 'huski':122 'king':158 'labrador':52 'larg':21,82,112,147,171 'longev':13,190 'maltes':174 'medium':41,49,56,62,70,91,125,140 'miniatur':101 'nan':22,28,63,71,83,92,113,148 'necessari':184 'non':46,67,88,137,200 'non-sport':45,66,87,136,199 'panda':216 'pinscher':109 'pleas':179 'pointer':168 'pomeranian':128 'poodl':65 'retriev':38,53 'rottweil':79 'schnauzer':102 'sheepdog':151 'shepherd':18 'shetland':150 'shih':94 'shorthair':167 'siberian':121 'size':14 'small':27,34,76,98,105,118,131,154,163,177 'spaniel':160 'sport':39,47,54,68,89,138,169,201,204 'terrier':31,86,103,207 'toy':32,96,116,129,161,175,210 'type':12,192 'tzu':95 'weight':15,191 'work':60,80,110,123,145,213 'x':2,3,4 'yorkshir':30"
+72,single_selection,What does API stand for?,"{""application process integrator"",""application programming interface"",""A P I"",""application permanent integration""}",,{1},{api},1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'api':14,17 'applic':1,4,10 'integr':3 'integrationwhat':12 'interfac':6 'p':8 'perman':11 'process':2 'program':5 'stand':15"
+73,single_selection,"Refer to the BLS v2 API documentation for this question
+
+https://www.bls.gov/developers/api_signature_v2.htm
+
+What endpoint would give you (only) the latest observation for series `LAUCN040010000000005`?","{https://api.bls.gov/publicAPI/v2/timeseries/data/LAUCN040010000000555?latest=true,https://api.bls.gov/publicAPI/v2/timeseries/data/LAUCN040010000000005,https://api.bls.gov/publicAPI/v2/timeseries/data/LAUCN040010000000005?latest=true}",,{2},"{bls,api}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'/developers/api_signature_v2.htm':21 '/publicapi/v2/timeseries/data/laucn040010000000005':6 '/publicapi/v2/timeseries/data/laucn040010000000005?latest=truerefer':9 '/publicapi/v2/timeseries/data/laucn040010000000555?latest=true':3 'api':14,35 'api.bls.gov':2,5,8 'api.bls.gov/publicapi/v2/timeseries/data/laucn040010000000005':4 'api.bls.gov/publicapi/v2/timeseries/data/laucn040010000000005?latest=truerefer':7 'api.bls.gov/publicapi/v2/timeseries/data/laucn040010000000555?latest=true':1 'bls':12,34 'document':15 'endpoint':23 'give':25 'latest':29 'laucn040010000000005':33 'observ':30 'question':18 'seri':32 'v2':13 'would':24 'www.bls.gov':20 'www.bls.gov/developers/api_signature_v2.htm':19"
+74,single_selection,Do we think you should use (typically) legends in your graph?,"{No,Yes}",,{0},"{matplotlib,visualization}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'graph':12 'legend':9 'matplotlib':13 'think':4 'typic':8 'use':7 'visual':14 'yesdo':2"
+75,fill_in_blank,How would you plot the function `sin(x)` for `x` between 0 and 1 shading between the line and 0?,"{""x = np.linspace(___X, ___X, 250)
+y = np.___X(x)
+
+fig, ax = plt.subplots()
+
+ax.___X(___X, ___X, ___X)""}","{0,1,sin,fill_between,x,0,y}",,{matplotlib},2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':27,35 '1':29 '250':5 'ax':10 'ax.___x':12 'fig':9 'function':21 'line':33 'matplotlib':36 'np.___x':7 'np.linspace':2 'plot':19 'plt.subplots':11 'shade':30 'sin':22 'would':17 'x':1,3,4,8,13,14,15,23,25 'y':6"
+76,single_selection,What is the difference between the `figure` and `axis` objects in `matplotlib`,"{""The `figure` object can only contain information about a single plot while the `axis` object can be used to combine multiple `figure` objects."",""The `figure` object contains all information about a figure while the `axis` contains information about the plot(s)"",""The `figure` is a `matplotlib` object and the `axis` is an array of `figure` objects""}",,{1},"{plotting,matplotlib}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'array':53 'axi':14,35,50,64 'combin':20 'contain':6,27,36 'differ':59 'figur':2,22,25,32,43,55,62 'inform':7,29,37 'matplotlib':46,67,69 'multipl':21 'object':3,15,23,26,47,65 'objectswhat':56 'plot':11,40,68 'singl':10 'use':18"
+77,single_selection,"Imagine that you are using an API with the following documentation:
+Users can select dates by using the GET method with various parameters. The valid parameters can be used to select subsets of data.
+
+* `start_date`: A date specified as `YYYY-MM-DD` to start the data
+* `end_date`: A date specified as `YYYY-MM-DD` to end the data
+* `series`: The dataset you would like to query
+
+The api url is `https://test.api.com`
+
+Which of the following queries gets you GDP data from January 1, 2022 to July 1, 2022?
+","{https://test.api.com?start_date=2022-01-01&end_date=2022-07-01&series=GDP,https://test.api.com?start_date=2022-01-01/end_date=2022-07-01/series=GDP,https://test.api.com&start_date=2022-01-01&end_date=2022-07-01&series=GDP,https://test.api.com&start_date=2022-01-01?end_date=2022-07-01?series=GDP}",,{0},{api},2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'-01':5,6,11,18,19,23,30,31,36,43,44,49 '-07':10,22,35,48 '/end_date':20 '/series':24 '1':137,141 '2022':4,9,17,21,29,34,42,47,138,142 'api':57,122,143 'data':84,98,112,134 'dataset':115 'date':3,8,16,28,33,41,46,65,86,88,100,102 'dd':94,108 'document':61 'end':7,32,45,99,110 'follow':60,129 'gdp':13,25,38,133 'gdpimagin':51 'get':69,131 'januari':136 'juli':140 'like':118 'method':70 'mm':93,107 'paramet':73,76 'queri':120,130 'select':64,81 'seri':12,37,50,113 'specifi':89,103 'start':2,15,27,40,85,96 'subset':82 'test.api.com':1,14,26,39,125 'url':123 'use':55,67,79 'user':62 'valid':75 'various':72 'would':117 'yyyi':92,106 'yyyy-mm-dd':91,105"
+78,single_selection,"In the Hue Saturation Value paradigm, what happens when saturation decreases to 0?","{""The color becomes less colorful (i.e. more gray)"",""The color becomes more colorful (i.e. more color)"",""The color becomes white"",""The color becomes black""}",,{0},{visualization},1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':36 'becom':3,11,19,23 'blackin':24 'color':2,5,10,13,16,18,22 'decreas':34 'gray':8 'happen':31 'hue':26 'i.e':6,14 'less':4 'paradigm':29 'satur':27,33 'valu':28 'visual':37 'white':20"
+79,single_selection,"Consider a Markov Chain defined by the transition matrix below:
+
+$$P = \begin{bmatrix} 0.8 & 0.1 & 0.1 \\ 0 & 0.5 & 0.5 \\ 0 & 0.5 & 0.5\end{bmatrix}$$
+
+What is the stationary distribution?","{""[1/3, 1/3, 1/3]"",""[0, 1/2, 1/2]"",""[1, 0, 0]"",""Not enough information to tell""}",,{1},"{""markov chain"",""stationary distribution""}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':4,8,9,30,33 '0.1':28,29 '0.5':31,32,34,35 '0.8':27 '1':7 '1/2':5,6 '1/3':1,2,3 'begin':25 'bmatrix':26,37 'chain':17,44 'defin':18 'distribut':42,46 'end':36 'enough':11 'inform':12 'markov':16,43 'matrix':22 'p':24 'stationari':41,45 'tellconsid':14 'transit':21"
+80,single_selection,"In the Hue Saturation Value paradigm, what happens as you send the value of a color to 0?","{""The color becomes white"",""The color changes to between red, blue, and green"",""The color becomes black""}",,{2},{visualization},1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':34 'becom':3,16 'blackin':17 'blue':11 'chang':7 'color':2,6,15,32 'green':13 'happen':24 'hue':19 'paradigm':22 'red':10 'satur':20 'send':27 'valu':21,29 'visual':35 'white':4"
+81,single_selection,"Given a statistical model $f(Y; \theta)$, which of the following defines the direct problem?","{""Take a set of data $\\tilde y$ assumed to be drawn from $f(Y; \\theta)$ and use them to make inferences about the unknown parameter vector $\\theta$"",""Draw a random sample $y$ from the statistical model $f(y; \\theta)$ for an assumed value of the parameter vector $\\theta$"",""A joint probability density $f(Y; \\theta)$ for a sequence $Y$ of random variables indexed by a list $\\theta$ of parameters"",Other}",,{1},"{""statistical models"",""direct problem""}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'assum':8,42 'data':5 'defin':81 'densiti':52 'direct':83,87 'draw':28 'drawn':11 'f':13,37,53,74 'follow':80 'index':63 'infer':21 'joint':50 'list':66 'make':20 'model':36,73,86 'othergiven':70 'paramet':25,46,69 'probabl':51 'problem':84,88 'random':30,61 'sampl':31 'sequenc':58 'set':3 'statist':35,72,85 'take':1 'theta':15,27,39,48,55,67,76 'tild':6 'unknown':24 'use':17 'valu':43 'variabl':62 'vector':26,47 'y':7,14,32,38,54,59,75"
+82,single_selection,Which of the following is the definition of a the inverse problem for a given statistical model $f(Y; \theta)$?,"{""Take a set of data $\\tilde y$ assumed to be drawn from $f(Y; \\theta)$ and use them to make inferences about the unknown parameter vector $\\theta$"",""Draw a random sample $y$ from the statistical model $f(y; \\theta)$ for an assumed value of the parameter vector $\\theta$"",""A joint probability density $f(Y; \\theta)$ for a sequence $Y$ of random variables indexed by a list $\\theta$ of parameters"",Other}",,{0},"{""statistical models"",""inverse problem""}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'assum':8,42 'data':5 'definit':76 'densiti':52 'draw':28 'drawn':11 'f':13,37,53,87 'follow':73 'given':84 'index':63 'infer':21 'invers':80,92 'joint':50 'list':66 'make':20 'model':36,86,91 'otherwhich':70 'paramet':25,46,69 'probabl':51 'problem':81,93 'random':30,61 'sampl':31 'sequenc':58 'set':3 'statist':35,85,90 'take':1 'theta':15,27,39,48,55,67,89 'tild':6 'unknown':24 'use':17 'valu':43 'variabl':62 'vector':26,47 'y':7,14,32,38,54,59,88"
+83,single_selection,What is the definition of the statistical model $f(Y; \theta)$?,"{""Take a set of data $\\tilde y$ assumed to be drawn from $f(Y; \\theta)$ and use them to make inferences about the unknown parameter vector $\\theta$"",""Draw a random sample $y$ from the statistical model $f(y; \\theta)$ for an assumed value of the parameter vector $\\theta$"",""A joint probability density $f(Y; \\theta)$ for a sequence $Y$ of random variables indexed by a list $\\theta$ of parameters"",Other}",,{2},"{""statistical models""}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'assum':8,42 'data':5 'definit':73 'densiti':52 'draw':28 'drawn':11 'f':13,37,53,78 'index':63 'infer':21 'joint':50 'list':66 'make':20 'model':36,77,82 'otherwhat':70 'paramet':25,46,69 'probabl':51 'random':30,61 'sampl':31 'sequenc':58 'set':3 'statist':35,76,81 'take':1 'theta':15,27,39,48,55,67,80 'tild':6 'unknown':24 'use':17 'valu':43 'variabl':62 'vector':26,47 'y':7,14,32,38,54,59,79"
+84,single_selection,"Consider the following general form of a linear program:
+
+$$\begin{aligned} \min_x \ & c^T x \\ & Ax \le b,\\ & x \ge 0 \end{aligned}$$
+
+Now suppose we have converted this to standard form as follows...
+
+Define:
+
+$$\begin{aligned}\bar{x} &:= \begin{bmatrix} x \\ s \end{bmatrix} \\ \bar{c} &:= \begin{bmatrix} c \\ \mathbf{0} \end{bmatrix} \\ \bar{A} &:= \begin{bmatrix} A & \mathbf{I}\end{bmatrix}\end{aligned},$$
+
+and write the equivalent standard form program:
+
+$$\begin{aligned} \min_{\bar{x}} \ & \bar{c}^T \bar{x} \\ & A x + s = b,\\ & \bar{x} \ge 0 \end{aligned}$$
+
+What is the name given to the variable $s$?","{""constraint vector"",""constraint matrix"",""slack variables"",""coefficient vector""}",,{2},"{""linear programming"",""convex optimization""}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':29,60,98 'align':18,31,45,73,82,100 'ax':24 'b':26,94 'bar':46,54,63,84,86,89,95 'begin':17,44,48,56,65,81 'bmatrix':49,53,57,62,66,71 'c':21,55,58,87 'coeffici':7 'constraint':1,3 'convert':36 'convex':112 'defin':43 'end':30,52,61,70,72,99 'equival':77 'follow':10,42 'form':12,40,79 'ge':28,97 'general':11 'given':105 'le':25 'linear':15,110 'mathbf':59,68 'matrix':4 'min':19,83 'name':104 'optim':113 'program':16,80,111 'slack':5 'standard':39,78 'suppos':33 'variabl':6,108 'vector':2 'vectorconsid':8 'write':75 'x':20,23,27,47,50,85,90,92,96"
+85,code,"Consider the linear program below:
+
+$$\begin{aligned} \max_{x_1,x_2} \ & 3 x_1 + 4 x_2 \\ \text{subject to } \ & 2 x_1 + 5 x_2 \le 30 \\ & 4 x_1 + 2 x_2 \le 20 \\ & x_1, x_2 \ge 0 \\ \end{aligned}$$
+
+Write the code necessary to define the arrays `A`, `b`, and `c` such that the program can be represented as follows:
+
+$$\begin{aligned} \min_x \ & c^T x \\ & Ax \le b,\\ & x_i \ge 0 \; \forall i \end{aligned}$$
+
+The following code could be run after you define the arrays to solve the linear program using scipy's `linprog` routine:
+
+```python
+linprog(c, A_ub=A, b_ub=b)
+```
+
+And the corresponding output would be 
+
+```
+     con: array([], dtype=float64)
+     fun: -27.5
+ message: 'Optimization terminated successfully.'
+     nit: 2
+   slack: array([0., 0.])
+  status: 0
+ success: True
+       x: array([2.5, 5. ])
+```","{""import numpy as np
+from scipy.optimize import linprog
+
+c = ...
+A = ...
+b = ...""}","{""import numpy as np
+from scipy.optimize import linprog
+
+c = -np.array([3, 4])
+A = np.array([[2, 5], [4, 2]])
+b = np.array([30, 20])""}",,"{""linear programming"",""convex optimization""}",2,"import numpy as np
+from scipy.optimize import linprog","res = linprog(c, A_ub=A, b_ub=b)
+
+assert res.nit == 4
+assert abs(res.fun + 27.5) < 1e-5
+assert max(abs(res.slack)) < 1e-5
+assert max(abs(res.x - [2.5, 5])) < 1e-5",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'-27.5':137 '0':54,91,146,147,149 '1':21,26,35,43,50 '2':23,29,33,38,44,46,52,143 '2.5':154 '20':48 '3':24 '30':40 '4':27,41 '5':36,155 'align':18,56,79,95 'array':64,106,133,145,153 'ax':85 'b':11,66,87,123,125 'begin':17,78 'c':9,68,82,119 'code':59,98 'con':132 'consid':12 'convex':158 'correspond':128 'could':99 'defin':62,104 'dtype':134 'end':55,94 'float64':135 'follow':77,97 'foral':92 'fun':136 'ge':53,90 'import':1,7 'le':39,47,86 'linear':14,110,156 'linprog':8,115,118 'max':19 'messag':138 'min':80 'necessari':60 'nit':142 'np':4 'numpi':2 'optim':139,159 'output':129 'program':15,72,111,157 'python':117 'repres':75 'routin':116 'run':101 'scipi':113 'scipy.optimize':6 'slack':144 'solv':108 'status':148 'subject':31 'success':141,150 'termin':140 'text':30 'true':151 'ub':121,124 'use':112 'would':130 'write':57 'x':20,22,25,28,34,37,42,45,49,51,81,84,88,152"
+86,single_selection,Which string would allow me to select offsets at the business day frequency?,"{B,C,D,M,QS,Q}",,{0},"{pandas,""date offsets""}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'allow':9 'b':1 'busi':16 'c':2 'd':3 'date':20 'day':17 'frequenc':18 'm':4 'offset':13,21 'panda':19 'qs':5 'qwhich':6 'select':12 'string':7 'would':8"
+87,code,"How would you create a `DatetimeIndex` starting on January 1, 2022 and ending on June 1, 2022 with the values taking every hour inbetween?
+
+Save this to a variable called `dates`","{""dates = ...""}","{""dates = pd.date_range(\""2022-01-01\"", \""2022-06-01\"", freq=\""h\"")""}",,"{pandas,dates}",2,import pandas as pd,"assert dates.sort_values()[0].strftime(""%Y-%m-%d"") == ""2022-01-01""
+assert dates.sort_values()[-1].strftime(""%Y-%m-%d"") == ""2022-06-01""
+assert dates.shape[0] == 3625",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'1':11,17 '2022':12,18 'call':31 'creat':5 'date':1,32,34 'datetimeindex':7 'end':14 'everi':23 'hour':24 'inbetween':25 'januari':10 'june':16 'panda':33 'save':26 'start':8 'take':22 'valu':21 'variabl':30 'would':3"
+88,multiple_selection,Which of the following (possibly multiple) can be decoded by pandas `pd.to_datetime` function?,"{""December 25, 2020"",""Dec. 25 2020"",2020-12-25,""Monday, December 25, 2020"",""Decmbre 25, 2020""}",,"{0,1,2,3}","{pandas,datetime}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'-12':8 '-25':9 '2020':3,6,7,13 '2020which':16 '25':2,5,12,15 'datetim':28,31 'dec':4 'decemb':1,11 'decmbr':14 'decod':24 'follow':19 'function':29 'monday':10 'multipl':21 'panda':26,30 'pd.to':27 'possibl':20"
+89,single_selection,"Which string would allow me to select offsets at the quarter start frequency?
+","{B,C,D,M,QS,Q}",,{4},"{pandas,""date offsets""}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'allow':9 'b':1 'c':2 'd':3 'date':20 'frequenc':18 'm':4 'offset':13,21 'panda':19 'qs':5 'quarter':16 'qwhich':6 'select':12 'start':17 'string':7 'would':8"
+90,single_selection,"Consider the primal form of the general linear program defined below:
+
+$$\begin{aligned} \min_x \quad & c^Tx \\ \text{s.t.}\quad & Ax \le b \\ & x \ge 0 \end{aligned}$$
+
+In the associated dual, which variable becomes the ""coefficient vector"" in the objective function?","{c,A,x,b,s}",,{3},"{""linear programming"",""convex optimization"",duality}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':31 'align':17,33 'associ':36 'ax':26 'b':4,28 'becom':40 'begin':16 'c':1,21 'coeffici':42 'convex':50 'defin':14 'dual':37 'dualiti':52 'end':32 'form':8 'function':47 'ge':30 'general':11 'le':27 'linear':12,48 'min':18 'object':46 'optim':51 'primal':7 'program':13,49 'quad':20,25 's.t':24 'sconsid':5 'text':23 'tx':22 'variabl':39 'vector':43 'x':3,19,29"
+91,multiple_selection,Which of the following are true?,"{""The standard form of a linear program is posed as a minimization problem"",""It is possible to solve both minimization and maximization problems using linear programming"",""The standard form of a linear program requires that x be negative"",""The standard form of a linear program has only equality constraints (in addition to the sign constraint on x)""}",,"{0,1,3}","{""linear programming"",""convex optimization""}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'addit':51 'constraint':49,55 'convex':66 'equal':48 'follow':61 'form':3,29,41 'linear':6,25,32,44,64 'maxim':22 'minim':12,20 'negat':38 'optim':67 'pose':9 'possibl':16 'problem':13,23 'program':7,26,33,45,65 'requir':34 'sign':54 'solv':18 'standard':2,28,40 'true':63 'use':24 'x':36,57"
+92,multiple_selection,Which of the following are true about the SPP (energy markets) linear programming example?,"{""We ended up with a corner solution"",""Different 'flavors' of constraints were included in the $A$ matrix"",""Because the variable $x$ is constrained to be non-negative, we could only allow for long positions""}",,"{0,1}","{""linear programming"",""convex optimization""}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'allow':32 'constrain':23 'constraint':11 'convex':51 'corner':6 'could':30 'differ':8 'end':2 'energi':44 'exampl':48 'flavor':9 'follow':38 'includ':13 'linear':46,49 'long':34 'market':45 'matrix':17 'negat':28 'non':27 'non-neg':26 'optim':52 'positionswhich':35 'program':47,50 'solut':7 'spp':43 'true':40 'variabl':20 'x':21"
+93,single_selection,"True or false: for any linear program that solves for choice variables $x$ there is a second linear program called the dual that solves for the first program's slack variables?","{True,False}",,{0},"{""linear programming"",""convex optimization""}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'call':21 'choic':12 'convex':35 'dual':23 'fals':4 'falsetru':2 'first':28 'linear':7,19,33 'optim':36 'program':8,20,29,34 'second':18 'slack':31 'solv':10,25 'true':1 'variabl':13,32 'x':14"
+94,single_selection,"Which string would allow me to select offsets at the monthly frequency?
+","{B,C,D,M,QS,Q}",,{3},"{pandas,""date offsets""}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'allow':9 'b':1 'c':2 'd':3 'date':19 'frequenc':17 'm':4 'month':16 'offset':13,20 'panda':18 'qs':5 'qwhich':6 'select':12 'string':7 'would':8"
+95,single_selection,"Consider the primal form of the general linear program defined below:
+
+$$\begin{aligned} \min_x \quad & c^Tx \\ \text{s.t.}\quad & Ax \le b \\ & x \ge 0 \end{aligned}$$
+
+In the associated dual, which variable becomes the ""inequality constraint matrix""?","{A,$c^T$,$A^T$,$-A^T$}",,{3},"{""linear programming"",""convex optimization"",duality}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':34 'align':20,36 'associ':39 'ax':29 'b':31 'becom':43 'begin':19 'c':2,24 'consid':8 'constraint':46 'convex':50 'defin':17 'dual':40 'dualiti':52 'end':35 'form':11 'ge':33 'general':14 'inequ':45 'le':30 'linear':15,48 'matrix':47 'min':21 'optim':51 'primal':10 'program':16,49 'quad':23,28 's.t':27 'text':26 'tx':25 'variabl':42 'x':22,32"
+96,multiple_selection,Which of the following are true about a quadratic program in general form?,"{""The objective function can be quadratic in $x$"",""The objective function can be linear in $x$"",""The inequality constraint can be quadratic in $x$"",""The inequality constraint can be linear in $x$"",""There always exists a solution in closed form""}",,"{0,1,3}","{""quadratic programming"",""convex optimization""}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'alway':34 'close':39 'constraint':19,27 'convex':55 'exist':35 'follow':43 'form':52 'formwhich':40 'function':3,11 'general':51 'inequ':18,26 'linear':14,30 'object':2,10 'optim':56 'program':49,54 'quadrat':6,22,48,53 'solut':37 'true':45 'x':8,16,24,32"
+97,fill_in_blank,"Please input your name and student id
+
+Please note: The question will mark you wrong, but we trust that you know your name and student id and will mark it as correct
+","{""
+My name is ___X
+
+My student id is ___X
+""}","{"""",""""}",,{intro},1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'correct':41 'id':7,16,35 'input':11 'intro':42 'know':30 'mark':22,38 'name':2,13,32 'note':18 'pleas':10,17 'question':20 'student':6,15,34 'trust':27 'wrong':24 'x':4,9"
+98,fill_in_blank,"Suppose you are given an $N \times m$ matrix of features $x$ and an $m$ element array of targets $y$.
+
+Suppose further that you would like to do a linear regression to find parameters $\beta$ that minimize the sum of squared errors in the following regularized regression equation
+
+$$y = x \beta + \epsilon + \lambda ||\beta||_2^2, \quad \epsilon \sim N\left(0, \sigma^2\right),$$ 
+
+where $\lambda$ is a known regularization parameter.
+
+Fill in the blanks necessary to solve this program using quadratic programming
+
+","{""import cvxpy as cp
+
+def regularized_linreg(x, y, lam)
+    beta = cp.___X(x.shape[1])
+    obj = cp.___X(
+        cp.___X(x @ beta - y) + lam * cp.sum_squares(beta)
+    )
+    prob = cp.___X(
+        obj,       # objective
+        [],        # list of constraints
+    )
+    ans = prob.solve()
+    
+    return beta.value, prob""}","{Variable,Minimize,sum_squares,Problem}",,"{""quadratic programming"",""convex optimization""}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':97 '1':14 '2':90,91,99 'an':32 'array':52 'beta':11,19,24,70,86,89 'beta.value':35 'blank':111 'constraint':31 'convex':122 'cp':4 'cp.___x':12,16,17,26 'cp.sum':22 'cvxpi':2 'def':5 'element':51 'epsilon':87,93 'equat':83 'error':77 'featur':46 'fill':108 'find':68 'follow':80 'given':39 'import':1 'known':105 'lam':10,21 'lambda':88,102 'left':96 'like':61 'linear':65 'linreg':7 'list':29 'm':43,50 'matrix':44 'minim':72 'n':41,95 'necessari':112 'obj':15,27 'object':28 'optim':123 'paramet':69,107 'prob':25 'prob.solve':33 'probsuppos':36 'program':116,119,121 'quad':92 'quadrat':118,120 'regress':66,82 'regular':6,81,106 'return':34 'right':100 'sigma':98 'sim':94 'solv':114 'squar':23,76 'sum':74 'suppos':56 'target':54 'time':42 'use':117 'would':60 'x':8,18,47,85 'x.shape':13 'y':9,20,55,84"
+99,single_selection,Which python library did we use for solving quadratic programs?,"{cvxopt,scipy,cvxpy,numpy,tensorflow}",,{2},"{""quadratic programming"",""convex optimization""}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'convex':17 'cvxopt':1 'cvxpi':3 'librari':7 'numpi':4 'optim':18 'program':14,16 'python':6 'quadrat':13,15 'scipi':2 'solv':12 'tensorflowwhich':5 'use':10"
+100,single_selection,What is the name of the Python library we used for automatic differentiation of our objective functions?,"{jax,numpy,tensorflow,scipy,pytorch}",,{0},"{""nonlinear programming"",""convex optimization""}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'automat':16 'convex':24 'differenti':17 'function':21 'jax':1 'librari':12 'name':8 'nonlinear':22 'numpi':2 'object':20 'optim':25 'program':23 'python':11 'pytorchwhat':5 'scipi':4 'tensorflow':3 'use':14"
+101,code,Create a numpy array with the numbers 3 to 52,"{""x = ...  # Your solution here""}","{""x = np.arange(3, 53)""}",,{numpy},1,import numpy as np,"assert x[0] == 3
+assert x[5] == 8
+assert x[-1] == 52",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'3':11 '52':13 'array':7 'herecr':4 'number':10 'numpi':6,14 'solut':3 'x':1"
+102,multiple_selection,Which of the following are true about the Nelder-Mead algorithm?,"{""It is a derivative free method"",""It works for functions $f: \\mathbb{R}^N \\rightarrow \\mathbb{R}^M$ where both $N>1$ and $M>1$"",""It requires the Hessian matrix"",""It was presented as a way to do constrained optimization""}",,{0},"{""nonlinear programming"",""convex optimization""}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'1':22,25 'algorithm':51 'constrain':39 'convex':54 'deriv':4 'f':11 'follow':43 'free':5 'function':10 'hessian':29 'm':18,24 'mathbb':12,16 'matrix':30 'mead':50 'method':6 'n':14,21 'nelder':49 'nelder-mead':48 'nonlinear':52 'optim':55 'optimizationwhich':40 'present':33 'program':53 'r':13,17 'requir':27 'rightarrow':15 'true':45 'way':36 'work':8"
+103,code,"Let `mu` be an $n$ element vector representing the average returns on $n$ individual assets in a portfolio
+
+Let `w` be an $n$ element vector representing the weight of each asset in the portfolio
+
+Let `Sigma` be an $n \times n$ matrix representing the covariance of returns for the assets
+
+Write the code below to set `m` equal to the mean of the portfolio returns and `s` equal to the variance of the portfolio","{""import numpy as np
+
+mu = np.array([-0.02, 0.04, 0.12, -0.03])
+w = np.array([0.1, 0.2, 0.3, 0.4])
+Sigma = np.array([[ 0.67, -0.18,  0.94, -0.07],
+       [-0.18,  1.2 ,  0.4 , -0.32],
+       [ 0.94,  0.4 ,  2.54,  0.06],
+       [-0.07, -0.32,  0.06,  1.74]])
+
+m = ...
+s = ...""}","{""import numpy as np
+
+mu = np.array([-0.02, 0.04, 0.12, -0.03])
+w = np.array([0.1, 0.2, 0.3, 0.4])
+sigma = np.array([[ 0.67, -0.18,  0.94, -0.07],
+       [-0.18,  1.2 ,  0.4 , -0.32],
+       [ 0.94,  0.4 ,  2.54,  0.06],
+       [-0.07, -0.32,  0.06,  1.74]])
+
+m = mu @ w
+s = w @ Sigma @ w""}",,"{""portfolio theory""}",2,"import numpy as np
+
+mu = np.array([-0.02, 0.04, 0.12, -0.03])
+w = np.array([0.1, 0.2, 0.3, 0.4])
+sigma = np.array([[ 0.67, -0.18,  0.94, -0.07],
+       [-0.18,  1.2 ,  0.4 , -0.32],
+       [ 0.94,  0.4 ,  2.54,  0.06],
+       [-0.07, -0.32,  0.06,  1.74]])","assert abs(s - 0.6165) < 1e-3
+assert abs(m - 0.03) < 1e-3",1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'-0.02':7 '-0.03':10 '-0.07':22,31 '-0.18':20,23 '-0.32':26,32 '0.04':8 '0.06':30,33 '0.1':13 '0.12':9 '0.2':14 '0.3':15 '0.4':16,25,28 '0.67':19 '0.94':21,27 '1.2':24 '1.74':34 '2.54':29 'asset':51,67,86 'averag':46 'code':89 'covari':81 'element':42,60 'equal':94,104 'import':1 'individu':50 'let':37,55,71 'm':35,93 'matrix':78 'mean':97 'mu':5,38 'n':41,49,59,75,77 'np':4 'np.array':6,12,18 'numpi':2 'portfolio':54,70,100,110,111 'repres':44,62,79 'return':47,83,101 'set':92 'sigma':17,72 'theori':112 'time':76 'varianc':107 'vector':43,61 'w':11,56 'weight':64 'write':87"
+104,fill_in_blank,"Consider the function `rosen` defined below
+
+
+```python
+def rosen(x): 
+    return sum(100.0 * (x[1:] - x[:-1]**2.0)**2.0 + (1 - x[:-1])**2.0)
+```
+
+Fill in the blanks necessary to define a function `drosen` that computes the gradient of `rosen`","{""from ___X import ___X
+
+drosen = ___X(rosen)""}","{jax,grad,grad}",,"{""nonlinear programming"",""convex optimization"",jax}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'-1':24,29 '1':22,27 '100.0':20 '2.0':25,26,30 'blank':34 'comput':42 'consid':8 'convex':49 'def':15 'defin':12,37 'drosen':5,40 'fill':31 'function':10,39 'gradient':44 'import':3 'jax':51 'necessari':35 'nonlinear':47 'optim':50 'program':48 'python':14 'return':18 'rosen':7,11,16,46 'sum':19 'x':2,4,6,17,21,23,28"
+105,multiple_selection,"Which of the following is true about Newton's method?","{""It is a derivative free method"",""It works for functions $f: \\mathbb{R}^N \\rightarrow \\mathbb{R}^M$ where both $N>1$ and $M>1$"",""It requires the Hessian matrix"",""It was presented as a way to do constrained optimization""}",,{2},"{""nonlinear programming"",""convex optimization""}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'1':22,25 'constrain':39 'convex':52 'deriv':4 'f':11 'follow':43 'free':5 'function':10 'hessian':29 'm':18,24 'mathbb':12,16 'matrix':30 'method':6,49 'n':14,21 'newton':47 'nonlinear':50 'optim':53 'optimizationwhich':40 'present':33 'program':51 'r':13,17 'requir':27 'rightarrow':15 'true':45 'way':36 'work':8"
+106,multiple_selection,What is a statistic?,"{""A variable that takes a stochastic value from a set of possible outcomes"",""A function of a random variable"",""A function that maps samples into numbers"",""A probability distribution over outcomes indexed by a parameter vector""}",,{2},"{statistics,models}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'distribut':29 'function':15,21 'index':32 'map':23 'model':41 'number':26 'outcom':13,31 'paramet':35 'possibl':12 'probabl':28 'random':18 'sampl':24 'set':10 'statist':39,40 'stochast':6 'take':4 'valu':7 'variabl':2,19 'vectorwhat':36"
+107,single_selection,Which of the following captures a key difference between method of moments (MOM) and generalized method of moments (GMM)?,"{""In MOM we must use mean and variance of the data, but in GMM we can use other moments like skewness and kurtosis"",""With GMM we can computed moments using samples from our model, whereas with MOM we need to be able to express the moments in closed form"",""MOM is a great teacher of life skills""}",,{1},{gmm},2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'abl':42 'captur':61 'close':48 'comput':28 'data':11 'differ':64 'express':44 'follow':60 'form':49 'general':71 'gmm':14,25,75,76 'great':53 'key':63 'kurtosi':23 'life':56 'like':20 'mean':6 'method':66,72 'model':34 'mom':2,37,50,69 'moment':19,29,46,68,74 'must':4 'need':39 'sampl':31 'skew':21 'skillswhich':57 'teacher':54 'use':5,17,30 'varianc':8 'wherea':35"
+108,multiple_selection,What is a random variable?,"{""A variable that takes a stochastic value from a set of possible outcomes"",""A function of a random variable"",""A function that maps samples into numbers"",""A probability distribution over outcomes indexed by a parameter vector""}",,"{0,1}","{""statistical models""}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'distribut':29 'function':15,21 'index':32 'map':23 'model':42 'number':26 'outcom':13,31 'paramet':35 'possibl':12 'probabl':28 'random':18,39 'sampl':24 'set':10 'statist':41 'stochast':6 'take':4 'valu':7 'variabl':2,19,40 'vectorwhat':36"
+109,multiple_selection,Which of the following were shown as valid ways to estimate parameter uncertainty with moment based models?,"{""Leverage central limit theorem and assume parameter vector is asymptotically normal"",""Leverage the solution to the direct problem to generate many samples of moments and compute sample variance"",""Compute the variance of moments in the data"",""Check the estimated moments against a null hypothesis""}",,"{0,1}",{gmm},3,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'assum':6 'asymptot':10 'base':59 'central':2 'check':37 'comput':26,29 'data':36 'direct':17 'estim':39,54 'follow':47 'generat':20 'gmm':61 'hypothesiswhich':44 'leverag':1,12 'limit':3 'mani':21 'model':60 'moment':24,33,40,58 'normal':11 'null':43 'paramet':7,55 'problem':18 'sampl':22,27 'shown':49 'solut':14 'theorem':4 'uncertainti':56 'valid':51 'varianc':28,31 'vector':8 'way':52"
+110,single_selection,"Consider the PyMC code below:
+
+```python
+import pymc3 as pm
+
+# NOTE: X.shape is (100, 3), y.shape is (100,)
+X, y = load_data()
+
+m = pm.Model()
+with m:
+    b = pm.Normal(""b"", mu=0, sigma=1, shape=(X.shape[1],))
+    n = pm.Gamma(""n"", alpha=2, beta=1)
+    y_observed = pm.Normal(
+        ""y_observed"",
+        mu=X @ b,
+        sigma=n,
+        observed=y,
+    )
+
+    p1 = pm.sample_prior_predictive()
+    p2 = pm.sample()
+    p3 = pm.sample_posterior_predictive(p2)
+```
+
+Which of the following mathematical expressions correctly represents the model from the code above?","{""$$\\begin{aligned}b \\sim N(0, 1) \\\\ n \\sim \\Gamma(2, 1) \\\\ y \\sim N(X b, n)\\end{aligned}$$"",""$$\\begin{aligned}b \\sim N(0, 1) \\\\ n \\sim \\Gamma(2, 1) \\\\ y \\sim \\text{Cauchy}(X b, n)\\end{aligned}$$"",""$$\\begin{aligned}b \\sim \\text{HalfNormal}(0, 1) \\\\ n \\sim \\Gamma(2, 1) \\\\ y \\sim N(X b, n)\\end{aligned}$$"",""$$\\begin{aligned}b \\sim N(0, 1) \\\\ n \\sim N(2, 1) \\\\ y \\sim N(X b, n)\\end{aligned}$$""}",,{0},"{bayes,pymc}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':6,26,48,68,113 '1':7,12,27,32,49,54,69,74,115,118,125 '100':96,100 '2':11,31,53,73,123 '3':97 'align':2,20,22,41,43,62,64,82 'alpha':122 'b':3,17,23,38,44,59,65,79,109,111,133 'bay':163 'begin':1,21,42,63 'beta':124 'cauchi':36 'code':86,161 'consid':83 'correct':155 'data':104 'end':19,40,61,81 'express':154 'follow':152 'gamma':10,30,52 'halfnorm':47 'import':89 'load':103 'm':105,108 'mathemat':153 'model':158 'mu':112,131 'n':5,8,15,18,25,28,39,50,57,60,67,70,72,77,80,119,121,135 'note':93 'observ':127,130,136 'p1':138 'p2':142,148 'p3':144 'pm':92 'pm.gamma':120 'pm.model':106 'pm.normal':110,128 'pm.sample':139,143,145 'posterior':146 'predict':141,147 'prior':140 'pymc':85,164 'pymc3':90 'python':88 'repres':156 'shape':116 'sigma':114,134 'sim':4,9,14,24,29,34,45,51,56,66,71,76 'text':35,46 'x':16,37,58,78,101,132 'x.shape':94,117 'y':13,33,55,75,102,126,129,137 'y.shape':98"
+111,single_selection,"Consider the PyMC code below:
+
+```python
+import pymc3 as pm
+
+# NOTE: X.shape is (100, 3), y.shape is (100,)
+X, y = load_data()
+
+m = pm.Model()
+with m:
+    b = pm.Normal(""b"", mu=0, sigma=1, shape=(X.shape[1],))
+    n = pm.Gamma(""n"", alpha=2, beta=1)
+    y_observed = pm.Normal(
+        ""y_observed"",
+        mu=X @ b,
+        sigma=n,
+        observed=y,
+    )
+
+    p1 = pm.sample_prior_predictive()
+    p2 = pm.sample()
+    p3 = pm.sample_posterior_predictive(p2)
+```
+
+What does the variable `p1` contain?","{""Samples from the posterior distribution"",""The posterior mode of the model"",""Samples from the prior distribution"",""Samples from the posterior predictive distribution""}",,{2},"{bayes,pymc}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':52 '1':54,57,64 '100':35,39 '2':62 '3':36 'alpha':61 'b':48,50,72 'bay':94 'beta':63 'code':25 'contain':93 'data':43 'distribut':5,16 'distributionconsid':22 'import':28 'load':42 'm':44,47 'mode':8 'model':11 'mu':51,70 'n':58,60,74 'note':32 'observ':66,69,75 'p1':77,92 'p2':81,87 'p3':83 'pm':31 'pm.gamma':59 'pm.model':45 'pm.normal':49,67 'pm.sample':78,82,84 'posterior':4,7,20,85 'predict':21,80,86 'prior':15,79 'pymc':24,95 'pymc3':29 'python':27 'sampl':1,12,17 'shape':55 'sigma':53,73 'variabl':91 'x':40,71 'x.shape':33,56 'y':41,65,68,76 'y.shape':37"
+112,code,"Write the code
+
+```python
+print(""Hello world"")
+```","{""# Your code here""}","{""print(\""Hello world\"")""}",,{print},1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'code':2,5 'hello':8 'herewrit':3 'print':7,10 'python':6 'world':9"
+113,single_selection,"True or False, the Gradient descent algorithm is only applicable to functions from R -> R (scalar to scalar functions)?","{True,False}",,{1},"{optimization,""gradient descent""}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'algorithm':8 'applic':11 'descent':7,23 'fals':4 'falsetru':2 'function':13,20 'gradient':6,22 'optim':21 'r':15,16 'scalar':17,19 'true':1"
+114,multiple_selection,What are some benefits of adding momentum to a stochastic gradient descent algorithm?,"{""Learning rate parameters are adapted depending on current gradients"",""You can sometimes avoid getting stuck in local minima"",""Oscillations can be dampened in directions with very steep gradients"",""Gradients are scaled according to L2 norm of past gradients""}",,"{1,2}",{sgd},2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'accord':32 'ad':43 'adapt':5 'algorithm':50 'avoid':13 'benefit':41 'current':8 'dampen':22 'depend':6 'descent':49 'direct':24 'get':14 'gradient':9,28,29,48 'gradientswhat':38 'l2':34 'learn':1 'local':17 'minima':18 'momentum':44 'norm':35 'oscil':19 'paramet':3 'past':37 'rate':2 'scale':31 'sgd':51 'sometim':12 'steep':27 'stochast':47 'stuck':15"
+115,single_selection,"Consider the PyMC code below:
+
+```python
+import pymc3 as pm
+
+# NOTE: X.shape is (100, 3), y.shape is (100,)
+X, y = load_data()
+
+m = pm.Model()
+with m:
+    b = pm.Normal(""b"", mu=0, sigma=1, shape=(X.shape[1],))
+    n = pm.Gamma(""n"", alpha=2, beta=1)
+    y_observed = pm.Normal(
+        ""y_observed"",
+        mu=X @ b,
+        sigma=n,
+        observed=y,
+    )
+
+    p1 = pm.sample_prior_predictive()
+    p2 = pm.sample()
+    p3 = pm.sample_posterior_predictive(p2)
+```
+
+What does the variable `p3` contain?","{""Samples from the posterior distribution"",""The posterior mode of the model"",""Samples from the prior distribution"",""Samples from the posterior predictive distribution""}",,{3},"{bayes,pymc}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':52 '1':54,57,64 '100':35,39 '2':62 '3':36 'alpha':61 'b':48,50,72 'bay':94 'beta':63 'code':25 'contain':93 'data':43 'distribut':5,16 'distributionconsid':22 'import':28 'load':42 'm':44,47 'mode':8 'model':11 'mu':51,70 'n':58,60,74 'note':32 'observ':66,69,75 'p1':77 'p2':81,87 'p3':83,92 'pm':31 'pm.gamma':59 'pm.model':45 'pm.normal':49,67 'pm.sample':78,82,84 'posterior':4,7,20,85 'predict':21,80,86 'prior':15,79 'pymc':24,95 'pymc3':29 'python':27 'sampl':1,12,17 'shape':55 'sigma':53,73 'variabl':91 'x':40,71 'x.shape':33,56 'y':41,65,68,76 'y.shape':37"
+116,multiple_selection,What are some possible consequences of a learning rate that is too large?,"{""The algorithm never converges"",""The algorithm becomes unstable"",""Learning is stable, but very slow""}",,"{0,1}","{optimization,""gradient descent""}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'algorithm':2,6 'becom':7 'consequ':18 'converg':4 'descent':29 'gradient':28 'larg':26 'learn':9,21 'never':3 'optim':27 'possibl':17 'rate':22 'slowwhat':14 'stabl':11 'unstabl':8"
+117,single_selection,What is the key difference between stochastic gradient descent and mini-batch gradient descent?,"{""In SGD, random noise is added to each training sample to prevent overfitting"",""In SGD only a randomly selected subset of gradients are used on each epoch"",""SGD uses multiple epochs"",""Mini-batch gradient descent applies gradients on sets of `n` training samples at a time"",""SGD will always converge faster than mini-batch""}",,{3},"{sgd,""gradient descent""}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'ad':6 'alway':50 'appli':37 'batch':34,68 'batchwhat':56 'converg':51 'descent':36,64,70,73 'differ':60 'epoch':27,31 'faster':52 'gradient':22,35,38,63,69,72 'key':59 'mini':33,55,67 'mini-batch':32,66 'mini-batchwhat':54 'multipl':30 'n':42 'nois':4 'overfit':13 'prevent':12 'random':3,18 'sampl':10,44 'select':19 'set':40 'sgd':2,15,28,48,71 'stochast':62 'subset':20 'time':47 'train':9,43 'use':24,29"
+118,multiple_selection,What are some possible consequences of a learning rate that is too small?,"{""The algorithm never converges"",""The algorithm becomes unstable"",""Learning is stable, but very slow""}",,{2},"{optimization,""gradient descent""}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'algorithm':2,6 'becom':7 'consequ':18 'converg':4 'descent':29 'gradient':28 'learn':9,21 'never':3 'optim':27 'possibl':17 'rate':22 'slowwhat':14 'small':26 'stabl':11 'unstabl':8"
+119,multiple_selection,Which of the following are reasonable ways to provide the gradient to an optimization routine that does gradient descent?,"{""Write a Python function evaluating the analytical gradient"",""Numerically approximate the derivative using finite differences"",""Automatic differentiation"",""Pass in any Python function -- the algorithm will figure it out""}",,"{0,1,2}","{optimization,""gradient descent""}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'algorithm':24 'analyt':7 'approxim':10 'automat':16 'deriv':12 'descent':46,49 'differ':15 'differenti':17 'evalu':5 'figur':26 'finit':14 'follow':31 'function':4,22 'gradient':8,38,45,48 'numer':9 'optim':41,47 'outwhich':28 'pass':18 'provid':36 'python':3,21 'reason':33 'routin':42 'use':13 'way':34 'write':1"
+120,single_selection,Which of the following describes the most commonly applied approach to constructing the weight matrix for generalized method of moments estimation?,"{""Use the identity  matrix"",""Use the sample covariance of all features"",""Use a diagonal matrix with sample moment variances"",""Use a two stage procedure starting with the identity matrix""}",,{3},{gmm},1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'appli':37 'approach':38 'common':36 'construct':40 'covari':8 'describ':33 'diagon':14 'estim':49 'featur':11 'follow':32 'general':45 'gmm':50 'ident':3,28 'matrix':4,15,43 'matrixwhich':29 'method':46 'moment':18,48 'procedur':24 'sampl':7,17 'stage':23 'start':25 'two':22 'use':1,5,12,20 'varianc':19 'weight':42"
+121,single_selection,"Consider the PyMC code below:
+
+```python
+import pymc3 as pm
+
+# NOTE: X.shape is (100, 3), y.shape is (100,)
+X, y = load_data()
+
+m = pm.Model()
+with m:
+    b = pm.Normal(""b"", mu=0, sigma=1, shape=(X.shape[1],))
+    n = pm.Gamma(""n"", alpha=2, beta=1)
+    y_observed = pm.Normal(
+        ""y_observed"",
+        mu=X @ b,
+        sigma=n,
+        observed=y,
+    )
+
+    p1 = pm.sample_prior_predictive()
+    p2 = pm.sample()
+    p3 = pm.sample_posterior_predictive(p2)
+```
+
+What does the variable `p2` contain?","{""Samples from the posterior distribution"",""The posterior mode of the model"",""Samples from the prior distribution"",""Samples from the posterior predictive distribution""}",,{0},"{bayes,pymc}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'0':52 '1':54,57,64 '100':35,39 '2':62 '3':36 'alpha':61 'b':48,50,72 'bay':94 'beta':63 'code':25 'contain':93 'data':43 'distribut':5,16 'distributionconsid':22 'import':28 'load':42 'm':44,47 'mode':8 'model':11 'mu':51,70 'n':58,60,74 'note':32 'observ':66,69,75 'p1':77 'p2':81,87,92 'p3':83 'pm':31 'pm.gamma':59 'pm.model':45 'pm.normal':49,67 'pm.sample':78,82,84 'posterior':4,7,20,85 'predict':21,80,86 'prior':15,79 'pymc':24,95 'pymc3':29 'python':27 'sampl':1,12,17 'shape':55 'sigma':53,73 'variabl':91 'x':40,71 'x.shape':33,56 'y':41,65,68,76 'y.shape':37"
+122,single_selection,Why do MCMC algorithms work?,"{""The Markov chain allows us to derive a conjugate prior"",""The stationary distribution of the Markov chain is the same as the posterior distribution"",""We can use just the likelihood to sample from the distribution""}",,{1},"{bayes,mcmc}",1,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'algorithm':38 'allow':4 'bay':40 'chain':3,17 'conjug':9 'deriv':7 'distribut':13,24 'distributionwhi':35 'likelihood':30 'markov':2,16 'mcmc':37,41 'posterior':23 'prior':10 'sampl':32 'stationari':12 'us':5 'use':27 'work':39"
+123,single_selection,What is the key difference between stochastic gradient descent and gradient descent?,"{""In SGD, random noise is added to each training sample to prevent overfitting"",""In SGD only a randomly selected subset of gradients are used on each epoch"",""SGD uses multiple epochs"",""SGD applies gradients one observation at a time""}",,{3},"{sgd,""gradient descent""}",2,,,1,2023-07-12 03:13:11,2023-07-12 03:13:11,"'ad':6 'appli':33 'descent':47,50,53 'differ':43 'epoch':27,31 'gradient':22,34,46,49,52 'key':42 'multipl':30 'nois':4 'observ':36 'one':35 'overfit':13 'prevent':12 'random':3,18 'sampl':10 'select':19 'sgd':2,15,28,32,51 'stochast':45 'subset':20 'timewhat':39 'train':9 'use':24,29"
+124,single_selection,What does the function `pd.read_html` do?,"{""Reads a single table from a website and puts it in a DataFrame"",""Downloads all html code from a website and puts it in a DataFrame"",""Downloads all html tables from a website and puts them in a list of DataFrames"",""Summons Tim Berners-Lee from the deepest parts of the internet""}",,{2},{pandas},1,,,1,2023-08-15 03:47:14,2023-08-15 03:47:14,"'berner':45 'berners-le':44 'code':17 'datafram':13,26,41 'deepest':49 'download':14,27 'function':56 'html':16,29,58 'internetwhat':53 'lee':46 'list':39 'panda':60 'part':50 'pd.read':57 'put':9,22,35 'read':1 'singl':3 'summon':42 'tabl':4,30 'tim':43 'websit':7,20,33"
+125,code,"Consider our unemployment DataFrame. Write and apply a custom aggregation function to determine whether each year was a low or high unemployment year. A high unemployment year means all unemployment rates were above 6%.
+
+The function you should write is scaffolded for you below. Read the documentation carefully.","{""import pandas as pd
+
+data = {
+    \""NorthEast\"": [5.9,  5.6,  4.4,  3.8,  5.8,  4.9,  4.3,  7.1,  8.3,  7.9,  5.7],
+    \""MidWest\"": [4.5,  4.3,  3.6,  4. ,  5.7,  5.7,  4.9,  8.1,  8.7,  7.4,  5.1],
+    \""South\"": [5.3,  5.2,  4.2,  4. ,  5.7,  5.2,  4.3,  7.6,  9.1,  7.4,  5.5],
+    \""West\"": [6.6, 6., 5.2, 4.6, 6.5, 5.5, 4.5, 8.6, 10.7, 8.5, 6.1],
+    \""National\"": [5.6, 5.3, 4.3, 4.2, 5.8, 5.3, 4.6, 7.8, 9.1, 8., 5.7]
+}
+years = list(range(1995, 2017, 2))
+
+unemp_region = pd.DataFrame(data, index=years)
+
+def low_or_high(s):
+    \""\""\""
+    Determines whether the unemployment is high or low
+
+    Parameters
+    ----------
+    s : pd.Series
+        A series of unemployment rates
+
+    Returns
+    -------
+    hol : str
+        Either \""high\"" or \""low\"" depending on the value of s
+    \""\""\""
+    return 0
+
+answer = unemp_region  # TODO: Do the aggregation here""}","{""import pandas as pd
+
+data = {
+    \""NorthEast\"": [5.9,  5.6,  4.4,  3.8,  5.8,  4.9,  4.3,  7.1,  8.3,  7.9,  5.7],
+    \""MidWest\"": [4.5,  4.3,  3.6,  4. ,  5.7,  5.7,  4.9,  8.1,  8.7,  7.4,  5.1],
+    \""South\"": [5.3,  5.2,  4.2,  4. ,  5.7,  5.2,  4.3,  7.6,  9.1,  7.4,  5.5],
+    \""West\"": [6.6, 6., 5.2, 4.6, 6.5, 5.5, 4.5, 8.6, 10.7, 8.5, 6.1],
+    \""National\"": [5.6, 5.3, 4.3, 4.2, 5.8, 5.3, 4.6, 7.8, 9.1, 8., 5.7]
+}
+years = list(range(1995, 2017, 2))
+
+unemp_region = pd.DataFrame(data, index=years)
+
+def low_or_high(s):
+    \""\""\""
+    Determines whether the is high or low
+
+    Parameters
+    ----------
+    s : pd.Series
+        A series of unemployment rates
+
+    Returns
+    -------
+    hol : str
+        Either \""high\"" or \""low\"" depending on the value of x
+    \""\""\""
+    return \""low\"" if (s <= 6).any() else \""high\""
+
+answer = unemp_region.agg(low_or_high, axis=\""columns\"")""}",,"{pandas,pandas-basics}",2,"import pandas as pd
+
+data = {
+    ""NorthEast"": [5.9,  5.6,  4.4,  3.8,  5.8,  4.9,  4.3,  7.1,  8.3,  7.9,  5.7],
+    ""MidWest"": [4.5,  4.3,  3.6,  4. ,  5.7,  5.7,  4.9,  8.1,  8.7,  7.4,  5.1],
+    ""South"": [5.3,  5.2,  4.2,  4. ,  5.7,  5.2,  4.3,  7.6,  9.1,  7.4,  5.5],
+    ""West"": [6.6, 6., 5.2, 4.6, 6.5, 5.5, 4.5, 8.6, 10.7, 8.5, 6.1],
+    ""National"": [5.6, 5.3, 4.3, 4.2, 5.8, 5.3, 4.6, 7.8, 9.1, 8., 5.7]
+}
+years = list(range(1995, 2017, 2))
+
+unemp_region = pd.DataFrame(data, index=years)","(answer == ""high"").sum() == 3",1,2023-08-15 04:09:01,2023-08-17 14:03:02,"'0':113 '10.7':51 '1995':69 '2':71 '2017':70 '3.6':21 '3.8':10 '4':22,34 '4.2':33,58 '4.3':13,20,37,57 '4.4':9 '4.5':19,49 '4.6':46,61 '4.9':12,25 '5.1':29 '5.2':32,36,45 '5.3':31,56,60 '5.5':41,48 '5.6':8,55 '5.7':17,23,24,35,65 '5.8':11,59 '5.9':7 '6':44,154 '6.1':53 '6.5':47 '6.6':43 '7.1':14 '7.4':28,40 '7.6':38 '7.8':62 '7.9':16 '8':64 '8.1':26 '8.3':15 '8.5':52 '8.6':50 '8.7':27 '9.1':39,63 'aggreg':120,130 'answer':114 'appli':127 'basic':172 'care':168 'custom':129 'data':5,75 'datafram':124 'def':78 'depend':106 'determin':83,133 'document':167 'either':102 'function':131,156 'hereconsid':121 'high':81,88,103,141,145 'hol':100 'import':1 'index':76 'list':67 'low':79,90,105,139 'mean':148 'midwest':18 'nation':54 'northeast':6 'panda':2,169,171 'pandas-bas':170 'paramet':91 'pd':4 'pd.dataframe':74 'pd.series':93 'rang':68 'rate':98,151 'read':165 'region':73,116 'return':99,112 'scaffold':161 'seri':95 'south':30 'str':101 'todo':117 'unemp':72,115 'unemploy':86,97,123,142,146,150 'valu':109 'west':42 'whether':84,134 'write':125,159 'year':66,77,136,143,147"
+126,code,Consider our unemployment DataFrame. Compute the percent change of unemployment between each year for each column.,"{""import pandas as pd
+
+data = {
+    \""NorthEast\"": [5.9,  5.6,  4.4,  3.8,  5.8,  4.9,  4.3,  7.1,  8.3,  7.9,  5.7],
+    \""MidWest\"": [4.5,  4.3,  3.6,  4. ,  5.7,  5.7,  4.9,  8.1,  8.7,  7.4,  5.1],
+    \""South\"": [5.3,  5.2,  4.2,  4. ,  5.7,  5.2,  4.3,  7.6,  9.1,  7.4,  5.5],
+    \""West\"": [6.6, 6., 5.2, 4.6, 6.5, 5.5, 4.5, 8.6, 10.7, 8.5, 6.1],
+    \""National\"": [5.6, 5.3, 4.3, 4.2, 5.8, 5.3, 4.6, 7.8, 9.1, 8., 5.7]
+}
+years = list(range(1995, 2017, 2))
+
+unemp_region = pd.DataFrame(data, index=years)
+
+answer = unemp_region  # TODO: Do the transformation here""}","{""import pandas as pd
+
+data = {
+    \""NorthEast\"": [5.9,  5.6,  4.4,  3.8,  5.8,  4.9,  4.3,  7.1,  8.3,  7.9,  5.7],
+    \""MidWest\"": [4.5,  4.3,  3.6,  4. ,  5.7,  5.7,  4.9,  8.1,  8.7,  7.4,  5.1],
+    \""South\"": [5.3,  5.2,  4.2,  4. ,  5.7,  5.2,  4.3,  7.6,  9.1,  7.4,  5.5],
+    \""West\"": [6.6, 6., 5.2, 4.6, 6.5, 5.5, 4.5, 8.6, 10.7, 8.5, 6.1],
+    \""National\"": [5.6, 5.3, 4.3, 4.2, 5.8, 5.3, 4.6, 7.8, 9.1, 8., 5.7]
+}
+years = list(range(1995, 2017, 2))
+
+unemp_region = pd.DataFrame(data, index=years)
+
+answer = unemp_region.pct_change()""}",,"{pandas,basics}",1,"import pandas as pd
+
+data = {
+    ""NorthEast"": [5.9,  5.6,  4.4,  3.8,  5.8,  4.9,  4.3,  7.1,  8.3,  7.9,  5.7],
+    ""MidWest"": [4.5,  4.3,  3.6,  4. ,  5.7,  5.7,  4.9,  8.1,  8.7,  7.4,  5.1],
+    ""South"": [5.3,  5.2,  4.2,  4. ,  5.7,  5.2,  4.3,  7.6,  9.1,  7.4,  5.5],
+    ""West"": [6.6, 6., 5.2, 4.6, 6.5, 5.5, 4.5, 8.6, 10.7, 8.5, 6.1],
+    ""National"": [5.6, 5.3, 4.3, 4.2, 5.8, 5.3, 4.6, 7.8, 9.1, 8., 5.7]
+}
+years = list(range(1995, 2017, 2))
+
+unemp_region = pd.DataFrame(data, index=years)","answer.loc[1995, :].isna().all() and answer.abs().loc[2005, ""MidWest""] < 1e-10",1,2023-08-15 04:13:23,2023-08-17 14:02:41,"'10.7':51 '1995':69 '2':71 '2017':70 '3.6':21 '3.8':10 '4':22,34 '4.2':33,58 '4.3':13,20,37,57 '4.4':9 '4.5':19,49 '4.6':46,61 '4.9':12,25 '5.1':29 '5.2':32,36,45 '5.3':31,56,60 '5.5':41,48 '5.6':8,55 '5.7':17,23,24,35,65 '5.8':11,59 '5.9':7 '6':44 '6.1':53 '6.5':47 '6.6':43 '7.1':14 '7.4':28,40 '7.6':38 '7.8':62 '7.9':16 '8':64 '8.1':26 '8.3':15 '8.5':52 '8.6':50 '8.7':27 '9.1':39,63 'answer':78 'basic':102 'chang':92 'column':100 'comput':89 'data':5,75 'datafram':88 'hereconsid':85 'import':1 'index':76 'list':67 'midwest':18 'nation':54 'northeast':6 'panda':2,101 'pd':4 'pd.dataframe':74 'percent':91 'rang':68 'region':73,80 'south':30 'todo':81 'transform':84 'unemp':72,79 'unemploy':87,94 'west':42 'year':66,77,97"
+127,single_selection,"What is the output of the following code snippet? 
+    ```
+    x = 5
+    if x > 3:
+        print('x is bigger than 3')
+    else:
+        print('x is not bigger than 3')
+    ```","{""x is bigger than 3"",""x is not bigger than 3""}",,{0},"{python,""control flow""}",1,,,1,2023-09-12 19:07:16,2023-09-12 19:07:16,"'3':5,24,30,38 '3what':11 '5':21 'bigger':3,9,28,36 'code':18 'control':40 'els':31 'flow':41 'follow':17 'output':14 'print':25,32 'python':39 'snippet':19 'x':1,6,20,23,26,33"
+128,single_selection,"What is the output of the following code snippet?
+
+```python
+for i in range(3):
+    print(i)
+```","{""0, 1, 2"",Error,""1, 2, 3"",""0, 1, 2, 3""}",,{0},"{python,""control flow"",""for loop""}",1,,,1,2023-09-12 19:10:18,2023-09-12 19:10:18,"'0':1,8 '1':2,5,9 '2':3,6,10 '3':7,25 '3what':11 'code':18 'control':29 'error':4 'flow':30 'follow':17 'loop':32 'output':14 'print':26 'python':20,28 'rang':24 'snippet':19"
+129,multiple_selection,"What are the characteristics of two independent random variables, X and Y, in terms of their probability distributions?","{""The joint probability distribution is the product of the marginal distributions."",""The conditional probability distribution equals the marginal distribution."",""Their joint probability distribution equals their marginal distributions.""}",,"{0,1}","{probability,distributions}",2,,,1,2023-09-19 19:51:25,2023-09-19 19:51:25,"'characterist':30 'condit':13 'distribut':4,11,15,19,23,44,46 'distributions.what':27 'equal':16,24 'independ':33 'joint':2,21 'margin':10,18,26 'probabl':3,14,22,43,45 'product':7 'random':34 'term':40 'two':32 'variabl':35 'x':36 'y':38"
+130,multiple_selection, How are marginal distributions computed from a joint probability distribution matrix?,"{""The probability that X equals I is computed by summing across the Ith row."",""The probability that Y equals J is computed by summing across the Jth column."",""The marginal distribution of X (Y) can be considered as the conditional distribution of X (Y) given Y (X)."",""They are derived by summing across rows (for X) and columns (for Y).""}",,"{0,1,3}","{probability,distributions}",2,,,1,2023-09-19 19:54:03,2023-09-19 19:54:03,"'across':11,25,53 'column':28,58 'comput':8,22,65 'condit':40 'consid':37 'deriv':50 'distribut':31,41,64,70,73 'equal':5,19 'given':45 'ith':13 'j':20 'joint':68 'jth':27 'margin':30,63 'matrix':71 'probabl':2,16,69,72 'row':14,54 'sum':10,24,52 'x':4,33,43,47,56 'y':18,34,44,46,60"
+131,code,"Write a Python function that generates a discrete uniform probability distribution given the number of possible values (I).
+
+Description: This function should take an integer I as input and return a 1-dimensional numpy array of length I, where each entry is 1/I (reflecting the uniform probability distribution). ","{""import numpy as np
+
+def uniform_distribution(I):
+    # TODO: your code here
+    ...""}","{""import numpy as np
+
+def uniform_distribution(I):
+    # Generate the uniform distribution
+    distribution = np.full(I, 1/I)
+    
+    return distribution""}",,"{probability,distributions}",1,import numpy as np,"# Test with I=5
+dist = uniform_distribution(5)
+# Check correct length
+assert len(dist) == 5
+# Check correct distribution values
+assert np.allclose(dist, [0.2, 0.2, 0.2, 0.2, 0.2])
+
+
+# Test with I=10
+dist = uniform_distribution(10)
+# Check correct length
+assert len(dist) == 10
+# Check correct distribution values
+assert np.allclose(dist, [0.1]*10)",1,2023-09-19 19:57:15,2023-09-19 19:57:15,"'1':44 '1/i':55 'array':47 'code':11 'def':5 'descript':31 'dimension':45 'discret':20 'distribut':7,23,60,62 'entri':53 'function':16,33 'generat':18 'given':24 'import':1 'input':40 'integ':37 'length':49 'np':4 'number':26 'numpi':2,46 'possibl':28 'probabl':22,59,61 'python':15 'reflect':56 'return':42 'take':35 'todo':9 'uniform':6,21,58 'valu':29 'write':13"
+133,single_selection,What is the definition of the inner product of two vectors in a vector space?,"{""a) The product of their magnitudes"",""b) The sum of the products of their corresponding components"",""c) The sum of their magnitudes"",""d) The maximum value among their components""}",,{1},"{""linear algebra""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'algebra':45 'among':27 'b':7 'c':17 'compon':16 'componentswhat':29 'correspond':15 'd':23 'definit':32 'inner':35 'linear':44 'magnitud':6,22 'maximum':25 'product':3,12,36 'space':43 'sum':9,19 'two':38 'valu':26 'vector':39,42"
+134,single_selection,"In linear algebra, the span of a set of vectors refers to:","{""a) The set of all possible linear combinations of the given vectors"",""b) The number of vectors in the set"",""c) The length of the vectors in the set"",""d) The angle between the vectors""}",,{0},"{""linear algebra""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'algebra':37,48 'angl':32 'b':13 'c':21 'combin':8 'd':30 'given':11 'length':23 'linear':7,36,47 'number':15 'possibl':6 'refer':45 'set':3,20,29,42 'span':39 'vector':12,17,26,44 'vectorsin':35"
+135,single_selection,A set of vectors is said to be linearly independent if:,"{""a) All vectors in the set are the same"",""b) One vector in the set can be expressed as a linear combination of the others"",""c) No vector in the set can be expressed as a linear combination of the others"",""d) The vectors are orthogonal to each other""}",,{2},"{""linear algebra""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'algebra':61 'b':10 'c':26 'combin':22,38 'd':42 'express':18,34 'independ':58 'linear':21,37,57,60 'one':11 'orthogon':46 'other':25,41 'othera':49 'said':54 'set':6,15,31,50 'vector':3,12,28,44,52"
+136,single_selection,Which SciPy function can be used to solve a system of linear equations?,"{""a) `scipy.matrix_solve`"",""b) `scipy.solve_linear_system`"",""c) `scipy.linalg.solve`"",""d) `scipy.linear_eq_solver`""}",,{2},"{""linear algebra"",SciPy}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'algebra':28 'b':4 'c':8 'd':10 'eq':12 'equat':26 'function':16 'linear':6,25,27 'scipi':15,29 'scipy.linalg.solve':9 'scipy.linear':11 'scipy.matrix':2 'scipy.solve':5 'solv':3,21 'solver':13 'system':7,23 'use':19"
+137,single_selection,What is Cholesky decomposition used for in linear algebra?,"{""A) Solving differential equations"",""B) Factorizing a Hermitian positive-definite matrix"",""C) Calculating eigenvalues and eigenvectors"",""D) Finding the determinant of a square matrix""}",,{1},"{""linear algebra"",""matrix factorization""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'algebra':33,35 'b':5 'c':13 'calcul':14 'choleski':27 'd':18 'decomposit':28 'definit':11 'determin':21 'differenti':3 'eigenvalu':15 'eigenvector':17 'equat':4 'factor':6,37 'find':19 'hermitian':8 'linear':32,34 'matrix':12,36 'matrixwhat':25 'posit':10 'positive-definit':9 'solv':2 'squar':24 'use':29"
+138,single_selection,"In linear algebra, what are Toeplitz matrices characterized by?","{""A) All elements below the main diagonal are zero"",""B) All elements above the main diagonal are zero"",""C) All elements are zero except for the main diagonal"",""D) All elements are equal to 1""}",,{0},"{""linear algebra"",""matrix types""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'1in':35 'algebra':37,45 'b':10 'c':19 'character':42 'd':29 'diagon':7,16,28 'element':3,12,21,31 'equal':33 'except':24 'linear':36,44 'main':6,15,27 'matric':41 'matrix':46 'toeplitz':40 'type':47 'zero':9,18,23"
+139,single_selection,What is the primary goal of transforming a matrix into row echelon form?,"{""A) Minimizing the number of rows in the matrix"",""B) Making all elements in the matrix zero"",""C) Simplifying the matrix to upper triangular form"",""D) Ensuring all elements are positive""}",,{2},"{""linear algebra"",""matrix transformations""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'algebra':45 'b':10 'c':18 'd':26 'echelon':42 'element':13,29 'ensur':27 'form':25,43 'goal':35 'linear':44 'make':11 'matrix':9,16,21,39,46 'minim':2 'number':4 'positivewhat':31 'primari':34 'row':6,41 'simplifi':19 'transform':37,47 'triangular':24 'upper':23 'zero':17"
+140,single_selection,"What is the Gram-Schmidt process in linear algebra, and what is its primary use?","{""A) A method for solving linear systems of equations"",""B) A technique for computing matrix determinants"",""C) An algorithm for finding matrix eigenvalues"",""D) A method for orthogonalizing a set of vectors""}",,{3},"{""linear algebra"",orthogonalization}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'algebra':41,49 'algorithm':19 'b':10 'c':17 'comput':14 'd':24 'determin':16 'eigenvalu':23 'equat':9 'find':21 'gram':36 'gram-schmidt':35 'linear':6,40,48 'matrix':15,22 'method':3,26 'orthogon':28,50 'primari':46 'process':38 'schmidt':37 'set':30 'solv':5 'system':7 'techniqu':12 'use':47 'vectorswhat':32"
+141,single_selection,What is Eigendecomposition in linear algebra?,"{""A) A method to compute the determinant of a matrix"",""B) A technique for solving linear equations"",""C) A process of breaking down a matrix into its eigenvalues and eigenvectors"",""D) A method for finding the inverse of a matrix""}",,{2},"{""linear algebra""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'algebra':45,47 'b':11 'break':22 'c':18 'comput':5 'd':31 'determin':7 'eigendecomposit':42 'eigenvalu':28 'eigenvector':30 'equat':17 'find':35 'invers':37 'linear':16,44,46 'matrix':10,25 'matrixwhat':40 'method':3,33 'process':20 'solv':15 'techniqu':13"
+142,single_selection,"In Principal Component Analysis (PCA), why is it acceptable to use X@X.T instead of X.T@X for the Covariance Matrix Trick?","{""A) X@X.T is computationally faster"",""B) X@X.T yields the same eigenvalues as X.T@X"",""C) X@X.T is more memory-efficient"",""D) X@X.T is less accurate, but it's acceptable for small datasets""}",,{1},"{PCA,""linear algebra""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'accept':34,45 'accur':30 'algebra':61 'analysi':40 'b':7 'c':17 'compon':39 'comput':5 'covari':56 'd':25 'datasetsin':37 'effici':24 'eigenvalu':13 'faster':6 'instead':50 'less':29 'linear':60 'matrix':57 'memori':23 'memory-effici':22 'pca':41,59 'princip':38 'small':36 'trick':58 'use':47 'x':2,8,16,18,26,48,53 'x.t':3,9,15,19,27,49,52 'yield':10"
+143,single_selection,What does Principal Component Analysis (PCA) measure in a dataset?,"{""A) It measures the skewness of the data"",""B) It measures the kurtosis of the data"",""C) It measures the linear relationships between variables"",""D) It measures the most significant sources of variation in the data""}",,{3},"{PCA,""data analysis""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'analysi':40,48 'b':9 'c':17 'compon':39 'd':25 'data':8,16,47 'dataset':45 'datawhat':36 'kurtosi':13 'linear':21 'measur':3,11,19,27,42 'pca':41,46 'princip':38 'relationship':22 'signific':30 'skew':5 'sourc':31 'variabl':24 'variat':33"
+144,single_selection,What is the relationship between Principal Component Analysis (PCA) factors and variance?,"{""A) PCA factors are inversely proportional to variance"",""B) PCA factors are directly proportional to variance"",""C) PCA factors are unrelated to variance"",""D) PCA factors are a measure of standard deviation, not variance""}",,{1},"{PCA,statistics}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'analysi':41 'b':9 'c':17 'compon':40 'd':24 'deviat':32 'direct':13 'factor':3,11,19,26,43 'invers':5 'measur':29 'pca':2,10,18,25,42,46 'princip':39 'proport':6,14 'relationship':37 'standard':31 'statist':47 'unrel':21 'varianc':8,16,23,45 'variancewhat':34"
+145,single_selection,How do you create a tuple with a single element in Python?,"{`(element)`,""`(element,)`"",`[element]`,""`[element,]`""}",,{1},"{python,tuples}",2,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'creat':8 'element':1,2,3,4,14 'python':16,17 'singl':13 'tupl':10,18"
+146,multiple_selection,What are valid methods for removing an item from a Python list?,"{`list.remove(item)`,`list.pop(item)`,`list.pop(index)`,`list.remove(index)`,""`del list[index]`"",""`del list[item]`""}",,"{0,2,4}","{python,lists}",3,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'del':9,12 'index':6,8,11 'item':2,4,14,22 'list':10,13,26,28 'list.pop':3,5 'list.remove':1,7 'method':18 'python':25,27 'remov':20 'valid':17"
+147,multiple_selection,"In Python, what is the key difference between a list and a set?","{""Lists can store items of different data types, while sets cannot."",""Lists allow duplicate items, while sets do not."",""Lists are ordered, while sets are unordered."",""Lists are mutable, while sets are immutable.""}",,"{1,2}","{python,lists,sets}",2,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'allow':13 'cannot':11 'data':7 'differ':6,39 'duplic':14 'immutable.in':33 'item':4,15 'key':38 'list':1,12,20,27,42,47 'mutabl':29 'order':22 'python':34,46 'set':10,17,24,31,45,48 'store':3 'type':8 'unord':26"
+148,multiple_selection,Which of the following methods can be used to retrieve a value from a dictionary in Python?,"{`my_dict.get(key)`,`my_dict[key]`,`my_dict.value(key)`,`my_dict.retrieve(key)`}",,"{0,1}","{python,dictionaries}",2,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'dict':4 'dictionari':24,28 'follow':13 'key':2,5,7,9 'method':14 'my_dict.get':1 'my_dict.retrieve':8 'my_dict.value':6 'python':26,27 'retriev':19 'use':17 'valu':21"
+149,single_selection,Which pandas function is used to convert a string to a datetime object?,"{`strptime()`,`convert_to_datetime()`,`to_datetime()`,`parse_datetime()`}",,{2},"{pandas,DataFrame,datetime}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'convert':2,15 'datafram':23 'datetim':4,6,8,20,24 'function':11 'object':21 'panda':10,22 'pars':7 'string':17 'strptime':1 'use':13"
+150,single_selection,"In pandas, what is the result of the following code: df[df['Age'] > 30] if df is a DataFrame with an 'Age' column?","{""It returns a new DataFrame containing only rows where 'Age' is greater than 30."",""It returns a boolean Series indicating True for rows where 'Age' is greater than 30."",""It raises an error because the condition is not properly specified."",""It returns the sum of all ages greater than 30 in the DataFrame.""}",,{0},"{pandas,""Boolean Selection""}",2,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'30':14,29,50,66 'age':10,25,47,65,74 'boolean':18,77 'code':62 'column':75 'condit':36 'contain':6 'datafram':5,71 'dataframe.in':53 'df':63,64,68 'error':33 'follow':61 'greater':12,27,48 'indic':20 'new':4 'panda':54,76 'proper':39 'rais':31 'result':58 'return':2,16,42 'row':8,23 'select':78 'seri':19 'specifi':40 'sum':44 'true':21"
+151,multiple_selection,Select the true statements:,"{""`.any()` is a pandas DataFrame method that returns `True` if any element in the DataFrame is `NaN`, and `False` otherwise."",""`.all()` is a pandas Series method that returns `True` if all elements in the Series are `True`, and `False` otherwise."",""`.isin()` is a pandas function that checks if elements in a Series or DataFrame are present in a specified list or Series, returning a boolean Series with `True` for matching elements."",""`.all()` is a pandas DataFrame method that returns `True` if all elements in the DataFrame are non-zero, and `False` otherwise."",""`.isin()` is a pandas DataFrame method that checks if a DataFrame contains a given value and returns a DataFrame of the same shape with `True` where the value is found and `False` where it is not found.""}",,"{1,2,4}","{pandas,""Aggregation for Booleans""}",2,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'aggreg':135 'boolean':65,137 'check':47,101 'contain':105 'datafram':5,15,54,76,86,98,104,112 'element':12,32,49,71,83 'fals':19,39,92,125 'found':123 'found.select':130 'function':45 'given':107 'isin':41,94 'list':60 'match':70 'method':6,26,77,99 'nan':17 'non':89 'non-zero':88 'otherwis':20,40,93 'panda':4,24,44,75,97,134 'present':56 'return':8,28,63,79,110 'seri':25,35,52,62,66 'shape':116 'specifi':59 'statement':133 'true':9,29,37,68,80,118,132 'valu':108,121 'zero':90"
+152,single_selection,What can you select when using Boolean indexing to filter a DataFrame in Python?,"{Rows,Columns,""Both Rows and Columns"",""Neither Rows nor Columns""}",,{0},"{pandas,""Boolean Selection""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'boolean':16,25 'column':2,6 'columnswhat':10 'datafram':21 'filter':19 'index':17 'neither':7 'panda':24 'python':23 'row':1,4,8 'select':13,26 'use':15"
+153,single_selection,What is the output of `A @ B` where A and B are 3x3 matrices?,"{""An error will occur"",""The elementwise multiplication of A and B"",""The matrix multiplication (dot product) of A and B"",""The sum of elements in A and B""}",,{2},"{""linear algebra"",""matrix multiplication""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'3x3':40 'algebra':43 'b':11,20,34,38 'bwhat':28 'dot':15 'element':24 'elementwis':6 'error':2 'linear':42 'matric':41 'matrix':13,44 'multipl':7,14,45 'occur':4 'output':31 'product':16 'sum':22"
+154,single_selection,"In financial analysis, what does NPV stand for?","{""Net Present Value"",""New Profitable Venture"",""Non-Performing Valuation"",""Negative Profit Variable""}",,{0},"{finance,investment}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'analysi':15 'financ':21 'financi':14 'invest':22 'negat':11 'net':1 'new':4 'non':8 'non-perform':7 'npv':18 'perform':9 'present':2 'profit':5,12 'stand':19 'valu':3 'valuat':10 'variablein':13 'ventur':6"
+155,single_selection,How do you compute the inner product of two arrays in Python using NumPy?,"{""Use the np.inner() function"",""Use the np.dot() function"",""Use the np.cross() function"",""Use the np.outer() function""}",,{1},"{Python,NumPy,""array operations""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'array':25,32 'comput':19 'function':4,8,12 'functionhow':16 'inner':21 'np.cross':11 'np.dot':7 'np.inner':3 'np.outer':15 'numpi':29,31 'oper':33 'product':22 'python':27,30 'two':24 'use':1,5,9,13,28"
+156,single_selection,What operation is performed when you use the / operator to divide two matrices in Python?,"{""Elementwise division"",""Matrix multiplication"",""Elementwise addition"",""Matrix transposition""}",,{0},"{""linear algebra"",""matrix operations""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'addit':6 'algebra':24 'divid':18 'divis':2 'elementwis':1,5 'linear':23 'matric':20 'matrix':3,7,25 'multipl':4 'oper':9,16,26 'perform':11 'python':22 'transpositionwhat':8 'two':19 'use':14"
+157,single_selection,"Given the code:
+
+```python
+
+if condition1:
+    print(""Condition 1"")
+elif condition2:
+    print(""Condition 2"")
+else:
+    print(""No conditions met"")
+```
+
+What will be printed if `condition1` and `condition2` are both `True`?","{""Condition 1"",""Condition 2"",""No conditions met"",""'Condition 1' and 'Condition 2'""}",,{0},"{""control flow"",if-clause}",3,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'1':2,9,21 '2':4,12,26 'claus':47 'code':15 'condit':1,3,6,8,11,20,25,30 'condition1':18,37 'condition2':23,39 'control':43 'elif':22 'els':27 'flow':44 'given':13 'if-claus':45 'met':7,31 'print':19,24,28,35 'python':16 'true':42"
+158,single_selection,Which of the following list comprehensions correctly generates a list of squares for even numbers in the range from 1 to 10?,"{""[x**2 for x in range(1, 10) if x % 2 == 0]"",""[x**2 if x % 2 == 0 for x in range(1, 10)]"",""[x**2 for x in range(1, 10) where x % 2 == 0]"",""[x**2 if x % 2 == 0]""}",,{0},"{python,""list comprehension""}",2,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'0':12,18,36,42 '1':7,23,31,62 '10':8,24,32,64 '2':2,11,14,17,26,35,38,41 'comprehens':48,67 'correct':49 'even':56 'follow':46 'generat':50 'list':47,52,66 'number':57 'python':65 'rang':6,22,30,60 'squar':54 'x':1,4,10,13,16,20,25,28,34,37,40"
+159,single_selection,"Given the following codes, which is the output?
+```python
+l1 = [1, 2, 3]
+l2 = [4, 5, 6]
+[x * y for x in l1 for y in l2]
+```","{""[4, 8, 12, 5, 10, 15, 6, 12, 18]"",""[4, 10, 18]"",""[4, 5, 6, 8, 10, 12, 12, 15, 18]"",""[18, 12, 6, 15, 10, 5, 12, 8, 4]""}",,{2},"{python,""list comprehension""}",2,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'1':41 '10':5,11,17,26 '12':3,8,18,19,23,28 '15':6,20,25 '18':9,12,21,22 '2':42 '3':43 '4':1,10,13,30,45 '5':4,14,27,46 '6':7,15,24,47 '8':2,16,29 'code':34 'comprehens':60 'follow':33 'given':31 'l1':40,53 'l2':44,57 'list':59 'output':38 'python':39,58 'x':48,51 'y':49,55"
+160,single_selection,"Given the following codes, which is the output?
+```python
+a = {1:'A', 2:'B', 3:'C'}
+for i, j in a.items():
+    print(i, j, end=' ')
+```","{""1 A 2 B 3 C"",""1 2 3"",""A B C"",""1:'A' 2:'B' 3:'C'""}",,{0},"{python,dictionary,for-loop}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'1':1,7,13,29 '2':3,8,15,31 '3':5,9,17,33 'a.items':39 'b':4,11,16,32 'c':6,12,18,34 'code':22 'dictionari':45 'end':43 'follow':21 'for-loop':46 'given':19 'j':37,42 'loop':48 'output':26 'print':40 'python':27,44"
+161,single_selection,"Which parameters are used in the Pandas merge function to specify the columns to join on for the left and right DataFrames, as well as the type of join to be performed?","{""`columns`, `type`"",""`left`, `right`, `join`"",""`left_on`, `right_on`, `how`"",""`on_left`, `on_right`, `merge_type`""}",,{2},"{pandas,""data cleaning""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'clean':51 'column':1,29 'data':50 'datafram':38 'function':25 'join':5,31,45 'left':3,6,12,35 'merg':15,24 'panda':23,49 'paramet':18 'perform':48 'right':4,8,14,37 'specifi':27 'type':2,16,43 'use':20 'well':40"
+162,single_selection,What does the `pd.concat` function in Pandas primarily do?,"{""Merges multiple DataFrames based on common columns."",""Combines DataFrames vertically (stacks them) or horizontally (side by side)."",""Performs element-wise mathematical operations between DataFrames."",""Filters rows in a DataFrame based on a given condition.""}",,{1},"{pandas,""data manipulation""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'base':4,31 'column':7 'combin':8 'common':6 'condition.what':35 'data':45 'datafram':3,9,25,30 'element':20 'element-wis':19 'filter':26 'function':39 'given':34 'horizont':14 'manipul':46 'mathemat':22 'merg':1 'multipl':2 'oper':23 'panda':41,44 'pd.concat':38 'perform':18 'primarili':42 'row':27 'side':15,17 'stack':11 'vertic':10 'wise':21"
+163,single_selection,What is the main purpose of the `pd.merge` function in Pandas?,"{""Reshapes a DataFrame by pivoting rows and columns."",""Concatenates multiple DataFrames vertically."",""Combines two or more DataFrames based on common columns or indices."",""Filters rows in a DataFrame based on a given condition.""}",,{2},"{pandas,""data manipulation""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'base':18,29 'column':8,21 'combin':13 'common':20 'concaten':9 'condition.what':33 'data':45 'datafram':3,11,17,28 'filter':24 'function':41 'given':32 'indic':23 'main':36 'manipul':46 'multipl':10 'panda':43,44 'pd.merge':40 'pivot':5 'purpos':37 'reshap':1 'row':6,25 'two':14 'vertic':12"
+164,single_selection,Which Pandas method is used to join two DataFrames based on their indices?,"{`pd.concat`,`pd.merge`,`pd.join`,`pd.combine_first`}",,{2},"{pandas,""data manipulation""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'base':15 'data':20 'datafram':14 'first':5 'indic':18 'join':12 'manipul':21 'method':8 'panda':7,19 'pd.combine':4 'pd.concat':1 'pd.join':3 'pd.merge':2 'two':13 'use':10"
+165,code,"Suppose you want to verify the central limit theorem numerically, by simulating a large number of samples from a distribution, and you have a function `generate_sample()` at hand, which can generate one sample at one call. Use this function to generate `num_samples=10000` samples and calculate the mean, store it in a list named `means`, and repeat this process for `num_means=1000` times.","{""#Write your code below""}","{""num_samples = 10000
+num_means = 1000
+means = []
+for mean_i in range(num_means):
+    sample = [generate_sample() for i in range(num_samples)]
+    means.append(sum(sample) / len(sample))
+        ""}",,"{python,statistics,""control flows""}",3,,assert len(means) == 1000,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'1000':68 '10000':48 'belowsuppos':4 'calcul':51 'call':40 'central':10 'code':3 'control':72 'distribut':23 'flow':73 'function':28,43 'generat':29,35,45 'hand':32 'larg':17 'limit':11 'list':58 'mean':53,60,67 'name':59 'num':46,66 'number':18 'numer':13 'one':36,39 'process':64 'python':70 'repeat':62 'sampl':20,30,37,47,49 'simul':15 'statist':71 'store':54 'theorem':12 'time':69 'use':41 'verifi':8 'want':6 'write':1"
+166,single_selection,"Given the following code, which one is the output?
+
+```python
+L = [lambda x: x**2, lambda x: x**3, lambda x: x**4]
+for f in L:
+    print(f(3))
+```","{""27 81 343"",""6 9 12"",""9 27 81"",""none of the mentioned""}",,{2},"{python,""lambda functions""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'12':6 '2':27 '27':1,8 '3':31,42 '343':3 '4':35 '6':4 '81':2,9 '9':5,7 'code':16 'f':37,41 'follow':15 'function':45 'l':23,39 'lambda':24,28,32,44 'mentionedgiven':13 'none':10 'one':18 'output':21 'print':40 'python':22,43 'x':25,26,29,30,33,34"
+167,code,"When using the Metropolis-Hastings algorithm to generate random samples, one needs to verify if a certain sample is accepted or rejected. You need to write a function `accept_or_reject()` to do this. The function takes in the current sample `x`, the proposed sample `x_star`, and the probability density function `pdf` as arguments, and returns `True` if the proposed sample is accepted, and `False` otherwise. Note that the condition for acceptance is `pdf(x_star) / pdf(x) > st.uniform.rvs()`. ","{""#Write your code below""}","{""def accept_or_reject(x, x_star, pdf):
+    return pdf(x_star) / pdf(x) > st.uniform.rvs()
+        ""}",,"{python,""control flows"",functions}",2,import scipy.stats as st,"assert accept_or_reject(0, 1, lambda x: x) in [True, False]",1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'accept':24,33,68,77 'algorithm':10 'argument':59 'belowwhen':4 'certain':21 'code':3 'condit':75 'control':86 'current':44 'densiti':55 'fals':70 'flow':87 'function':32,40,56,88 'generat':12 'hast':9 'metropoli':8 'metropolis-hast':7 'need':16,28 'note':72 'one':15 'otherwis':71 'pdf':57,79,82 'probabl':54 'propos':48,65 'python':85 'random':13 'reject':26,35 'return':61 'sampl':14,22,45,49,66 'st.uniform.rvs':84 'star':51,81 'take':41 'true':62 'use':5 'verifi':18 'write':1,30 'x':46,50,80,83"
+168,code,"Suppose you need to code up the Newton-Raphson method for finding roots. You need to write a function `newton_raphson()` to do this. The function takes in the function `f`, the derivative of the function `f_prime`, the initial guess `x0`, and the tolerance `tol` as arguments, and returns the root of the function. Note that the condition for convergence is `abs(f(x)) < tol`. ","{""#Write your code below""}","{""def newton_raphson(f, f_prime, x0, tol):
+    x = x0
+    while abs(f(x)) > tol:
+        x = x - f(x) / f_prime(x)
+    return x
+        ""}",,"{python,""control flows"",functions}",3,,"assert abs(newton_raphson(lambda x: x**2 - 4, lambda x: 2*x, 1, 1e-6) - 2) < 1e-6",1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'ab':67 'argument':52 'belowsuppos':4 'code':3,8 'condit':63 'control':72 'converg':65 'deriv':37 'f':35,41,68 'find':16 'flow':73 'function':23,30,34,40,59,74 'guess':45 'initi':44 'method':14 'need':6,19 'newton':12,24 'newton-raphson':11 'note':60 'prime':42 'python':71 'raphson':13,25 'return':54 'root':17,56 'take':31 'tol':50,70 'toler':49 'write':1,21 'x':69 'x0':46"
+169,single_selection,What do the `stack` and `unstack` methods do in Pandas?,"{""`stack` pivots rows into columns, while `unstack` pivots columns into rows."",""`stack` adds new columns to a DataFrame, while `unstack` removes empty columns."",""`stack` sorts the DataFrame, while `unstack` reverses the sorting order."",""`stack` and `unstack` are not valid methods in Pandas.""}",,{0},"{pandas,""data manipulation""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'add':13 'column':5,9,15,23 'data':53 'datafram':18,27 'empti':22 'manipul':54 'method':40,48 'new':14 'order':33 'panda':51,52 'pandas.what':42 'pivot':2,8 'remov':21 'revers':30 'row':3,11 'sort':25,32 'stack':1,12,24,34,45 'unstack':7,20,29,36,47 'valid':39"
+170,single_selection,"In Pandas, what function is used to transform a wide-format DataFrame into a long-format DataFrame?","{""A) `expand`"",""B) `widen`"",""C) `unstack`"",""D) `melt`""}",,{3},"{pandas,""data transformation""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'b':3 'c':5 'd':7 'data':29 'datafram':21,27 'expand':2 'format':20,26 'function':12 'long':25 'long-format':24 'melt':8 'panda':10,28 'transform':16,30 'unstack':6 'use':14 'wide':19 'wide-format':18 'widen':4"
+171,single_selection,Which Pandas functions are used to create a pivot table from a DataFrame?,"{""A) `create_pivot` and `pivot_data`"",""B) `reshape` and `pivot`"",""C) `pivot` and `pivot_table`"",""D) `table_pivot` and `data_pivot`""}",,{2},"{pandas,""data reshaping""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'b':7 'c':11 'creat':2,28 'd':16 'data':6,20,36 'datafram':34 'function':24 'panda':23,35 'pivot':3,5,10,12,14,18,21,30 'reshap':8,37 'tabl':15,17,31 'use':26"
+172,single_selection,What Pandas function can be used to transpose (swap rows and columns) a DataFrame?,"{""A) `flip`"",""B) `swap`"",""C) `transpose`"",""D) `rearrange`""}",,{2},"{pandas,""data manipulation""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'b':3 'c':5 'column':20 'd':7 'data':24 'datafram':22 'flip':2 'function':11 'manipul':25 'panda':10,23 'rearrang':8 'row':18 'swap':4,17 'transpos':6,16 'use':14"
+173,single_selection,What does the `replace` method in pandas allow you to do?,"{""Modify the original DataFrame in place"",""Replace NaN values with zeros"",""Replace specific values with other values"",""Remove duplicate rows from the DataFrame""}",,{2},"{pandas,""data cleaning""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'allow':30 'clean':36 'data':35 'datafram':4 'dataframewhat':23 'duplic':19 'method':27 'modifi':1 'nan':8 'origin':3 'panda':29,34 'place':6 'remov':18 'replac':7,12,26 'row':20 'specif':13 'valu':9,14,17 'zero':11"
+174,single_selection,"What does the `df.fillna(method='ffill')` method do in pandas?","{""Fills missing values with the mean of the column"",""Fills missing values with the maximum value in the column"",""Fills missing values with the previous non-null value in the same column"",""Removes rows with missing values from the DataFrame""}",,{2},"{pandas,""data cleaning""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'clean':53 'column':9,19,33 'data':52 'dataframewhat':41 'df.fillna':44 'ffill':46 'fill':1,10,20 'maximum':15 'mean':6 'method':45,47 'miss':2,11,21,37 'non':27 'non-nul':26 'null':28 'panda':50,51 'previous':25 'remov':34 'row':35 'valu':3,12,16,22,29,38"
+175,single_selection,"What does the `df.fillna(method='ffill')` method do in pandas?","{""A) Fills missing values with the mean of the column"",""B) Fills missing values with the maximum value in the column"",""C) Fills missing values with the previous non-null value in the same column"",""D) Removes rows with missing values from the DataFrame""}",,{2},"{pandas,""data cleaning""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'b':11 'c':22 'clean':57 'column':10,21,36 'd':37 'data':56 'dataframewhat':45 'df.fillna':48 'ffill':50 'fill':2,12,23 'maximum':17 'mean':7 'method':49,51 'miss':3,13,24,41 'non':30 'non-nul':29 'null':31 'panda':54,55 'previous':28 'remov':38 'row':39 'valu':4,14,18,25,32,42"
+176,single_selection,"What is the outcome of the following code: `list(pd.Series([1, 2, 3]).astype(str) + '%')`","{""[1%, 2%, 3%]"",6%,123%,""[1, 2, 3]%""}",,{0},"{pandas,""data manipulation""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'1':1,6,19 '123':5 '2':2,7,20 '3':3,8,21 '6':4 'astyp':22 'code':16 'data':25 'follow':15 'list':17 'manipul':26 'outcom':12 'panda':24 'pd.series':18 'str':23"
+177,multiple_selection,Which of the following is a valid way to declare a string in Python?,"{""'Hello, World!\"""",""\""Hello, World!\"""",""\""\""\""Hello, World!\""\""\"""",""'Hello, World!'""}",,"{1,3}","{Basics,strings}",2,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'basic':23 'declar':18 'follow':12 'hello':1,3,5,7 'python':22 'string':20,24 'valid':15 'way':16 'world':2,4,6,8"
+178,single_selection,"In Python, what is the data type used to represent a single character?","{char,character,str,string}",,{2},"{Basics,strings}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'basic':17 'char':1 'charact':2,16 'data':9 'python':5 'repres':13 'singl':15 'str':3 'string':18 'stringin':4 'type':10 'use':11"
+179,single_selection,"What is the result of `""Python""[-1]` in Python?","{P,y,o,n}",,{3},"{Basics,strings}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'-1':10 'basic':13 'nwhat':4 'o':3 'p':1 'python':9,12 'result':7 'string':14 'y':2"
+180,multiple_selection,"How to extract the indivudual words in this sentences: `""Python is fun""`","{""`\""Python is fun\"".split()`"",""`\""Python is fun\"".split(\"" \"")`"",""`\""Python is fun\"".split(\"" \"", \"" \"")`"",""`\""Python is fun\"".split(\"" \"", 3)`""}",,"{0,1,3}","{Basics,strings}",3,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'3':17 'basic':30 'extract':20 'fun':3,7,11,15,29 'indivudu':22 'python':1,5,9,13,27 'sentenc':26 'split':4,8,12,16 'string':31 'word':23"
+181,fill_in_blank,"Imagine that you have a dataset with patient information.
+
+```
+| Patient ID |   Name   | Age | Gender |  Disease   | Disease Severity |
+|-----------|----------|-----|--------|------------|------------------|
+|   P0001   |   Bob    | 30  | Female |    Flu     |       Mild       |
+|   P0002   |   Bob    | 58  |  Male  |    Flu     |    Moderate      |
+|   P0003   |   Bob    | 50  |  Male  | Infection  |       Mild       |
+|   P0004   |   Eve    | 25  | Female | Infection  |       Mild       |
+|   P0005   | Charlie  | 66  |  Male  |  Allergy   |      Severe      |
+|   P0006   | Charlie  | 68  | Female |    Flu     |      Severe      |
+|   P0007   |   Bob    | 40  | Female | Infection  |       Mild       |
+|   P0008   |   Bob    | 36  |  Male  | Infection  |      Severe      |
+|   P0009   |   Eve    | 72  | Female |   Cold     |       Mild       |
+|   P0010   |   Bob    | 31  |  Male  |   Cold     |    Moderate      |
+
+```
+
+Now, suppose you would like to find out how many female patients under the age of 30 have the flu.
+","{""
+
+
+# Filter the DataFrame for female patients under 30 with flu
+
+# Define three conditions that are going to be used for the filtering
+
+cond_1 = ___X # A series of booleans that is True if the patient is female
+
+cond_2 = ___X # A series of booleans that is True if the patient's age is less than 30
+
+cond_3 = ___X # A series of booleans that is True if the patient has flu
+
+# Filter using the three conditions
+female_patients_under_30_with_flu = df.loc[cond_1 ___X cond_2 ___X cond_3]
+
+# Count the number of such patients
+count = len(female_patients_under_30_with_flu)
+
+# Display the count
+print(f\""The number of female patients under 30 with flu is: {count}\"")
+""}","{""df['Gender'] == 'Female'"",""df['Age'] < 30"",""df['Disease'] == 'Flu'"",&,&}",,"{pandas,index}",2,"import pandas as pd
+data = {
+    'Patient ID': ['P0001', 'P0002', 'P0003', 'P0004', 'P0005', 'P0006', 'P0007', 'P0008', 'P0009', 'P0010'],
+    'Name': ['Eve', 'Bob', 'Bob', 'Eve', 'Charlie', 'Charlie', 'Bob', 'Bob', 'Anna', 'Bob'],
+    'Age': [29, 28, 30, 25, 66, 68, 40, 26, 22, 31],
+    'Gender': ['Female', 'Male', 'Male', 'Female', 'Male', 'Male', 'Male', 'Male', 'Female', 'Male'],
+    'Disease': ['Flu', 'Flu', 'Infection', 'Infection', 'Allergy', 'Flu', 'Infection', 'Infection', 'Flu', 'Cold'],
+    'Disease Severity': ['Mild', 'Moderate', 'Mild', 'Mild', 'Severe', 'Severe', 'Mild', 'Severe', 'Mild', 'Moderate']
+}
+
+df = pd.DataFrame(data)
+",assert count == 2,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'1':24,85 '2':39,88 '25':159 '3':58,91 '30':8,56,80,103,117,141,215 '31':195 '36':183 '40':177 '50':153 '58':147 '66':165 '68':171 '72':189 'age':52,134,213 'allergi':167 'bob':140,146,152,176,182,194 'boolean':29,44,63 'charli':164,170 'cold':191,197 'cond':23,38,57,84,87,90 'condit':13,76 'count':92,98,108,121 'datafram':3 'dataset':127 'defin':11 'df.loc':83 'diseas':136,137 'display':106 'eve':158,188 'f':110 'femal':5,37,77,100,114,142,160,172,178,190,209 'filter':1,22,72 'find':205 'flu':10,71,82,105,119,143,149,173,218 'gender':135 'go':16 'id':132 'imagin':122 'index':220 'infect':155,161,179,185 'inform':130 'len':99 'less':54 'like':203 'male':148,154,166,184,196 'mani':208 'mild':144,156,162,180,192 'moder':150,198 'name':133 'number':94,112 'p0001':139 'p0002':145 'p0003':151 'p0004':157 'p0005':163 'p0006':169 'p0007':175 'p0008':181 'p0009':187 'p0010':193 'panda':219 'patient':6,35,50,69,78,97,101,115,129,131,210 'print':109 'seri':27,42,61 'sever':138,168,174,186 'suppos':200 'three':12,75 'true':32,47,66 'use':19,73 'would':202 'x':25,40,59,86,89"
+182,single_selection,Which Pandas method is used to reset the index of a DataFrame or Series to the default integer index?,"{reset_index(),set_index(),reindex(),index_reset()}",,{0},"{pandas,Index}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'datafram':19 'default':24 'index':2,4,6,16,26,28 'integ':25 'method':10 'panda':9,27 'reindex':5 'reset':1,7,14 'seri':21 'set':3 'use':12"
+183,single_selection,"In Pandas, what is the key difference between loc[] and iloc[] when selecting data from a DataFrame?","{""`.loc[]` is used for label-based indexing, while `.iloc[]` is used for integer-based indexing."",""`.loc[]` is used for integer-based indexing, while `.iloc[]` is used for label-based indexing."",""`.loc[]` and `.iloc[]` are identical and can be used interchangeably."",""`.loc[]` is used for selecting entire columns, while `.iloc[]` is used for selecting individual elements.""}",,{0},"{pandas,Index}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'base':7,16,24,33 'column':51 'data':72 'datafram':75 'differ':65 'elements.in':59 'entir':50 'ident':39 'iloc':10,27,37,53,69 'index':8,17,25,34,77 'individu':58 'integ':15,23 'integer-bas':14,22 'interchang':44 'key':64 'label':6,32 'label-bas':5,31 'loc':1,18,35,45,67 'panda':60,76 'select':49,57,71 'use':3,12,20,29,43,47,55"
+184,single_selection,What method can be used to check for missing data (null or NaN values) in a Pandas DataFrame?,"{check_missing(),isna(),missing_values(),null_check()}",,{1},"{pandas,""Boolean Selection""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'boolean':27 'check':1,7,14 'data':17 'datafram':25 'isna':3 'method':9 'miss':2,4,16 'nan':20 'null':6,18 'panda':24,26 'select':28 'use':12 'valu':5,21"
+185,single_selection,"In NumPy, how would you create a new array that contains only the even-indexed rows (0, 2, 4) of an existing array `original`?","{""`even_rows = original[0::2, :]`"",""`even_rows = original[::2, :]`"",""`even_rows = original[::2]`"",""`even_rows = original[1::2, :]`""}",,{1},"{numpy,arrays}",2,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'0':4,36 '1':17 '2':5,9,13,18,37 '4':38 'array':27,42,45 'contain':29 'creat':24 'even':1,6,10,14,33 'even-index':32 'exist':41 'index':34 'new':26 'numpi':20,44 'origin':3,8,12,16,43 'row':2,7,11,15,35 'would':22"
+186,single_selection,"In NumPy, what is broadcasting?","{""The process of adjusting the dimensions of two arrays to make them compatible for element-wise operations."",""The process of scaling each element of an array by a fixed factor."",""The process of generating random values within a specified range."",""The process of computing the dot product of two arrays.""}",,{0},"{numpy,arrays,brocasting}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'adjust':4 'array':9,27,57 'arrays.in':51 'broadcast':55 'brocast':58 'compat':13 'comput':45 'dimens':6 'dot':47 'element':16,24 'element-wis':15 'factor':31 'fix':30 'generat':35 'make':11 'numpi':52,56 'oper':18 'process':2,20,33,43 'product':48 'random':36 'rang':41 'scale':22 'specifi':40 'two':8,50 'valu':37 'wise':17 'within':38"
+187,code,"Define a function `corr_coef(x, y) -> float` that computes the correlation coefficient between two arrays `x` and `y`.","{""def corr_coef(x, y):
+    # your code here
+    pass
+""}","{""def corr_coef(x, y):
+    x = x - x.mean()
+    y = y - y.mean()
+    return (x * y).sum() / np.sqrt((x ** 2).sum() * (y ** 2).sum())
+""}",,"{numpy,arrays,correlation}",3,"import numpy as np
+x = np.array([1, 2, 3, 4, 5])
+y = np.array([2, 4, 6, 8, 10])
+","assert np.isclose(corr_coef(x, y), 1.0)
+",1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'array':25,30 'code':7 'coef':3,14 'coeffici':22 'comput':19 'corr':2,13 'correl':21,31 'def':1 'defin':10 'float':17 'function':12 'numpi':29 'pass':9 'two':24 'x':4,15,26 'y':5,16,28"
+188,single_selection,"Given a NumPy array `arr` with shape `(5, 5)`, which code snippet selects the last column of the array?","{""arr[0, 4]"",""arr[:, 4]"",""arr[4, :]"",""arr[-1, :]""}",,{1},"{numpy,arrays,indexing}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'-1':9 '0':2 '4':3,5,7 '5':17,18 'arr':1,4,6,8,14 'array':13,28,30 'code':20 'column':25 'given':10 'index':31 'last':24 'numpi':12,29 'select':22 'shape':16 'snippet':21"
+189,single_selection,"What is the primary data structure in the Pandas library used to represent one-dimensional data, providing both data and labels for each element?","{DataFrame,Series,Array,List}",,{1},"{pandas,Series}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'array':3 'data':8,20,23 'datafram':1 'dimension':19 'element':28 'label':25 'librari':13 'listwhat':4 'one':18 'one-dimension':17 'panda':12,29 'primari':7 'provid':21 'repres':16 'seri':2,30 'structur':9 'use':14"
+190,multiple_selection,"When indexing a pandas Series, which of the following statements are correct about selecting elements by label and position?","{""Selecting elements by label is only possible with integer labels "",""Selecting elements by position uses integer-based indexing "",""The .loc[] indexer is used for label-based indexing "",""The .iloc[] indexer is used for label-based indexing "",""When using .loc[], the ending label is included in the selection""}",,"{1,2,4}","{Pandas,Series,Indexing}",2,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'base':18,28,38 'correct':61 'element':2,12,64 'end':44 'follow':58 'iloc':31 'includ':47 'index':19,22,29,32,39,51,71 'integ':9,17 'integer-bas':16 'label':4,10,27,37,45,66 'label-bas':26,36 'loc':21,42 'panda':53,69 'posit':14,68 'possibl':7 'select':1,11,63 'selectionwhen':50 'seri':54,70 'statement':59 'use':15,24,34,41"
+191,single_selection,Which type of data cannot be stored in a Pandas DataFrame from the options listed below?,"{""Numeric data"",""Text data"",""Dates and times"",Images}",,{3},"{pandas,DataFrame,data-type}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'cannot':12 'data':2,4,11,27 'data-typ':26 'datafram':18,25 'date':5 'imageswhich':8 'list':22 'numer':1 'option':21 'panda':17,24 'store':14 'text':3 'time':7 'type':9,28"
+192,single_selection,"When renaming a column in a Pandas DataFrame, which method is typically used to change the column name?","{""`df.rename_column(old_name, new_name)`"",""`df.change_column_name(old_name, new_name)`"",""`df.rename(columns={'old_name': 'new_name'})`"",""`df.column_name = 'new_name'`""}",,{2},"{pandas,DataFrame,""renaming columns""}",1,,,1,2023-10-26 03:48:53,2023-10-26 03:48:53,"'chang':38 'column':2,8,15,27,40,45 'datafram':31,43 'df.change':7 'df.column':20 'df.rename':1,14 'method':33 'name':4,6,9,11,13,17,19,21,23,41 'new':5,12,18,22 'old':3,10,16 'panda':30,42 'renam':25,44 'typic':35 'use':36"
+193,single_selection,You have a DataFrame called `df` and you want to filter it based on specific conditions. Which pandas method should you use to filter the DataFrame based on a Boolean expression?,"{`df.filter()`,`df.select()`,`df.query()`,`df.filtering()`}",,{2},{query},1,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'base':17,31 'boolean':34 'call':9 'condit':20 'datafram':8,30 'df':10 'df.filter':1 'df.filtering':4 'df.query':3 'df.select':2 'express':35 'filter':15,28 'method':23 'panda':22 'queri':36 'specif':19 'use':26 'want':13"
+194,single_selection,"Consider the following condition:
+
+```python
+china_sel = ""country == 'China' & (variant=='Estimates' | variant=='Medium')""
+```
+
+You want to use this condition in a query using the `df.query` method to filter a DataFrame. Which of the following modifications should be made to the condition to ensure it works correctly with the `df.query` command?
+
+    ","{""Replace `&` with `and` and `|` with `or`."",""Leave the condition as is; it's already suitable for `df.query`."",""Remove the quotes around 'China'."",""Replace `==` with `=`, and `|` with `||`.""}",,{0},"{""boolean, query""}",2,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'alreadi':14 'around':21 'boolean':77 'china':22,32,35 'command':76 'condit':9,30,45,67 'consid':27 'correct':72 'countri':34 'datafram':56 'df.query':17,51,75 'ensur':69 'estim':37 'filter':54 'follow':29,60 'leav':7 'made':64 'medium':39 'method':52 'modif':61 'python':31 'queri':48,78 'quot':20 'remov':18 'replac':1,23 'sel':33 'suitabl':15 'use':43,49 'variant':36,38 'want':41 'work':71"
+195,single_selection,"You have a DataFrame with multiple rows and columns. You want to convert it into a long format.
+
+# Original DataFrame:
+#      Name  Math  Science  History
+# 0    Alice    95       89       80
+# 1      Bob    88       76       85
+# 2  Charlie    78       92       91
+
+# Which command will convert this DataFrame to long format like the one below?
+
+#      Name  Subject  Score
+# 0    Alice     Math     95
+# 1      Bob     Math     88
+# 2  Charlie     Math     78
+# 3    Alice  Science     89
+# 4      Bob  Science     76
+# 5  Charlie  Science     92
+# 6    Alice  History     80
+# 7      Bob  History     85
+# 8  Charlie  History     91
+","{`df.pivot()`,`df.stack()`,`df.melt()`,`df.unstack()`}",,{2},"{pandas,melt}",1,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'0':29,60 '1':34,64 '2':39,68 '3':72 '4':76 '5':80 '6':84 '7':88 '76':37,79 '78':41,71 '8':92 '80':33,87 '85':38,91 '88':36,67 '89':32,75 '91':43,95 '92':42,83 '95':31,63 'alic':30,61,73,85 'bob':35,65,77,89 'charli':40,69,81,93 'column':13 'command':45 'convert':17,47 'datafram':8,24,49 'df.melt':3 'df.pivot':1 'df.stack':2 'df.unstack':4 'format':22,52 'histori':28,86,90,94 'like':53 'long':21,51 'math':26,62,66,70 'melt':97 'multipl':10 'name':25,57 'one':55 'origin':23 'panda':96 'row':11 'scienc':27,74,78,82 'score':59 'subject':58 'want':15"
+196,single_selection,"Suppose you have a DataFrame df with columns ""A"" and ""B"". You want to rename the column ""A"" to ""X"" and the column ""B"" to ""Y"". Which of the following code snippets accomplishes this task?","{""`df.rename(columns={\""A\"": \""X\"", \""B\"": \""Y\""})`"",""`df.rename(columns={\""X\"": \""A\"", \""Y\"": \""B\""})`"",""`df.rename({\""A\"": \""X\"", \""B\"": \""Y\""})`"",""`df.rename(index={\""A\"": \""X\"", \""B\"": \""Y\""})""}",,{0},"{pandas,rename}",1,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'accomplish':56 'b':5,12,16,22,34,47 'code':54 'column':2,8,31,40,46 'datafram':28 'df':29 'df.rename':1,7,13,18 'follow':53 'index':19 'panda':59 'renam':38,60 'snippet':55 'suppos':24 'task':58 'want':36 'x':4,9,15,21,43 'y':6,11,17,23,49"
+197,multiple_selection,Which of the following statements are true?,"{""If a random variable is distributed lognormally, $log(X) \\sim 	ext{N}(\\mu, \\sigma^2)$, then $E(X) = exp(\\mu)$."",""Poisson process is used to model how many calls a hospital gets in a day."",""The mean of the Cauchy distribution is not defined but the variance is defined."",""The binomial process is used to model the events where each trial is independent."",""The binomial process is used to model the events for which the probability of success is constant for each trial.""}",,"{3,4}","{""probability distributions"",binomial,lognormal,Poisson,Cauchy}",1,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'2':15 'binomi':51,65,92 'call':29 'cauchi':40,95 'constant':80 'day':35 'defin':44,49 'distribut':6,41,91 'e':17 'event':58,72 'exp':19 'ext':11 'follow':86 'get':32 'hospit':31 'independ':63 'log':8 'lognorm':7,93 'mani':28 'mean':37 'model':26,56,70 'mu':13,20 'n':12 'poisson':21,94 'probabl':76,90 'process':22,52,66 'random':3 'sigma':14 'sim':10 'statement':87 'success':78 'trial':61 'trial.which':83 'true':89 'use':24,54,68 'variabl':4 'varianc':47 'x':9,18"
+198,single_selection,Which of the following events can be modeled by using exponential distribution?,"{""Rolling a fair six-sided die."",""Counting the number of cars passing through a toll booth in an hour."",""Measuring the time it takes to download a file from the internet."",""Predicting the number of students who will pass a test.""}",,{2},"{""probability distributions"",exponential}",1,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'booth':17 'car':12 'count':8 'die':7 'distribut':53,55 'download':27 'event':46 'exponenti':52,56 'fair':3 'file':29 'follow':45 'hour':20 'internet':32 'measur':21 'model':49 'number':10,35 'pass':13,40 'predict':33 'probabl':54 'roll':1 'side':6 'six':5 'six-sid':4 'student':37 'take':25 'test.which':42 'time':23 'toll':16 'use':51"
+199,single_selection,How are beta and student t distributions related?,"{""Beta and student t distributions are the same probability distribution."",""They are unrelated and used for different types of data."",""The beta distribution is a special case of the student t distribution."",""The student t distribution is a special case of the beta distribution.""}",,{1},"{""probability distributions"",""student t-distribution""}",1,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'beta':1,22,43,46 'case':27,40 'data':20 'differ':17 'distribut':5,10,23,32,36,50,53,57 'distribution.how':44 'probabl':9,52 'relat':51 'special':26,39 'student':3,30,34,48,54 't-distribut':55 'type':18 'unrel':13 'use':15"
+200,single_selection,How are Bernoulli and Binomial distributions related?,"{""Bernoulli is a special case of the Binomial distribution."",""Binomial is a special case of the Bernoulli distribution."",""Bernoulli and Binomial distributions are completely unrelated."",""Bernoulli and Binomial distributions are the same thing.""}",,{0},"{""probability distributions"",Bernoulli,Binomial}",1,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'bernoulli':1,17,19,26,35,42 'binomi':8,10,21,28,37,43 'case':5,14 'complet':24 'distribut':9,18,22,29,38,41 'probabl':40 'relat':39 'special':4,13 'thing.how':33 'unrel':25"
+201,single_selection,"If $X_1$ and $X_2$ are two random variables that take on the same set of values, i.e., $X_1 \in \{a_1, a_2, \ldots, a_n\}$ and $X_2 \in \{a_1, a_2, \ldots, a_n\}$, and the transition probability $P(X_2=a_j \mid X_1=a_i)$ is given, then what is the probability of $P(X_2=a_j)$?","{""It is not possible to determine the probability of $P(X_2=a_j)$ from the information given."",""$P(X_2=a_j) = P(X_2=a_j \\mid X_1=a_i)$ for any $i$."",""$P(X_2=a_j) = \\sum_{i=1}^n P(X_2=a_j \\mid X_1=a_i)$"",""$P(X_2=a_j) = \\sum_{i=1}^n P(X_2=a_j \\mid X_1=a_i) P(X_1=a_i)$""}",,{3},"{probability,""markov chains""}",2,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'1':31,44,53,63,72,77,82,100,103,114,131 '2':12,21,26,39,48,58,67,85,105,111,116,126,144 'chain':149 'determin':6 'given':18,135 'i.e':98 'inform':17 'j':14,23,28,41,50,60,69,128,146 'ldot':106,117 'markov':148 'mid':29,51,70,129 'n':45,64,108,119 'p':10,19,24,37,46,56,65,75,124,142 'possibl':4 'probabl':8,123,140,147 'random':88 'set':95 'sum':42,61 'take':91 'transit':122 'two':87 'valu':97 'variabl':89 'x':11,20,25,30,38,47,52,57,66,71,76,81,84,99,110,125,130,143"
+202,single_selection,"Nowadays, Bayesian Neural Networks (BNNs) are popular in various fields. BNNs are parametric models in the form of $f(x;W)$, where $x$ is the input and $W$ is the weights. One can compare BNNs to normal distributions, where $f$ is the probability density function, $x$ is the random variable, and $W$ is the parameters. Then, how should one find the posterior $p(W \mid D)$ of the weights $W$ given the data $x$?","{""$p(W \\mid x) = p(x \\mid W) p(W)$"",""$p(W \\mid x) = p(x \\mid W) p(W) / p(x)$"",""$p(W \\mid x) = p(x \\mid W) p(W) / p(x \\mid W)$"",""$p(W \\mid x) = p(x \\mid W) p(W) / p(x \\mid W) p(W)$""}",,{1},"{""bayesian neural networks"",posterior}",2,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'bayesian':54,127 'bnns':57,63,87 'compar':86 'd':118 'data':125 'densiti':96 'distribut':90 'f':71,92 'field':62 'find':112 'form':69 'function':97 'given':123 'input':78 'mid':3,7,13,17,25,29,35,39,43,49,117 'model':66 'network':56,129 'neural':55,128 'normal':89 'nowaday':53 'one':84,111 'p':1,5,9,11,15,19,21,23,27,31,33,37,41,45,47,51,115 'paramet':107 'parametr':65 'popular':59 'posterior':114,130 'probabl':95 'random':101 'variabl':102 'various':61 'w':2,8,10,12,18,20,24,30,32,36,38,44,46,50,52,73,80,104,116,122 'weight':83,121 'x':4,6,14,16,22,26,28,34,40,42,48,72,75,98,126"
+203,single_selection,"Nowadays, Bayesian Neural Networks (BNNs) are popular in various fields. BNNs are parametric models in the form of $f(x;W)$, where $x$ is the input and $W$ is the weights. One can compare BNNs to normal distributions, where $f$ is the probability density function, $x$ is the random variable, and $W$ is the parameters. Then, how should one find the expectation of $f(x;W)$ given the posterior $p(W \mid x)$?","{""$\\int f(x;W) p(W \\mid x) dW$"",""$\\int f(x;W) p(x \\mid W) p(W) dW$"",""$\\int f(x;W) p(x \\mid W) p(W) / p(x) dW$"",""$\\int f(x;W) p(x \\mid W) p(W) / p(x \\mid W) p(W) dW$""}",,{0},"{""bayesian neural networks"",posterior,expectation}",2,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'bayesian':52,124 'bnns':55,61,85 'compar':84 'densiti':94 'distribut':88 'dw':9,20,33,50 'expect':112,128 'f':2,11,22,35,69,90,114 'field':60 'find':110 'form':67 'function':95 'given':117 'input':76 'int':1,10,21,34 'mid':7,16,27,40,46,122 'model':64 'network':54,126 'neural':53,125 'normal':87 'nowaday':51 'one':82,109 'p':5,14,18,25,29,31,38,42,44,48,120 'paramet':105 'parametr':63 'popular':57 'posterior':119,127 'probabl':93 'random':99 'variabl':100 'various':59 'w':4,6,13,17,19,24,28,30,37,41,43,47,49,71,78,102,116,121 'weight':81 'x':3,8,12,15,23,26,32,36,39,45,70,73,96,115,123"
+204,single_selection,"In the context of bivariate distribution $(X, Y)$, when does the marginal distribution of $X$ equal to conditional distribution of $X$ given $Y$?","{""When $X$ and $Y$ are independent"",""When $X$ and $Y$ are dependent"",""When $X$ and $Y$ are correlated"",""When $X$ and $Y$ are uncorrelated""}",,{0},"{""conditional distribution"",""marginal distribution""}",1,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'bivari':28 'condit':41,47 'context':26 'correl':18 'depend':12 'distribut':29,36,42,48,50 'equal':39 'given':45 'independ':6 'margin':35,49 'uncorrelatedin':24 'x':2,8,14,20,30,38,44 'y':4,10,16,22,31,46"
+205,fill_in_blank,Fill in the blank,"{""
+#  Step 1 -- download the file
+# NOTE: the commented out line below contains the original data file
+# url = 'http://files.grouplens.org/datasets/movielens/ml-latest-small.zip'
+url = \""https://compsosci-resources.s3.amazonaws.com/data/ml-latest-small.zip\""
+res = requests.___X(url) # download the file
+
+# Step 2 -- read bytes of response contentonvert bytes to zip file
+bytes = io.BytesIO(res.content)
+
+# Step 3 -- Interpret bytes as zipfile
+zip = zf.___X(bytes) # interpret the BytesIO as a ZipFile
+print('Type of zipfile object:', type(zip))
+
+# (sub-step, inspect the file)
+names = zip.namelist()
+names
+
+movie_fn = [n for n in names if \""movies\"" in n][0]
+ratings_fn = [n for n in names if \""ratings\"" in n][0]
+
+print(\""The path to movies.csv is:\"", movie_fn)
+
+# Step 4 -- extract and read csv's
+movies  = pd.___X(zip.___X(movie_fn))   # extract and read csv's
+ratings = pd.___X(zip.___X(ratings_fn)) # extract and read csv's
+
+movies.info()
+movies.head(3)
+
+""}","{get,ZipFile,read_csv,open,read_csv,open}",,"{zip,requests}",2,N/A,N/A,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'/data/ml-latest-small.zip':24 '/datasets/movielens/ml-latest-small.zip''':20 '0':87,99 '1':2 '2':32 '3':46,137 '4':109 'blank':141 'byte':34,38,42,48,53 'bytesio':56 'comment':8 'compsosci-resources.s3.amazonaws.com':23 'compsosci-resources.s3.amazonaws.com/data/ml-latest-small.zip':22 'contain':12 'contentonvert':37 'csv':113,123,133 'data':15 'download':3,28 'extract':110,120,130 'file':5,16,30,41,72 'files.grouplens.org':19 'files.grouplens.org/datasets/movielens/ml-latest-small.zip''':18 'fill':138 'fn':77,89,107,119,129 'inspect':70 'interpret':47,54 'io.bytesio':43 'line':10 'movi':76,84,106,115,118 'movies.csv':104 'movies.head':136 'movies.info':135 'n':78,80,86,90,92,98 'name':73,75,82,94 'note':6 'object':64 'origin':14 'path':102 'pd.___x':116,126 'print':60,100 'rate':88,96,125,128 'read':33,112,122,132 'request':143 'requests.___x':26 'res':25 'res.content':44 'respons':36 'step':1,31,45,69,108 'sub':68 'sub-step':67 'type':61,65 'url':17,21,27 'zf.___x':52 'zip':40,51,66,142 'zip.___x':117,127 'zip.namelist':74 'zipfil':50,59,63"
+206,multiple_selection,Which of the following are benefits of database normalization?,"{""Improved data security"",""Simplified data retrieval"",""Reduced storage space"",""Faster data processing"",""Easier data input and validation""}",,"{1,2,4}","{""database normalization""}",1,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'benefit':22 'data':2,5,11,14 'databas':24,26 'easier':13 'faster':10 'follow':20 'improv':1 'input':15 'normal':25,27 'process':12 'reduc':7 'retriev':6 'secur':3 'simplifi':4 'space':9 'storag':8 'validationwhich':17"
+207,single_selection,How can you download a file from the internet using the requests library in Python?,"{download(url),fetch(url),get(url),""None of the above""}",,{2},{requests},1,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'abovehow':10 'download':1,13 'fetch':3 'file':15 'get':5 'internet':18 'librari':22 'none':7 'python':24 'request':21,25 'url':2,4,6 'use':19"
+208,single_selection,"When downloading a file using the requests library, which method should you use to save the content to your local machine?","{save_content(),write_file(),write(),content()}",,{2},{requests},1,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'content':2,6,23 'download':8 'file':4,10 'librari':14 'local':26 'machin':27 'method':16 'request':13,28 'save':1,21 'use':11,19 'write':3,5"
+209,code,"It's a typical procedure to do subsample analysis in many fields. Suppose you are given a `DataFrame` consisting of columns `gdp_per_capita`, `population_density`, `province_code` and `housing_price`, where `province_code` is the code of the province where the house is located, and `gdp_per_capita` and `population_density` are actually in city-level, which means that you have those data for several cities in a province. An example would be like this:
+
+    ```
+    | gdp_per_capita  | population_density | province_code | housing_price (dollars) |
+    | --------------- | ------------------ | ------------- | ----------------------- |
+    |              20 |                5.1 |             1 |                     100 |
+    |              30 |                2.2 |             1 |                     150 |
+    |             100 |                3.4 |             1 |                     200 |
+    |              60 |                1.5 |             2 |                     120 |
+    |              45 |                7.3 |             2 |                      80 |
+    |              80 |                6.6 |             2 |                     110 |
+    ```
+
+    You are asked to calculate the average `gdp_per_capita` and `population_density` for each province, and then calculate the lower quartile, median and upper quartile of `housing_price` for each province.","{""# Your code here""}","{""import pandas as pd
+agg_df = df.groupby(\""province_code\"").agg({
+    \""gdp_per_capita\"": \""mean\"",
+    \""population_density\"": \""mean\"",
+    \""housing_price\"": [lower_quartile, \""median\"", upper_quartile]
+})
+""}",,"{groupby,subsample}",3,"import pandas as pd
+df = pd.DataFrame({
+    ""gdp_per_capita"": [20, 30, 100, 60, 45, 80],
+    ""population_density"": [5.1, 2.2, 3.4, 1.5, 7.3, 6.6],
+    ""province_code"": [1, 1, 1, 2, 2, 2],
+    ""housing_price"": [100, 150, 200, 120, 80, 110]
+})
+
+def lower_quartile(df):
+    return df.quantile(0.25)
+
+def upper_quartile(df):
+    return df.quantile(0.75)","assert df.shape == (2, 5)
+assert df[""population_density""].mean() == 4.35
+assert df[""housing_price""][""lower_quartile""].mean() == 110.0
+assert df[""housing_price""][""median""].mean() == 130.0
+assert df[""housing_price""][""lower_quartile""].mean() == 145.0",1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'1':92,96,100 '1.5':103 '100':93,98 '110':113 '120':105 '150':97 '2':104,108,112 '2.2':95 '20':90 '200':101 '3.4':99 '30':94 '45':106 '5.1':91 '6.6':111 '60':102 '7.3':107 '80':109,110 'actual':56 'analysi':11 'ask':116 'averag':120 'calcul':118,132 'capita':26,51,82,123 'citi':59,70 'city-level':58 'code':2,30,36,39,86 'column':23 'consist':21 'data':67 'datafram':20 'densiti':28,54,84,126 'dollar':89 'exampl':75 'field':14 'gdp':24,49,80,121 'given':18 'groupbi':146 'hereit':3 'hous':32,45,87,141 'level':60 'like':78 'locat':47 'lower':134 'mani':13 'mean':62 'median':136 'per':25,50,81,122 'popul':27,53,83,125 'price':33,88,142 'procedur':7 'provinc':29,35,42,73,85,129,145 'quartil':135,139 'sever':69 'subsampl':10,147 'suppos':15 'typic':6 'upper':138 'would':76"
+210,single_selection,"It's a typical procedure to do subsample analysis in many fields. Suppose you are given a `DataFrame` consisting of columns `gdp_per_capita`, `population_density`, `province_code` and `housing_price`, where `province_code` is the code of the province where the house is located, and `gdp_per_capita` and `population_density` are actually in city-level, which means that you have those data for several cities in a province. An example would be like this:
+
+    ```
+    | gdp_per_capita  | population_density | province_code | housing_price (dollars) |
+    | --------------- | ------------------ | ------------- | ----------------------- |
+    |              20 |                5.1 |             1 |                     100 |
+    |              30 |                2.2 |             1 |                     150 |
+    |             100 |                3.4 |             1 |                     200 |
+    |              60 |                1.5 |             2 |                     120 |
+    |              45 |                7.3 |             2 |                      80 |
+    |              80 |                6.6 |             2 |                     110 |
+    ```
+
+    Now, suppose you are given a function `linear_regression` that takes in a dataframe and returns the coefficients of corresponding columns (except for the column for dependent variable which will be overrided by the constant of the regression model). How to do subsample regression for each province?","{df.groupby('province_code').apply(linear_regression),df.groupby('province_code').agg(linear_regression),df.groupby('province_code').transform(linear_regression),df.groupby('province_code').map(linear_regression)}",,{0},"{groupby,subsample}",2,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'1':114,118,122 '1.5':125 '100':115,120 '110':135 '120':127 '150':119 '2':126,130,134 '2.2':117 '20':112 '200':123 '3.4':121 '30':116 '45':128 '5.1':113 '6.6':133 '60':124 '7.3':129 '80':131,132 'actual':78 'agg':10 'analysi':33 'appli':4 'capita':48,73,104 'citi':81,92 'city-level':80 'code':3,9,15,21,52,58,61,108 'coeffici':153 'column':45,156,160 'consist':43 'constant':170 'correspond':155 'data':89 'datafram':42,149 'densiti':50,76,106 'depend':162 'df.groupby':1,7,13,19 'dollar':111 'exampl':97 'except':157 'field':36 'function':142 'gdp':46,71,102 'given':40,140 'groupbi':183 'hous':54,67,109 'level':82 'like':100 'linear':5,11,17,23,143 'locat':69 'mani':35 'map':22 'mean':84 'model':174 'overrid':167 'per':47,72,103 'popul':49,75,105 'price':55,110 'procedur':29 'provinc':2,8,14,20,51,57,64,95,107,182 'regress':6,12,18,24,144,173,179 'return':151 'sever':91 'subsampl':32,178,184 'suppos':37,137 'take':146 'transform':16 'typic':28 'variabl':163 'would':98"
+211,single_selection,What is the purpose of the q parameter in the agg function when calculating quantiles for a group?,"{""It specifies the column to calculate the quantiles on"",""It specifies the quantile value (e.g., 0.25 for the lower quartile)"",""It specifies the aggregation method"",""It has no specific purpose""}",,{1},"{groupby,agg}",1,,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'0.25':16 'agg':40,49 'aggreg':24 'calcul':6,43 'column':4 'e.g':15 'function':41 'group':47 'groupbi':48 'lower':19 'method':25 'paramet':37 'purpos':33 'purposewhat':30 'q':36 'quantil':8,13,44 'quartil':20 'specif':29 'specifi':2,11,22 'valu':14"
+212,fill_in_blank,"Complete the code to create a custom aggregation function named `custom_agg` that calculates the interquartile range (IQR) for the 'Sales' column within each group. Then, apply this custom aggregation function to the grouped DataFrame `grouped_sales` to create a new column 'IQR' with the result.","{""def custom_agg(group):
+    q75, q25 = group.___X, group.___X
+    return q75 - q25
+grouped_sales = df.groupby('Region')
+df['IQR'] = grouped_sales['Sales'].agg(___X)""}","{quantile(0.75),quantile(0.25),custom_agg}",,"{groupby,agg}",2,import pandas as pd,,1,2023-10-31 22:47:06,2023-10-31 22:47:06,"'agg':3,21,34,70 'aggreg':30,52 'appli':49 'calcul':36 'code':25 'column':44,64 'complet':23 'creat':27,61 'custom':2,29,33,51 'datafram':57 'def':1 'df':16 'df.groupby':14 'function':31,53 'group':4,12,18,47,56,58 'group.___x':7,8 'groupbi':69 'interquartil':38 'iqr':17,40,65 'name':32 'new':63 'q25':6,11 'q75':5,10 'rang':39 'region':15 'result':68 'return':9 'sale':13,19,20,43,59 'within':45 'x':22"
+213,single_selection,"Consider the following url: 
+
+```
+https://api.stlouisfed.org/fred/series/observations?series_id=GNPCA&api_key=abcdefghijklmnopqrstuvwxyz123456&file_type=json&realtime_start=2007-09-01
+```
+
+Which of the following is the **scheme**?","{https,api.stlouisfed.org,/fred/series/observations,?series_id=GPNC,&api_key=abcdefghijklmnopqrstuvwxyz123456,&file_type=json,&realtime_start=2007-09-01}",,{0},{apis},1,,,1,2023-11-02 20:31:01,2023-11-02 20:31:01,"'-01':17 '-09':16 '/fred/series/observations':3 '/fred/series/observations?series_id=gnpca&api_key=abcdefghijklmnopqrstuvwxyz123456&file_type=json&realtime_start=2007-09-01':24 '2007':15 'abcdefghijklmnopqrstuvwxyz123456':9 'api':7,32 'api.stlouisfed.org':2,23 'api.stlouisfed.org/fred/series/observations?series_id=gnpca&api_key=abcdefghijklmnopqrstuvwxyz123456&file_type=json&realtime_start=2007-09-01':22 'consid':18 'file':10 'follow':20,28 'gpnc':6 'https':1 'id':5 'json':12 'key':8 'realtim':13 'scheme':31 'seri':4 'start':14 'type':11 'url':21"
+214,single_selection,"Consider the following url: 
+
+```
+https://api.stlouisfed.org/fred/series/observations?series_id=GNPCA&api_key=abcdefghijklmnopqrstuvwxyz123456&file_type=json&realtime_start=2007-09-01
+```
+
+Which of the following is the **host**?","{https,api.stlouisfed.org,/fred/series/observations,?series_id=GPNC,&api_key=abcdefghijklmnopqrstuvwxyz123456,&file_type=json,&realtime_start=2007-09-01}",,{1},{apis},1,,,1,2023-11-02 20:33:20,2023-11-02 20:33:20,"'-01':17 '-09':16 '/fred/series/observations':3 '/fred/series/observations?series_id=gnpca&api_key=abcdefghijklmnopqrstuvwxyz123456&file_type=json&realtime_start=2007-09-01':24 '2007':15 'abcdefghijklmnopqrstuvwxyz123456':9 'api':7,32 'api.stlouisfed.org':2,23 'api.stlouisfed.org/fred/series/observations?series_id=gnpca&api_key=abcdefghijklmnopqrstuvwxyz123456&file_type=json&realtime_start=2007-09-01':22 'consid':18 'file':10 'follow':20,28 'gpnc':6 'host':31 'https':1 'id':5 'json':12 'key':8 'realtim':13 'seri':4 'start':14 'type':11 'url':21"
+215,single_selection,"Consider the following url: 
+
+```
+https://api.stlouisfed.org/fred/series/observations?series_id=GNPCA&api_key=abcdefghijklmnopqrstuvwxyz123456&file_type=json&realtime_start=2007-09-01
+```
+
+Which of the following is the **path**?","{https,api.stlouisfed.org,/fred/series/observations,?series_id=GPNC,&api_key=abcdefghijklmnopqrstuvwxyz123456,&file_type=json,&realtime_start=2007-09-01}",,{2},{apis},1,,,1,2023-11-02 20:33:20,2023-11-02 20:33:20,"'-01':17 '-09':16 '/fred/series/observations':3 '/fred/series/observations?series_id=gnpca&api_key=abcdefghijklmnopqrstuvwxyz123456&file_type=json&realtime_start=2007-09-01':24 '2007':15 'abcdefghijklmnopqrstuvwxyz123456':9 'api':7,32 'api.stlouisfed.org':2,23 'api.stlouisfed.org/fred/series/observations?series_id=gnpca&api_key=abcdefghijklmnopqrstuvwxyz123456&file_type=json&realtime_start=2007-09-01':22 'consid':18 'file':10 'follow':20,28 'gpnc':6 'https':1 'id':5 'json':12 'key':8 'path':31 'realtim':13 'seri':4 'start':14 'type':11 'url':21"
+216,single_selection,"Consider the following url: 
+
+```
+https://api.stlouisfed.org/fred/series/observations?series_id=GNPCA&api_key=abcdefghijklmnopqrstuvwxyz123456&file_type=json&realtime_start=2007-09-01
+```
+
+How many query parameters are there?","{5,4,3,2,1,0}",,{1},{apis},1,,,1,2023-11-02 20:33:20,2023-11-02 20:33:20,"'/fred/series/observations?series_id=gnpca&api_key=abcdefghijklmnopqrstuvwxyz123456&file_type=json&realtime_start=2007-09-01':12 '0consider':6 '1':5 '2':4 '3':3 '4':2 '5':1 'api':19 'api.stlouisfed.org':11 'api.stlouisfed.org/fred/series/observations?series_id=gnpca&api_key=abcdefghijklmnopqrstuvwxyz123456&file_type=json&realtime_start=2007-09-01':10 'follow':8 'mani':14 'paramet':16 'queri':15 'url':9"

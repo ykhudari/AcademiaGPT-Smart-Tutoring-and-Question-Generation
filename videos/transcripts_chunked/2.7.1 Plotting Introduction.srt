@@ -1,0 +1,88 @@
+1
+00:00:00.000 --> 00:00:37.000
+In this notebook, we're going to talk about plotting. We've seen lots of plots in the lectures so far, but we haven't formally discussed the package map plot lib. So we'd like to make sure that after this lecture, you understand some of the components of map plot lib that you're able to make basic plots, an in particular that you understand the difference between a figure and an axis. So why do we make plots? Most of the important outputs of your analysis will ultimately be the visualizations that
+
+2
+00:00:32.000 --> 00:01:12.000
+Most of the important outputs of your analysis will ultimately be the visualizations that you choose to communicate what you've discovered. So you'll spend months and months learning and analyzing and exploring, and you'll spend maybe a day or two making visualizations, but this day or two is critical to being able to communicate the things that you've learned over your months of hard work. So here are some quotes that we think are important by people we think have earned the right to give an opinion on this material.
+
+3
+00:01:09.000 --> 00:01:46.000
+right to give an opinion on this material. So the first is by Edward Tufft and he says above all else, show the data. David McChandless says by visualizing information, we turn it into a landscape that you can explore with your eyes, a sort of information map, and would you loss an information, an information map is kind of useful. The last is from a Goldman Sachs executive and he said, I spend hours thinking about how to get the story across my visualizations. I don't mind taking that long because it's that five minutes of presenting it, or some
+
+4
+00:01:42.000 --> 00:02:27.000
+I don't mind taking that long because it's that five minutes of presenting it, or some getting it that can make or break a deal. So we think this first point speaks to above everything else that you do make sure that your visualizations honestly represent the data. The second to are all about why are you representing data. You've spent months lost in information per se, but you only have a presentation, you have 30 or 40 minutes to help someone else learn what you learned in months of analysis. So building a visualization is like giving this person a map.
+
+5
+00:02:22.000 --> 00:02:57.000
+So building a visualization is like giving this person a map. Then the last one is kind of in the same vein which is this person will spend hours thinking about their visualization. So you know you could create a draft of visualization in 30 seconds. But thinking carefully about what you're presenting is going to make or break a deal in this person's case or it's going to be the difference between someone understanding your research or not understanding your research. And if people understand your research it's more likely to be published.
+
+6
+00:02:51.000 --> 00:03:36.000
+And if people understand your research it's more likely to be published. So this lecture is going to focus on the basics of creating visualizations of Python. So this will be a fast introduction, but this material is going to continually reappear and in particular today we're also going to talk about what makes a good plot. And in that lecture we'll have lots of examples of what charts we'll look like. So we have a couple of references that we think are useful. We're particularly keen on this Wall Street Journal Guide to Information Graphics is one of
+
+7
+00:03:28.000 --> 00:04:13.000
+We're particularly keen on this Wall Street Journal Guide to Information Graphics is one of the ones that I've found most useful. These other two are longer and they're probably better used as a reference. But this book in particular was very readable. Okay, so let's get started. So the most widely plotting, most widely used plotting package in Python is one called map plot lib. And it's standard import aliases given here. So we import map plot lib.pyplot as PLT. So pipelot is a particular subpackage of the map plot lib package that exposes a lot of the basic plotting
+
+8
+00:04:04.000 --> 00:04:45.000
+So pipelot is a particular subpackage of the map plot lib package that exposes a lot of the basic plotting functionality. Additionally, when we're working in a notebook, we actually need to tell the notebook to display the images inside of the notebook itself. And so we have to use this percent map plot lib in line. And this is what's known as an ipython or a Jupiter magic. And you can read more about the Jupiter magic at this link. Okay, so let's create a plot. There's going to be three steps to creating our plot.
+
+9
+00:04:43.000 --> 00:05:21.000
+There's going to be three steps to creating our plot. The first is going to be creating a figure and access object. And these will allow us to store the information from our graphs somewhere. Step two is going to be let's generate some data. In this case, we're going to draw an evenly spaced numbers from 0 to 2 pi. And the data that we use, so that's the x, the y will be sine of x. And then in the last one, we'll use the plot method on the axis object to plot x and y. And here we go. So we've plotted sine of x from 0 to 2 pi.
+
+10
+00:05:16.000 --> 00:06:05.000
+So we've plotted sine of x from 0 to 2 pi. So we created these two objects, the figure and the axis. What is the difference between them? So the way that we found most useful to distinguish between the two is to think about a plot in terms of a framed painting. So the axis is the canvas. And that's where we are actually doing our drawing. That's where the art happens. The figure is going to be the axis. Plus the framing and the setting and everything else that goes into the framed pet painting. So we can see this by one of the elements in figure is face color.
+
+11
+00:05:59.000 --> 00:06:43.000
+painting. So we can see this by one of the elements in figure is face color. One of the properties and one of the properties in axis is also face color. So if we set the axis face color to blue, notice that only this part where the data is being displayed begins shows up as blue. And then the rest of the plot shows up with a red face color. And that's because this is all piece parts of the figure. So this difference also means that you can actually put more than one axis on a figure. So here we create a figure and multiple axes and these axes will be structured so that there are
+
+12
+00:06:36.000 --> 00:07:21.000
+So here we create a figure and multiple axes and these axes will be structured so that there are two rows and three columns. We'll set the figure face color to gray and we'll set the each of the axis face colors using the hex colors in this list and we'll go ahead and plot it. And so you can see that each axis has a unique color as given by the colors in this list. But the figure has a gray color throughout. So the matte plot lib library is going to be quite versatile and very flexible. You can do lots of incredible things.
+
+13
+00:07:18.000 --> 00:07:51.000
+You can do lots of incredible things. We recommend that you look through the matte plot lib example gallery. This is actually how Tom Spencer and I have all learned a lot about matte plot lib is if you when you look through this gallery, when you see examples of plots, you can actually click on the plot and they'll show you the code that generated the plot. So let's just work through some examples to introduce some of the possibilities that we have. So here we create a list of three countries, Canada, Mexico and the United States.
+
+14
+00:07:46.000 --> 00:08:28.000
+So here we create a list of three countries, Canada, Mexico and the United States. We have their populations so 36.7 million, 129.2 million and 325.7 million and their land area in millions of miles squared. We're going to create a figure and axes. So this is going to have two rows and one column but we could also change it to have one row in two columns. Just depend on how we want to present the information. And then we're going to make a bar plot. Notice that we used dot bar instead of dot plot here.
+
+15
+00:08:23.000 --> 00:09:05.000
+And then we're going to make a bar plot. Notice that we used dot bar instead of dot plot here. And we're going to put the countries along the x and the population on the y. And we're going to have the labels be center aligned. And then we're going to create a title for the axis. So notice this title comes as attached to the axis. We'll do the same thing with land area and we'll plot it. So we have populations in land area as two separate bar charts. We can do scatter plots. So we have kind of a lot here. So we created just random x and y points
+
+16
+00:08:53.000 --> 00:09:44.000
+bar charts. We can do scatter plots. So we have kind of a lot here. So we created just random x and y points and we used a seed so that it would be reproducible. And then we also draw 50 other uniform random numbers and 50 more uniform random numbers between multiply by 15 and square. So these are going and then we multiply that by pi. Then we create a figure and axis. Again the default is to create one axis. And then we're going to make a scatter plot. So instead of plot we call to dot scatter where x and y get placed. And then what are these other two things that we created colors in
+
+17
+00:09:37.000 --> 00:10:22.000
+where x and y get placed. And then what are these other two things that we created colors in area? Why did we create them? It turns out that area is going to be the size of these plots. So if we draw, if we drew a large random number and then we multiply it by 15 and square it then that would correspond to a really big dot. Whereas if we drew a small one like this we'd end up with a much smaller plot. So s controls the size of each dot and you can think about places where that might be useful. Population size by country land area. You can also change the color of each dot.
+
+18
+00:10:13.000 --> 00:11:00.000
+that might be useful. Population size by country land area. You can also change the color of each dot. So here we've drawn 50 random numbers and we've put them on the color scale. And then the last thing that we changed was this alpha which is kind of how transparent you like your colors to be. So if we go back the colors are not transparent at all when we set alpha equals one. But if we set alpha equal to 0.05 notice they've become much more transparent. So we liked how it looked with an alpha of 0.5 and then we've also done our first annotation of
+
+19
+00:10:50.000 --> 00:11:37.000
+So we liked how it looked with an alpha of 0.5 and then we've also done our first annotation of a graph. So the first argument to annotate is the text you would like to display followed by where that data that the data that's being annotated lives. So in this case the first point is x0y0 and we've specified that these coordinates are data points in our data. And we've now said xy text and text cords is these two things specify where does the text that lines up with this annotation go. So we've moved it offset points. So 25 means it moves it to the
+
+20
+00:11:30.000 --> 00:12:27.000
+that lines up with this annotation go. So we've moved it offset points. So 25 means it moves it to the right 25 points and down 25 points and we've specified what the arrow that connects the text to the data should look like. So we've chosen a particular arrow style and if we change between arc and arc 3 we can see we change the curve of this arrow. So there's lots of other arguments that you can use on the annotations and we just encourage you to look at the map plot lib documentation. The last one that we're going to see is fill between and the default version of fill between
+
+21
+00:12:16.000 --> 00:13:14.000
+The last one that we're going to see is fill between and the default version of fill between just fills your line between 0 and the line value. So we've created x is from 0 to 1 and we're plotting sine of 4 pi x times e to the minus 5x. So these are oscillations that are going to dampen and so we just fill in the colors between 0 and that line. However we can also fill in between two lines and so now we're plotting 2 pi x times e to the minus 10x. Let's go ahead and make this 4 then we'll have the same. And what we see is we're now plotting
+
+22
+00:13:06.000 --> 00:13:40.000
+Let's go ahead and make this 4 then we'll have the same. And what we see is we're now plotting the difference in these two lines. So this is most prominent here at the beginning where we're not plotting between 0 and there we're plotting from the lower value to the higher value. And so these are some of the plotting methods that we will use throughout this course. So this was your introduction to map plot lib.
+

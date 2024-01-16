@@ -1,0 +1,92 @@
+In this notebook, we're going to talk about plotting.
+We've seen lots of plots in the lectures so far,
+but we haven't formally discussed the package MATPLOTlib.So we'd like to make sure that after this lecture,
+you understand some of the components of MATPLOTlib
+that you're able to make basic plots,and in particular that you understand the difference between a figure and an axis.
+So why do we make plots?Most of the important outputs of your analysis will ultimately be the visualizations that you choose to communicate what you've discovered.So you'll spend months and months learning and analyzing and exploring,
+and you'll spend maybe a day or two making visualizations,but this day or two is critical to being able to communicate the things that you've learned over your months of hard work.So here are some quotes that we think are important by people we think have earned the right to give an opinion on this material.So the first is by Edward Tuft, and he says above all else, show the data.
+David McCandless says, by visualizing information,
+we turn it into a landscape that you can explore with your eyes.A sort of information map, and with your loss in information,
+an information map is kind of useful.
+The last is from a Goldman Sachs executive,and he said, I spend hours thinking about how to get the story across my visualizations.
+I don't mind taking that long because it's that five minutes of presenting it,or some getting it that can make or break a deal.
+So we think this first point speaks to above everything else that you do.
+Make sure that your visualizations honestly represent the data.And the second two are all about why are you representing data.
+So you've spent months lost in information per se,
+but you only have a presentation.You have 30 or 40 minutes to help someone else learn what you learned in months of analysis.
+And so building a visualization is like giving this person a map.Then the last one is kind of in the same vein,
+which is this person will spend hours thinking about their visualization.
+So you could create a draft of a visualization in 30 seconds.But thinking carefully about what you're presenting is going to make or break a deal in this person's case,or it's going to be the difference between someone understanding your research or not understanding your research.
+And if people understand your research, it's more likely to be published.So this lecture is going to focus on the basics of creating visualizations and Python.
+So this will be a fast introduction, but this material is going to continually reappear.And in particular today, we're also going to talk about what makes a good plot.
+And in that lecture, we'll have lots of examples of what charts will look like.So we have a couple of references that we think are useful.
+And we're particularly keen on this Wall Street Journal guide to information graphics is one of the ones that I've found most useful.These other two are longer and they're probably better used as a reference.
+But this book in particular was very readable.
+Okay, so let's get started.So the most widely plotting, most widely used plotting package in Python is one called matplotlib.
+And it's standard import aliases given here.
+So we import matplotlib.pyplot as PLT.So piplot is a particular sub-package of the matplotlib package that exposes a lot of the basic plotting functionality.Additionally, when we're working in a notebook, we actually need to tell the notebook to display the images inside of the notebook itself.
+And so we have to use this percent matplotlib inline.And this is what's known as an ipython or a Jupyter magic.
+And you can read more about the Jupyter magic at this link.
+Okay, so let's create a plot.There's going to be three steps to creating our plot.
+The first is going to be creating a figure and access object.
+And these will allow us to store the information from our graphs somewhere.Step two is going to be, let's generate some data.
+In this case, we're going to draw an evenly spaced numbers from zero to two pi.
+And the data that we use, so that's the x, the y will be sine of x.And then in the last one, we'll use the plot method on the axis object to plot x and y.
+And here we go.
+So we've plotted sine of x from zero to two pi.So we created these two objects, the figure and the axis.
+What is the difference between them?So the way that we found most useful to distinguish between the two is to think about a plot in terms of a framed painting.
+So the axis is the canvas.And that's where we are actually doing our drawing.
+That's where the art happens.The figure is going to be the axis plus the framing and the setting and everything else that goes into the framed painting.So we can see this by one of the elements in figure is face color, one of the properties and one of the properties in axis is also face color.So if we set the axis face color to blue, notice that only this part where the data is being displayed, it should begin shows up as blue.
+And then the rest of the plot shows up with a red face color.And that's because this is all parts of the figure.
+So this difference also means that you can actually put more than one axis on a figure.So here we create a figure and multiple axes and these axes will be structured so that there are two rows and three columns.We'll set the figure face color to gray and we'll set each of the axis face colors using the hex colors in this list.
+And we'll go ahead and plot it.And so you can see that each axis has a unique color as given by the colors in this list.
+But the figure has a gray color throughout.So the Matplotlib library is going to be quite versatile and very flexible.
+You can do lots of incredible things.
+We recommend that you look through the Matplotlib example gallery.This is actually how Tom Spencer and I have all learned a lot about Matplotlib is if you when you look through this gallery, when you see examples of plots, you can actually click on the plot andon the plot and they'll show you the code that generated the plot.So let's just work through some examples to introduce some of the possibilities that we have.
+So here we create a list of three countries, Canada, Mexico and the United States.We have their populations.
+So 36.7 million, 129.2 million and 325.7 million.
+And their land area in millions of miles squared.
+We're going to create a figure and axes.So this is going to have two rows and one column.
+But we could also change it to have one row in two columns, just dependent on how we wanted to present the information.And then we're going to make a bar plot.
+Notice that we use bar instead of dot plot here.
+And we're going to put the countries along the x and the population on the y.And we're going to have the labels be center aligned.
+And then we're going to create a title for the axis.
+So notice this title comes is attached to the axis.We'll do the same thing with land area and we'll plot it.
+So we have populations in land area as two separate bar charts.
+We can do scatter plots.
+So we have kind of a lot here.So we created just random x and y points and we used a seed so that it would be reproducible.
+And then we also draw 50 other uniform random numbers.And 50 more uniform random numbers between multiply by 15 and square.
+So these are going, and then we multiply that by pi.
+Then we create a figure in axis.
+Again, the default is to create one axis.And then we're going to make a scatter plot.
+So instead of plot, we call it dot scatter where x and y get placed.
+And then what are these other two things that we created?Colors and area. Why did we create them?
+It turns out that area is going to be the size of these plots.
+So if we draw, if we drew a large random number and then we multiply it by 15 and squared it,then that would correspond to a really big dot,
+whereas if we drew a small one like this, we'd end up with a much smaller plot.
+So s controls the size of each dot.And you can think about places where that might be useful.
+Population size by country, land area.
+You can also change the color of each dot.
+So here we've drawn 50 random numbers.And we've put them on the color scale.
+And then the last thing that we changed was this alpha,
+which is kind of how transparent you'd like your colors to be.So if we go back, the colors are not transparent at all when we set alpha equals one.
+But if we set alpha equal to 0.05,
+notice they've become much more transparent.So we liked how it looked with an alpha of 0.5.
+And then we've also done our first annotation of a graph.
+So the first argument to annotate is the text you would like to display,followed by where that data that the data that's being annotated lives.
+So in this case, the first point is x0 y0.
+And we've specified that these coordinates are data points in our data.And we've now said xy text and text cords is these two things specify where does the text that lines up with this annotation go.
+So we've moved it offset points.So 25 means it moves it to the right 25 points and down 25 points.
+And we've specified what the arrow that connects the text to the data should look like.
+So we've chosen a particular arrow style.And if we change between arc and arc three, we can see we change the curve of this arrow.
+So there's lots of other arguments that you can use on the annotations.And we just encourage you to look at the map plotlib documentation.
+The last one that we're going to see is fill between.
+And the default version of fill between just fills your line between 0.And the line values. So we've created.
+X is from 0 to 1.
+And we're plotting sine of 4 pi x times e to the minus 5 x.
+So these are oscillations that are going to dampen.And so we just fill in the colors between 0 and that line.
+However, we can also fill in between two lines.
+And so now we're plotting 2 pi x times e to the minus 10 x.Let's go ahead and make this 4 then it'll have the same.
+And what we see is we're now plotting the difference in these two lines.So this is most prominent here at the beginning where we're not plotting between 0 and there.
+We're plotting from the lower value to the higher value.And so these are some of the plotting methods that we will use throughout this course.
+So this was your introduction to map plotlib.

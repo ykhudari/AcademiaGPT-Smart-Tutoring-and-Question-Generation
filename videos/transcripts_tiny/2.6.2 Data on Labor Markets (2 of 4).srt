@@ -1,0 +1,468 @@
+1
+00:00:00,000 --> 00:00:04,000
+Let's now talk about labor statistics.
+
+2
+00:00:04,000 --> 00:00:10,160
+By labor statistics, what we mean is the data that's used to measure and quantify the
+
+3
+00:00:10,160 --> 00:00:14,160
+health of labor markets.
+
+4
+00:00:14,160 --> 00:00:19,480
+So in the United States, one of the main sources for labor statistics is a survey known
+
+5
+00:00:19,480 --> 00:00:22,320
+as the current population survey.
+
+6
+00:00:22,320 --> 00:00:28,800
+And the survey has been in one version or another, been administered since the late 1930s.
+
+7
+00:00:28,800 --> 00:00:34,800
+But it collects data on kind of demographic and economic characteristics of individuals
+
+8
+00:00:34,800 --> 00:00:36,800
+and households.
+
+9
+00:00:36,800 --> 00:00:39,600
+The data it collected is administered.
+
+10
+00:00:39,600 --> 00:00:43,800
+So the survey is administered to roughly 60,000 households per month.
+
+11
+00:00:43,800 --> 00:00:49,560
+And rather miraculously they achieve an average response rate of nearly 90%.
+
+12
+00:00:49,560 --> 00:00:52,000
+Because there's about 60,000 households per month.
+
+13
+00:00:52,000 --> 00:00:59,920
+This means that they have a relatively good sample for geography such as state and metropolitan
+
+14
+00:00:59,920 --> 00:01:01,640
+statistical area.
+
+15
+00:01:01,640 --> 00:01:10,920
+But maybe this data isn't particularly accurate for geographic level like counties.
+
+16
+00:01:10,920 --> 00:01:17,320
+So one of the strengths of the CPS is its inherent panel nature.
+
+17
+00:01:18,320 --> 00:01:22,120
+Let's talk about why that's helpful.
+
+18
+00:01:22,120 --> 00:01:33,000
+So if we have kind of January, February, March, April, May, June, July, August, September, October, November,
+
+19
+00:01:33,000 --> 00:01:34,000
+December.
+
+20
+00:01:34,000 --> 00:01:36,840
+So here's the 12 months of the year.
+
+21
+00:01:36,840 --> 00:01:45,280
+So in the CPS, once you're selected, you're interviewed for four consecutive months.
+
+22
+00:01:45,360 --> 00:01:51,360
+And then you're interviewed for four consecutive months, again, eight months later.
+
+23
+00:01:51,360 --> 00:01:52,960
+So let's work through an example.
+
+24
+00:01:52,960 --> 00:01:56,080
+So imagine this is the year 2020.
+
+25
+00:01:56,080 --> 00:02:01,320
+And you begin being interviewed by the CPS in February.
+
+26
+00:02:01,320 --> 00:02:08,040
+Then you're interviewed in February, March, April, and May of 2020.
+
+27
+00:02:08,040 --> 00:02:09,800
+And then you wait eight months.
+
+28
+00:02:09,840 --> 00:02:12,880
+So not interviewed in June, not interviewed in July.
+
+29
+00:02:12,880 --> 00:02:16,080
+August, September, October, November, December.
+
+30
+00:02:16,080 --> 00:02:19,880
+And then we come into 2021 January.
+
+31
+00:02:19,880 --> 00:02:23,160
+So you've been out of the sample for eight months now.
+
+32
+00:02:23,160 --> 00:02:27,640
+And you begin being interviewed again in February, 2021, 2021.
+
+33
+00:02:27,640 --> 00:02:32,680
+So then you're interviewed again, February, March, April, and May.
+
+34
+00:02:32,680 --> 00:02:36,920
+So one of the strengths is that this results in you being interviewed during the same
+
+35
+00:02:36,920 --> 00:02:41,800
+set of months in two different years.
+
+36
+00:02:41,800 --> 00:02:46,400
+And additionally, because of this, you can track someone for consecutive months.
+
+37
+00:02:46,400 --> 00:02:51,120
+So you could see whether someone in March had lost a job that they currently, that they had
+
+38
+00:02:51,120 --> 00:02:57,160
+had in February or how their income might have changed, et cetera.
+
+39
+00:02:57,160 --> 00:03:04,000
+So this panel nature makes the CPS really helpful for asking lots of different labor market
+
+40
+00:03:04,000 --> 00:03:05,960
+questions.
+
+41
+00:03:06,000 --> 00:03:08,840
+So what types of things are asked?
+
+42
+00:03:08,840 --> 00:03:14,600
+The CPS collects information on demographics and labor status mostly.
+
+43
+00:03:14,600 --> 00:03:19,480
+So they'll ask you things like, how many people live in the household?
+
+44
+00:03:19,480 --> 00:03:22,960
+What are the sex age and race of these different people?
+
+45
+00:03:22,960 --> 00:03:25,800
+And what's the relationship between each set of people?
+
+46
+00:03:25,800 --> 00:03:31,960
+So this tells you things like our grandparents living in the house with their children
+
+47
+00:03:31,960 --> 00:03:33,920
+and their grandchildren.
+
+48
+00:03:33,920 --> 00:03:38,920
+It tells you whether other people in the house are deep in the head of the household
+
+49
+00:03:38,920 --> 00:03:42,320
+or whether they're children, et cetera.
+
+50
+00:03:42,320 --> 00:03:45,880
+It also collects information on whether you're working, whether you're working full-time
+
+51
+00:03:45,880 --> 00:03:47,480
+or part-time.
+
+52
+00:03:47,480 --> 00:03:52,240
+It gets an estimate of your hourly pay and how many hours you work.
+
+53
+00:03:52,240 --> 00:03:56,600
+They ask about whether you're looking for work, how you're looking for work, whether you're
+
+54
+00:03:56,600 --> 00:03:58,880
+retired, or whether you have any other disabilities.
+
+55
+00:03:58,880 --> 00:04:01,280
+And they ask lots of other things.
+
+56
+00:04:01,320 --> 00:04:08,240
+You can actually find their exact questionnaires online at the link in this notebook.
+
+57
+00:04:08,240 --> 00:04:10,240
+So who uses the CPS?
+
+58
+00:04:10,240 --> 00:04:13,520
+Well, the truth is, lots of people do.
+
+59
+00:04:13,520 --> 00:04:18,360
+The one we're going to be talking about mostly today is the Bureau of Labor Statistics.
+
+60
+00:04:18,360 --> 00:04:22,920
+And they issue a jobs report once a month based on the numbers collected by the current
+
+61
+00:04:22,920 --> 00:04:25,920
+population survey.
+
+62
+00:04:25,920 --> 00:04:31,040
+Additionally, because this data is open, researchers, anyone can access the micro data
+
+63
+00:04:31,040 --> 00:04:36,320
+behind the CPS, so you could collect these surveys and track these people on your own.
+
+64
+00:04:36,320 --> 00:04:41,240
+And actually, additionally, there's lots of private companies that use this information
+
+65
+00:04:41,240 --> 00:04:44,440
+for their own decision making.
+
+66
+00:04:44,440 --> 00:04:49,400
+Okay, so the next thing we're going to do is we're going to talk about some of the
+
+67
+00:04:49,400 --> 00:04:52,800
+common terms used in labor statistics.
+
+68
+00:04:52,800 --> 00:04:59,360
+So employed means an individual who did any work at all as a paid employee, whether
+
+69
+00:04:59,360 --> 00:05:04,760
+if they worked in their own business, worked on their own farm, or if they worked 15 or
+
+70
+00:05:04,760 --> 00:05:08,800
+more hours as unpaid workers in a family member's business.
+
+71
+00:05:08,800 --> 00:05:15,120
+And then part time is an individual who usually works less than 35 hours per week.
+
+72
+00:05:15,120 --> 00:05:19,880
+A full time individual is someone who usually works 35 or more hours per week.
+
+73
+00:05:19,880 --> 00:05:23,360
+And both of these definitions are defined across all jobs.
+
+74
+00:05:23,360 --> 00:05:29,040
+So if someone had what they considered two part time jobs, they were 20 hours a week each,
+
+75
+00:05:29,040 --> 00:05:32,560
+they would be considered a full time worker.
+
+76
+00:05:32,560 --> 00:05:39,720
+Unemployed means an individual who is not employed and was available to work and made an
+
+77
+00:05:39,720 --> 00:05:44,120
+active effort to find employment during the four week period, ending with the survey
+
+78
+00:05:44,120 --> 00:05:48,920
+reference week.
+
+79
+00:05:48,960 --> 00:05:55,000
+The labor force is the sum of the employed and unemployed individuals.
+
+80
+00:05:55,000 --> 00:05:58,720
+The unemployment rate is the number of unemployed people as a percentage of the labor
+
+81
+00:05:58,720 --> 00:06:00,160
+force.
+
+82
+00:06:00,160 --> 00:06:05,520
+And those not in the labor force are individuals aged 16 and older who were neither employed
+
+83
+00:06:05,520 --> 00:06:07,880
+nor unemployed.
+
+84
+00:06:07,880 --> 00:06:14,920
+And you can find more detail about each of these definitions in the BLS documentation.
+
+85
+00:06:14,960 --> 00:06:21,040
+So the last thing we're going to talk about are kind of definitionally that is going
+
+86
+00:06:21,040 --> 00:06:24,160
+to be things will call the transition rates.
+
+87
+00:06:24,160 --> 00:06:31,000
+And so these are key statistics that people use to analyze how the labor economy is
+
+88
+00:06:31,000 --> 00:06:33,360
+churning for lack of a better word.
+
+89
+00:06:33,360 --> 00:06:36,680
+So there's four different rates that we'll talk about.
+
+90
+00:06:36,680 --> 00:06:41,280
+There's the E to E rate, which is the fraction of people who are employed during the
+
+91
+00:06:41,320 --> 00:06:45,600
+current month and in the last month, E to E are the people who are the people who
+
+92
+00:06:45,600 --> 00:06:54,240
+are the people who transition from employed to unemployed, the E which is the people who
+
+93
+00:06:54,240 --> 00:06:59,640
+transition from the unemployed to the employed and the E to E which is the fraction
+
+94
+00:06:59,640 --> 00:07:03,680
+of people who are unemployed and continue to be unemployed.
+
+95
+00:07:03,680 --> 00:07:09,100
+And if we hold the labor force constant, what we get is that E E plus E U plus U E plus
+
+96
+00:07:09,140 --> 00:07:11,500
+U is equal to one.
+
+97
+00:07:11,500 --> 00:07:12,900
+And you can add additional states.
+
+98
+00:07:12,900 --> 00:07:19,180
+So for example, we could have an E N rate, which would be the number of people who fraction
+
+99
+00:07:19,180 --> 00:07:25,020
+of people who are employed previously and transitioned into not in the labor force.
+
+100
+00:07:25,020 --> 00:07:30,380
+There's something like that, but we're just going to focus on these four.
+
+101
+00:07:30,380 --> 00:07:37,700
+And I think this raises a natural question in kind of there's two ways to increase unemployment.
+
+102
+00:07:37,700 --> 00:07:41,980
+You could either see a decrease in what we'll call kind of the job finding rate, which
+
+103
+00:07:41,980 --> 00:07:47,940
+is the transition rate from unemployed to employed, or an increase in the firing rate,
+
+104
+00:07:47,940 --> 00:07:52,660
+and in the separation rate, I guess we'll call it, which is an increase in the rate of
+
+105
+00:07:52,660 --> 00:07:55,380
+employed to unemployed.
+
+106
+00:07:55,380 --> 00:08:00,740
+And so kind of in the back of your mind as we work through today's lecture and next week's
+
+107
+00:08:00,740 --> 00:08:05,100
+lecture, we want you to be thinking about which of these channels will have a larger effect
+
+108
+00:08:05,100 --> 00:08:06,500
+on unemployment levels.
+
+109
+00:08:06,500 --> 00:08:11,540
+And we'll ask you to do this formally next class.
+
+110
+00:08:11,540 --> 00:08:17,860
+So the question we're going to ask today with the data that we download is going to be
+
+111
+00:08:17,860 --> 00:08:24,180
+how changes in the transition rates changed between changed during two periods of economic
+
+112
+00:08:24,180 --> 00:08:25,700
+turbulence in the United States.
+
+113
+00:08:25,700 --> 00:08:32,700
+So we're going to analyze the great recession and the current pandemic to explore how these
+
+114
+00:08:32,700 --> 00:08:33,700
+different rates changed.
+
+115
+00:08:33,700 --> 00:08:38,740
+In particular, we saw large increases unemployment in unemployment, and we're going to
+
+116
+00:08:38,740 --> 00:08:45,020
+see what happened to the U.E. and the U.E. rates during these two times of economic turbulence.
+
+117
+00:08:45,020 --> 00:08:47,460
+So we'll do that at the end of class.
+

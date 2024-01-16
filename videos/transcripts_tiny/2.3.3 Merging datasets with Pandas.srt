@@ -1,0 +1,1952 @@
+1
+00:00:00,000 --> 00:00:04,880
+The final topic we'll cover today is on Data Merchink.
+
+2
+00:00:04,880 --> 00:00:09,280
+So prior to this lecture, you should have heard us talk about reshaping, and if you were
+
+3
+00:00:09,280 --> 00:00:12,740
+here 10 minutes ago, you heard all about it.
+
+4
+00:00:12,740 --> 00:00:17,320
+After this lecture, you should be able to understand the different pandas routines for
+
+5
+00:00:17,320 --> 00:00:19,320
+combining data sets.
+
+6
+00:00:19,320 --> 00:00:23,480
+No win and how to apply concat merge and join.
+
+7
+00:00:23,480 --> 00:00:27,000
+We'll be using two data sets during today's lecture.
+
+8
+00:00:27,000 --> 00:00:33,280
+We'll use data on the GDP components, population, and square miles of various countries.
+
+9
+00:00:33,280 --> 00:00:39,240
+And we'll use data from a website called Goodreads that allows you to rate different books.
+
+10
+00:00:39,240 --> 00:00:43,800
+And so there will be over 6 million ratings in our data set.
+
+11
+00:00:43,800 --> 00:00:47,880
+Let's get started.
+
+12
+00:00:47,880 --> 00:00:55,240
+So we often want to perform analysis on data that originates from different sources.
+
+13
+00:00:55,240 --> 00:00:59,920
+For example, if you were trying to analyze data on regional sales for a company, you might
+
+14
+00:00:59,920 --> 00:01:05,200
+want to include things like industry aggregates or demographic information from each
+
+15
+00:01:05,200 --> 00:01:10,520
+reason, or if you have product level data, maybe it's split into product information
+
+16
+00:01:10,520 --> 00:01:15,680
+in one data set and data about sales and other things in another data set.
+
+17
+00:01:15,680 --> 00:01:19,680
+And you often need to take these data sets and put them together to do the type of analysis
+
+18
+00:01:19,680 --> 00:01:22,280
+that you'd like.
+
+19
+00:01:22,280 --> 00:01:31,040
+So we're going to be using, like I said, data on GDP and some other variables.
+
+20
+00:01:31,040 --> 00:01:35,920
+So we're going to read this in from the World Development Index.
+
+21
+00:01:35,920 --> 00:01:41,560
+So what we see is we have WETI data from 2017.
+
+22
+00:01:41,560 --> 00:01:50,280
+And we have government expenditures, consumption, exports, imports, and GDP.
+
+23
+00:01:50,280 --> 00:01:55,960
+And all of this is measured in trillions of US dollars.
+
+24
+00:01:55,960 --> 00:02:07,600
+We'll also get a version of this data set with 2016 and 2017 data.
+
+25
+00:02:07,600 --> 00:02:15,240
+The next data set we're going to read in is data on the land area of different countries.
+
+26
+00:02:15,240 --> 00:02:21,760
+So the United States covers 3.8 square millions of square miles.
+
+27
+00:02:21,760 --> 00:02:29,240
+Canada also 3.8, Germany 0.13, and Russia 6.6.
+
+28
+00:02:29,240 --> 00:02:32,760
+This is our second data set.
+
+29
+00:02:32,760 --> 00:02:38,880
+And our third data set is going to be data on the population measured in millions of people
+
+30
+00:02:38,880 --> 00:02:39,880
+for each country.
+
+31
+00:02:39,880 --> 00:02:46,880
+And each one of these data sets is going to be data on GDP.
+
+32
+00:02:46,880 --> 00:02:54,480
+So given the data sets we've just introduced, we have data on GDP, we have data on land
+
+33
+00:02:54,480 --> 00:02:58,400
+area, and we have data on population.
+
+34
+00:02:58,400 --> 00:03:02,120
+Suppose we were just compute as to compute a number of statistics.
+
+35
+00:03:02,120 --> 00:03:06,360
+Suppose we were asked to compute a measure of land usage.
+
+36
+00:03:06,360 --> 00:03:08,800
+So what is consumption per square mile?
+
+37
+00:03:08,800 --> 00:03:13,160
+Or what is the GDP per capita for each country in each year?
+
+38
+00:03:13,160 --> 00:03:15,400
+About consumption per person.
+
+39
+00:03:15,400 --> 00:03:20,000
+And what is the population density of each country and how does it change over time?
+
+40
+00:03:20,000 --> 00:03:24,600
+So the answer to each of these questions is going to require us to use data from multiple
+
+41
+00:03:24,600 --> 00:03:27,120
+data frames.
+
+42
+00:03:27,120 --> 00:03:32,480
+And so the three methods as we've kind of hinted at that will be learning about our
+
+43
+00:03:32,480 --> 00:03:35,560
+concat, merge, and join.
+
+44
+00:03:35,560 --> 00:03:37,560
+We'll look at each one independently.
+
+45
+00:03:37,560 --> 00:03:41,040
+And we'll start with concat.
+
+46
+00:03:41,040 --> 00:03:47,280
+The concat function is used to stack data frames, and it's particularly useful when you
+
+47
+00:03:47,280 --> 00:03:53,240
+have something like a year of data that stored in one month files.
+
+48
+00:03:53,240 --> 00:03:58,040
+And you need them to go on top of one another.
+
+49
+00:03:58,080 --> 00:04:02,600
+That should actually remind you of the word string concat nation where you literally
+
+50
+00:04:02,600 --> 00:04:03,600
+just tie it together.
+
+51
+00:04:03,600 --> 00:04:06,400
+So there's nothing creative or interesting going on.
+
+52
+00:04:06,400 --> 00:04:11,960
+It's literally just taking to rate data frames and wishing them together.
+
+53
+00:04:11,960 --> 00:04:15,760
+With as with many other pandas functions, we're going to have some options about how to
+
+54
+00:04:15,760 --> 00:04:16,760
+do that.
+
+55
+00:04:16,760 --> 00:04:21,640
+So we can choose whether we're stacking on by rows, which would set be setting access
+
+56
+00:04:21,640 --> 00:04:27,520
+equal to zero, or by columns, which would be setting access equals to one.
+
+57
+00:04:27,520 --> 00:04:32,640
+So we'll look at each case separately, and we'll start by looking at rows.
+
+58
+00:04:32,640 --> 00:04:35,480
+So let's consider two of our data sets.
+
+59
+00:04:35,480 --> 00:04:42,000
+So we have the WDI 2017, which remember is just a data set.
+
+60
+00:04:42,000 --> 00:04:44,440
+Notice the country is on the index.
+
+61
+00:04:44,440 --> 00:04:51,760
+The columns are these different classifications of government of the expenditure report.
+
+62
+00:04:51,800 --> 00:04:57,680
+And we have square miles, which has country on the index as well.
+
+63
+00:04:57,680 --> 00:05:05,600
+And so if we stack these at top of another with access equals zero, what you'll see
+
+64
+00:05:05,600 --> 00:05:12,480
+is that literally it has just stacked these two data frames on top of one another.
+
+65
+00:05:12,480 --> 00:05:14,600
+They didn't have any of the same columns.
+
+66
+00:05:14,600 --> 00:05:20,360
+And so anywhere that didn't have a shared column is going to get a man.
+
+67
+00:05:20,360 --> 00:05:25,560
+So square miles only had data on square miles, and not on government expenditures or
+
+68
+00:05:25,560 --> 00:05:27,320
+anything else.
+
+69
+00:05:27,320 --> 00:05:32,520
+And this government expenditures consumption, the WDI data frame, didn't have information
+
+70
+00:05:32,520 --> 00:05:33,680
+on square miles.
+
+71
+00:05:33,680 --> 00:05:36,760
+So we can kind of see what it's doing.
+
+72
+00:05:36,760 --> 00:05:42,800
+But I think this tells us that this kind of wasn't the right operation to do in this
+
+73
+00:05:42,800 --> 00:05:44,080
+case.
+
+74
+00:05:44,080 --> 00:05:48,440
+So the number of rows is the total number of rows and all inputs.
+
+75
+00:05:48,440 --> 00:05:52,120
+And the labels are going to come from the original data frames.
+
+76
+00:05:52,120 --> 00:05:54,360
+They're each going to be distinct.
+
+77
+00:05:54,360 --> 00:05:59,360
+And for columns that appeared only in one input, the value for all labels originating from
+
+78
+00:05:59,360 --> 00:06:04,120
+the different input is set to missing.
+
+79
+00:06:04,120 --> 00:06:11,720
+So maybe what we would prefer to do is concat with access equals one.
+
+80
+00:06:11,720 --> 00:06:14,720
+And so what you can see is it's actually matched up.
+
+81
+00:06:14,720 --> 00:06:24,720
+It notices, so let's look at our two data frames.
+
+82
+00:06:24,720 --> 00:06:30,000
+It notices that there's data for Canada in both data sets.
+
+83
+00:06:30,000 --> 00:06:36,760
+And so when it combines these, notice it's taken 0.37.1.86.
+
+84
+00:06:36,760 --> 00:06:38,920
+And it's gotten found where Canada was.
+
+85
+00:06:38,920 --> 00:06:44,840
+And so it matches on the access that your concat needing.
+
+86
+00:06:44,840 --> 00:06:49,040
+Similarly for Germany, it's done this.
+
+87
+00:06:49,040 --> 00:06:55,480
+So it has these columns match and it's correctly found to the right square miles,
+
+88
+00:06:55,480 --> 00:06:57,480
+et cetera.
+
+89
+00:06:57,480 --> 00:06:59,920
+So concat is pretty simple.
+
+90
+00:06:59,920 --> 00:07:04,520
+It's a bit of a brute force way to combine data sets.
+
+91
+00:07:04,520 --> 00:07:08,680
+But there's many cases in which it's the right answer.
+
+92
+00:07:08,680 --> 00:07:13,720
+So now that we know how to do this, we actually can answer one of our questions that
+
+93
+00:07:13,720 --> 00:07:14,720
+we mentioned.
+
+94
+00:07:14,720 --> 00:07:19,400
+So what is the consumption per square mile?
+
+95
+00:07:19,400 --> 00:07:23,560
+So here we go.
+
+96
+00:07:23,560 --> 00:07:27,040
+Well, this is Modulo, the right units.
+
+97
+00:07:27,040 --> 00:07:34,040
+So I guess we would have multiplied this one by 1 trillion.
+
+98
+00:07:34,040 --> 00:07:44,400
+1,000 million, billion, trillion, trillion.
+
+99
+00:07:44,400 --> 00:07:53,600
+And multiplied this one by 1 million.
+
+100
+00:07:53,640 --> 00:07:57,840
+But let's ignore that for now because I'm going to get something wrong.
+
+101
+00:07:57,840 --> 00:08:00,840
+And let's just assume that it's in the units we want.
+
+102
+00:08:00,840 --> 00:08:05,360
+And now we've got a measure of consumption per square mile.
+
+103
+00:08:05,360 --> 00:08:09,560
+Now what you see is that in terms of square, consumption per square mile, the United
+
+104
+00:08:09,560 --> 00:08:11,800
+Kingdom in Germany look really good.
+
+105
+00:08:11,800 --> 00:08:19,920
+And a lot of that is being driven by the fact that they have such a small land area.
+
+106
+00:08:19,920 --> 00:08:24,920
+We can't answer this question for Russia because we don't have any of their GDP or consumption
+
+107
+00:08:24,920 --> 00:08:26,920
+data.
+
+108
+00:08:26,920 --> 00:08:29,160
+Great.
+
+109
+00:08:29,160 --> 00:08:32,720
+So that covers our concatenance.
+
+110
+00:08:32,720 --> 00:08:39,120
+And now we'll talk about another operation that you'll probably use slightly more,
+
+111
+00:08:39,120 --> 00:08:41,680
+which is merge.
+
+112
+00:08:41,680 --> 00:08:43,920
+Merge operates on two data frames at a time.
+
+113
+00:08:43,920 --> 00:08:49,320
+And it's primarily used to bring columns from one data set into another.
+
+114
+00:08:49,320 --> 00:08:52,920
+And it aligns the data based on one or more key columns.
+
+115
+00:08:52,920 --> 00:09:00,080
+So remember, concat aligned on the axis that you were concatenating on, but you were restricted
+
+116
+00:09:00,080 --> 00:09:05,040
+in the sense that it either had to be a column already or on the index.
+
+117
+00:09:05,040 --> 00:09:09,640
+Merge is going to allow us to be a little bit more flexible.
+
+118
+00:09:09,640 --> 00:09:12,440
+So let's just see an example.
+
+119
+00:09:12,440 --> 00:09:22,120
+If we take the two data sets that we just concat it, so these same two data sets, and
+
+120
+00:09:22,120 --> 00:09:27,960
+now we're going to merge them, we actually get something that looks really similar.
+
+121
+00:09:27,960 --> 00:09:33,400
+So what have we done here?
+
+122
+00:09:33,400 --> 00:09:35,560
+We'll talk more about that in a second.
+
+123
+00:09:35,560 --> 00:09:38,560
+So let's do some examples.
+
+124
+00:09:38,560 --> 00:09:42,800
+So we can merge on 2016 and 2017.
+
+125
+00:09:42,800 --> 00:09:43,800
+And square miles.
+
+126
+00:09:43,800 --> 00:09:54,880
+And reason this is interesting is that this data set had each of these countries for two years
+
+127
+00:09:54,880 --> 00:10:00,040
+rather than just one.
+
+128
+00:10:00,040 --> 00:10:05,040
+And I actually, I kind of, so this is learning in real time.
+
+129
+00:10:05,040 --> 00:10:07,040
+So we're going to see what happens when we can cut these.
+
+130
+00:10:07,040 --> 00:10:25,280
+I actually don't know what it'll do.
+
+131
+00:10:25,280 --> 00:10:30,320
+So zero kind of done does what we expect, but it takes the two levels and combines them
+
+132
+00:10:30,320 --> 00:10:33,560
+into one, which is a great.
+
+133
+00:10:33,560 --> 00:10:38,680
+And access equals one kind of gives this absolute garbage.
+
+134
+00:10:38,680 --> 00:10:46,240
+So we could not have used concat in this example, which I think is what we wanted to demonstrate.
+
+135
+00:10:46,240 --> 00:10:55,040
+I guess the one problem is, so the data is copied over exactly as it is.
+
+136
+00:10:55,040 --> 00:11:03,480
+And the additional column from square miles was added and matched on the country.
+
+137
+00:11:03,480 --> 00:11:10,080
+So what you'll see is we have two observations for Canada that correspond to 2016 and 2017.
+
+138
+00:11:10,080 --> 00:11:13,320
+And they both were given square miles.
+
+139
+00:11:13,320 --> 00:11:18,240
+Unfortunately, we lost the information about here because it was on the index.
+
+140
+00:11:18,240 --> 00:11:28,840
+And we'll talk about how we could have gotten it back, and how we could have kept it in the merge.
+
+141
+00:11:28,840 --> 00:11:31,920
+So how can we fix this?
+
+142
+00:11:31,920 --> 00:11:45,520
+If we take our data set and we reset the index, so remember we have this, oh, 17.
+
+143
+00:11:45,520 --> 00:11:51,200
+Resetting the index, which we learned about in our reshape, is simply going to take the index
+
+144
+00:11:51,200 --> 00:11:53,880
+and move it back into columns with the data frame.
+
+145
+00:11:53,880 --> 00:11:58,960
+So we now have columns country and the year.
+
+146
+00:11:58,960 --> 00:12:05,040
+So if we specify that we want to match on country and it's a column rather than an index,
+
+147
+00:12:05,040 --> 00:12:08,560
+notice it is kept the column year.
+
+148
+00:12:08,560 --> 00:12:14,400
+And it still has matched up correctly where square miles goes.
+
+149
+00:12:14,400 --> 00:12:18,520
+Additionally, we sometimes need to merge on multiple columns.
+
+150
+00:12:18,520 --> 00:12:24,320
+For example, our population data and our WDI data, both have observations organized by country
+
+151
+00:12:24,320 --> 00:12:25,640
+and year.
+
+152
+00:12:25,640 --> 00:12:30,480
+So to properly merge these data sets, we will need to align the data on both the country
+
+153
+00:12:30,480 --> 00:12:32,600
+and the year.
+
+154
+00:12:32,600 --> 00:12:37,560
+So notice we can pass our list country and year.
+
+155
+00:12:37,560 --> 00:12:40,520
+It's going to head and put that on the index for us.
+
+156
+00:12:40,520 --> 00:12:45,320
+If we did not want it on the index, we could have reset the index to take it out of the index
+
+157
+00:12:45,320 --> 00:12:48,320
+and it still kept both country and year.
+
+158
+00:12:48,320 --> 00:12:54,720
+And this puts us in a position where we can now answer one of our other questions.
+
+159
+00:12:54,720 --> 00:12:59,080
+What is the GDP per capita for each country in each year?
+
+160
+00:12:59,080 --> 00:13:01,640
+How about consumption per person?
+
+161
+00:13:01,640 --> 00:13:08,840
+And so now if we look at GDP per capita, it's not so different in all these countries, actually.
+
+162
+00:13:08,840 --> 00:13:15,840
+I think there's a difference between 0.54 and 0.42, but it's maybe not so big.
+
+163
+00:13:15,840 --> 00:13:20,960
+And the consumption difference is actually quite a bit different.
+
+164
+00:13:20,960 --> 00:13:28,040
+This is the United States concerns, consumes almost a third more than the other countries
+
+165
+00:13:28,040 --> 00:13:31,760
+in our data set.
+
+166
+00:13:31,760 --> 00:13:37,960
+OK, so let's use our new merge skills that we've learned to answer the final question
+
+167
+00:13:37,960 --> 00:13:39,840
+that we asked originally.
+
+168
+00:13:39,840 --> 00:13:42,960
+What is the population density of each country?
+
+169
+00:13:42,960 --> 00:13:44,640
+How much does it change over time?
+
+170
+00:13:44,640 --> 00:13:51,640
+And we'll go ahead and give you two or three minutes to answer this question.
+
+171
+00:13:51,640 --> 00:13:53,920
+OK, welcome back.
+
+172
+00:13:53,920 --> 00:13:56,760
+So let's see how I did this problem.
+
+173
+00:13:56,760 --> 00:13:59,280
+There's more than one way to solve this.
+
+174
+00:13:59,280 --> 00:14:06,240
+So I took the two data sets and noticed I took the population data set and I reset the index
+
+175
+00:14:06,240 --> 00:14:10,880
+so that we wouldn't lose any information when we merged the two data sets.
+
+176
+00:14:11,880 --> 00:14:20,880
+We merged it on country and then we created a new column called P-Dens for population density.
+
+177
+00:14:20,880 --> 00:14:24,880
+And then I just did a pivot table to put it in a format that was easy to read.
+
+178
+00:14:24,880 --> 00:14:31,880
+And I put the year on the index, the columns were the countries and the values were the population density.
+
+179
+00:14:31,880 --> 00:14:37,880
+And what you see is that the population density has increased in the United States and in Canada.
+
+180
+00:14:37,880 --> 00:14:45,880
+But it's been roughly constant in Germany and you've seen a slight increase in United Kingdom.
+
+181
+00:14:48,880 --> 00:14:53,880
+OK, so merge takes many different optional arguments.
+
+182
+00:14:53,880 --> 00:14:57,880
+So we've talked about some of the most commonly used ones so far.
+
+183
+00:14:57,880 --> 00:15:06,880
+In particular, we've talked about the argument on and this just specifies what columns you're trying to align the two data sets on.
+
+184
+00:15:06,880 --> 00:15:18,880
+And the default is actually that it will merge on any of the columns that appear in both data frames.
+
+185
+00:15:18,880 --> 00:15:30,880
+So in this case, we've reset the index on both of the data frames and we've tried emerging it and what it found was it identified on its own that country was a common column and so it merged on that column.
+
+186
+00:15:30,880 --> 00:15:44,880
+In the example above, we could use the on argument because the column name was the same in both data frames.
+
+187
+00:15:44,880 --> 00:15:50,880
+Turns out that sometimes you won't have data frames that have the same name for a column.
+
+188
+00:15:50,880 --> 00:15:58,880
+For example, one data frame might call the identifier product ID while the other calls it ID or product.
+
+189
+00:15:58,880 --> 00:16:05,880
+And in that case, we can use left on and right on arguments and press the proper column names to align the data.
+
+190
+00:16:05,880 --> 00:16:16,880
+So again, in this case, it's somewhat trivial because they're the same, but we could do left on country, right on country, and it succeeds.
+
+191
+00:16:17,880 --> 00:16:32,880
+Additionally, the data may be on the index instead of on one of the columns in which case you could do some and you can mix all of these so you can do left on country and right index equals true.
+
+192
+00:16:32,880 --> 00:16:42,880
+And that means it will try and merge the values in the column country with the values that are on the square miles index.
+
+193
+00:16:43,880 --> 00:16:55,880
+I should point out, I don't think I've said this yet, that we're using the we're calling the first argument to the merge function, the left data frame and the second argument, the right data frame.
+
+194
+00:16:55,880 --> 00:17:03,880
+And this lines up with how people discuss the merges and see what about to see why that is.
+
+195
+00:17:03,880 --> 00:17:04,880
+Great.
+
+196
+00:17:04,880 --> 00:17:14,880
+So the argument we haven't discussed yet that you will typically, that you will find to be one of the most powerful arguments is the how argument.
+
+197
+00:17:14,880 --> 00:17:19,880
+And so there's four possible values for how you do your merging.
+
+198
+00:17:19,880 --> 00:17:29,880
+The first is a left merge and what a left merge does is it finds all of the values that are in your left data frame.
+
+199
+00:17:29,880 --> 00:17:37,880
+And it keeps those that you're merging on to and it keeps those as the inputs to the new data frame.
+
+200
+00:17:37,880 --> 00:17:44,880
+Right does the same and so it'll ignore any values that are in the right data frame that are not in the left data frame.
+
+201
+00:17:44,880 --> 00:17:54,880
+Right does the exact opposite where it keeps the values from the right data frame and ignores any in the left data frame that are not in the right data frame.
+
+202
+00:17:54,880 --> 00:18:07,880
+And there only thinks about values that are in both data frames and outer thinks about any of the values that can merge on in both in both the left and right data frame.
+
+203
+00:18:07,880 --> 00:18:10,880
+So let's see some some examples.
+
+204
+00:18:10,880 --> 00:18:15,880
+So what we're going to do is we're going to create two new data frames.
+
+205
+00:18:15,880 --> 00:18:23,880
+One is going to have is the going to be the WDI data and we're going to drop the United States and the others will be square miles data.
+
+206
+00:18:23,880 --> 00:18:26,880
+We'll drop Germany.
+
+207
+00:18:26,880 --> 00:18:36,880
+So let's walk through all of the possible options. So we can merge two data sets by going on the left.
+
+208
+00:18:36,880 --> 00:18:41,880
+So if we change this to the no US data set.
+
+209
+00:18:41,880 --> 00:18:46,880
+You'll notice that the United States disappears and that's because we'll see that again.
+
+210
+00:18:46,880 --> 00:18:54,880
+So when we do left it's going to find Canada, Germany, United Kingdom United States.
+
+211
+00:18:54,880 --> 00:19:00,880
+And it's going to find all of those same values inside of the square miles.
+
+212
+00:19:00,880 --> 00:19:09,880
+When we do the WDI, no US, it's not going to find the United States in this data set, but it will find it in this data set.
+
+213
+00:19:10,880 --> 00:19:19,880
+And it chooses to leave it out because it's not in the left data frame.
+
+214
+00:19:19,880 --> 00:19:25,880
+When we do this merge with the WDI and square miles, but we use right.
+
+215
+00:19:25,880 --> 00:19:33,880
+Notice Russia has been included because Russia was in the square miles data set, but not in the WDI data set.
+
+216
+00:19:33,880 --> 00:19:41,880
+So it's just going to put a missing anywhere that it doesn't have data for it.
+
+217
+00:19:41,880 --> 00:19:55,880
+When we do the inner join with the no US data, notice this one has, does not have the US or Russia.
+
+218
+00:19:55,880 --> 00:20:02,880
+And this one has both and it chooses to do to ignore both of them because they're not in both.
+
+219
+00:20:02,880 --> 00:20:11,880
+If we move back to the original WDI 2017, then the US will be in the WDI, but not in square miles.
+
+220
+00:20:11,880 --> 00:20:12,880
+So let's see this.
+
+221
+00:20:12,880 --> 00:20:19,880
+Oh, WDI 2017.
+
+222
+00:20:19,880 --> 00:20:30,880
+And square miles.
+
+223
+00:20:30,880 --> 00:20:36,880
+So what do we see here? They have Canada, Germany, United States, and United Kingdom.
+
+224
+00:20:36,880 --> 00:20:47,880
+This one has Russia, and so when we do enter, it's going to leave Russia out because it's not in both.
+
+225
+00:20:47,880 --> 00:20:54,880
+And finally, when we use the outer argument, it goes ahead and includes all five countries,
+
+226
+00:20:54,880 --> 00:21:07,880
+even though there's no square miles data for Germany, and there's no WDI data for either the US or Russia in the WDI 2017, no US.
+
+227
+00:21:07,880 --> 00:21:13,880
+Okay, so you should come back and we'll make sure to include this in your assignment.
+
+228
+00:21:13,880 --> 00:21:16,880
+But you should study these different how methods.
+
+229
+00:21:16,880 --> 00:21:21,880
+It's important to understand kind of what operation you're actually doing when you merge data.
+
+230
+00:21:21,880 --> 00:21:28,880
+And there's a lot of flexibility in what you can do because of these many arguments.
+
+231
+00:21:28,880 --> 00:21:39,880
+The final thing we'll say about this is just that rather than write pd.murge, you could just write a data frame dot merge and use the merge method rather than the function.
+
+232
+00:21:39,880 --> 00:21:43,880
+And it has all the same arguments.
+
+233
+00:21:43,880 --> 00:21:48,880
+It's an equivalent thing to do.
+
+234
+00:21:48,880 --> 00:21:53,880
+Okay, the last merge method we'll talk about is called join.
+
+235
+00:21:53,880 --> 00:22:02,880
+And it's very similar to the merge method, but what's going to happen is it only allows you to use the index of the right data frame as the join key.
+
+236
+00:22:02,880 --> 00:22:13,880
+So left dot join right on country is equivalent to calling pd.murge left right left on country right index equals true.
+
+237
+00:22:14,880 --> 00:22:22,880
+The actual implementation of join is going to call merge internally, but it just sets the left on and right index for you.
+
+238
+00:22:22,880 --> 00:22:32,880
+You can do anything with df.join that you can do with df.murge, but sometimes it's more convenient to use if the keys are in the right index.
+
+239
+00:22:32,880 --> 00:22:39,880
+And we can just do this here.
+
+240
+00:22:40,880 --> 00:22:49,880
+Okay, so what we're going to do now is we're actually going to do put all of the tools we've learned today into practice.
+
+241
+00:22:49,880 --> 00:22:56,880
+And we're going to do a case study using this book data that I described earlier.
+
+242
+00:22:56,880 --> 00:23:03,880
+So on your computers, this will probably take a minute to load the first time.
+
+243
+00:23:03,880 --> 00:23:14,880
+Because it's a relatively large data set. So if we look at ratings, it has approximately six million entries.
+
+244
+00:23:14,880 --> 00:23:24,880
+And inside of this rating data, there is a user ID that maps from that maps to different users.
+
+245
+00:23:24,880 --> 00:23:28,880
+There's a book ID that will map two different books.
+
+246
+00:23:28,880 --> 00:23:37,880
+And then what happens is when a user rates a particular book, they give it a rating on a scale of one to five, five being the best.
+
+247
+00:23:37,880 --> 00:23:44,880
+And so you know how a particular user rated a particular book.
+
+248
+00:23:44,880 --> 00:23:47,880
+So let's see what we can do with this.
+
+249
+00:23:47,880 --> 00:23:56,880
+So I think kind of the most obvious first thing to do is to just see how many of each rating there are in our data set.
+
+250
+00:23:56,880 --> 00:24:11,880
+So what we see is that there's approximately two million five star ratings, a little over two million four star, one and a half three star, half million two stars, and you know maybe a hundred thousand one star books.
+
+251
+00:24:11,880 --> 00:24:17,880
+So the data certainly seems a little bit skewed to higher ratings.
+
+252
+00:24:17,880 --> 00:24:24,880
+The next thing we could probably do is let's see how many users have rated N books.
+
+253
+00:24:24,880 --> 00:24:30,880
+So let's think about why how we're going to do this.
+
+254
+00:24:30,880 --> 00:24:39,880
+So we want to know how many of these different users have rated a certain number of books.
+
+255
+00:24:39,880 --> 00:24:47,880
+So if we count how many times a user ID shows up, that will give us, so let's go ahead and do that.
+
+256
+00:24:47,880 --> 00:24:57,880
+What that's going to do is that's going to say user.
+
+257
+00:24:57,880 --> 00:25:03,880
+Okay, so user 3094 has provided 200 ratings.
+
+258
+00:25:03,880 --> 00:25:18,880
+And so if we want to know how many people have provided 200 ratings, what we're going to do is actually apply value counts again.
+
+259
+00:25:18,880 --> 00:25:20,880
+So that's what we're doing down here.
+
+260
+00:25:20,880 --> 00:25:25,880
+So we're doing dot value counts to figure out how many ratings each user has done.
+
+261
+00:25:25,880 --> 00:25:33,880
+And then we're going to do dot value counts again, which is going to show us how many users provided a certain number of ratings.
+
+262
+00:25:33,880 --> 00:25:41,880
+Then we're going to sort our index, because remember our index are going to be these numbers potentially from one to 200.
+
+263
+00:25:41,880 --> 00:25:44,880
+Or going to move them out of the index.
+
+264
+00:25:44,880 --> 00:25:48,880
+And then we're going to rename them to N ratings and users.
+
+265
+00:25:48,880 --> 00:25:51,880
+And let's see what that gives us.
+
+266
+00:25:51,880 --> 00:26:05,880
+So what we see here is one user has provided 19 ratings when user has provided 20 ratings dot dot dot dot.
+
+267
+00:26:05,880 --> 00:26:09,880
+So let's look at some statistics on this data we've created.
+
+268
+00:26:09,880 --> 00:26:17,880
+So we can use the dot describe method, and it will show us that there were 181 separate users in our data set.
+
+269
+00:26:17,880 --> 00:26:21,880
+The mean number of ratings that were given was 100.
+
+270
+00:26:21,880 --> 00:26:24,880
+So it seems people are relatively active.
+
+271
+00:26:24,880 --> 00:26:30,880
+The minimum number of ratings given was 19.
+
+272
+00:26:30,880 --> 00:26:35,880
+And the median number of ratings was also about 109.
+
+273
+00:26:35,880 --> 00:26:45,880
+And the max ratings was 200 of which almost a thousand users gave 200 book ratings.
+
+274
+00:26:45,880 --> 00:26:49,880
+And we can just describe this in our in a box plot.
+
+275
+00:26:49,880 --> 00:26:56,880
+So this is the same information we just saw, but now in a graph.
+
+276
+00:26:56,880 --> 00:27:00,880
+So let's practice using the Want operator.
+
+277
+00:27:00,880 --> 00:27:05,880
+So let's determine whether there's a relationship between the number of ratings a user has written.
+
+278
+00:27:05,880 --> 00:27:07,880
+And the distribution of ratings.
+
+279
+00:27:07,880 --> 00:27:12,880
+One reason you might do this is if you're an author and you're trying to inflate your ratings.
+
+280
+00:27:12,880 --> 00:27:15,880
+And you wonder whether you should try and get more experience.
+
+281
+00:27:15,880 --> 00:27:21,880
+Could we use this to rate your book or focus on getting first time users to rate your book.
+
+282
+00:27:21,880 --> 00:27:25,880
+This is going to be kind of a funny I like the answer here.
+
+283
+00:27:25,880 --> 00:27:32,880
+So let's apply the Want operator, which means we're going to start at a result and work our way backwards.
+
+284
+00:27:32,880 --> 00:27:36,880
+So we can answer a question if we have two data frames.
+
+285
+00:27:36,880 --> 00:27:46,880
+First we have all ratings by the top end users with the most ratings and all ratings by the end users with the least number of ratings.
+
+286
+00:27:46,880 --> 00:27:50,880
+Okay, so how are we going to get that?
+
+287
+00:27:50,880 --> 00:27:57,880
+So we need to extract the rows of ratings with user ID associated with the end most and least prolific readers.
+
+288
+00:27:57,880 --> 00:28:03,880
+So to get that we need to find the most and least active user IDs.
+
+289
+00:28:03,880 --> 00:28:12,880
+And so to get that information we can just do what we did a few minutes ago where we count how many times that user shows up in the data set.
+
+290
+00:28:12,880 --> 00:28:17,880
+So we have four steps and the first one is kind of trivia.
+
+291
+00:28:17,880 --> 00:28:22,880
+So each step is trivial, which is to means we've kind of applied the Want operator correctly.
+
+292
+00:28:22,880 --> 00:28:25,880
+And let's start going backwards.
+
+293
+00:28:26,880 --> 00:28:34,880
+So end ratings if we just value count we now know user 3944 has provided 200 ratings.
+
+294
+00:28:34,880 --> 00:28:39,880
+52036 has a private at a hundred and ninety nine ratings, et cetera.
+
+295
+00:28:39,880 --> 00:28:41,880
+Excellent.
+
+296
+00:28:42,880 --> 00:28:47,880
+So now we need the end largest and in smallest.
+
+297
+00:28:47,880 --> 00:28:50,880
+So let's go ahead and change this to end.
+
+298
+00:28:50,880 --> 00:28:59,880
+So we're going to look at this series we've created in ratings and the method in largest selects the end largest values.
+
+299
+00:28:59,880 --> 00:29:07,880
+And we want the indexes associated with that because there is a user IDs and we're going to move it into a list.
+
+300
+00:29:07,880 --> 00:29:10,880
+And let's go ahead and print one of these lists so we know it.
+
+301
+00:29:10,880 --> 00:29:13,880
+So we can look at what it looks like.
+
+302
+00:29:13,880 --> 00:29:14,880
+Excellent.
+
+303
+00:29:14,880 --> 00:29:20,880
+So now we have these 25 users.
+
+304
+00:29:20,880 --> 00:29:21,880
+Okay.
+
+305
+00:29:21,880 --> 00:29:28,880
+So now let's see what ratings were given by these particular users.
+
+306
+00:29:28,880 --> 00:29:34,880
+So we're going to find we're going back to our original data set, the ratings.
+
+307
+00:29:34,880 --> 00:29:39,880
+So we're going to figure out when these radars are end.
+
+308
+00:29:39,880 --> 00:29:45,880
+So when the user ID is in this list of the most prolific users, the most frequent users of the data set.
+
+309
+00:29:45,880 --> 00:29:54,880
+And we're going to keep all of the columns and then we're going to also do the same thing for the less common users.
+
+310
+00:29:54,880 --> 00:30:00,880
+And maybe we want to look at activating stuff ahead.
+
+311
+00:30:00,880 --> 00:30:01,880
+Okay.
+
+312
+00:30:01,880 --> 00:30:08,880
+So now we have a new data set that's going to give us a user ID, a book ID and a rating.
+
+313
+00:30:08,880 --> 00:30:15,880
+But it's only going to include user IDs for the most active or least active users.
+
+314
+00:30:15,880 --> 00:30:16,880
+Okay.
+
+315
+00:30:16,880 --> 00:30:18,880
+Now we can get to our answers.
+
+316
+00:30:18,880 --> 00:30:25,880
+So what we're going to do is we're going to plot the distribution of the most active users.
+
+317
+00:30:25,880 --> 00:30:29,880
+And plot the distribution of ratings for the least active users.
+
+318
+00:30:30,880 --> 00:30:39,880
+And so what do we see? We see that more active users have a median probably in the mean of like three and a half to four.
+
+319
+00:30:39,880 --> 00:30:44,880
+Whereas I think the mean of the active users is closer to four.
+
+320
+00:30:44,880 --> 00:30:48,880
+And I guess we could actually tell ourselves what this what that is.
+
+321
+00:30:48,880 --> 00:30:55,880
+So inactive ratings rating.
+
+322
+00:31:00,880 --> 00:31:08,880
+Oh, that's interesting.
+
+323
+00:31:08,880 --> 00:31:12,880
+I was wrong.
+
+324
+00:31:12,880 --> 00:31:15,880
+So you get a higher mean from active users.
+
+325
+00:31:15,880 --> 00:31:17,880
+So this is fun. This is a learning experience.
+
+326
+00:31:17,880 --> 00:31:19,880
+This is why you do things like this.
+
+327
+00:31:19,880 --> 00:31:23,880
+So you get a higher mean from the active users.
+
+328
+00:31:23,880 --> 00:31:28,880
+That happens to the median.
+
+329
+00:31:29,880 --> 00:31:39,880
+Okay, if I have the same median.
+
+330
+00:31:39,880 --> 00:31:49,880
+Interesting.
+
+331
+00:31:49,880 --> 00:31:54,880
+Okay. So you get a higher average rating for more active users.
+
+332
+00:31:54,880 --> 00:32:03,880
+And the reason is that they assign a very small fraction of their ratings to be one and two.
+
+333
+00:32:03,880 --> 00:32:08,880
+You get a lower standard deviation because they're focusing on these three four and five ratings.
+
+334
+00:32:08,880 --> 00:32:13,880
+For inactive users, you get a higher fraction of five.
+
+335
+00:32:13,880 --> 00:32:16,880
+You get the same median, which is four.
+
+336
+00:32:16,880 --> 00:32:20,880
+But you have a higher standard deviation.
+
+337
+00:32:20,880 --> 00:32:25,880
+So I guess your strategy probably depends on what you think.
+
+338
+00:32:25,880 --> 00:32:31,880
+If you think you're a relatively strong book, then an active user might still rate you as a four.
+
+339
+00:32:31,880 --> 00:32:36,880
+But maybe you have a better chance of getting a five if you appeal to the exact of users.
+
+340
+00:32:36,880 --> 00:32:39,880
+So this isn't the answer I thought we had.
+
+341
+00:32:39,880 --> 00:32:43,880
+So new users are more likely to leave five star ratings.
+
+342
+00:32:43,880 --> 00:32:48,880
+But your average rating is actually higher if you go through the active users.
+
+343
+00:32:49,880 --> 00:32:52,880
+So we learned something that I didn't know.
+
+344
+00:32:52,880 --> 00:32:56,880
+Okay. So we've kind of started learning a little bit about this data set.
+
+345
+00:32:56,880 --> 00:33:00,880
+And you're probably thinking, wasn't this supposed to be emerging?
+
+346
+00:33:00,880 --> 00:33:02,880
+Why are we only using one data set?
+
+347
+00:33:02,880 --> 00:33:04,880
+I heard you.
+
+348
+00:33:04,880 --> 00:33:10,880
+Okay. So what we're going to do is we're going to load up another data set that contains information on books.
+
+349
+00:33:10,880 --> 00:33:13,880
+So we're only going to keep a couple of columns.
+
+350
+00:33:13,880 --> 00:33:17,880
+So we're going to look at the book ID, which you might suspect is because we're going to merge and you'd be right.
+
+351
+00:33:17,880 --> 00:33:21,880
+We're going to look at the authors and we're going to look at the title.
+
+352
+00:33:21,880 --> 00:33:25,880
+So again, this will probably take a minute to run.
+
+353
+00:33:25,880 --> 00:33:31,880
+So now we have a book ID and author and the book title.
+
+354
+00:33:31,880 --> 00:33:39,880
+And so if we want to do interesting things with the book status set, we could.
+
+355
+00:33:39,880 --> 00:33:43,880
+But what we're going to do is we're simply going to merge these two data sets together.
+
+356
+00:33:43,880 --> 00:33:47,880
+So we look at rated books.
+
+357
+00:33:47,880 --> 00:33:49,880
+ahead.
+
+358
+00:33:49,880 --> 00:33:55,880
+And now we have the user ID, the book ID, the rating.
+
+359
+00:33:55,880 --> 00:33:59,880
+I noticed it's given us the author and the title.
+
+360
+00:33:59,880 --> 00:34:05,880
+And we did not pass on, but we could choose to do on book ID.
+
+361
+00:34:05,880 --> 00:34:11,880
+And we might actually want to do left that we're not loading up a bunch of random books.
+
+362
+00:34:11,880 --> 00:34:13,880
+Okay.
+
+363
+00:34:13,880 --> 00:34:17,880
+So let's start ahead.
+
+364
+00:34:17,880 --> 00:34:21,880
+I guess let's see how the.
+
+365
+00:34:21,880 --> 00:34:25,880
+So if we do left, we get about six million, which is what we should.
+
+366
+00:34:25,880 --> 00:34:27,880
+What happens if we do enter.
+
+367
+00:34:27,880 --> 00:34:29,880
+Into the outer.
+
+368
+00:34:29,880 --> 00:34:31,880
+Okay.
+
+369
+00:34:31,880 --> 00:34:37,880
+It looks like the book status set is.
+
+370
+00:34:37,880 --> 00:34:41,880
+It's contains all of the books that are in ratings.
+
+371
+00:34:41,880 --> 00:34:45,880
+So none of the methods are going to make a difference.
+
+372
+00:34:45,880 --> 00:34:49,880
+Okay. So let's see.
+
+373
+00:34:49,880 --> 00:34:53,880
+So now we could have done this before where we counted which books were the most often rated.
+
+374
+00:34:53,880 --> 00:34:57,880
+But we would have only known what book ID was most rated.
+
+375
+00:34:57,880 --> 00:35:00,880
+Now we can actually look at which titles were the most rated.
+
+376
+00:35:00,880 --> 00:35:03,880
+So we take our rated books.
+
+377
+00:35:03,880 --> 00:35:05,880
+Book ID.value counts.
+
+378
+00:35:05,880 --> 00:35:09,880
+So we're going to tell us how many times a particular book was rated.
+
+379
+00:35:09,880 --> 00:35:11,880
+And now let's look at the 10 largest.
+
+380
+00:35:11,880 --> 00:35:17,880
+And we're going to grab the index, which is going to be the corresponding book IDs.
+
+381
+00:35:17,880 --> 00:35:23,880
+We're then going to look at the rated books from the most rated IDs.
+
+382
+00:35:23,880 --> 00:35:29,880
+And let's go ahead and look at what these titles are.
+
+383
+00:35:29,880 --> 00:35:31,880
+So these are all books that are.
+
+384
+00:35:31,880 --> 00:35:33,880
+So good reads is mostly US based.
+
+385
+00:35:33,880 --> 00:35:35,880
+I don't know whether they call it a social media site.
+
+386
+00:35:35,880 --> 00:35:37,880
+It's a book rating site.
+
+387
+00:35:37,880 --> 00:35:43,880
+And so you might not be surprised that the Harry Potter books are some of the most read.
+
+388
+00:35:43,880 --> 00:35:47,880
+And most rated at the Hunger Games and Twilight.
+
+389
+00:35:47,880 --> 00:35:53,880
+I'm kind of so to kill a mockingbird was actually one of my father's favorite books.
+
+390
+00:35:53,880 --> 00:35:57,880
+And so I'm pleased to see that it made the cut of one of the most rated books.
+
+391
+00:35:57,880 --> 00:35:59,880
+It's actually a really nice book.
+
+392
+00:35:59,880 --> 00:36:05,880
+So these are the most rated books on in our good reads data set.
+
+393
+00:36:05,880 --> 00:36:13,880
+So now we could use our knowledge of pivot table that we learned about previously to get an average rating for each of these books.
+
+394
+00:36:13,880 --> 00:36:21,880
+So the average rating, let's go ahead and look to sort it by the rating.
+
+395
+00:36:21,880 --> 00:36:27,880
+So the highest rated books were Harry Potter and the Prisoner of Ascabam.
+
+396
+00:36:27,880 --> 00:36:29,880
+And the sorcerers stone.
+
+397
+00:36:29,880 --> 00:36:32,880
+Then to kill a mockingbird again, I'm pleased about this.
+
+398
+00:36:32,880 --> 00:36:35,880
+And then kind of Hunger Games Harry Potter.
+
+399
+00:36:35,880 --> 00:36:39,880
+Twilight comes in last which is kind of funny.
+
+400
+00:36:39,880 --> 00:36:45,880
+I suspect this is a function of who the audience of Twilight's readers is.
+
+401
+00:36:45,880 --> 00:36:49,880
+They may not be the people who are most involved on good reads.
+
+402
+00:36:49,880 --> 00:36:50,880
+I could be wrong.
+
+403
+00:36:50,880 --> 00:36:51,880
+I don't know.
+
+404
+00:36:51,880 --> 00:36:56,880
+I don't know enough about kind of the literary world to comment intelligently on all of these insights.
+
+405
+00:36:57,880 --> 00:37:00,880
+Which brings us to a slightly different point.
+
+406
+00:37:00,880 --> 00:37:04,880
+When you're analyzing data, there's actually a lot of value in domain knowledge.
+
+407
+00:37:04,880 --> 00:37:12,880
+So you'll see a lot in the world that data scientists or sometimes statisticians or even economists.
+
+408
+00:37:12,880 --> 00:37:16,880
+They'll wander into a topic that they don't know very much about.
+
+409
+00:37:16,880 --> 00:37:19,880
+And they'll make some rather broad and strong claims.
+
+410
+00:37:19,880 --> 00:37:22,880
+And someone with domain expertise will say kind of,
+
+411
+00:37:22,880 --> 00:37:25,880
+well, what you're saying isn't true.
+
+412
+00:37:25,880 --> 00:37:27,880
+This is actually a short coming of the data.
+
+413
+00:37:27,880 --> 00:37:31,880
+And this is why what you're saying is kind of a,
+
+414
+00:37:31,880 --> 00:37:33,880
+this kind of weaker kind of wrong.
+
+415
+00:37:33,880 --> 00:37:41,880
+And so there's a lot of value in your working on business problems of teaming up with someone who has a lot of domain expertise.
+
+416
+00:37:41,880 --> 00:37:44,880
+Interesting, you know, if you have a client,
+
+417
+00:37:44,880 --> 00:37:48,880
+trusting that your client knows more about what they're doing than you do.
+
+418
+00:37:48,880 --> 00:37:56,880
+And then tying their knowledge into your kind of statistical and economic insights.
+
+419
+00:37:56,880 --> 00:37:59,880
+And really mixing these two things is the best.
+
+420
+00:37:59,880 --> 00:38:03,880
+But okay, getting off my soapbox now.
+
+421
+00:38:03,880 --> 00:38:12,880
+So we could compute the average number of ratings for each book in our sample.
+
+422
+00:38:12,880 --> 00:38:13,880
+Sorry, yeah.
+
+423
+00:38:13,880 --> 00:38:17,880
+So this is rated books, pivot table ratings.
+
+424
+00:38:17,880 --> 00:38:18,880
+I see.
+
+425
+00:38:18,880 --> 00:38:25,880
+So what we've done is we've computed the average rating in that average number of ratings.
+
+426
+00:38:25,880 --> 00:38:31,880
+And so the best, one of the most highly rated books is Calvin and Hobbes,
+
+427
+00:38:31,880 --> 00:38:32,880
+which is a comic.
+
+428
+00:38:32,880 --> 00:38:33,880
+It's quite good.
+
+429
+00:38:33,880 --> 00:38:36,880
+And it shows up lots of times actually.
+
+430
+00:38:36,880 --> 00:38:45,880
+So there's one, two, three, four, five Calvin and Hobbes in the top ten.
+
+431
+00:38:45,880 --> 00:38:50,880
+And so what is the overall distribution of ratings look like?
+
+432
+00:38:50,880 --> 00:38:54,880
+We plot the kernel density using our data frame method.
+
+433
+00:38:54,880 --> 00:38:57,880
+And then we also plot the histogram.
+
+434
+00:38:57,880 --> 00:38:59,880
+And it tells roughly the same thing.
+
+435
+00:38:59,880 --> 00:39:05,880
+Looks like the majority of books are rated just below four.
+
+436
+00:39:05,880 --> 00:39:06,880
+Okay.
+
+437
+00:39:06,880 --> 00:39:09,880
+So that's going to end our case study for now.
+
+438
+00:39:09,880 --> 00:39:16,880
+If we really wanted to kind of do a deep dive and learn some really deep insights about the literary business world,
+
+439
+00:39:16,880 --> 00:39:20,880
+we would have needed to bring someone in that knows that world.
+
+440
+00:39:20,880 --> 00:39:27,880
+So this was just kind of fun and a chance to show off some of the methods that we've learned.
+
+441
+00:39:27,880 --> 00:39:31,880
+And the final thing we just wanted to do was we've put together.
+
+442
+00:39:31,880 --> 00:39:41,880
+And by we, I mean the Royal Wii and the synths Spencer has put together some more beautiful gifts about how these different merge methods work.
+
+443
+00:39:41,880 --> 00:39:53,880
+So we create a toy dataset, the F left and the F right.
+
+444
+00:39:53,880 --> 00:39:56,880
+And we just look at how these work.
+
+445
+00:39:56,880 --> 00:39:59,880
+So notice our concat with access equals zero.
+
+446
+00:39:59,880 --> 00:40:04,880
+It's just going to stack these on top of each other.
+
+447
+00:40:04,880 --> 00:40:11,880
+So you're taking these values and you're just going to put them into the C3 column.
+
+448
+00:40:11,880 --> 00:40:17,880
+The key is going to get matched because it's the same in both datasets.
+
+449
+00:40:17,880 --> 00:40:20,880
+And then these two will just come straight over.
+
+450
+00:40:20,880 --> 00:40:24,880
+But then you have missing data here because there's no C3 column.
+
+451
+00:40:24,880 --> 00:40:27,880
+And you have missing data here because in the other data frame,
+
+452
+00:40:27,880 --> 00:40:34,880
+there's no C1 or C2.
+
+453
+00:40:34,880 --> 00:40:39,880
+For access equals one, notice it's doing something similar.
+
+454
+00:40:39,880 --> 00:40:45,880
+But in this case, there's no, there's actually no overlap.
+
+455
+00:40:45,880 --> 00:40:55,880
+So because the index on the first data frame and the index on the second data frame are completely separate.
+
+456
+00:40:55,880 --> 00:40:59,880
+So it's just copying over a bunch of data.
+
+457
+00:40:59,880 --> 00:41:08,880
+This would not be the merge method you wanted for the dataset we're using.
+
+458
+00:41:08,880 --> 00:41:10,880
+So now we have our merge.
+
+459
+00:41:10,880 --> 00:41:13,880
+So, and this is going to be by default.
+
+460
+00:41:13,880 --> 00:41:15,880
+Remember left.
+
+461
+00:41:15,880 --> 00:41:22,880
+And so what it does is it basically copies all of this data first because we're only going to keep these values.
+
+462
+00:41:22,880 --> 00:41:24,880
+And we're merging on key.
+
+463
+00:41:24,880 --> 00:41:27,880
+And so it's going to say key equals A.
+
+464
+00:41:27,880 --> 00:41:30,880
+So let's put 100 there and there.
+
+465
+00:41:30,880 --> 00:41:32,880
+Key equals B.
+
+466
+00:41:32,880 --> 00:41:35,880
+Let's put a 200 and the key equals B.
+
+467
+00:41:35,880 --> 00:41:39,880
+And then there's not going to be a D.
+
+468
+00:41:39,880 --> 00:41:40,880
+There is a C.
+
+469
+00:41:40,880 --> 00:41:42,880
+So let's put the C in the right spot.
+
+470
+00:41:42,880 --> 00:41:43,880
+But there's no D.
+
+471
+00:41:43,880 --> 00:41:49,880
+So it's not going to show up.
+
+472
+00:41:49,880 --> 00:41:52,880
+We could do the same thing for the right.
+
+473
+00:41:52,880 --> 00:41:57,880
+But now notice what it's done is first it copies this data frame over.
+
+474
+00:41:57,880 --> 00:42:00,880
+And now it looks for A.
+
+475
+00:42:00,880 --> 00:42:02,880
+It finds two of them.
+
+476
+00:42:02,880 --> 00:42:05,880
+So it duplicates this particular row.
+
+477
+00:42:05,880 --> 00:42:09,880
+And then fills in with 1 and 10.
+
+478
+00:42:09,880 --> 00:42:13,880
+And 3 and 30.
+
+479
+00:42:13,880 --> 00:42:16,880
+Then it finds the B.
+
+480
+00:42:16,880 --> 00:42:19,880
+And it goes and it looks up what the B was here.
+
+481
+00:42:19,880 --> 00:42:22,880
+And it sees 2 and 20.
+
+482
+00:42:22,880 --> 00:42:25,880
+Then it looks at the C and C is 4 and 40.
+
+483
+00:42:25,880 --> 00:42:27,880
+And there's no values for D.
+
+484
+00:42:27,880 --> 00:42:31,880
+So it simply keeps them as missing.
+
+485
+00:42:36,880 --> 00:42:40,880
+And that's all we have for our merging lecture.
+
+486
+00:42:40,880 --> 00:42:43,880
+So we'll give you your assignment.
+
+487
+00:42:43,880 --> 00:42:47,880
+And please feel free to reach out and ask us if you have any questions.
+
+488
+00:42:47,880 --> 00:42:48,880
+Bye-bye.
+

@@ -1,0 +1,606 @@
+Chunk 1:
+<hr />
+<p>jupytext:
+  formats: ipynb,md:myst
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.15.0
+kernelspec:
+  display_name: Python 3 (css)
+  language: python
+  name: css</p>
+<hr />
+<p>+++ {"slideshow": {"slide_type": "slide"}}</p>
+<h1>The Index</h1>
+<p><strong>Prerequisites</strong></p>
+<ul>
+<li><a href="../p01_pandas_intro/v01_pandas_intro.ipynb">Introduction to pandas</a>  </li>
+</ul>
+<p><strong>Outcomes</strong></p>
+<ul>
+<li>Understand how the index is used to align data  </li>
+<li>Know how to set and reset the index  </li>
+<li>Understand how to select subsets of data by slicing on index and columns  </li>
+<li>Understand that for DataFrames, the column names also align data</li>
+</ul>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<h2>Outline</h2>
+<ul>
+<li><a href="#The-Index">The Index</a>  </li>
+<li><a href="#So-What-is-this-Index?">So What is this Index?</a>  </li>
+<li><a href="#Setting-the-Index">Setting the Index</a>  </li>
+<li><a href="#Re-setting-the-Index">Re-setting the Index</a>  </li>
+<li><a href="#Choose-the-Index-Carefully">Choose the Index Carefully</a></li>
+</ul>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>import pandas as pd
+import numpy as np
+```</p>
+<p>+++ {"slideshow": {"slide_type": "slide"}}</p>
+<h2>So What is this Index?</h2>
+<p>Every Series and DataFrame has an index</p>
+<p>We told you that the index was the “row labels” for the data</p>
+<p>This is true, but an index in pandas does much more than label the rows</p>
+<p>The purpose of this lecture is to understand the importance of the index</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>The <a href="https://pandas.pydata.org/pandas-docs/stable/dsintro.html">pandas
+documentation</a>
+says</p>
+<blockquote>
+<p>Data alignment is intrinsic. The link between labels and data will
+not be broken unless done so explicitly by you.</p>
+</blockquote>
+<p>In practice, the index and column names are used to make sure the data is
+properly aligned when operating on multiple DataFrames</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>This is a somewhat abstract concept that is best understood by
+example…</p>
+<p>Let’s begin by loading some data on GDP components that we collected from
+the World Bank’s World Development Indicators Dataset</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>url = "https://datascience.quantecon.org/assets/data/wdi_data.csv"
+df = pd.read_csv(url)
+df.info()</p>
+<h1>Note data is in trillions USD</h1>
+<p>df.head()
+```</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>We’ll also extract a couple smaller DataFrames we can use in examples</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>df_small = df.head(5)
+df_small
+```</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>df_tiny = df.iloc[[0, 3, 2, 4], :]
+df_tiny
+```</p>
+<h2>```{code-cell} ipython3</h2>
+<p>hide-output: false
+slideshow:
+  slide_type: subslide</p>
+<hr />
+<p>im_ex = df_small[["Imports", "Exports"]]
+im_ex_copy = im_ex.copy()
+im_ex_copy
+```</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>Observe what happens when we evaluate <code>im_ex + im_ex_copy</code></p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>im_ex + im_ex_copy
+```</p>
+<p>Notice that this operated <em>elementwise</em>, meaning that the <code>+</code>
+operation was applied to each element of <code>im_ex</code> and the corresponding
+element of <code>im_ex_copy</code></p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>Let’s take a closer look at <code>df_tiny</code>:</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>df_tiny
+```</p>
+<p>+++ {"slideshow": {"slide_type": "fragment"}}</p>
+<p>Relative to <code>im_ex</code> notice a few things:</p>
+<ul>
+<li>The row labeled <code>1</code> appears in <code>im_ex</code> but not <code>df_tiny</code> </li>
+<li>Some row labels appear in both, but they are not always in the same position
+  within each DataFrame</li>
+<li>Certain columns appear only in <code>df_tiny</code></li>
+<li>The <code>Imports</code> and <code>Exports</code> columns are the 6th and 5th columns of
+  <code>df_tiny</code> and the 1st and 2nd of <code>im_ex</code>, respectively</li>
+</ul>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>Now, let’s see what happens when we try <code>df_tiny + im_ex</code></p>
+<h2>```{code-cell} ipython3</h2>
+<p>hide-output: false
+slideshow:
+  slide_type: '-'</p>
+<hr />
+<p>im_ex_tiny = df_tiny + im_ex
+im_ex_tiny
+```</p>
+<p>+++ {"slideshow": {"slide_type": "fragment"}}</p>
+<p>Whoa, a lot happened! Let’s break it down piece by piece!</p>
+<p>+++ {"slideshow": {"slide_type": "slide"}}</p>
+<h3>Automatic Alignment</h3>
+<p>For all (row, column) combinations that appear in both DataFrames (e.g.
+rows <code>[1, 3]</code> and columns <code>[Imports, Exports]</code>), the value of <code>im_ex_tiny</code>
+is equal to <code>df_tiny.loc[row, col] + im_ex.loc[row, col]</code></p>
+<p>This happened even though the rows and columns were not in the same
+order</p>
+<p>We refer to this as pandas <em>aligning</em> the data for us</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>To see how awesome this is, think about how to do something similar in
+Excel:</p>
+<ul>
+<li><code>df_tiny</code> and <code>im_ex</code> would be in different sheets</li>
+<li>The index and column names would be the first column and row in each
+  sheet</li>
+<li>We would have a third sheet to hold the sum</li>
+<li>For each label in the first row and column of <em>either</em> the <code>df_tiny</code>
+  sheet or the <code>im_ex</code> sheet we would have to do a <code>IFELSE</code> to check
+  if the label exists in the other sheet and then a <code>VLOOKUP</code> to
+  extract the value</li>
+</ul>
+<p>+++ {"slideshow": {"slide_type": "fragment"}}</p>
+<p>In pandas, this happens automatically, behind the scenes, and <em>very
+quickly</em></p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<h3>Handling Missing Data</h3>
+<h2>```{code-cell} ipython3</h2>
+<p>hide-output: false
+slideshow:
+  slide_type: '-'</p>
+<hr />
+<p>im_ex_tiny = df_tiny + im_ex
+im_ex_tiny
+```</p>
+<p>+++ {"slideshow": {"slide_type": "-"}}</p>
+<p>For all elements in row <code>1</code> or columns
+<code>["country", "year", "GovExpend", "Consumption", "GDP"]</code>,
+the value in <code>im_ex_tiny</code> is <code>NaN</code></p>
+<p>This is how pandas represents <em>missing data</em></p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>When pandas was trying to look up the values in <code>df_tiny</code> and <code>im_ex</code>, it could
+only find a value in one DataFrame: the other value was missing</p>
+<p>When pandas tries to add a number to something that is missing, it says
+that the result is missing (spelled <code>NaN</code>)</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p><a id='exercise-0'></a>
+<strong>Exercise 1</strong></p>
+<p>What happens when you apply the <code>mean</code> method to <code>im_ex_tiny</code>?</p>
+<p>In particular, what happens to columns that have missing data? (HINT:
+also looking at the output of the <code>sum</code> method might help)</p>
+<p>+++ {"slideshow": {"slide_type": "slide"}}</p>
+<h2>Setting the Index</h2>
+<p>For a DataFrame <code>df</code>, the <code>df.set_index</code> method allows us to use one
+(or more) of the DataFrame’s columns as the index.</p>
+<p>Here’s an example.</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>df_year = df.set_index(["year"])
+df_year.head()
+```</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>Now that the year is on the index, we can use <code>.loc</code> to extract all the
+data for a specific year.</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>df_year.loc[2010]
+```</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>This would be helpful, for example, if we wanted to compute the difference
+in the average of all our variables from one year to the next:</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>df_year.loc[2009].mean() - df_year.loc[2008].mean()
+```</p>
+<p>+++ {"slideshow": {"slide_type": "fragment"}}</p>
+<p>Notice that pandas did a few things for us.</p>
+<ul>
+<li>After computing <code>.mean()</code>, the index was set to the former column names</li>
+<li>These column names were used to align data when we wanted asked pandas to
+  compute the difference</li>
+</ul>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>Suppose that someone asked you, “What was the GDP in the US in 2010?”</p>
+<p>To compute that statistic using <code>df_year</code> you might do something like this:</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>df_year.loc[df_year["country"] == "United States", "GDP"].loc[2010]
+```</p>
+<p>That was a lot of work!</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>Now, suppose that after seeing you extract that data, your friend asks you
+“What about GDP in Germany and the UK in 2010?”</p>
+<p>To answer that question, you might write</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>df_year.loc[df_year["country"].isin(["United Kingdom", "Germany"]), "GDP"].loc[2010]
+```</p>
+<p>Notice that this code is similar to the code above, but now provides a result
+that is ambiguous</p>
+<p>The two elements in the series both have with label 2010</p>
+<p>How do we know which is which?</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>We might think that the first value corresponds to the United Kingdom because
+that is what we listed first in the call to <code>isin</code>, but we would be wrong!</p>
+<p>Let’s check.</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>df_year.loc[2010]
+```</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>Setting just the year as the index has one more potential issue: we will
+get data alignment only on the year, which may not be sufficient</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>To demonstrate this point, suppose now you are asked to use our WDI dataset
+to compute an approximation for net exports and investment in in 2009</p>
+<p>+++ {"slideshow": {"slide_type": "fragment"}}</p>
+<p>As a seasoned economist, you would remember the expenditure formula for GDP is
+written</p>
+<p>$$
+\text{GDP} = \text{Consumption} + \text{Investment} + \text{GovExpend} + \text{Net Exports}
+$$</p>
+<p>which we can rearrange to compute investment as a function of the variables in
+our DataFrame…</p>
+<p>$$
+\text{Investment} = \text{GDP} - \text{Consumption} - \text{GovExpend} - \text{Net Exports}
+$$</p>
+<p>Note that we can compute NetExports as <code>Exports - Imports</code></p>
+<h2>```{code-cell} ipython3</h2>
+<p>hide-output: false
+slideshow:
+  slide_type: subslide</p>
+<hr />
+<p>nx = df_year["Exports"] - df_year["Imports"]
+nx.head(19)
+```</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>Now, suppose that we accidentally had a bug in our code that swapped
+the data for Canada and Germany’s net exports in 2017.</p>
+<blockquote>
+<p><strong>Note</strong></p>
+<p>This example is contrived, but if you were getting unclean data from
+some resource or doing more complicated operations, this type of mistake
+becomes increasingly likely.</p>
+</blockquote>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<h1>do the swapping</h1>
+<p>ca17 = nx.iloc[[0]]
+g17 = nx.iloc[[18]]
+nx.iloc[[0]] = g17
+nx.iloc[[18]] = ca17</p>
+<p>nx.head(19)
+```</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>Notice that if we now add <code>nx</code> to the DataFrame and compute investment
+pandas doesn’t complain.</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>df_year["NetExports"] = nx
+df_year["Investment"] = df_year.eval("GDP - Consumption - GovExpend - NetExports")
+df_year.loc[2017, :]
+```</p>
+<p>+++ {"slideshow": {"slide_type": "fragment"}}</p>
+<p>But, because we didn’t also have data alignment on the country, we would have overstated Canada’s investment by 281 billion USD and understated Germany’s by the
+same amount.</p>
+<p>To make these types operation easier, we need to include both the year
+and country in the index…</p>
+<p>+++ {"slideshow": {"slide_type": "slide"}}</p>
+<h3>Setting a Hierarchical Index</h3>
+<p>Including multiple columns in the index is advantageous in some situations</p>
+<p>These situations might include:</p>
+<ul>
+<li>When we need more than one piece of information (column) to identify an
+  observation (as in the Germany and UK GDP example above)</li>
+<li>When we need data-alignment by more than one column</li>
+</ul>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>To set multiple columns as the index, we pass a list of column
+names to <code>set_index</code></p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>wdi = df.set_index(["country", "year"])
+wdi.head(20)
+```</p>
+<p>Notice that in the display above, the row labels seem to have two
+<em>levels</em> now.</p>
+<p>The <em>outer</em> (or left-most) level is named <code>country</code> and the <em>inner</em> (or
+right-most) level is named <code>year</code>.</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>When a DataFrame’s index has multiple levels, we (and the pandas documentation)
+refer to the DataFrame as having a <strong>hierarchical index</strong></p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<h3>Slicing a Hierarchical Index</h3>
+<p>Now, we can answer our friend’s questions in a much more straightforward way</p>
+<h2>```{code-cell} ipython3</h2>
+<p>hide-output: false
+slideshow:
+  slide_type: fragment</p>
+<hr />
+<p>wdi.loc[("United States", 2010), "GDP"]
+```</p>
+<h2>```{code-cell} ipython3</h2>
+<p>hide-output: false
+slideshow:
+  slide_type: fragment</p>
+<hr />
+<p>wdi.loc[(["United Kingdom", "Germany"], 2010), "GDP"]
+```</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>As shown above, we can use <code>wdi.loc</code> to extract different slices of our
+national accounts data</p>
+<p>The rules for using <code>.loc</code> with a hierarchically-indexed DataFrame are
+similar to the ones we’ve learned for standard DataFrames, but they are a bit
+more elaborate as we now have more structure to our data</p>
+<p>We will summarize the main rules, and then work through an exercise that
+demonstrates each of them</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p><strong>Slicing rules</strong></p>
+<p>When slicing data, using <code>list</code>s and <code>tuple</code>s lead to different results</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>A <code>tuple</code> in row slicing will be used to denote a single hierarchical
+index and must include a value for each level </p>
+<p><strong>Example</strong>: <code>("United States", 2010)</code> in <code>wdi.loc[("United States", 2010), "GDP"]</code></p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p><code>list</code> in row slicing will be an “or” operation, where it chooses rows
+based on whether the index value corresponds to <em>any</em> element of the list (e.g. <code>["United Kingdom", "Germany"]</code> above)</p>
+<p><strong>Example</strong>: <code>["United Kingdom", "Germany"]</code> in <code>wdi.loc[(["United Kingdom", "Germany"], 2010), "GDP"]</code> above</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p><strong>Row slicing examples</strong></p>
+<p>+++ {"slideshow": {"slide_type": "fragment"}}</p>
+<p><strong>1</strong> <code>wdi.loc["United States"]</code>: all rows where the <em>outer</em> most index value is
+  equal to <code>United States</code></p>
+<p>+++ {"slideshow": {"slide_type": "fragment"}}</p>
+<p><strong>2</strong> <code>wdi.loc[("United States", 2010)]</code>: all rows where the <em>outer-most</em> index value
+  is equal to <code>"United States</code> and the second level is equal to <code>2010</code></p>
+<p>+++ {"slideshow": {"slide_type": "fragment"}}</p>
+<p><strong>3</strong> <code>wdi.loc[["United States", "Canada"]]</code>: all rows where the <em>outer-most</em> index is
+  either <code>"United States"</code> or <code>"Canada"</code></p>
+<p>+++ {"slideshow": {"slide_type": "fragment"}}</p>
+<p><strong>4</strong> <code>wdi.loc[(["United States", "Canada"], [2010, 2011]), :]</code>: all rows where the
+  <em>outer-most</em> index is either <code>"United States</code> or <code>"Canada"</code> AND where the
+  second level index is either <code>2010</code> or <code>2011</code></p>
+<p>+++ {"slideshow": {"slide_type": "fragment"}}</p>
+<p><strong>5</strong> <code>wdi.loc[[("United States", 2010), ("Canada", 2011)], :]</code>: all rows where the the
+  two hierarchical indices are either <code>("United States", 2010)</code> or
+  <code>("Canada", 2011)</code></p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>We can also restrict <code>.loc</code> to extract certain columns by doing:</p>
+<ol>
+<li><code>wdi.loc[rows, "GDP"]</code>: return the rows specified by rows (see rules
+  above) and only column named <code>GDP</code> (returned object will be a
+  Series)  </li>
+<li><code>df.loc[rows, ["GDP", "Consumption"]]</code>: return the rows specified by rows
+  (see rules above) and only columns <code>GDP</code> and <code>Consumption</code></li>
+</ol>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p><a id='exercise-1'></a>
+<strong>Exercise 2</strong></p>
+<p>For each of the examples below do the following:</p>
+<ul>
+<li>Determine which of the rules above applies</li>
+<li>Identify the <code>type</code> of the returned value  </li>
+<li>Explain why the slicing operation returned the data it did</li>
+</ul>
+<p>Write your answers</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>wdi.loc[["United States", "Canada"]]
+```</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>wdi.loc[(["United States", "Canada"], [2010, 2011, 2012]), :]
+```</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>wdi.loc["United States"]
+```</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>wdi.loc[("United States", 2010), ["GDP", "Exports"]]
+```</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>wdi.loc[("United States", 2010)]
+```</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>wdi.loc[[("United States", 2010), ("Canada", 2015)]]
+```</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>wdi.loc[["United States", "Canada"], "GDP"]
+```</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>wdi.loc["United States", "GDP"]
+```</p>
+<p>+++ {"slideshow": {"slide_type": "slide"}}</p>
+<h3>Alignment with <code>MultiIndex</code></h3>
+<p>The data alignment features we talked about above also apply to a
+<code>MultiIndex</code> DataFrame</p>
+<p>The following exercise gives you a chance to experiment with this</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p><a id='exercise-2'></a>
+<strong>Exercise 3</strong></p>
+<p>Try setting <code>my_df</code> to some subset of the rows in <code>wdi</code> (use one of the
+<code>.loc</code> variations above)</p>
+<p>Then see what happens when you do <code>wdi / my_df</code> or <code>my_df ** wdi</code></p>
+<p>Try changing the subset of rows in <code>my_df</code> and repeat until you
+understand what is happening</p>
+<p>+++ {"slideshow": {"slide_type": "slide"}}</p>
+<h3><code>pd.IndexSlice</code></h3>
+<p>When we want to extract rows for a few values of the outer index and all
+values for an inner index level, we can use the convenient
+<code>df.loc[[id11, id22]]</code> shorthand</p>
+<p>+++ {"slideshow": {"slide_type": "fragment"}}</p>
+<p>For example, we can use this notation to extract all the data for the United States and
+Canada:</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>wdi.loc[["United States", "Canada"]]
+```</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>However, suppose we wanted to extract the data for all countries, but only the
+years 2005, 2007, and 2009</p>
+<p>We cannot do this with what we know about <code>wdi.loc</code> because the year is on the second level,
+not outer-most level of our index</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>To get around this limitation, we can use the <code>pd.IndexSlice</code> helper</p>
+<p>Here’s an example</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>wdi.loc[pd.IndexSlice[:, [2005, 2007, 2009]], :]
+```</p>
+<p>+++ {"slideshow": {"slide_type": "fragment"}}</p>
+<p>Notice that the <code>:</code> in the first part of <code>[:, ["A", "D"]]</code>
+instructed pandas to give us rows for all values of the outer most index
+level</p>
+<p>The <code>:</code> just before the final <code>]</code> said grab all the columns</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p><a id='exercise-3'></a>
+<strong>Exercise 4</strong></p>
+<p>Below, we create <code>wdi2</code>, which is the same as <code>wdi</code> except that the
+levels of the index are swapped</p>
+<p>In the cells after <code>df6</code> is defined, we have commented out
+a few of the slicing examples from the previous exercise</p>
+<p>For each of these examples, use <code>pd.IndexSlice</code> to extract the same
+data from <code>df6</code></p>
+<p>(HINT: You will need to <em>swap</em> the order of the row slicing arguments
+within the <code>pd.IndexSlice</code>)</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>wdi2 = df.set_index(["year", "country"])
+```</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<h1>wdi.loc["United States"]</h1>
+<p>```</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<h1>wdi.loc[(["United States", "Canada"], [2010, 2011, 2012]), :]</h1>
+<p>```</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<h1>wdi.loc[["United States", "Canada"], "GDP"]</h1>
+<p>```</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<h3>Multi-index Columns</h3>
+<p>The functionality of <code>MultiIndex</code> also applies to the column labels</p>
+<p>Let’s see how it works</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>wdiT = wdi.T  # .T means "transpose" or "swap rows and columns"
+wdiT
+```</p>
+<p>Notice that <code>wdiT</code> seems to have two levels of names for the columns</p>
+<p>The same logic laid out in the above row slicing rules applies when we
+have a hierarchical index for column names</p>
+<h2>```{code-cell} ipython3</h2>
+<p>hide-output: false
+slideshow:
+  slide_type: subslide</p>
+<hr />
+<p>wdiT.loc[:, "United States"]
+```</p>
+<h2>```{code-cell} ipython3</h2>
+<p>hide-output: false
+slideshow:
+  slide_type: subslide</p>
+<hr />
+<p>wdiT.loc[:, ["United States", "Canada"]]
+```</p>
+<h2>```{code-cell} ipython3</h2>
+<p>hide-output: false
+slideshow:
+  slide_type: subslide</p>
+<hr />
+<p>wdiT.loc[:, (["United States", "Canada"], 2010)]
+```</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p><a id='exercise-4'></a>
+<strong>Exercise 5</strong></p>
+<p>Use <code>pd.IndexSlice</code> to extract all data from <code>wdiT</code> where the <code>year</code>
+level of the column names (the second level) is one of 2010, 2012, and 2014</p>
+<p>+++ {"slideshow": {"slide_type": "slide"}}</p>
+<h2>Re-setting the Index</h2>
+<p>The <code>df.reset_index</code> method will move one or more level of the index
+back into the DataFrame as a normal column</p>
+<p>With no additional arguments, it moves all levels out of the index and
+sets the index of the returned DataFrame to the default of
+<code>range(df.shape[0])</code></p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<p>wdi.reset_index()
+```</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p><a id='exercise-5'></a>
+<strong>Exercise 6</strong></p>
+<p>Look up the documentation for the <code>reset_index</code> method and study it to
+learn how to do the following:</p>
+<ul>
+<li>Move just the <code>year</code> level of the index back as a column</li>
+<li>Completely throw away all levels of the index</li>
+<li>Remove the <code>country</code> of the index and <em>do not</em> keep it as a column</li>
+</ul>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<h1>remove just year level and add as column</h1>
+<p>```</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<h1>throw away all levels of index</h1>
+<p>```</p>
+<p>```{code-cell} ipython3
+:hide-output: false</p>
+<h1>Remove country from the index -- don't keep it as a column</h1>
+<p>```</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<h2>Choose the Index Carefully</h2>
+<p>So, now that we know that we use index and column names for
+aligning data, “how should we pick the index?” is a natural question to ask</p>
+<p>+++ {"slideshow": {"slide_type": "fragment"}}</p>
+<p>To guide us to the right answer, we will list the first two components
+to <a href="http://hadley.nz/">Hadley Wickham’s</a> description of <a href="http://vita.had.co.nz/papers/tidy-data.html">tidy
+data</a>:</p>
+<ol>
+<li>Each column should each have one variable</li>
+<li>Each row should each have one observation</li>
+</ol>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>If we strive to have our data in a tidy form (we should), then when
+choosing the index, we should set:</p>
+<ul>
+<li>the row labels (index) to be a unique identifier for an observation
+  of data  </li>
+<li>the column names to identify one variable</li>
+</ul>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>For example, suppose we are looking data on interest rates</p>
+<p>Each column might represent one bond or asset and each row might
+represent the date</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>Using hierarchical row and/or column indices allows us to store higher
+dimensional data in our (inherently) two dimensional DataFrame</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<h3>Know Your Goal</h3>
+<p>The correct column(s) to choose for the index often depends on the context of
+your analysis</p>
+<p>For example, if I were studying how GDP and consumption evolved over time for
+various countries, I would want time (year) and country name on the index</p>
+<p>+++ {"slideshow": {"slide_type": "fragment"}}</p>
+<p>On the other hand, if I were trying to look at the differences across countries
+and variables within a particular year, I may opt to put the country and
+variable on the index and have years be columns</p>
+<p>+++ {"slideshow": {"slide_type": "subslide"}}</p>
+<p>Following the tidy data rules above and thinking about how you intend to <em>use</em>
+the data – and a little practice – will enable you to consistently select the
+correct index</p>

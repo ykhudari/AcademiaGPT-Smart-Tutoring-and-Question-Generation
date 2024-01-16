@@ -1,0 +1,3364 @@
+1
+00:00:00,000 --> 00:00:07,520
+Hello, this is Spencer Lion and I'm really excited about our topic today today.
+
+2
+00:00:07,520 --> 00:00:13,220
+We're talking about group-by operations and pandas, which in my opinion is one of the very
+
+3
+00:00:13,220 --> 00:00:18,620
+coolest and most powerful operations we can do.
+
+4
+00:00:18,620 --> 00:00:21,700
+Let's take a stock of our pandas journey thus far.
+
+5
+00:00:21,700 --> 00:00:25,700
+We started out by learning about the core data types and pandas.
+
+6
+00:00:25,700 --> 00:00:29,020
+This includes the series and the data frame.
+
+7
+00:00:29,020 --> 00:00:35,220
+We then learned how we can do operations such as extracting values or subsets of values
+
+8
+00:00:35,220 --> 00:00:38,140
+from our series and data frame objects.
+
+9
+00:00:38,140 --> 00:00:44,740
+We learned about how we can do arithmetic, either on single values or on entire columns
+
+10
+00:00:44,740 --> 00:00:48,300
+or entire data frames, all at once.
+
+11
+00:00:48,300 --> 00:00:53,340
+We then studied how we can organize our data in pandas using the index and the column
+
+12
+00:00:53,340 --> 00:00:56,100
+names.
+
+13
+00:00:56,100 --> 00:01:02,420
+We saw how a careful selection of the index and columns names could help with analysis
+
+14
+00:01:02,420 --> 00:01:08,620
+because pandas will align the data for us using the index and column names.
+
+15
+00:01:08,620 --> 00:01:14,460
+We then took some time to understand how to reshape data, how to maybe transform it from
+
+16
+00:01:14,460 --> 00:01:19,900
+why to long format, as well as how we can compute things like pivot tables and other
+
+17
+00:01:19,900 --> 00:01:23,140
+summary forms of the data.
+
+18
+00:01:23,460 --> 00:01:27,340
+Finally, we've learned how to merge two different data sets, different about related
+
+19
+00:01:27,340 --> 00:01:30,980
+data sets on one or more key columns.
+
+20
+00:01:30,980 --> 00:01:38,420
+Today we continue with what in my view is the kind of crowning functionality of pandas.
+
+21
+00:01:38,420 --> 00:01:43,020
+It will help us utilize all the tools we've developed thus far and do some really compelling
+
+22
+00:01:43,020 --> 00:01:45,380
+analysis.
+
+23
+00:01:45,380 --> 00:01:48,940
+And that functionality we'll learn about today is called group bi.
+
+24
+00:01:48,940 --> 00:01:54,820
+Our plan for today and the way the class will unfold is that we will be first understanding
+
+25
+00:01:54,820 --> 00:01:59,100
+the split apply combined strategy for analyzing data.
+
+26
+00:01:59,100 --> 00:02:00,820
+If you haven't heard of this before, don't worry.
+
+27
+00:02:00,820 --> 00:02:04,860
+We're going to be learning a lot about it as we move the lecture today.
+
+28
+00:02:04,860 --> 00:02:08,940
+Well then, learn once we've split the data, we'll learn how we can use some of the built-in
+
+29
+00:02:08,940 --> 00:02:16,940
+pandas routines for computing aggregate values based on subsets or groups of our data.
+
+30
+00:02:16,940 --> 00:02:19,340
+Some of these built-in routines were already familiar with.
+
+31
+00:02:19,340 --> 00:02:22,860
+They are things like the mean, median or variance.
+
+32
+00:02:22,860 --> 00:02:29,180
+We'll also understand how we can create our own custom aggregation operations by defining
+
+33
+00:02:29,180 --> 00:02:35,780
+Python functions and then ask pandas to apply our own functions to the group data.
+
+34
+00:02:35,780 --> 00:02:42,060
+Finally we'll understand how we can use multiple keys to group by more than one column.
+
+35
+00:02:42,060 --> 00:02:46,540
+The data we'll be using for today comes from the United States Bureau of Transportation
+
+36
+00:02:46,620 --> 00:02:53,580
+Statistics and contains detailed data on all delayed flights in the domestic United States
+
+37
+00:02:53,580 --> 00:02:59,660
+from December 2016.
+
+38
+00:02:59,660 --> 00:03:03,740
+We'll begin by importing our standard packages that we'll be using throughout the class
+
+39
+00:03:03,740 --> 00:03:04,740
+today.
+
+40
+00:03:04,740 --> 00:03:10,340
+If you haven't installed the QEDS or Quant Econ data science library, you can uncomment
+
+41
+00:03:10,340 --> 00:03:15,300
+that second line in this first code cell and have PIP install this for you.
+
+42
+00:03:15,300 --> 00:03:19,660
+We've already done this, so we'll execute this cell which we'll just move us past it.
+
+43
+00:03:19,660 --> 00:03:22,380
+Then we'll be able to actually import our libraries.
+
+44
+00:03:22,380 --> 00:03:26,940
+Today we'll be using our well-known friends, pandas and numpy.
+
+45
+00:03:26,940 --> 00:03:30,700
+In addition, we'll also be using Matplotlib to show some charts.
+
+46
+00:03:30,700 --> 00:03:35,980
+We'll import the base Python random library and then we'll use QEDS to help us style our
+
+47
+00:03:35,980 --> 00:03:36,980
+charts.
+
+48
+00:03:36,980 --> 00:03:42,260
+We'll run this cell to import the libraries now.
+
+49
+00:03:42,580 --> 00:03:47,060
+Begin by talking about the split apply combined strategy.
+
+50
+00:03:47,060 --> 00:03:50,020
+As you might guess, there are three steps to this strategy.
+
+51
+00:03:50,020 --> 00:03:52,580
+First is the split stage.
+
+52
+00:03:52,580 --> 00:04:00,340
+Here we take our entire data set and based on the values in one or more columns, we will split
+
+53
+00:04:00,340 --> 00:04:03,020
+the data set into different subsets.
+
+54
+00:04:03,020 --> 00:04:09,380
+One subset is similar in the sense that these key columns all have the same value as any other
+
+55
+00:04:09,380 --> 00:04:12,500
+row in the subset.
+
+56
+00:04:12,500 --> 00:04:19,220
+After we've created these split data sets, we then apply some function or logic or operation
+
+57
+00:04:19,220 --> 00:04:22,060
+on each of the subsets.
+
+58
+00:04:22,060 --> 00:04:25,980
+This will work through each set one of the time and it will apply the chosen function
+
+59
+00:04:25,980 --> 00:04:27,500
+to each of them.
+
+60
+00:04:27,500 --> 00:04:32,420
+Finally once we're done applying our operation to each subset of data, pandas will then
+
+61
+00:04:32,420 --> 00:04:36,980
+combine all the data sets or all the outputs for us into a final data frame that we can
+
+62
+00:04:36,980 --> 00:04:40,540
+continue our analysis with.
+
+63
+00:04:40,540 --> 00:04:45,500
+We're going to cover these concepts right now one at the time and we'll cover the basics
+
+64
+00:04:45,500 --> 00:04:47,540
+and the concepts behind it.
+
+65
+00:04:47,540 --> 00:04:52,900
+However, there's a lot of power and functionality here and we won't have time to cover
+
+66
+00:04:52,900 --> 00:04:55,300
+all of it in our time together today.
+
+67
+00:04:55,300 --> 00:05:00,180
+So as with other topics, we strongly encourage you to look at the official pandas documentation
+
+68
+00:05:00,180 --> 00:05:06,820
+for more information on what you can do using the group by machinery.
+
+69
+00:05:06,820 --> 00:05:10,420
+So in order to describe the operations, we're going to need some data.
+
+70
+00:05:10,420 --> 00:05:13,820
+We're going to start with this artificial data set that we're creating right here to the
+
+71
+00:05:13,820 --> 00:05:15,020
+side.
+
+72
+00:05:15,020 --> 00:05:20,540
+Notice that the data frame we end up with has three columns, A, B and C.
+
+73
+00:05:20,540 --> 00:05:23,260
+Columns, A and B are filled with integers.
+
+74
+00:05:23,260 --> 00:05:27,820
+You can see here that column A has the integers 1, 1, 2, 2, 2, 2.
+
+75
+00:05:27,820 --> 00:05:31,460
+Column B has the same numbers but the order of the rows are different.
+
+76
+00:05:31,460 --> 00:05:40,540
+And then finally, column C has floating point numbers with a few missing values.
+
+77
+00:05:40,540 --> 00:05:47,780
+We're going to use this example data set to demonstrate the three steps in split apply combine.
+
+78
+00:05:47,780 --> 00:05:49,980
+To begin, we'll start with the split step.
+
+79
+00:05:49,980 --> 00:05:54,660
+In order to ask pandas to split the data for us, we use the group by method of a data
+
+80
+00:05:54,660 --> 00:05:58,620
+frame.
+
+81
+00:05:58,620 --> 00:06:03,660
+You see here that we're calling DF dot group by and we're passing the string A.
+
+82
+00:06:03,660 --> 00:06:10,860
+This instructs pandas to construct groups of our data using the values from the A column.
+
+83
+00:06:10,860 --> 00:06:16,380
+This is the most basic and often most used form of the group by method to split on the
+
+84
+00:06:16,380 --> 00:06:20,300
+values of a single column.
+
+85
+00:06:20,300 --> 00:06:23,780
+We can check the type of this GBA object.
+
+86
+00:06:23,780 --> 00:06:28,820
+And we see here a very long type name but we're just going to refer to this as a group
+
+87
+00:06:28,820 --> 00:06:35,140
+by for short.
+
+88
+00:06:35,140 --> 00:06:38,940
+Once we have a group by object, there are a few things we can do with it.
+
+89
+00:06:38,940 --> 00:06:44,700
+One thing we could do is we could ask to get the subset of data for a particular group.
+
+90
+00:06:44,700 --> 00:06:51,140
+So here we're going to ask to get, we're going to say DBA dot get group and we're going
+
+91
+00:06:51,140 --> 00:06:54,260
+to pass one and then we'll pass two.
+
+92
+00:06:54,260 --> 00:06:59,900
+And notice when we do this, that the data we get in return has all the rows of our original
+
+93
+00:06:59,900 --> 00:07:03,300
+data set where column A is equal to one.
+
+94
+00:07:03,300 --> 00:07:06,140
+That's what we saw up there in our first example.
+
+95
+00:07:06,140 --> 00:07:11,180
+And then all of the rows where A, the column A has the value of two is what we get in
+
+96
+00:07:11,180 --> 00:07:13,500
+the second code cell.
+
+97
+00:07:13,500 --> 00:07:20,540
+This is not a numerical index that Python would start counting at 0, 1, 2 and so on.
+
+98
+00:07:20,540 --> 00:07:25,500
+This is actually, you give it a value from the data frame and it will return rows with
+
+99
+00:07:25,500 --> 00:07:30,780
+that matching value.
+
+100
+00:07:30,780 --> 00:07:32,380
+So let's do an example.
+
+101
+00:07:32,380 --> 00:07:35,780
+This could be an exercise but we're going to do it here together in class.
+
+102
+00:07:35,780 --> 00:07:41,380
+So once we have our group by object, in addition to selecting the rows that belong to a
+
+103
+00:07:41,380 --> 00:07:46,180
+particular group, we can apply some of our favorite aggregation functions directly to the
+
+104
+00:07:46,180 --> 00:07:48,580
+group by object.
+
+105
+00:07:48,580 --> 00:07:53,060
+So let's go ahead and remind ourselves what the data frame looks like and then we will
+
+106
+00:07:53,060 --> 00:07:56,700
+compute the GBA dot sum.
+
+107
+00:07:56,700 --> 00:07:59,340
+And when we do this, notice the following.
+
+108
+00:07:59,340 --> 00:08:06,140
+So whenever A, the values of A ended up being on the index of our data frame.
+
+109
+00:08:06,140 --> 00:08:11,500
+Notice here that there are only two rows, one with index A equal to one and the second with
+
+110
+00:08:11,500 --> 00:08:13,820
+index A equal to two.
+
+111
+00:08:13,820 --> 00:08:20,180
+We end up with two rows because there are only two distinct values in the A column.
+
+112
+00:08:20,180 --> 00:08:23,420
+Now in the output of the A column of the original data frame.
+
+113
+00:08:23,420 --> 00:08:30,340
+Now in the output, notice that when A equal one, B has a value of four in the output of
+
+114
+00:08:30,340 --> 00:08:33,100
+GBA dot sum.
+
+115
+00:08:33,100 --> 00:08:38,860
+This is because if we look carefully at the values of the B column for any row where the A column
+
+116
+00:08:38,860 --> 00:08:43,500
+equals one, we see that those values are one, one, two.
+
+117
+00:08:43,500 --> 00:08:48,660
+Some of these three numbers is of course four, which is what we see here in the A equal
+
+118
+00:08:48,660 --> 00:08:52,420
+one column B row of the output.
+
+119
+00:08:52,420 --> 00:08:55,740
+Similarly we can do a similar, the same operation for the C column.
+
+120
+00:08:55,740 --> 00:08:59,420
+We look at the value of the C column when A equal one.
+
+121
+00:08:59,420 --> 00:09:03,820
+And we see that we have the values 1.0, 2.0, 3.0.
+
+122
+00:09:03,820 --> 00:09:09,020
+If we sum these things up, we get the answer 6.0.
+
+123
+00:09:09,020 --> 00:09:11,740
+Now let's move down to the second row of our output.
+
+124
+00:09:11,740 --> 00:09:14,740
+Here we have A equal two.
+
+125
+00:09:14,740 --> 00:09:20,620
+And we see that the value for B is again four because we have the three numbers, two, one,
+
+126
+00:09:20,620 --> 00:09:22,540
+one from the original data frame.
+
+127
+00:09:22,540 --> 00:09:25,820
+What's slightly more interesting is the value for C.
+
+128
+00:09:25,820 --> 00:09:30,220
+Notice here that we have the value of C equal to five.
+
+129
+00:09:30,220 --> 00:09:33,620
+This comes because in our data set we had three values.
+
+130
+00:09:33,620 --> 00:09:37,740
+One, C is man, five, and man.
+
+131
+00:09:37,740 --> 00:09:42,180
+When pandas did these operations, it decided to ignore the nands for S when we did the
+
+132
+00:09:42,180 --> 00:09:47,740
+summation and only compute the sum of the single real value number five.
+
+133
+00:09:47,740 --> 00:09:54,700
+That's why we're left with the number five as our solution.
+
+134
+00:09:54,700 --> 00:09:58,740
+Now there's another example here that we're going to ask that you do as an exercise.
+
+135
+00:09:58,740 --> 00:10:03,820
+So we'll describe what the exercise is and then we'll pause for a moment so that you can
+
+136
+00:10:03,820 --> 00:10:08,060
+work through it.
+
+137
+00:10:08,060 --> 00:10:13,260
+What we would like for you to do is take the GBA object that we computed earlier and use
+
+138
+00:10:13,260 --> 00:10:19,340
+tab completion or introspection to see what other methods are available beyond just the
+
+139
+00:10:19,340 --> 00:10:21,540
+sum.
+
+140
+00:10:21,540 --> 00:10:25,780
+You may have already thought of some of these other aggregation methods that you've used on
+
+141
+00:10:25,780 --> 00:10:29,580
+a data frame and chances are they also exist on the group by object.
+
+142
+00:10:29,580 --> 00:10:33,580
+So here you have a chance to interact with and interactively discover them.
+
+143
+00:10:33,580 --> 00:10:39,420
+We'll go ahead and pause here and we'd like for you to find three methods and try
+
+144
+00:10:39,420 --> 00:10:42,020
+applying them to your group by object.
+
+145
+00:10:42,020 --> 00:10:45,500
+We'll pause at this time so that you can complete this exercise.
+
+146
+00:10:59,580 --> 00:11:09,500
+Okay, welcome back.
+
+147
+00:11:09,500 --> 00:11:12,260
+We were going to go ahead and we'll continue on, hopefully we were able to find three
+
+148
+00:11:12,260 --> 00:11:15,940
+methods, we'll continue on with the rest of the lecture.
+
+149
+00:11:15,940 --> 00:11:21,140
+So in addition to grouping by a single column as we did with group by a last time, we can
+
+150
+00:11:21,140 --> 00:11:23,580
+actually group by multiple columns.
+
+151
+00:11:23,580 --> 00:11:27,900
+And the way we do this is instead of passing a single string with the column name in it,
+
+152
+00:11:27,900 --> 00:11:32,020
+we can pass a list of strings with more than one column name.
+
+153
+00:11:32,020 --> 00:11:36,740
+The result of applying this group by operation will be that the data frame will be split
+
+154
+00:11:36,740 --> 00:11:42,180
+into collections of rows where there are unique combinations of multiple columns.
+
+155
+00:11:42,180 --> 00:11:43,820
+Let's see what this looks like.
+
+156
+00:11:43,820 --> 00:11:50,100
+So now we're going to do a GBAB, which is equal to the data frame dot group by both a
+
+157
+00:11:50,100 --> 00:11:51,900
+and b in a list.
+
+158
+00:11:51,900 --> 00:11:55,940
+We see here that the type matches the type of GBA that we saw before.
+
+159
+00:11:55,940 --> 00:12:01,740
+So all the same type of operations that we were doing, we'll still apply.
+
+160
+00:12:01,740 --> 00:12:04,060
+Let's try the get group one.
+
+161
+00:12:04,060 --> 00:12:09,660
+So before we were calling get group one when we had just GBA and here because we've chosen
+
+162
+00:12:09,660 --> 00:12:15,380
+to group by two columns we need to pass two values and we'll do this in a tuple.
+
+163
+00:12:15,380 --> 00:12:21,020
+This is similar to the indexing behavior when you have a multi index data frame in that
+
+164
+00:12:21,020 --> 00:12:28,420
+you pass a tuple where each element of the tuple represents one level of your index.
+
+165
+00:12:28,420 --> 00:12:33,100
+Here each element of the tuple represents one level of the grouping.
+
+166
+00:12:33,100 --> 00:12:38,620
+We're going to pass one one, which will extract pandas to give us all of the rows of the
+
+167
+00:12:38,620 --> 00:12:44,620
+data frame for which column A is equal to one and column B is equal to one.
+
+168
+00:12:44,620 --> 00:12:50,380
+We see here that that's what we have in return to us.
+
+169
+00:12:50,380 --> 00:12:56,740
+So we can still apply these aggregation methods like some mean count variants, maybe some
+
+170
+00:12:56,740 --> 00:12:59,380
+of the ones that you found in the exercise.
+
+171
+00:12:59,380 --> 00:13:05,260
+And notice what happens is on the index when we call count we have two levels down.
+
+172
+00:13:05,260 --> 00:13:08,740
+We have an A level and a B level.
+
+173
+00:13:08,740 --> 00:13:13,260
+We're left with a data frame with only a single column because from our original data
+
+174
+00:13:13,260 --> 00:13:18,020
+frame that had three columns we used two of them for grouping and we were left with a single
+
+175
+00:13:18,020 --> 00:13:21,780
+column C that has values in it.
+
+176
+00:13:21,780 --> 00:13:28,700
+Notice that the index for levels for A have values one and two and same thing for B.
+
+177
+00:13:28,700 --> 00:13:34,700
+This is because the distinct values in columns A and B were both one and two.
+
+178
+00:13:34,700 --> 00:13:37,460
+Now notice the values we have in the C column.
+
+179
+00:13:37,460 --> 00:13:40,020
+It says two one one zero.
+
+180
+00:13:40,020 --> 00:13:45,660
+What this means is that there were two rows in the original data frame where the column
+
+181
+00:13:45,660 --> 00:13:51,100
+A had a value equal to one and column B had a value equal to one.
+
+182
+00:13:51,100 --> 00:13:58,060
+Then there was only one row where we had a equal one b equal to or a equal to b equal one.
+
+183
+00:13:58,060 --> 00:14:01,460
+That's what the second and third row of this output show.
+
+184
+00:14:01,460 --> 00:14:09,260
+Finally there were zero rows that had a equal two and b equal two.
+
+185
+00:14:09,260 --> 00:14:14,500
+We have here down underneath the data frame a reminder that when you do an aggregation
+
+186
+00:14:14,500 --> 00:14:22,020
+operation the index you get back is going to be dictate or is going to be derived from
+
+187
+00:14:22,020 --> 00:14:29,860
+the columns you grouped by and the values that they took on in the original data frame.
+
+188
+00:14:29,860 --> 00:14:35,380
+So far we've been applying some built-in aggregation functions to our group by objects but
+
+189
+00:14:35,380 --> 00:14:38,020
+this is only a part of the power.
+
+190
+00:14:38,020 --> 00:14:43,700
+What really ends up being extremely useful and very common is to apply custom operations
+
+191
+00:14:43,700 --> 00:14:45,220
+to each group.
+
+192
+00:14:45,220 --> 00:14:47,660
+In order to do this there's two steps.
+
+193
+00:14:47,660 --> 00:14:53,380
+First we define a Python function that is supposed to receive a column and compute a single
+
+194
+00:14:53,380 --> 00:14:54,380
+number.
+
+195
+00:14:54,380 --> 00:14:59,820
+This would be aggregating the values from that column into a scalar.
+
+196
+00:14:59,820 --> 00:15:05,700
+Once we have defined this function we then pass it as an argument to the ag method of a group
+
+197
+00:15:05,700 --> 00:15:07,340
+by object.
+
+198
+00:15:07,340 --> 00:15:09,100
+Let's see how this works.
+
+199
+00:15:09,100 --> 00:15:14,580
+So let's define a function that counts the number of missing values in each column.
+
+200
+00:15:14,580 --> 00:15:22,020
+The way we would do that is we could utilize the is null method of a data frame or series
+
+201
+00:15:22,020 --> 00:15:24,300
+and then compute the sum.
+
+202
+00:15:24,300 --> 00:15:28,900
+And notice here I misspoke a moment ago what we need to define is something that contains
+
+203
+00:15:28,900 --> 00:15:35,060
+a date that consumes a data frame that may have multiple columns and returns one number
+
+204
+00:15:35,060 --> 00:15:37,900
+per column.
+
+205
+00:15:37,900 --> 00:15:43,220
+So in this case we are going to receive a data frame and at runtime when we actually
+
+206
+00:15:43,220 --> 00:15:45,020
+constructed the groups.
+
+207
+00:15:45,020 --> 00:15:51,420
+This would be a data frame with all rows of a single group and then we're going to compute
+
+208
+00:15:51,420 --> 00:15:56,620
+is null will map over every element and check if it's null and we call sum that will
+
+209
+00:15:56,620 --> 00:16:01,220
+sum each column and turn it into a series where the column names are on the index and
+
+210
+00:16:01,220 --> 00:16:04,660
+the values are the values of the series.
+
+211
+00:16:04,660 --> 00:16:11,060
+So let's define this function and we'll move to checking out how it works.
+
+212
+00:16:11,060 --> 00:16:14,900
+So if we do num missing on the whole data frame so this is not on the group by one.
+
+213
+00:16:14,900 --> 00:16:19,900
+We'll see that there are no missing values in A or B but that there are two missing values
+
+214
+00:16:19,900 --> 00:16:21,780
+in C.
+
+215
+00:16:21,780 --> 00:16:28,780
+This looks correct based on how we define the data frame at the start.
+
+216
+00:16:28,780 --> 00:16:35,540
+Now let's go back to our GBA object and then we'll use the dot ag method and pass num
+
+217
+00:16:35,540 --> 00:16:36,540
+missing.
+
+218
+00:16:36,540 --> 00:16:41,660
+We'll see here that when A equal 1 both B and C had no missing values.
+
+219
+00:16:41,660 --> 00:16:44,700
+This is consistent with what the raw data shows.
+
+220
+00:16:44,700 --> 00:16:49,220
+Now when A equal 2, B does it have any missing values but C had 2.
+
+221
+00:16:49,220 --> 00:17:01,340
+So you see here that the value at index A equal 2 and column C has a value of 2.
+
+222
+00:17:01,340 --> 00:17:05,340
+Here's a little bit more rules about what the function should do.
+
+223
+00:17:05,340 --> 00:17:10,460
+Either it consumes the data frame and returns a series which is what we showed or it consumes
+
+224
+00:17:10,460 --> 00:17:14,860
+a series and returns a scalar and this was what I had in mind when I first introduced
+
+225
+00:17:14,860 --> 00:17:15,860
+this before.
+
+226
+00:17:15,980 --> 00:17:20,500
+Sorry for the confusion but hopefully this clears it up.
+
+227
+00:17:20,500 --> 00:17:23,820
+What happens then is pandas will call the function for each group.
+
+228
+00:17:23,820 --> 00:17:31,220
+For a data frame the function will be called separately one for each column.
+
+229
+00:17:31,220 --> 00:17:37,100
+Now in addition to doing what we call an aggregation where we reduce a column or an array
+
+230
+00:17:37,100 --> 00:17:42,340
+into a single number there's something else called a transformation and this is a little
+
+231
+00:17:42,340 --> 00:17:44,980
+bit more general.
+
+232
+00:17:44,980 --> 00:17:49,540
+We saw some transformations when we worked with data frames at the start but now that
+
+233
+00:17:49,540 --> 00:17:54,780
+we combine transformations with a group by object it become even more powerful.
+
+234
+00:17:54,780 --> 00:17:58,700
+Let's just see an example to try to understand how this works.
+
+235
+00:17:58,700 --> 00:18:03,100
+So let's remind ourselves of what the data frame looks like and then we'll go ahead and
+
+236
+00:18:03,100 --> 00:18:11,260
+we'll define a function and what this function does it will return the rows of the data
+
+237
+00:18:11,260 --> 00:18:17,460
+frame corresponding to the two smallest values in the column B.
+
+238
+00:18:17,460 --> 00:18:22,660
+So one more time this is all rows or turn all rows of the data frame corresponding to
+
+239
+00:18:22,660 --> 00:18:25,660
+the two smallest values of B.
+
+240
+00:18:25,660 --> 00:18:33,180
+So when we apply the GBA and we're sorry when we use GBA dot apply and we pass this function
+
+241
+00:18:33,180 --> 00:18:38,940
+what happens is we get back a data frame A is still on the index but now we have a second
+
+242
+00:18:38,940 --> 00:18:45,140
+level of our index and what this is is it's actually going to be the rows from the original
+
+243
+00:18:45,140 --> 00:18:46,140
+index.
+
+244
+00:18:46,140 --> 00:18:47,380
+We'll see what this means here in a minute.
+
+245
+00:18:47,380 --> 00:18:49,340
+So hold on to that thought.
+
+246
+00:18:49,340 --> 00:18:55,740
+The values though are going to be B is one all the way along and if you remember back from
+
+247
+00:18:55,740 --> 00:19:05,580
+the original data we had B could be either one or two and it happened that when A was equal
+
+248
+00:19:05,580 --> 00:19:11,940
+to one there were two instances of B equal one and then a single of A B equal to and
+
+249
+00:19:11,940 --> 00:19:16,980
+the same thing when A was equal to two we had two rows with B equal one and a third row
+
+250
+00:19:16,980 --> 00:19:18,420
+with B equal to.
+
+251
+00:19:18,420 --> 00:19:24,580
+So with this in effect did was it extracted all the rows were B was equal to one.
+
+252
+00:19:24,580 --> 00:19:30,180
+This was a feature of the particular data that we had but had we had values of B that were
+
+253
+00:19:30,180 --> 00:19:39,900
+not just one and two we would have seen the two smallest rows of B for each group.
+
+254
+00:19:39,900 --> 00:19:41,460
+Now here's a note about that index.
+
+255
+00:19:41,460 --> 00:19:48,540
+So we saw again here that the first layer of our index is equal to A. The second layer
+
+256
+00:19:48,540 --> 00:19:55,100
+of our index is equal to the values on the index from the original data frame.
+
+257
+00:19:55,100 --> 00:20:00,100
+Here they are 0, 1, 4 and 5.
+
+258
+00:20:00,100 --> 00:20:02,100
+Now why did this happen?
+
+259
+00:20:02,100 --> 00:20:09,100
+So the reason for this is that the smallest by B function it actually kept the original
+
+260
+00:20:09,100 --> 00:20:17,260
+index when it returned its value.
+
+261
+00:20:17,260 --> 00:20:21,900
+And you'll notice here that at the top and output number 17 at the top of this cell we
+
+262
+00:20:21,900 --> 00:20:25,780
+see that the values of the rows were B equal to one.
+
+263
+00:20:25,780 --> 00:20:32,380
+The index is indeed 0, 1, 4, and 5.
+
+264
+00:20:32,380 --> 00:20:36,940
+And this kind of demonstrates a rule of how the group by works.
+
+265
+00:20:36,940 --> 00:20:43,140
+When you're doing a ply on a group by and you return more than one row whatever index
+
+266
+00:20:43,140 --> 00:20:48,660
+is associated with your return value will be kept and not thrown away when pandas does
+
+267
+00:20:48,660 --> 00:20:52,540
+the combining step at the very end.
+
+268
+00:20:52,540 --> 00:20:58,580
+So in this instance it had the index for A is equal to 1 and 2 but it kept the 0, 1, 4, 5
+
+269
+00:20:58,580 --> 00:21:03,620
+that we originally had.
+
+270
+00:21:03,620 --> 00:21:09,740
+Okay, so let's go ahead and work through this example together.
+
+271
+00:21:09,740 --> 00:21:13,900
+We will now work through the solution to this exercise and you can see here down below
+
+272
+00:21:13,900 --> 00:21:19,420
+that I have actually typed this out already and I've defined a function called deviation
+
+273
+00:21:19,420 --> 00:21:23,060
+from mean that consumes one argument.
+
+274
+00:21:23,060 --> 00:21:28,300
+And if we look at the documentation string we'll see that the purpose of this function
+
+275
+00:21:28,300 --> 00:21:35,140
+is to compute the deviation from mean for an entire pandas series or for each column of a
+
+276
+00:21:35,140 --> 00:21:36,620
+data frame.
+
+277
+00:21:36,620 --> 00:21:41,820
+We'll go ahead and define our function and the body of this function is quite simple.
+
+278
+00:21:41,820 --> 00:21:44,620
+It's just x minus x dot mean.
+
+279
+00:21:44,620 --> 00:21:51,180
+We can then use our GBA object and call the apply method and pass in this deviation from
+
+280
+00:21:51,180 --> 00:21:53,540
+mean function we've just defined.
+
+281
+00:21:53,540 --> 00:21:59,700
+We store the value or the output of this function called as deviations.
+
+282
+00:21:59,700 --> 00:22:07,260
+When we look at deviations we see here that formerly B had values of 1 and 2 and now it
+
+283
+00:22:07,260 --> 00:22:11,980
+takes on values of either minus a third or positive 2 thirds.
+
+284
+00:22:11,980 --> 00:22:16,420
+This is because the mean of the B column was equal to 1 and 1 third.
+
+285
+00:22:16,420 --> 00:22:22,260
+So only should track that from a value that he was equal to 1 we end up with minus a third
+
+286
+00:22:22,260 --> 00:22:27,020
+and then we should subtract 1 and a third from 2 we get positive 2 thirds.
+
+287
+00:22:27,020 --> 00:22:31,100
+We can see a similar result for the B for the C column.
+
+288
+00:22:31,100 --> 00:22:36,300
+Now the second half of this exercise asked us to combine the result of this deviation
+
+289
+00:22:36,300 --> 00:22:42,500
+computation with the actual values from our original data frame.
+
+290
+00:22:42,500 --> 00:22:48,660
+So here we're going to call the data frame dot merge method and we'll pass in the deviations
+
+291
+00:22:48,660 --> 00:22:51,300
+object as the right data frame.
+
+292
+00:22:51,300 --> 00:22:56,900
+We can then say that we would like to use both the left index and the right index.
+
+293
+00:22:56,900 --> 00:23:00,740
+And finally this last argument here the suffixes argument.
+
+294
+00:23:00,740 --> 00:23:05,620
+But this does is we'll take a look at the output and then we'll talk about what happened
+
+295
+00:23:05,620 --> 00:23:06,620
+here.
+
+296
+00:23:06,620 --> 00:23:24,540
+So we see here that on the output one moment.
+
+297
+00:23:24,540 --> 00:23:25,540
+Excellent.
+
+298
+00:23:25,540 --> 00:23:31,940
+So we see here on the output we have two new columns B deviation and C deviation.
+
+299
+00:23:31,940 --> 00:23:34,500
+Where we have our original columns ABC.
+
+300
+00:23:34,500 --> 00:23:40,500
+This came this underscore deviation came from right here where we have the suffix argument.
+
+301
+00:23:40,500 --> 00:23:47,220
+The first value in this tuple is the suffix that should be appended to the end of the columns
+
+302
+00:23:47,220 --> 00:23:52,700
+from the left data frame in this case DF and then the second argument of the tuple here
+
+303
+00:23:52,700 --> 00:23:58,140
+underscore deviations is what we would like to have appended to the end of the columns from
+
+304
+00:23:58,140 --> 00:24:02,940
+the right data frame here are deviations data frame.
+
+305
+00:24:02,940 --> 00:24:07,260
+So this is how we would combine the results and then put them back alongside the original
+
+306
+00:24:07,260 --> 00:24:11,820
+data.
+
+307
+00:24:11,820 --> 00:24:16,780
+So we've seen some examples where the columns themselves contain the groups.
+
+308
+00:24:16,780 --> 00:24:21,100
+We saw this with A and we also saw it when we combine both A and B.
+
+309
+00:24:21,100 --> 00:24:23,660
+However, this isn't always the case.
+
+310
+00:24:23,660 --> 00:24:29,580
+So sometimes you want to group by a column and for an a level of the index that could
+
+311
+00:24:29,580 --> 00:24:35,260
+be something that's plausible or other times we may have a time series or a sequence of
+
+312
+00:24:35,260 --> 00:24:40,460
+dates in a column and we would like to group them at a particular frequency.
+
+313
+00:24:40,460 --> 00:24:45,660
+For example suppose we have timestamps that include our minute and second and we would
+
+314
+00:24:45,660 --> 00:24:52,100
+like to form a calculation based on all the data for a particular hour.
+
+315
+00:24:52,100 --> 00:24:56,620
+In this case we would have to instruct pandas that we would like to use the timestamp column
+
+316
+00:24:56,620 --> 00:25:00,100
+but we'd like to group it in buckets of one hour at a time.
+
+317
+00:25:00,100 --> 00:25:06,060
+We could similarly ask it to group it in buckets of four hours or a day or a week.
+
+318
+00:25:06,060 --> 00:25:10,900
+And this is not expressible by just passing the column name timestamp.
+
+319
+00:25:10,900 --> 00:25:15,100
+We also have to add in the frequency that we'd like.
+
+320
+00:25:15,100 --> 00:25:20,060
+And pandas does enable this behavior using the PD.grouper type.
+
+321
+00:25:20,060 --> 00:25:22,260
+This is what we'll learn about now.
+
+322
+00:25:22,260 --> 00:25:27,780
+So in order to see it in action we're going to make a copy of our data frame and we're
+
+323
+00:25:27,780 --> 00:25:32,340
+going to move the a column to the index and we're going to add a date column.
+
+324
+00:25:32,340 --> 00:25:34,300
+So let's just go ahead and show you what we end up with.
+
+325
+00:25:34,300 --> 00:25:39,300
+So notice that the a column has that or sorry the a column is now in the index with
+
+326
+00:25:39,300 --> 00:25:43,340
+this original values of 1, 1, 1, 2, 2, 2, 2.
+
+327
+00:25:43,340 --> 00:25:50,140
+The B and C columns are unchanged but now we have a date column that has some dates between
+
+328
+00:25:50,140 --> 00:25:59,100
+2020, 1222.
+
+329
+00:25:59,100 --> 00:26:01,500
+Okay.
+
+330
+00:26:01,500 --> 00:26:07,380
+Now that we have this date of frame we can use the PD.grouper to group by year.
+
+331
+00:26:07,380 --> 00:26:11,380
+So let's take one more look here and we'll notice that there is one value in the year
+
+332
+00:26:11,380 --> 00:26:18,460
+2020 but then for the year 2021 we have a value in March, June, September and December.
+
+333
+00:26:18,460 --> 00:26:23,540
+So now there's going to be four rows that happen in the year 2021.
+
+334
+00:26:23,540 --> 00:26:30,380
+So over in this next cell when we ask to group by the date column with a frequency equals
+
+335
+00:26:30,380 --> 00:26:39,140
+A meaning annual will then be able to count the number of non-null rows in each column.
+
+336
+00:26:39,140 --> 00:26:48,420
+Here we see that for the year ending December 31, 2020 we have one item in the B column
+
+337
+00:26:48,420 --> 00:26:53,260
+that's non-empty and also one item in the C column that's non-empty.
+
+338
+00:26:53,260 --> 00:26:58,380
+For the year ending 2021 we had four rows that were non-empty in the B column but only
+
+339
+00:26:58,380 --> 00:27:06,140
+three that were non-empty in the C column and then finally for the year ending 2022 we only
+
+340
+00:27:06,140 --> 00:27:14,380
+had a single row the B value is non-zero, non-null but the C value was indeed null.
+
+341
+00:27:14,380 --> 00:27:17,900
+Notice here the syntax of using the PDDog grouper.
+
+342
+00:27:17,900 --> 00:27:19,260
+We pass two arguments.
+
+343
+00:27:19,260 --> 00:27:22,140
+One is the key.
+
+344
+00:27:22,140 --> 00:27:26,540
+Here this needs to reference the column name so we pass key equal date.
+
+345
+00:27:26,540 --> 00:27:29,700
+The second argument here is the frequency.
+
+346
+00:27:29,700 --> 00:27:33,540
+Here we're going to pass an abbreviation for the frequency that we'd like.
+
+347
+00:27:33,540 --> 00:27:36,060
+Here we pass A for annual.
+
+348
+00:27:36,060 --> 00:27:44,740
+We could have passed something different like 2A for two years or if we had timestamps
+
+349
+00:27:44,740 --> 00:27:49,780
+not just days we could pass H for our M for month and so on.
+
+350
+00:27:49,780 --> 00:27:57,980
+But here we wanted the group by year so we passed A as our frequency.
+
+351
+00:27:57,980 --> 00:28:01,260
+So we can also group by a level of the index.
+
+352
+00:28:01,260 --> 00:28:06,580
+So remember when we created this DF2 we shifted the column named A and we brought it over
+
+353
+00:28:06,580 --> 00:28:08,300
+to be the index.
+
+354
+00:28:08,300 --> 00:28:14,340
+So if we do DF2.group by we construct another PD.grouper but here instead of setting the
+
+355
+00:28:14,340 --> 00:28:20,180
+key argument which specializes the column name we set the level argument and we say that
+
+356
+00:28:20,180 --> 00:28:26,060
+level equals A meaning we would like to use the level from the index that has the name
+
+357
+00:28:26,060 --> 00:28:27,540
+A.
+
+358
+00:28:27,540 --> 00:28:32,540
+Now if we do this we call count we're going to see that we have three columns in our
+
+359
+00:28:32,540 --> 00:28:36,660
+result, B, C and date.
+
+360
+00:28:36,660 --> 00:28:41,900
+The B column has three and three because there were no null values same with the date column
+
+361
+00:28:41,900 --> 00:28:47,700
+and then we'll notice here that the two null values in the C column both came when A was
+
+362
+00:28:47,700 --> 00:28:53,380
+equal to two.
+
+363
+00:28:53,380 --> 00:28:59,180
+Now we can get even more sophisticated here and when we're constructing our group by
+
+364
+00:28:59,180 --> 00:29:00,180
+we can pass a list.
+
+365
+00:29:00,180 --> 00:29:05,760
+So here this closing square bracket here ends our list before we passed a list of two
+
+366
+00:29:05,760 --> 00:29:08,660
+strings for the two column names A and B.
+
+367
+00:29:08,660 --> 00:29:13,340
+Now we're passing a list where we are grouping annually in this first argument and then
+
+368
+00:29:13,340 --> 00:29:16,820
+we're going to group by level A for the index.
+
+369
+00:29:16,820 --> 00:29:22,900
+We can do that and we'll see that the result has two levels on the index now one for the
+
+370
+00:29:22,900 --> 00:29:28,340
+date and one for the A and then it has the B and C columns and we'll see here that it did
+
+371
+00:29:28,340 --> 00:29:42,980
+compute the number of non-null values for each column B and C for the year and the level of A.
+
+372
+00:29:42,980 --> 00:29:48,380
+Furthermore in addition to combining one instance of pd.grouper with another we can define
+
+373
+00:29:48,620 --> 00:29:55,380
+a pd.grouper here again grouping by the year annually with a column B.
+
+374
+00:29:55,380 --> 00:30:02,620
+When we do this we'll see here that the result only has a column C because we used the other two
+
+375
+00:30:02,620 --> 00:30:07,940
+columns as part of our group by so they were both moved into the index and then this will
+
+376
+00:30:07,940 --> 00:30:13,820
+have computed the number of non-null values in the C column for each unique combination
+
+377
+00:30:13,820 --> 00:30:20,820
+of the date in the annual frequency as well as the column B.
+
+378
+00:30:21,980 --> 00:30:27,380
+Okay so at this point we've been able to work through a number of examples of how the group
+
+379
+00:30:27,380 --> 00:30:30,740
+by machinery works.
+
+380
+00:30:30,740 --> 00:30:38,740
+The core framework we've been working with is called the split apply combined framework.
+
+381
+00:30:38,740 --> 00:30:44,500
+The three steps are to split the data into subsets of the data frame where we have all
+
+382
+00:30:44,500 --> 00:30:50,740
+rows collected that share some key values in particular columns.
+
+383
+00:30:50,740 --> 00:30:54,780
+This is done by using the dot group by method on our data frame.
+
+384
+00:30:54,780 --> 00:31:02,580
+The second step would be to apply a function and this was done either by calling the name
+
+385
+00:31:02,620 --> 00:31:09,140
+of an aggregation method, pandas defined like count or mean or some.
+
+386
+00:31:09,140 --> 00:31:16,140
+Another option was that we use the dot ag method to reduce a series into a single number
+
+387
+00:31:16,140 --> 00:31:23,260
+and we can use dot ag and pass in our own custom function or the third option would be
+
+388
+00:31:23,260 --> 00:31:30,220
+to do the dot apply method after we've called group by which will allow us to not just
+
+389
+00:31:30,220 --> 00:31:36,220
+summarize a column to a number but transform a column into another column.
+
+390
+00:31:36,220 --> 00:31:41,380
+Those were the ways that we worked through that second step of applying and then the combined
+
+391
+00:31:41,380 --> 00:31:47,380
+phase where we regroup all the results of applying this function group by group pandas
+
+392
+00:31:47,380 --> 00:31:52,060
+to care that for us and we didn't actually have to write any code to do that combined
+
+393
+00:31:52,060 --> 00:31:54,420
+step.
+
+394
+00:31:54,420 --> 00:31:59,940
+We also worked through how we can get different grouping based on columns, based on
+
+395
+00:31:59,940 --> 00:32:04,660
+transformations of them levels of the index and now we're ready to do a case study.
+
+396
+00:32:04,660 --> 00:32:10,620
+What we like to do now is load up a data set that was again collected from the USBR
+
+397
+00:32:10,620 --> 00:32:17,340
+of transportation statistics and we're going to utilize the QEDS library and the very first
+
+398
+00:32:17,340 --> 00:32:22,100
+time you run this particular line of code on your machine it'll take a little bit of time.
+
+399
+00:32:22,100 --> 00:32:27,020
+So you see here I started the computation minute ago which we can see that over on the far
+
+400
+00:32:27,020 --> 00:32:32,460
+side of the cell there's a star and asterix in between the square brackets.
+
+401
+00:32:32,460 --> 00:32:36,300
+That's Jupiter's way of letting us know that this computation is running.
+
+402
+00:32:36,300 --> 00:32:41,540
+But what happens is the QEDS library will go and we'll fetch the data from online.
+
+403
+00:32:41,540 --> 00:32:46,380
+It will clean it up, prepare it for us and then we'll save it to a file on our computer.
+
+404
+00:32:46,380 --> 00:32:51,140
+So the next time we run this cell you see here that it finished we now have a 33 in the
+
+405
+00:32:51,140 --> 00:32:53,140
+square back it's instead of a star.
+
+406
+00:32:53,140 --> 00:32:57,620
+If I'd run this again it wouldn't take quite as long because it's just finding the
+
+407
+00:32:57,620 --> 00:33:01,220
+file that it saved on my computer and reading it back in the memory.
+
+408
+00:33:01,220 --> 00:33:05,380
+And you'll see here that this already finished it says 34 instead of 33 letting us know
+
+409
+00:33:05,380 --> 00:33:08,700
+that it's done.
+
+410
+00:33:08,700 --> 00:33:14,940
+The first thing we'd like to do is compute the average delay in a rival time for all carriers
+
+411
+00:33:14,940 --> 00:33:18,500
+in each week and we're going to do this in a number of steps.
+
+412
+00:33:18,500 --> 00:33:23,500
+So first we're going to begin with our airline December data frame and then we're going
+
+413
+00:33:23,500 --> 00:33:26,780
+to go right into a group by and here we're going to group by two things.
+
+414
+00:33:26,780 --> 00:33:31,460
+We're going to group by the date column at a weekly frequency.
+
+415
+00:33:31,460 --> 00:33:34,060
+We're also going to group by the carrier.
+
+416
+00:33:34,060 --> 00:33:39,860
+The reason we chose these two arguments was because we wanted the average arrival time for
+
+417
+00:33:39,860 --> 00:33:47,940
+each carrier in each week and grouping by these two levels will give us that grouping.
+
+418
+00:33:47,940 --> 00:33:51,540
+Then we're extracting only the column that we're interested in here is to the arrival
+
+419
+00:33:51,540 --> 00:33:52,540
+delay column.
+
+420
+00:33:52,540 --> 00:33:54,460
+Then we're going to compute the mean.
+
+421
+00:33:54,460 --> 00:34:00,820
+So it's the average arrival delay for each flight across for the whole carrier within
+
+422
+00:34:00,820 --> 00:34:03,180
+a week.
+
+423
+00:34:03,180 --> 00:34:08,820
+And then finally once we're done what we end up with is we have two in two level index which
+
+424
+00:34:08,820 --> 00:34:11,820
+would be the date and the carrier.
+
+425
+00:34:11,820 --> 00:34:17,900
+And then we're going to have a single level of column, which is the airline delay.
+
+426
+00:34:17,900 --> 00:34:24,100
+And what we'd like to do is we're just going to rotate this carrier level of the index.
+
+427
+00:34:24,100 --> 00:34:27,340
+We're going to rotate that up to become column names.
+
+428
+00:34:27,340 --> 00:34:30,780
+So we're going to be left with the date going down the rows.
+
+429
+00:34:30,780 --> 00:34:34,820
+The columns are carriers and the values are the average delay.
+
+430
+00:34:34,820 --> 00:34:38,420
+Let's compute this and see what it looks like.
+
+431
+00:34:38,420 --> 00:34:41,100
+So we see here the shape we just we expected.
+
+432
+00:34:41,100 --> 00:34:45,380
+We have dates going down the rows and along the columns we have carrier codes.
+
+433
+00:34:46,340 --> 00:34:51,420
+So these may look a little difficult to understand.
+
+434
+00:34:51,420 --> 00:34:56,060
+These are just two digit codes that the airline industry uses to keep track of which airline.
+
+435
+00:34:56,060 --> 00:35:03,540
+This WN, for example, is Southwest Airlines and then way over at the other end, the AA is American
+
+436
+00:35:03,540 --> 00:35:05,660
+Airlines.
+
+437
+00:35:05,660 --> 00:35:12,340
+And we'll see here that we have one observation for each airline and each week.
+
+438
+00:35:12,340 --> 00:35:14,660
+The dates over here on the index.
+
+439
+00:35:14,660 --> 00:35:17,820
+Those represent the last day of a week.
+
+440
+00:35:17,820 --> 00:35:24,220
+So this first row represents the average delay for all flights in the week ending on December
+
+441
+00:35:24,220 --> 00:35:25,820
+the 4th.
+
+442
+00:35:25,820 --> 00:35:31,780
+The second row would be for the week ending December 11th, December 18th, and so on.
+
+443
+00:35:31,780 --> 00:35:39,620
+Now, it's a little hard to see the pattern by looking just at the raw table of numbers.
+
+444
+00:35:39,620 --> 00:35:43,900
+So let's go ahead and plot this data also and see what we can discover.
+
+445
+00:35:43,900 --> 00:35:52,100
+So if we see here that we have plotted the following, we have on the horizontal axis,
+
+446
+00:35:52,100 --> 00:35:54,060
+we have the date.
+
+447
+00:35:54,060 --> 00:36:01,740
+On the vertical axis, we have the delay time and then each subplot represents one airline.
+
+448
+00:36:01,740 --> 00:36:06,460
+So we have here a sequence of 12 charts where each of them are showing us the average
+
+449
+00:36:06,460 --> 00:36:09,780
+delay time for that airline.
+
+450
+00:36:09,780 --> 00:36:14,820
+And it looks like for every single almost every single one of these charts with two
+
+451
+00:36:14,820 --> 00:36:20,140
+exceptions, one being this one and the other being the AS chart up here.
+
+452
+00:36:20,140 --> 00:36:26,660
+But for every other chart, the third bar corresponding to the week ending December 18th
+
+453
+00:36:26,660 --> 00:36:30,820
+has the largest average delay time.
+
+454
+00:36:30,820 --> 00:36:34,860
+So this seems somewhat systemic or something that we could dig into a little bit more.
+
+455
+00:36:34,860 --> 00:36:36,220
+And that's quite interesting.
+
+456
+00:36:36,300 --> 00:36:43,340
+So we'll go ahead and we'll see if we can analyze that more.
+
+457
+00:36:43,340 --> 00:36:47,340
+The way we're going to proceed with our analysis is to utilize a few more columns contained
+
+458
+00:36:47,340 --> 00:36:49,140
+in this data frame.
+
+459
+00:36:49,140 --> 00:36:55,220
+So in addition to just the total delay in minutes, we actually have a breakdown of what
+
+460
+00:36:55,220 --> 00:36:59,580
+contributed to that delay from five different categories.
+
+461
+00:36:59,580 --> 00:37:04,020
+These categories include things like, was it the airline carriers fault?
+
+462
+00:37:04,020 --> 00:37:05,020
+Was it a weather delay?
+
+463
+00:37:05,020 --> 00:37:07,100
+Was it because there was a later craft?
+
+464
+00:37:07,100 --> 00:37:09,540
+Was it security and so on?
+
+465
+00:37:09,540 --> 00:37:15,940
+So we'll go ahead and we'll create a list called delay calls containing these column
+
+466
+00:37:15,940 --> 00:37:18,580
+names so that we don't have to type them out later.
+
+467
+00:37:18,580 --> 00:37:24,540
+And our goal here is to understand what contributed to the high delays in the week ending
+
+468
+00:37:24,540 --> 00:37:26,540
+December 18th.
+
+469
+00:37:26,540 --> 00:37:30,060
+And we're going to be using these five categories and we're going to try to understand
+
+470
+00:37:30,060 --> 00:37:34,540
+how much that each contributed to those delays.
+
+471
+00:37:34,540 --> 00:37:40,140
+So we'll just go ahead and we're just going to construct a data frame that has the raw
+
+472
+00:37:40,140 --> 00:37:41,500
+delay values here.
+
+473
+00:37:41,500 --> 00:37:45,060
+And we did kind of a lot in this step so we're going to break it down one of the time.
+
+474
+00:37:45,060 --> 00:37:50,300
+The first thing we did up here in the code cell was that we extracted the data for only
+
+475
+00:37:50,300 --> 00:37:51,300
+that week.
+
+476
+00:37:51,300 --> 00:37:55,300
+We said we would like to get all the data where the date is greater than or equal to
+
+477
+00:37:55,300 --> 00:37:59,540
+the 12th and less than or equal to the 18th.
+
+478
+00:37:59,540 --> 00:38:05,660
+And then have a new function that we defined, a new aggregation function called positive.
+
+479
+00:38:05,660 --> 00:38:14,260
+The purpose of this function is to compute the total number of rows where the value in a particular
+
+480
+00:38:14,260 --> 00:38:16,980
+column was greater than 0.
+
+481
+00:38:16,980 --> 00:38:24,660
+This will help us understand how many times a particular delay or a particular factor caused
+
+482
+00:38:24,660 --> 00:38:26,820
+a delay.
+
+483
+00:38:26,820 --> 00:38:30,620
+Then the final thing we're going to do is we're going to take this pre-Christmas data
+
+484
+00:38:30,620 --> 00:38:35,460
+frame so containing only data from December 12th to the 18th.
+
+485
+00:38:35,460 --> 00:38:38,900
+We're going to group by the carrier.
+
+486
+00:38:38,900 --> 00:38:44,220
+We're going to look at the delay columns and then we're going to call Ag.
+
+487
+00:38:44,220 --> 00:38:49,980
+Now before we were calling Ag and passing it a single argument which then would take each
+
+488
+00:38:49,980 --> 00:38:56,380
+column, use the Ag function and reduce it to a single number and then move to the next group.
+
+489
+00:38:56,380 --> 00:38:58,260
+We're passing a list of functions.
+
+490
+00:38:58,260 --> 00:39:04,300
+We want it to compute the sum, the mean and we want it to use our positive function.
+
+491
+00:39:04,300 --> 00:39:07,860
+And so what we get back here, let's look at the shape of this output.
+
+492
+00:39:07,860 --> 00:39:10,860
+You see here that the rows are equal to the carrier.
+
+493
+00:39:10,860 --> 00:39:13,900
+Sorry, the index is equal to the carrier.
+
+494
+00:39:13,900 --> 00:39:18,060
+This happened because that's what we chose to group by up here.
+
+495
+00:39:18,060 --> 00:39:21,220
+Second, notice that we have two layers of column index.
+
+496
+00:39:21,220 --> 00:39:24,740
+We have one here at the top and then a second one down here.
+
+497
+00:39:24,740 --> 00:39:29,700
+This outer most layer of columns is actually coming from the delay columns.
+
+498
+00:39:29,700 --> 00:39:32,900
+So this becomes the outer layer of our index.
+
+499
+00:39:32,900 --> 00:39:37,540
+And then the inner layer has positive sum and mean.
+
+500
+00:39:37,540 --> 00:39:41,740
+This comes from the functions we pass to the Ag method.
+
+501
+00:39:41,740 --> 00:39:45,700
+So we have the group by argument on the index.
+
+502
+00:39:45,700 --> 00:39:50,060
+The columns become the outer most column and then each Ag function becomes the inner
+
+503
+00:39:50,060 --> 00:39:52,500
+most column level.
+
+504
+00:39:52,500 --> 00:39:54,060
+And we have a bunch of Veta here.
+
+505
+00:39:54,060 --> 00:39:58,300
+It's like last time it's a little hard to understand exactly what the patterns are
+
+506
+00:39:58,300 --> 00:40:00,540
+just by staring at the numbers.
+
+507
+00:40:00,540 --> 00:40:03,300
+So we'll go ahead and we'll make a chart.
+
+508
+00:40:03,300 --> 00:40:07,060
+So what is it that we would like to do or what is our want?
+
+509
+00:40:07,060 --> 00:40:15,700
+What we want to do is plot the total average and number of each type of delay by carrier.
+
+510
+00:40:15,700 --> 00:40:21,300
+And to do this, we're going to have to reshape this delay total data frame a little
+
+511
+00:40:21,300 --> 00:40:22,580
+bit.
+
+512
+00:40:22,580 --> 00:40:28,540
+So what we'd like to see is that we would like to have the delay type be the horizontal
+
+513
+00:40:28,540 --> 00:40:30,900
+axis on our charts.
+
+514
+00:40:30,900 --> 00:40:36,300
+And the way pandas does its plotting is anything on the index will become the horizontal
+
+515
+00:40:36,300 --> 00:40:38,900
+axis or the x axis values.
+
+516
+00:40:38,900 --> 00:40:43,660
+So the first step is to move the delay type from being this outer most column level.
+
+517
+00:40:43,660 --> 00:40:47,380
+We want to rotate it down to be on the index.
+
+518
+00:40:47,380 --> 00:40:51,540
+The second thing we'd like to do is we'd like to have the aggregation method instead of
+
+519
+00:40:51,540 --> 00:40:54,220
+being the bottom or the inner column level.
+
+520
+00:40:54,220 --> 00:40:59,180
+We'd like to rotate it up so that it's the outer or top column labels.
+
+521
+00:40:59,180 --> 00:41:03,180
+And then finally we want to move the carrier names from being on the index.
+
+522
+00:41:03,180 --> 00:41:08,780
+We want to rotate them up and become the outer most column level.
+
+523
+00:41:08,780 --> 00:41:12,060
+Or sorry, we can be the inner column level, not the outer one.
+
+524
+00:41:12,060 --> 00:41:13,060
+It's a lot.
+
+525
+00:41:13,060 --> 00:41:15,220
+And the code here is just one way to do it.
+
+526
+00:41:15,220 --> 00:41:19,460
+We'll show you the output and then we'll work through how it happened.
+
+527
+00:41:19,460 --> 00:41:24,340
+So here we have the carriers, sorry, the delay types going down rows.
+
+528
+00:41:24,340 --> 00:41:31,100
+We have the outer level of these columns as the aggregation type here is some and the inner
+
+529
+00:41:31,100 --> 00:41:35,220
+level of the column labels is the carrier code.
+
+530
+00:41:35,220 --> 00:41:36,380
+So how do we do it?
+
+531
+00:41:36,380 --> 00:41:39,860
+We started with our data and then we chose to stack it.
+
+532
+00:41:39,860 --> 00:41:45,580
+And what this did was it moved the aggregation method down and it flipped it down.
+
+533
+00:41:45,580 --> 00:41:49,660
+So before we had delay type aggregation method.
+
+534
+00:41:49,660 --> 00:41:54,020
+But now we've rotated the aggregation method down to become a level on the index.
+
+535
+00:41:54,020 --> 00:42:00,780
+So now we have carrier code and delay type on the index and then our column labels are
+
+536
+00:42:00,780 --> 00:42:03,500
+now the aggregation type.
+
+537
+00:42:03,500 --> 00:42:05,980
+Or sorry, the delay type.
+
+538
+00:42:05,980 --> 00:42:07,780
+So then we're going to do a transpose.
+
+539
+00:42:07,780 --> 00:42:12,500
+So this dot t here in the second line will just invert that.
+
+540
+00:42:12,500 --> 00:42:17,980
+So then we're going to end up with the delay type on the index.
+
+541
+00:42:17,980 --> 00:42:24,140
+And then we're going to have the carrier code on the bottom level of the columns and the aggregation
+
+542
+00:42:24,140 --> 00:42:25,140
+type on the top.
+
+543
+00:42:25,140 --> 00:42:26,460
+Or actually vice versa.
+
+544
+00:42:26,460 --> 00:42:32,700
+We're going to have the aggregation type close to the data and the carrier code on the outside.
+
+545
+00:42:32,700 --> 00:42:38,660
+This happened because when before the transpose, the carrier code was on the outside and
+
+546
+00:42:38,660 --> 00:42:42,460
+then the aggregation type was closer to the data.
+
+547
+00:42:42,460 --> 00:42:43,460
+That is preserved.
+
+548
+00:42:43,460 --> 00:42:47,620
+So the aggregation type in the columns is going to be the lower level and the carrier
+
+549
+00:42:47,620 --> 00:42:50,740
+code will be the higher one.
+
+550
+00:42:50,740 --> 00:42:54,860
+The next step after the transpose is to swap the level of the column layers.
+
+551
+00:42:54,860 --> 00:43:00,060
+So we're going to swap so that we flip the delay type or sorry, the aggregation type
+
+552
+00:43:00,060 --> 00:43:03,820
+to be on the top and the carrier code to be underneath it.
+
+553
+00:43:03,820 --> 00:43:13,540
+Finally we'll just sort by the index that we have a sorted column labels.
+
+554
+00:43:13,540 --> 00:43:15,100
+That's a lot.
+
+555
+00:43:15,100 --> 00:43:17,260
+If you didn't totally follow, that's okay.
+
+556
+00:43:17,260 --> 00:43:22,300
+I encourage you to go back on your own time and to study these commands and make sure that
+
+557
+00:43:22,300 --> 00:43:29,020
+you understand how we can start from where we were over here on this previous slide.
+
+558
+00:43:29,020 --> 00:43:35,140
+We can start here, use these reshape commands to get down here.
+
+559
+00:43:35,140 --> 00:43:38,020
+Once we have this, we're going to go ahead and plot it.
+
+560
+00:43:38,020 --> 00:43:42,580
+What we're going to do is we're going to loop over the aggregation type, the mean,
+
+561
+00:43:42,580 --> 00:43:44,700
+some, and positive.
+
+562
+00:43:44,700 --> 00:43:50,300
+We're then going to extract all the columns for that one aggregation type and then we'll
+
+563
+00:43:50,300 --> 00:43:51,300
+plot it.
+
+564
+00:43:51,300 --> 00:43:55,060
+The actual instructions in the plot command are similar to what we saw before, so we won't
+
+565
+00:43:55,060 --> 00:43:58,300
+focus too much on it.
+
+566
+00:43:58,300 --> 00:44:00,300
+We'll just get the free to study this on your own later.
+
+567
+00:44:00,300 --> 00:44:04,300
+What we end up with is three different charts.
+
+568
+00:44:04,300 --> 00:44:12,900
+The first chart shows the values for the average contribution of each delay type.
+
+569
+00:44:12,900 --> 00:44:15,460
+Now this is not average across flights.
+
+570
+00:44:15,460 --> 00:44:21,660
+Remember this is average across non-zero values for that delay type.
+
+571
+00:44:21,660 --> 00:44:30,300
+We'll see here on the x-axis, where the horizontal one, we have the delay type.
+
+572
+00:44:30,300 --> 00:44:34,780
+On the subplots, we have carrier codes and then the value, the height of the barge is going
+
+573
+00:44:34,780 --> 00:44:39,660
+to be the value of that aggregation type.
+
+574
+00:44:39,660 --> 00:44:45,300
+We have the same thing for the sum as well as the positive total count.
+
+575
+00:44:45,300 --> 00:44:51,020
+So we'll see here a few patterns.
+
+576
+00:44:51,020 --> 00:44:52,220
+Let's just talk about them.
+
+577
+00:44:52,220 --> 00:44:54,660
+So look down here at the number of positive delays.
+
+578
+00:44:54,660 --> 00:45:01,540
+We see that southwest airlines down here at the bottom had very high counts of these three
+
+579
+00:45:01,540 --> 00:45:02,540
+delay types.
+
+580
+00:45:02,540 --> 00:45:06,140
+It was the carrier delay in NA S delay.
+
+581
+00:45:06,140 --> 00:45:07,780
+I'm not exactly sure what that one is.
+
+582
+00:45:07,780 --> 00:45:09,180
+It has to look that up.
+
+583
+00:45:09,180 --> 00:45:12,780
+And then the late aircraft delay.
+
+584
+00:45:12,780 --> 00:45:17,340
+However, if we look at the average contribution, they don't seem quite as bad.
+
+585
+00:45:17,340 --> 00:45:24,100
+The carrier delays are a bit smaller per occurrence than it is for other airlines.
+
+586
+00:45:24,100 --> 00:45:28,260
+This may be indicative of southwest having many instances of that.
+
+587
+00:45:28,260 --> 00:45:32,180
+So they know how to handle it and how to get back on track a little bit better than some
+
+588
+00:45:32,180 --> 00:45:35,900
+other airlines who don't frequently have carrier delays.
+
+589
+00:45:35,900 --> 00:45:39,100
+This NA S delay, the average contribution is quite low.
+
+590
+00:45:39,180 --> 00:45:44,380
+And then this later aircraft delay is still fairly high, but I would say lower on average
+
+591
+00:45:44,380 --> 00:45:46,100
+than for other airlines.
+
+592
+00:45:46,100 --> 00:45:49,860
+Another thing to notice is the height of this bar right here.
+
+593
+00:45:49,860 --> 00:45:59,740
+So area with air line with carrier code B6 had a very large average delay for a later
+
+594
+00:45:59,740 --> 00:46:02,220
+aircraft.
+
+595
+00:46:02,220 --> 00:46:06,540
+Now if we look at what happened here, we see that that didn't happen very often for this
+
+596
+00:46:06,540 --> 00:46:08,100
+carrier.
+
+597
+00:46:08,100 --> 00:46:13,260
+And so when it does, even though the sum is not that large, because the total number
+
+598
+00:46:13,260 --> 00:46:19,940
+of occurrences is low, the bar is quite high, because even though it doesn't happen
+
+599
+00:46:19,940 --> 00:46:23,300
+often when it does, it contributes quite a bit to the delay.
+
+600
+00:46:23,300 --> 00:46:26,660
+Those are just some of the insights we can pick up.
+
+601
+00:46:26,660 --> 00:46:29,060
+And we actually have an exercise here.
+
+602
+00:46:29,060 --> 00:46:33,340
+We would like for you on your own time to come back and think through these charts and
+
+603
+00:46:33,340 --> 00:46:39,660
+try to understand what factors contributed to delays for different airlines.
+
+604
+00:46:39,660 --> 00:46:44,900
+In particular, we'd like for you to answer questions like, which type of delay was the most
+
+605
+00:46:44,900 --> 00:46:51,740
+common or occurred the most, which type of delay caused the highest average, which type of,
+
+606
+00:46:51,740 --> 00:47:00,380
+yeah, type of delay caused the average arrival delay to be the biggest.
+
+607
+00:47:00,380 --> 00:47:05,740
+And also do these answers and ones to related questions vary by airline.
+
+608
+00:47:05,740 --> 00:47:09,620
+We kind of saw a little bit of this variation by airline with Southwest before.
+
+609
+00:47:09,620 --> 00:47:14,780
+Now they have a lot of delays, but they tend to be un-average smaller than the corresponding
+
+610
+00:47:14,780 --> 00:47:17,780
+delays for other airlines.
+
+611
+00:47:17,780 --> 00:47:22,060
+Again, we'll encourage you to come back on your own time and think through this, maybe
+
+612
+00:47:22,060 --> 00:47:27,940
+discuss it with one of your friends and write your thoughts down so that you can understand
+
+613
+00:47:27,940 --> 00:47:36,140
+a bit more how to think through this analysis once we've done the computation.
+
+614
+00:47:36,140 --> 00:47:39,380
+So let's take stock a little bit of what we've done.
+
+615
+00:47:39,380 --> 00:47:47,780
+We were able to compute for the month of December 2016, the average flight delay for all
+
+616
+00:47:47,780 --> 00:47:53,300
+US domestic flights by airline and by week.
+
+617
+00:47:53,300 --> 00:47:57,780
+And then just by plotting these numbers, we noticed that one week in particular seemed
+
+618
+00:47:57,780 --> 00:48:00,340
+to have much higher delays than other weeks.
+
+619
+00:48:00,340 --> 00:48:03,740
+This was the week ending in December 18th.
+
+620
+00:48:03,740 --> 00:48:10,740
+Then we studied the contribution of delay from five different categories to try to understand
+
+621
+00:48:10,740 --> 00:48:14,500
+what happened and you did some of this study on your own.
+
+622
+00:48:14,500 --> 00:48:22,100
+Now this was a fairly good analysis in the sense that we were able to utilize a lot of our
+
+623
+00:48:22,100 --> 00:48:27,340
+tools and we were the uncover insights about this industry, but it's not the only type
+
+624
+00:48:27,340 --> 00:48:30,060
+of analysis we may ever want to do.
+
+625
+00:48:30,060 --> 00:48:36,420
+Suppose that after seeing our results, the somebody at the airline industry would say,
+
+626
+00:48:36,420 --> 00:48:40,860
+hey, we loved your weekly analysis because you repeated for us at the daily frequency.
+
+627
+00:48:40,860 --> 00:48:45,980
+Sure enough, it wouldn't be that hard what we could do is either go back through our code
+
+628
+00:48:45,980 --> 00:48:52,660
+and change this W frequency, one of me grouped by, to a D for week.
+
+629
+00:48:52,660 --> 00:48:57,980
+Sure I should move from week to day and then repeat an execute all the cells again,
+
+630
+00:48:57,980 --> 00:48:59,340
+but there's a better way.
+
+631
+00:48:59,340 --> 00:49:07,500
+So what we would like to do is actually compute the analysis we did in a container
+
+632
+00:49:07,500 --> 00:49:13,260
+or in a function so that we can call it repeatedly, maybe tweaking a few of these values
+
+633
+00:49:13,260 --> 00:49:14,980
+at a time.
+
+634
+00:49:14,980 --> 00:49:20,020
+In particular what we're going to do now is we're going to wrap this analysis above
+
+635
+00:49:20,020 --> 00:49:21,740
+into two functions.
+
+636
+00:49:21,740 --> 00:49:30,820
+One, it will produce a set of bar charts for the average delays at a particular frequency.
+
+637
+00:49:30,820 --> 00:49:37,540
+Then we're going to have a second set of bar charts for the sum, mean, and number of positive
+
+638
+00:49:37,540 --> 00:49:42,660
+occurrences for each delay type again at the chosen frequency.
+
+639
+00:49:42,660 --> 00:49:44,460
+Here we're going to do it at the delay.
+
+640
+00:49:44,460 --> 00:49:47,140
+Or sorry, at the daily frequency.
+
+641
+00:49:47,140 --> 00:49:49,980
+So let's go ahead and define these functions.
+
+642
+00:49:49,980 --> 00:49:54,900
+So what we have here is we have a function that takes three arguments.
+
+643
+00:49:54,900 --> 00:49:56,820
+One has a default value.
+
+644
+00:49:56,820 --> 00:49:59,020
+The first argument is our raw data frame.
+
+645
+00:49:59,020 --> 00:50:04,380
+This would be kind of the air underscore DEC or airline December data frame we've been working
+
+646
+00:50:04,380 --> 00:50:05,380
+with.
+
+647
+00:50:05,380 --> 00:50:10,980
+Then it takes the second argument called Freak or Freakancy.
+
+648
+00:50:10,980 --> 00:50:12,100
+Here's what it does.
+
+649
+00:50:12,100 --> 00:50:18,140
+The first step is to take the raw data frame and group by the date at of a frequency
+
+650
+00:50:18,140 --> 00:50:22,340
+passed into the function and the carrier.
+
+651
+00:50:22,340 --> 00:50:27,420
+This looks just like the code we wrote above, but before we had hard coded a string
+
+652
+00:50:27,420 --> 00:50:29,780
+W here for a frequency.
+
+653
+00:50:29,780 --> 00:50:34,540
+And now we're allowing that to change with the argument to this function.
+
+654
+00:50:34,540 --> 00:50:39,020
+Once we've done this grouping, we're going to again take our arrival delay column, we'll
+
+655
+00:50:39,020 --> 00:50:42,060
+compute the average, and then we'll unstack it.
+
+656
+00:50:42,060 --> 00:50:46,860
+So that we're left with only the date on the index and the carrier code has been moved
+
+657
+00:50:46,860 --> 00:50:55,020
+from a level on the index up to be a level of the columns.
+
+658
+00:50:55,020 --> 00:50:59,220
+So this is just the code we first saw when we analyzed the airline data.
+
+659
+00:50:59,220 --> 00:51:05,500
+But now we've made this frequency argument customizable with a function argument.
+
+660
+00:51:05,500 --> 00:51:07,260
+Next we're going to repeat the plotting code.
+
+661
+00:51:07,260 --> 00:51:12,460
+So all this, the rest of this function does is it repeats the code necessary to compute
+
+662
+00:51:12,460 --> 00:51:18,460
+that grid of plots for the average delay for each airline at the given frequency.
+
+663
+00:51:18,460 --> 00:51:24,700
+We'll go ahead and define this and we'll show how to use it in just a moment.
+
+664
+00:51:24,700 --> 00:51:29,500
+The second thing we wanted to do was be able to understand a bit more what contributed
+
+665
+00:51:29,500 --> 00:51:30,500
+to the delays.
+
+666
+00:51:30,500 --> 00:51:32,620
+So here's what we're going to do.
+
+667
+00:51:32,620 --> 00:51:35,580
+We're going to have a second function that takes three arguments.
+
+668
+00:51:35,580 --> 00:51:40,300
+The first argument is going to be the data frame containing our data.
+
+669
+00:51:40,300 --> 00:51:45,820
+Second argument is a string representing the starting date and the third argument is
+
+670
+00:51:45,820 --> 00:51:49,180
+a string representing the ending date.
+
+671
+00:51:49,180 --> 00:51:51,940
+Once we have these arguments, we do the following.
+
+672
+00:51:51,940 --> 00:51:54,620
+We first construct a subset of the data.
+
+673
+00:51:54,620 --> 00:51:56,860
+We'll hear we call it sub-df.
+
+674
+00:51:56,860 --> 00:52:02,420
+What we're going to say, we want the data where the date column is at least start and the
+
+675
+00:52:02,420 --> 00:52:05,660
+value that it column is no more than end.
+
+676
+00:52:05,660 --> 00:52:10,700
+This will give us a subset of the data in between start and end.
+
+677
+00:52:10,700 --> 00:52:16,220
+Then you'll see here that we have repeated that positive function.
+
+678
+00:52:16,220 --> 00:52:24,460
+We're going to then pass positive alongside some and mean to this group by operation where
+
+679
+00:52:24,460 --> 00:52:26,540
+we've grouped by the carrier.
+
+680
+00:52:26,540 --> 00:52:29,060
+We're looking at only delay columns.
+
+681
+00:52:29,060 --> 00:52:32,580
+Then we're aggregating with some mean and positive.
+
+682
+00:52:32,580 --> 00:52:35,660
+Then we're going to do the reshaping and plotting code.
+
+683
+00:52:35,660 --> 00:52:37,820
+There's no new code here.
+
+684
+00:52:37,820 --> 00:52:44,860
+All we've done is instead of hard coding December 18 for the end and December 12 for the
+
+685
+00:52:44,860 --> 00:52:49,580
+start, we've made those be customized above the function arguments.
+
+686
+00:52:49,580 --> 00:52:56,980
+We'll go ahead and evaluate that cell to define this function.
+
+687
+00:52:56,980 --> 00:52:59,020
+That leaves us to an exercise.
+
+688
+00:52:59,020 --> 00:53:06,340
+What we'd like for you to do is we'd like for you to call the mean delay plot function to
+
+689
+00:53:06,340 --> 00:53:14,140
+replicate the chart we had before where we had the average delay per airline per week.
+
+690
+00:53:14,140 --> 00:53:20,780
+Then we'd like for you to call the second function the delay type plot to replicate the charts
+
+691
+00:53:20,780 --> 00:53:27,620
+that we used to study the delays between December 12 and December 18.
+
+692
+00:53:27,620 --> 00:53:33,740
+Doing this type of check or replication exercise is a good practice.
+
+693
+00:53:33,740 --> 00:53:37,300
+What we did is we wrote out some analysis once.
+
+694
+00:53:37,300 --> 00:53:42,300
+We decided that we might want to encapsulate some of it in a function so we could reuse it.
+
+695
+00:53:42,300 --> 00:53:43,780
+We started with analysis.
+
+696
+00:53:43,780 --> 00:53:48,020
+We put it in functions and now we're going to call the functions and this will allow us
+
+697
+00:53:48,020 --> 00:53:52,980
+to compare the function output to the original analysis output.
+
+698
+00:53:52,980 --> 00:53:57,860
+If they match, then we have some confidence that we've written our functions correctly.
+
+699
+00:53:57,860 --> 00:54:01,940
+We'd like for you to take a moment to call these two functions and see if you can replicate
+
+700
+00:54:01,940 --> 00:54:05,140
+the charts we already have.
+
+701
+00:54:05,140 --> 00:54:06,140
+Welcome back.
+
+702
+00:54:06,140 --> 00:54:08,900
+We'll see here and we'll work through this together now.
+
+703
+00:54:08,900 --> 00:54:13,580
+You'll see here that I've written out the code that I feel should be able to replicate
+
+704
+00:54:13,580 --> 00:54:15,580
+the charts we saw before.
+
+705
+00:54:15,580 --> 00:54:18,620
+What I'm going to do is I'm going to call the mean delay plot function.
+
+706
+00:54:18,940 --> 00:54:23,860
+I'm going to give it our airline December data frame and then I'm going to pass as the frequency
+
+707
+00:54:23,860 --> 00:54:26,180
+argument, the string W.
+
+708
+00:54:26,180 --> 00:54:31,420
+Meaning we want to compute average delays across airlines by week.
+
+709
+00:54:31,420 --> 00:54:34,940
+When we do this, we end up with the chart that we saw before.
+
+710
+00:54:34,940 --> 00:54:40,660
+We see here that for almost all of these airlines, this third week and need in December
+
+711
+00:54:40,660 --> 00:54:44,140
+18th has the highest average delay.
+
+712
+00:54:44,140 --> 00:54:45,140
+Great.
+
+713
+00:54:45,180 --> 00:54:49,660
+The first and out part of our analysis was successfully replicated.
+
+714
+00:54:49,660 --> 00:54:53,660
+Second was this delay type chart.
+
+715
+00:54:53,660 --> 00:54:57,860
+So what I've done here, they've called delay type plot and the three arguments I
+
+716
+00:54:57,860 --> 00:55:02,540
+passed were one, the airline December data frame containing our data.
+
+717
+00:55:02,540 --> 00:55:11,580
+Two, I passed a string representing the date, the 12th of December 2016, as the starting
+
+718
+00:55:11,580 --> 00:55:19,020
+point of our window and then I did the 12th, 18th of December 2016 as the ending date.
+
+719
+00:55:19,020 --> 00:55:24,540
+When we call this function and we execute this, we get back those same three charts we
+
+720
+00:55:24,540 --> 00:55:25,820
+saw before.
+
+721
+00:55:25,820 --> 00:55:31,980
+Here we have a chart for the average delay by delay type for airline.
+
+722
+00:55:31,980 --> 00:55:39,260
+We have the total minutes delay per each delay type and then we have the number of positive
+
+723
+00:55:39,260 --> 00:55:45,780
+number of times that delay type contributed to it delay.
+
+724
+00:55:45,780 --> 00:55:50,780
+At this point we feel confident that we've successfully encapsulated our analysis
+
+725
+00:55:50,780 --> 00:55:55,220
+in reusable functions.
+
+726
+00:55:55,220 --> 00:55:57,020
+Now let's actually utilize this.
+
+727
+00:55:57,020 --> 00:56:02,260
+What we'll do is we'll now take this mean delay plot function and instead of only looking
+
+728
+00:56:02,260 --> 00:56:06,820
+at a weekly frequency, let's go ahead and look at a daily frequency.
+
+729
+00:56:06,820 --> 00:56:13,060
+This is going to produce a lot more charts or a lot more numbers here on the X-axis
+
+730
+00:56:13,060 --> 00:56:19,020
+because now instead of just the five week endings we have all 31 day endings.
+
+731
+00:56:19,020 --> 00:56:26,900
+But what we're able to see is that there are a few days here on December 17th and 18th
+
+732
+00:56:26,900 --> 00:56:30,580
+that seem to have larger delays for all the different airlines.
+
+733
+00:56:30,580 --> 00:56:35,460
+We see it over here in this middle one, we see it over there on that side and then we
+
+734
+00:56:35,460 --> 00:56:37,620
+also see it right here.
+
+735
+00:56:37,620 --> 00:56:52,420
+So the airline, the average delays seem to be biggest on December 17th and December 18th.
+
+736
+00:56:52,420 --> 00:57:01,540
+So let's go ahead and look at what contributed to these delays.
+
+737
+00:57:01,540 --> 00:57:07,420
+We're going to use our delay type plot function and try to understand a bit more about
+
+738
+00:57:07,420 --> 00:57:09,820
+what happened.
+
+739
+00:57:09,820 --> 00:57:15,940
+So the way we're going to call this is we're going to call delay type plot.
+
+740
+00:57:15,940 --> 00:57:21,060
+We're going to give it both, oh, sure, we're going to pass our airline December and we
+
+741
+00:57:21,060 --> 00:57:22,820
+need to start in an end date.
+
+742
+00:57:22,820 --> 00:57:27,140
+The start date we're choosing is December 17th, 2016.
+
+743
+00:57:27,140 --> 00:57:29,940
+The end date is December 18th, 2016.
+
+744
+00:57:29,940 --> 00:57:38,220
+So here we're going to see the average delay, pie delay type for both days together.
+
+745
+00:57:38,220 --> 00:57:43,020
+We'll see here that it looks like what's causing most of the delays and we're going to
+
+746
+00:57:43,020 --> 00:57:49,260
+look at the sum chart for this is that this late aircraft one is causing a lot of problems,
+
+747
+00:57:49,260 --> 00:57:53,660
+kind of generally across all these charts as well as the carrier delay.
+
+748
+00:57:53,660 --> 00:57:59,220
+So these two types of delays seem to be troublesome.
+
+749
+00:57:59,300 --> 00:58:04,660
+You also have a non-zero delay being caused by weather.
+
+750
+00:58:04,660 --> 00:58:11,540
+It seems like weather may be, so there may be some bad weather in the United States at this
+
+751
+00:58:11,540 --> 00:58:16,620
+time, which can make sense because we're looking at December which would be winter and
+
+752
+00:58:16,620 --> 00:58:23,540
+those are times when maybe the weather would cause more delays than in more temperate seasons.
+
+753
+00:58:23,620 --> 00:58:32,180
+Now because we've written out our function, we were able to look at having a start and
+
+754
+00:58:32,180 --> 00:58:33,860
+end date that we're different.
+
+755
+00:58:33,860 --> 00:58:38,260
+So December 17th and 18th and look at both days together, but now we're able to just
+
+756
+00:58:38,260 --> 00:58:43,380
+use one line of code to generate these plots for only December 17th.
+
+757
+00:58:43,380 --> 00:58:48,980
+It looks like on this day the total delays, again, we're probably coming from these two
+
+758
+00:58:49,060 --> 00:58:56,340
+columns, but there is some notion of the weather being a little bit high.
+
+759
+00:58:56,340 --> 00:58:59,140
+Let's look what happens on December 18th.
+
+760
+00:58:59,140 --> 00:59:04,300
+To evaluate this sale, so now the start date is the 18th as well as the ending date.
+
+761
+00:59:04,300 --> 00:59:06,820
+And now the weather delays are all but gone.
+
+762
+00:59:06,820 --> 00:59:13,060
+We see here that the weather delays are just not apparent, especially here for Southwest,
+
+763
+00:59:13,060 --> 00:59:18,740
+and it's almost entirely due to late aircraft or carriers.
+
+764
+00:59:18,740 --> 00:59:23,700
+So we'll see here that the type of delay was different between the 17th where we did have
+
+765
+00:59:24,900 --> 00:59:31,060
+a reasonable amount of weather related delays to the 18th where we really just don't have any weather delays.
+
+766
+00:59:35,540 --> 00:59:41,860
+So now the purpose of the exercise we just did was we really want to underscore the ability
+
+767
+00:59:41,860 --> 00:59:48,580
+of utilizing Python and good programming practices so that we can automate or make reproducible
+
+768
+00:59:48,900 --> 00:59:50,340
+our analysis.
+
+769
+00:59:50,340 --> 00:59:55,460
+We were able to write a pair of functions that allowed us to easily repeat the exact same
+
+770
+00:59:55,460 --> 01:00:00,100
+analysis on different subsets of the data or maybe even different data sets.
+
+771
+01:00:00,100 --> 01:00:07,460
+We could if we had data for December 2019 or September 2020, we would be able to pass this data
+
+772
+01:00:07,460 --> 01:00:11,700
+frame in to these functions and it would work without a problem.
+
+773
+01:00:11,700 --> 01:00:15,380
+There is nothing particular about it being December 2016.
+
+774
+01:00:16,260 --> 01:00:23,220
+Now these same principles of being able to write a reusable or reproducible analysis can be applied
+
+775
+01:00:23,700 --> 01:00:28,580
+in many many settings and we'll see this as a theme that continues to pop up
+
+776
+01:00:28,580 --> 01:00:29,780
+throughout our studies together.
+
+777
+01:00:33,460 --> 01:00:40,180
+So the last part of our lecture today will be to introduce an extended problem that we would like
+
+778
+01:00:40,180 --> 01:00:45,220
+for you to work on on your own. And here's the setting that we're working with.
+
+779
+01:00:45,620 --> 01:00:54,180
+The QEDS library contains some routines that concimulate the structure and distribution of data
+
+780
+01:00:54,180 --> 01:01:00,020
+from some common sources. One of these sources is Shopify. This is an e-commerce platform
+
+781
+01:01:00,020 --> 01:01:05,380
+or service used by many different retail companies in order to engage in online transactions with
+
+782
+01:01:05,380 --> 01:01:13,540
+customers. When a firm utilizes the Shopify platform to sell their goods online, Shopify will
+
+783
+01:01:13,540 --> 01:01:18,740
+keep a record of all the transactions and produce a report with a consistent format.
+
+784
+01:01:20,100 --> 01:01:26,180
+And what we're going to do here is we're going to we were able to contain an actual
+
+785
+01:01:26,980 --> 01:01:32,740
+Shopify report from a real retailer and we were able to uncover some of the distributional
+
+786
+01:01:32,820 --> 01:01:40,340
+facts as well as the structure of the data. And we took this distributional awareness and the structural
+
+787
+01:01:40,340 --> 01:01:46,020
+awareness and we wrote it and we encoded it in a simulation routine. So now what we can do is
+
+788
+01:01:47,060 --> 01:01:53,540
+simulate some random data that has the same structure and distribution of real life retailer data
+
+789
+01:01:53,540 --> 01:02:00,260
+from the Shopify provider. And so what we've done here in order to do this, the first two lines here,
+
+790
+01:02:00,340 --> 01:02:08,980
+they set the random generator seed. Now what this means is that if you were to come back and
+
+791
+01:02:08,980 --> 01:02:15,060
+execute this cell again, you're going to get back the exact same set of randomly simulated data
+
+792
+01:02:15,060 --> 01:02:20,420
+that you're going to get right now. Had we not put the seed here, every time you run this cell,
+
+793
+01:02:20,420 --> 01:02:26,020
+be it today, two minutes from now, two weeks or two years from now, you'd end up with different data
+
+794
+01:02:26,980 --> 01:02:32,500
+because it's randomly generated. But if we set the seed on the random generator,
+
+795
+01:02:33,380 --> 01:02:39,780
+then it will kind of reset the randomness back to a known value and then all the numbers generated
+
+796
+01:02:39,780 --> 01:02:45,300
+from that point will be consistent and we'll see the same ones today and then tomorrow.
+
+797
+01:02:46,500 --> 01:02:52,740
+And every time we run this in the future. Now let's take a look at what we have here. So
+
+798
+01:02:53,700 --> 01:03:02,020
+the Shopify reports will contain a day, the customer type and the customer ID. The customer
+
+799
+01:03:02,020 --> 01:03:07,460
+ID is a unique identifier for this customer and the customer type could either be returning or new.
+
+800
+01:03:08,660 --> 01:03:15,140
+For our turning customers, we will have seen this customer ID previously, maybe in a different
+
+801
+01:03:15,140 --> 01:03:20,580
+month report or in a different data set. It may not appear in our data set because we're just taking
+
+802
+01:03:20,580 --> 01:03:27,540
+a snapshot but if we had the whole history of Shopify data, we would see the customer ID for our
+
+803
+01:03:27,540 --> 01:03:35,140
+returning customers had already been seen. The orders column tells us how many orders did that
+
+804
+01:03:35,140 --> 01:03:41,860
+customer place on that day of the year on that date. We'll then have a column for the total
+
+805
+01:03:41,860 --> 01:03:48,660
+dollar value in the sales. This is the revenue generated by that customer on that day. The returns
+
+806
+01:03:48,740 --> 01:03:56,180
+is how much we owe the customer because they returned an object. Ordered quantity is the number of
+
+807
+01:03:56,180 --> 01:04:02,900
+items purchased by the customer. We have here a gross sales and a net sales. So this would be the total
+
+808
+01:04:02,900 --> 01:04:08,980
+sales net of any returns because there were no returns. These columns line up exactly with total
+
+809
+01:04:08,980 --> 01:04:13,300
+sales. We're not going to include shipping or tax for now. That's a
+
+810
+01:04:13,300 --> 01:04:19,860
+complication that we don't need in our analysis so far and we're also not going to worry about
+
+811
+01:04:19,860 --> 01:04:24,740
+return or discounts. We're going to try to keep it a little more simple but it does have the
+
+812
+01:04:24,740 --> 01:04:33,620
+structure of the full Shopify data set. Now the exercise we want to do has to do with a customer
+
+813
+01:04:33,620 --> 01:04:41,140
+cohort. So we're going to define what that means or what we mean by customer cohort. So a customer cohort
+
+814
+01:04:41,220 --> 01:04:50,980
+is identified or indexed by the month in which they place their first order. The customer type column
+
+815
+01:04:50,980 --> 01:04:57,060
+tells us whether it's a new or returning customer. So for every customer ID we would like to identify
+
+816
+01:04:57,620 --> 01:05:04,740
+which row, there's only going to be one, which row has type new and then we'll look at the month
+
+817
+01:05:04,740 --> 01:05:10,740
+corresponding to that date and we'll see that that is the label or the index for that customer's cohort.
+
+818
+01:05:11,540 --> 01:05:20,340
+Let's think of an example. If I were to place an order today in October of 2020 and I had a
+
+819
+01:05:20,900 --> 01:05:28,580
+customer type of returning an idea of one, my cohort would not be October. If instead we look through
+
+820
+01:05:28,580 --> 01:05:37,220
+the data set and see that customer with ID equal one had a new customer type in July of 2020,
+
+821
+01:05:37,220 --> 01:05:45,300
+then July 2020 would be my cohort. If there were a customer with ID equal two whose
+
+822
+01:05:46,740 --> 01:05:52,820
+new customer type occurred in October 2020, then this would be his cohort's label.
+
+823
+01:05:54,740 --> 01:06:00,100
+So now here's the want that we would like to cover and I'm going to read it carefully and I'm
+
+824
+01:06:00,100 --> 01:06:08,500
+going to read it twice. We want to compute the monthly total of orders, total sales and total
+
+825
+01:06:08,500 --> 01:06:17,700
+quantity separated by customer cohort and customer type. One more time, we're going to compute the
+
+826
+01:06:17,700 --> 01:06:25,940
+monthly total number of orders, total sales and total quantity separated by customer cohort and
+
+827
+01:06:26,340 --> 01:06:32,980
+customer type. So see here that we kind of have three groupings. We have the grouping on the
+
+828
+01:06:32,980 --> 01:06:38,020
+dates which is going to be at a monthly frequency. We have the grouping on the customer type
+
+829
+01:06:38,580 --> 01:06:44,580
+and then we have a grouping on the customer cohort. Now this is going to be kind of the heart of the
+
+830
+01:06:44,580 --> 01:06:51,380
+exercise. So what we like for you to do is use the reshape and group by tools that you've learned
+
+831
+01:06:51,380 --> 01:06:59,940
+so far to compute the want to find right here. We're not going to do this one together,
+
+832
+01:07:00,500 --> 01:07:06,260
+but we have here and I will let you read it on your own time. We'll have here a snapshot of what
+
+833
+01:07:06,260 --> 01:07:14,180
+the data should look like when you're done and a note with some hints on how you can might do it.
+
+834
+01:07:14,820 --> 01:07:19,220
+We'll let you look through this on your own time. We won't spend the time to read it together right now.
+
+835
+01:07:19,860 --> 01:07:27,620
+I will encourage you to go through here. One kind of hint or note that Dr. Sargent would
+
+836
+01:07:29,140 --> 01:07:37,060
+strongly encourage and so would Dr. Coleman and myself is don't skip steps. The hint here is quite
+
+837
+01:07:37,060 --> 01:07:43,300
+helpful. So make sure you work from step one, just step two, think through the hints for how to do step two,
+
+838
+01:07:43,460 --> 01:07:52,740
+and then move on to three, four, five. It seems like a lot and it's a fairly complicated operation,
+
+839
+01:07:52,740 --> 01:07:59,220
+however, if you go one step at a time and you don't skip steps, you do have all the tools and
+
+840
+01:07:59,220 --> 01:08:05,140
+the norms that you need to successfully complete this exercise. That's going to be it for our lecture today
+
+841
+01:08:06,100 --> 01:08:09,140
+and good luck on the exercise and we'll see you next time. Thank you.
+

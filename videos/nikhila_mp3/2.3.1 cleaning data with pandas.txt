@@ -1,0 +1,116 @@
+Hi everyone, the first topic we're going to be talking about today is cleaning data.
+Prior to this course, today, you should have seen the introduction to pandas,
+Boolean selection, and indexing, which we talked about last time.
+And after today, you'll be able to use string methods to clean data that comes as a string.
+You'll be able to drop and fill missing data, and you'll be able to use some of the cleaning methods we discuss
+to prepare and analyze a real data set.
+The data set that we'll use today comes from the New York Times, a blog called the Upshot,
+and it includes information from about 3,000 meals from a fast food chain called Chipotle.
+So our outline for today is, we'll first talk about cleaning data generally.
+Then we'll talk about how to use string methods to clean data.
+We'll talk about type conversions and how to change data from one type to another.
+We'll then talk about missing data, and finally, we'll give you a chance to do a short case study using the data set we described.
+Let's get started.
+So, for many data projects, a significant proportion of time is actually spent collecting and cleaning the data,
+not just performing the analysis.
+The non-ISNALISIS type of work is often generally called data cleaning, even though it entails many different operations.
+One of the reasons that we've chosen to use Python for our data analysis, and why so many other people choose to use Python for data analysis,
+is that the tools that Pandas provides are very helpful and very powerful, and they'll allow us to do many of the types of operations that might take more effort very easily.
+So, let's create just a toy data set.
+In this toy data set, we're going to have four columns. We'll have a column called numbers,
+numbs, colors, and other columns.
+So, what do you think would happen if we tried to compute the mean of the columns of the column numbers?
+Well, let's go ahead and see.
+Well, it returns an error.
+So, looking at this last message, can you figure out why it's returning an error?
+It's returning an error because this data frame, if we looked at the D-types, it would tell us that numbers is of D-type string.
+And so, when it computed the mean, what it did was summed up this column, which for strings just means string concatenation,
+and then it tried to divide that string by the number of rows.
+So, we've seen this error before, and in our Python fundamentals, we kind of hinted that we would run into similar problems.
+And so, let's go ahead and step back away from our data frame and think about how we would fix a single string that had this problem.
+How we would convert a single string of the format number and then a number to an integer.
+And the way we would do that is we would use a string method called Replace to replace the pound sign, and we would replace it with an empty string, so with nothing.
+And once we had done that, we would convert that whole thing to an integer.
+And what we can see is if we print these three objects, so if we print numbers string, we get back our original string.
+And we put back numbers num, we now have something that no longer has the pound sign.
+And just to make sure it's an integer, we print the type of numbers num, and it tells us it's an integer.
+So, this is useful. So, this tells us that one way that we could fix our data set is if we went row by row and applied these string methods to fix this data set.
+And so, that's what we do here. So, for each row in df.inter rows, which is just going to iterate, it's an interval that produces an index value and a group of column values.
+And these column values are stored inside of a series.
+So, if we look at the column values numbers, that's going to give us the current numbers, so some string with a pound and then a number.
+And then we can replace it with replace the pound with nothing and convert it to an integer.
+And then we can store that clean number inside of a column called numbers loop.
+So, the top all we're going to do is this percent percent time is what they call a Jupiter magic that allows you to time a whole cell.
+So, this whole cell together took about five milliseconds.
+So, this is fine, but in data sets in which you have thousands or hundreds of thousands or millions of rows, this will quickly become very slow and you'll not want to use loops.
+So, instead, what Pantas has done is it's created string methods that you can apply to an entire column at a time.
+And so, most of the same methods that a string would have available to it, you can apply to an entire column of a Pantas data frame.
+And the way you access this is if you have a series S, if you write S dot STR that changes the series into what I'll call string form, and then you can simply just do dot the method name where the method name is the method that you'd like to apply to the entire column.
+And when you do this, it's going to apply this to each row in that series at one time.
+And it's going to do this using kind of fast C code without having to perform the loop we described previously.
+So, let's go ahead and look at doing this. So, we're going to take the numbers column.
+So, this gives us a series. We're going to write dot STR. And then if we write dot replace, we can call this method the same way we would on a normal string.
+So, we replace it with, we replace all of the Pound signs with nothing. And let's see what that gives us.
+That gives us a bunch of columns. So, now we have numbers a string, which you'll notice is still a string. And the reason it's still a string is because so far, all we've done is we've applied the string method and just replaced the Pound sign with nothing.
+So, there's more to do if we want to turn it into a number.
+So, these string methods, again, like we said, pretty much any string method that works on a normal string will work inside of these string methods.
+So, we could find out which strings contain the letter P. So, we had purple and pink, which both have a P and everything else did not have a P.
+And we could also capitalize these strings. And again, there's so many of them we're not going to go over them all, but we encourage you to look at the official documentation and just skim through some of the methods that you have available to you.
+So, this leaves us back to where we started.
+In our example, the D type of numbers string is still a string even after we've removed the Pound sign. So, now we need to convert this column to numbers.
+The best way to do this is going to be using the PD.2 numeric function. This function converts whatever is stored into a series into numeric values.
+So, let's go ahead and try this. So, if we take PD.2 numeric and pass it a series and save it into numbers numeric, let's go ahead and look at this and notice this is converted the numbers that were in numbers string into integers and stored them inside of a new column called numbers numeric.
+And we can verify this all looks good. So, we can also convert to other types as well. And you can do this using an as type method.
+So, imagine we wanted to convert these numbers back to strings. I don't know why you would do that, but you might want to.
+So, if we do dot as type and pass string, notice it gives us a new series with the values 23, 24, 18, dot, dot. And it tells us that the D type is object.
+Instead, we could also convert these to floating point numbers and notice these are all floating point numbers now.
+So, in our data set, we are missing a single element from the column and numbs. And in pandas, any data that's missing will show up as NAN, which stands for not a number.
+So, you can find missing data by using the is null method. So, if we do df dot is null, what it returns is it gives us our entire data frame filled with true or false.
+And these values will be false anywhere there's an actual value. And it will be true if there's any data that's missing.
+So, now this ties back into some of our Boolean selection. You might be interested in knowing which particular row or column has missing data.
+So, if we do df dot is null, remember it's going to create this data frame. So, if we do dot any access equals zero, this will tell us that the only column that is missing data is the numbs column.
+And if we do dot any access equals one, it tells us that the only row that's missing data is row four.
+So, there are a lot of potential methods to deal with missing data. Some are more complex than what we'll talk about today. And they're more fitting for lots of types of analyses.
+But two of the simplest ways that you would often use are to simply ignore any data that's missing or to compute predicted values for the data that's missing.
+So, df dot drop n a, notice by default, all that's going to do is drop row four because row four was the one that's missing.
+But we could also set access equals one. And notice instead of dropping row four, it's dropped the column numbs.
+We can tell it to fill any missing values with the number 100, which remember numbs in row four was our missing data and now it has the value 100.
+We could do something called back filling. And so it takes the next value and replaces the missing value with the value that comes next.
+And you can also use forward filling, which will take the previous value and carry it forward.
+A lot of times when you're doing some type of a time series analysis, something like forward fill is a really natural way to fill in missing data.
+Just because you don't know what this value takes between time t and time t plus two. And so just carrying forward that time t value is a simple but relatively effective way of dealing with missing data.
+And again, we'll talk more about how to deal with missing data in the future.
+Excellent. So that was our whirlwind introduction to cleaning data. And now we're going to use this data that we talked about from the New York Times.
+So you can load it using the Quant Econ data science package. And we'll look at the Chipotle raw data set.
+And what you'll see is it has an order ID. So everything in order ID one was ordered at the same time.
+And it tells you a quantity how many of these things were ordered.
+It tells you the item name. So maybe the chicken bowl chips in Tomatillo green chili salsa.
+What options were selected for that choice? And then what the total price of that order of that item was.
+So in this case, the item price is 1698. But that's because there were two chicken bowls. The actual price of a chicken bowl is closer to 850.
+So what we'd like you to do is take five to ten minutes. And we'd like you to use this data to answer the following questions.
+What is the average price of an item with chicken? What is the average price of an item with steak? Did chicken or steak produce more revenue?
+And how many missing items are there in this data set? And how many missing items are there in each column?
+The one hint we'll give you is before you are able to do these things, you'll have to make sure the item price column has a numeric detype.
+So we'll go ahead and stop here. And once we're done with this exercise, we'll go ahead and start the next lecture.
+Let's review our answers. So in order to clean this data set, we need to convert the price column to something numeric.
+And remember, item price had a dollar sign in it, which would prevent you from converting things to a numeric type.
+So first, we have to replace the dollar sign with nothing and then convert it to a numeric.
+Then what we're going to do is we're going to find all of the items with chicken or steak. And the way we're going to do that is, it's not exactly clear whether chicken will be capitalized consistently.
+So first, what we're going to do is we're going to take all of the strings in item name and we're going to make everything lowercase.
+And then once we've done that, we'll check whether that string contains the all lowercase word chicken and we'll do the same thing with steak.
+And then we can go ahead and select a subset of the items in our data frame and we're going to select just the chicken items or just the steak items and all of the columns.
+And then we'll use a method called eval, which allows us to perform operations, kind of binary operations between different columns.
+And so in this case, we'll take the new price column that we've created that has numeric information and we'll divide it by the quantity of items ordered and we'll take the mean of that to figure out what the average price per item was.
+And so what you see is that steak costs about 50 cents more than chicken items.
+We can use our same series of bullions, chicken item and steak item and look at the price, which is really more like revenue.
+And if we take the sum of that column for the chicken items and the steak items, what we see is that chicken items created almost double the revenue of steak items.
+So even though the chicken items were cheaper, they sold in a much higher quantity.
+And finally, we can check which columns had missing data.
+And we'll see that the only ones that had missing data was the choice description column and there were 1,246 missing observations.
+Just just kind of like a little appendix. Let's go ahead and create a fake data set that has a bunch of strings.
+And so now we're going to have 100,000 elements instead of the six that we were looking at.
+And let's just compare how different the two speeds are.
+So this is just like a quick little test. So when we have 100,000 columns, notice the number string method only took about 27 milliseconds.
+Whereas looping over these items took six seconds.
+So kind of that's in the ballpark of 300 times speed up, which is roughly what we told you you would get.
+So let's go on to our next topic.

@@ -1,0 +1,580 @@
+1
+00:00:00,000 --> 00:00:06,000
+Okay, so we want to compute the average duration of employment.
+
+2
+00:00:06,000 --> 00:00:10,000
+Well, that's going to be easy.
+
+3
+00:00:10,000 --> 00:00:14,000
+If we do basically a version of the same calculation that we did before,
+
+4
+00:00:14,000 --> 00:00:21,000
+we're going to find the average duration of staying employed is now one over beta.
+
+5
+00:00:21,000 --> 00:00:25,000
+It's exactly the same that we did before,
+
+6
+00:00:25,000 --> 00:00:32,000
+except in this case, p is going to be beta.
+
+7
+00:00:32,000 --> 00:00:46,000
+So in our lake model, we have that one over alpha is the average duration of unemployment.
+
+8
+00:00:46,000 --> 00:00:57,000
+And one over beta is the average duration of employment.
+
+9
+00:00:57,000 --> 00:01:11,000
+And we got that from just the parameters that define the transition model.
+
+10
+00:01:11,000 --> 00:01:16,000
+Just mention another example, which is a classic example of a Markov chain.
+
+11
+00:01:16,000 --> 00:01:21,000
+It's a quite a famous paper by James Hamilton.
+
+12
+00:01:21,000 --> 00:01:28,000
+For using US unemployment data, so he was looking at unemployment data too.
+
+13
+00:01:28,000 --> 00:01:31,000
+He estimated a stochastic matrix.
+
+14
+00:01:31,000 --> 00:01:36,000
+Now you know what that is from our definition.
+
+15
+00:01:36,000 --> 00:01:39,000
+So he estimated this econometrically.
+
+16
+00:01:39,000 --> 00:01:46,000
+Later on, we'll talk about how you might go around estimating this.
+
+17
+00:01:46,000 --> 00:01:53,000
+So he estimated with monthly data, and he had three states.
+
+18
+00:01:53,000 --> 00:02:06,000
+He had what he called a normal growth state, a mild recession, and a severe recession.
+
+19
+00:02:06,000 --> 00:02:17,000
+He estimated this some time ago before he actually had data on what we in the United States now regard as severe recessions.
+
+20
+00:02:17,000 --> 00:02:30,000
+So you know what these transition probabilities are interesting because they tell you like, well, when you're in normal growth, we can just read this.
+
+21
+00:02:30,000 --> 00:02:37,000
+When you're in normal growth, you usually just stay in the most likely thing is you'll stay in normal growth.
+
+22
+00:02:37,000 --> 00:02:43,000
+But with a small probability, you'll go into like weak growth.
+
+23
+00:02:43,000 --> 00:02:53,000
+So you know, if you're in weak growth, the probability is that you'll stay there for next period.
+
+24
+00:02:53,000 --> 00:03:03,000
+You might go back to normal growth, but there's a very small probability that you'll go to a very bad growth state, big recession.
+
+25
+00:03:03,000 --> 00:03:16,000
+And if you have the unfortunate to get to a bad growth state, you're never going back from there to high growth right away.
+
+26
+00:03:16,000 --> 00:03:22,000
+You might transit to a...
+
+27
+00:03:22,000 --> 00:03:27,000
+Well, if you're not... I'm reading it wrong.
+
+28
+00:03:27,000 --> 00:03:38,000
+If you're in a very bad growth state, you might recover to a slightly less bad growth state, but you won't go all the way back.
+
+29
+00:03:38,000 --> 00:03:40,000
+You won't go back here.
+
+30
+00:03:40,000 --> 00:03:50,000
+So these things that I was just struggling to explain, people write down what's called a directed graph.
+
+31
+00:03:50,000 --> 00:03:58,000
+And a directed graph has consists of nodes and edges.
+
+32
+00:03:58,000 --> 00:04:06,000
+It's a very nice way to describe a Markov chain. If you wake up idiot, you'll find that.
+
+33
+00:04:06,000 --> 00:04:09,000
+So let's see what it looks like.
+
+34
+00:04:09,000 --> 00:04:15,000
+So this is a typical directed graph to show Hamilton's.
+
+35
+00:04:15,000 --> 00:04:24,000
+This is Hamilton's model for Markov model for unemployment.
+
+36
+00:04:24,000 --> 00:04:29,000
+So this is normal growth.
+
+37
+00:04:29,000 --> 00:04:33,000
+So what this arrow means is with probably...
+
+38
+00:04:33,000 --> 00:04:37,000
+What this arrow means is you'll just stay next period.
+
+39
+00:04:37,000 --> 00:04:43,000
+The arrows are one step transition probability, transitions, and the labels are the probabilities.
+
+40
+00:04:43,000 --> 00:04:47,000
+So you'll stay here. You might go here.
+
+41
+00:04:47,000 --> 00:04:52,000
+You notice there's no arrow like this.
+
+42
+00:04:52,000 --> 00:04:54,000
+That would be a different Markov chain.
+
+43
+00:04:54,000 --> 00:05:05,000
+If you want to get to third state, you're going to have to go through the intermediate state and so on.
+
+44
+00:05:05,000 --> 00:05:09,000
+Okay.
+
+45
+00:05:09,000 --> 00:05:12,000
+So just moving ahead.
+
+46
+00:05:12,000 --> 00:05:17,000
+So to summarize what a Markov chain is going to be a pair.
+
+47
+00:05:17,000 --> 00:05:20,000
+It's going to be a stochastic matrix.
+
+48
+00:05:20,000 --> 00:05:29,000
+So this is a marginal distribution over the time zero state.
+
+49
+00:05:29,000 --> 00:05:37,000
+It's the marginal distribution over the time zero state.
+
+50
+00:05:37,000 --> 00:05:41,000
+Okay.
+
+51
+00:05:41,000 --> 00:05:44,000
+So here's...
+
+52
+00:05:44,000 --> 00:05:46,000
+This is kind of a key sentence.
+
+53
+00:05:46,000 --> 00:05:53,000
+So one way to study questions about Markov chains is just to simulate them.
+
+54
+00:05:53,000 --> 00:05:56,000
+And big parts of statistics actually do this.
+
+55
+00:05:56,000 --> 00:06:04,000
+They take Markov chains and they simulate them to learn things actually about the chain.
+
+56
+00:06:04,000 --> 00:06:08,000
+So this...
+
+57
+00:06:08,000 --> 00:06:11,000
+We're going to spend some time talking about this bullet point.
+
+58
+00:06:11,000 --> 00:06:16,000
+There's a lot in here. To approximate the probability of an event E.
+
+59
+00:06:16,000 --> 00:06:24,000
+What you can do is you can run a simulation many times and then you count fractions.
+
+60
+00:06:24,000 --> 00:06:26,000
+Okay. So do you remember...
+
+61
+00:06:26,000 --> 00:06:30,000
+We spent some time talking about what this probability mean.
+
+62
+00:06:30,000 --> 00:06:40,000
+So what a frequentist thinks that what probability means is the fraction
+
+63
+00:06:40,000 --> 00:06:45,000
+that can be anticipated in a very large sample.
+
+64
+00:06:45,000 --> 00:06:50,000
+And that's being exploited right here.
+
+65
+00:06:50,000 --> 00:06:54,000
+Here's some advertisement.
+
+66
+00:06:54,000 --> 00:06:56,000
+There's...
+
+67
+00:06:56,000 --> 00:07:09,000
+If you go to Quanticon, we've written Python programs that make it very easy for you to study and simulate Markov chains.
+
+68
+00:07:09,000 --> 00:07:12,000
+So what we're going to...
+
+69
+00:07:12,000 --> 00:07:15,000
+What this...
+
+70
+00:07:15,000 --> 00:07:20,000
+So the Quanticon team did the work for you there.
+
+71
+00:07:20,000 --> 00:07:21,000
+But it's actually...
+
+72
+00:07:21,000 --> 00:07:26,000
+Markov chains are so fun and interesting to get your hands on.
+
+73
+00:07:26,000 --> 00:07:33,000
+What this lecture does is it backs up and actually from scratch using NumPy, it's going to...
+
+74
+00:07:33,000 --> 00:07:37,000
+It's going to generate some...
+
+75
+00:07:37,000 --> 00:07:43,000
+It's going to show you how to simulate a Markov chain.
+
+76
+00:07:43,000 --> 00:07:49,000
+So let's spend a little time talking about that.
+
+77
+00:07:49,000 --> 00:07:57,000
+And then in your time, I think this is a great way to learn Python and build your confidence is...
+
+78
+00:07:57,000 --> 00:08:04,000
+Do this too and do some examples.
+
+79
+00:08:04,000 --> 00:08:08,000
+So here's how to make your own.
+
+80
+00:08:08,000 --> 00:08:15,000
+The first thing we need is we have to have a Markov chain.
+
+81
+00:08:15,000 --> 00:08:21,000
+What I called Pi0 here, we're going to call this...
+
+82
+00:08:21,000 --> 00:08:25,000
+We're going to call this...
+
+83
+00:08:25,000 --> 00:08:28,000
+Whatever that word is psi.
+
+84
+00:08:28,000 --> 00:08:32,000
+So a Markov chain is going to be a P psi pair.
+
+85
+00:08:32,000 --> 00:08:36,000
+It's going to be P psi in root and P psi in root.
+
+86
+00:08:36,000 --> 00:08:41,000
+It's going to be a P psi in root and P psi in root.
+
+87
+00:08:41,000 --> 00:08:44,000
+So this is the time.
+
+88
+00:08:44,000 --> 00:08:50,000
+It's going to be a P psi in root and P psi in root.
+
+89
+00:08:50,000 --> 00:08:53,000
+So if you give it one...
+
+90
+00:08:53,000 --> 00:08:55,000
+That's the time.
+
+91
+00:08:55,000 --> 00:08:59,000
+So that's the time...
+
+92
+00:08:59,000 --> 00:09:01,000
+So if you give me those two, you define a Markov chain.
+
+93
+00:09:01,000 --> 00:09:09,200
+them state from the marginal distribution at time zero. And then every subsequent time
+
+94
+00:09:09,200 --> 00:09:16,640
+period we're going to draw the new state from the transition probability matrix. So this
+
+95
+00:09:16,640 --> 00:09:29,320
+is the initial and this is transitions and that's how we're going to use it. So you know
+
+96
+00:09:29,320 --> 00:09:35,120
+to make to make this go we need one more thing. We need a P, a psi and we need a random
+
+97
+00:09:35,120 --> 00:09:47,080
+number generator. So and we're going to use we're going to use a something from quanticon.
+
+98
+00:09:47,080 --> 00:10:17,000
+So so this cell code is actually describing how that's done. An example would be here's
+
+99
+00:10:17,000 --> 00:10:29,760
+here's the language. Here's the language. This I think it's really good to slowly read Python code.
+
+100
+00:10:29,760 --> 00:10:36,980
+It's good for your character. It's good for mine. That's a line that says that generates a
+
+101
+00:10:36,980 --> 00:10:44,200
+distribution that I want. So we talked about this earlier like if I give you a probability
+
+102
+00:10:44,200 --> 00:10:54,160
+distribution how can you generate a random draw from it. Well this is how quanticon is going
+
+103
+00:10:54,160 --> 00:11:01,720
+to do it. So I start with the probability distribution psi right here and then that's what I want.
+
+104
+00:11:01,720 --> 00:11:10,440
+I want to accumulate a distribution function. So what I'm now going to just that's just a
+
+105
+00:11:10,440 --> 00:11:18,280
+numpy command. I'm going to compute the cumulative distribution and then what quanticon do is
+
+106
+00:11:18,280 --> 00:11:27,880
+quant quanticon dot random dot draw CDF of I'm going to draw from this CDF a random draw and it
+
+107
+00:11:27,880 --> 00:11:33,800
+tells me give me five numbers. And my five numbers is going to give me well there I drew a
+
+108
+00:11:33,800 --> 00:11:43,720
+jiu success success success success failure. So did you. Okay so that's we're going to use that.
+
+109
+00:11:43,720 --> 00:11:49,800
+So we have our three things we have a P we have a psi and we have a random number generator. And
+
+110
+00:11:49,800 --> 00:11:57,560
+now we're all dressed up and ready to go. So we're going to this quanticon code in this little
+
+111
+00:11:57,560 --> 00:12:05,560
+thing we're going to write as the casting matrix P. We're going to need an initial state. And we're
+
+112
+00:12:05,560 --> 00:12:21,400
+going to take a sample size. So what I want you to do is study this on your own because now we're
+
+113
+00:12:21,480 --> 00:12:30,920
+quote unquote rolling our own. We're writing Python function that's going to that's going to generate a
+
+114
+00:12:33,800 --> 00:12:42,920
+a sample path of length. Well you're going to make this up because there's these a key word
+
+115
+00:12:42,920 --> 00:12:47,800
+arguments. We're going to make this up. We're going to input a P and we're going to input a
+
+116
+00:12:48,760 --> 00:12:59,400
+an initial condition, an initial distribution. And then we're going to do a sample size. So here we go.
+
+117
+00:13:00,120 --> 00:13:10,520
+So here's how we here's how this works. Just just an example. We'll take this mark off chain.
+
+118
+00:13:11,000 --> 00:13:25,880
+Here's a claim. That's what does probability mean again? We're cycling back to that idea.
+
+119
+00:13:27,320 --> 00:13:32,040
+And this is a claim. This is a reminder and a claim that this is going to be verified.
+
+120
+00:13:32,520 --> 00:13:41,640
+So well we're going to verify it very soon. That's the claim. What does probability mean?
+
+121
+00:13:43,320 --> 00:13:48,920
+That's our classic question. So what we're going to do is we're going to use this code.
+
+122
+00:13:52,280 --> 00:13:57,320
+X is going to be we're going to generate how many 100,000. You try that on your machine.
+
+123
+00:13:58,200 --> 00:14:03,880
+There's our mark off chain. We're going to try it from this initial distribution.
+
+124
+00:14:10,680 --> 00:14:16,360
+And we're going to generate a very long chain. And then the claim here in this lecture is that
+
+125
+00:14:16,520 --> 00:14:29,400
+the sample mean is going to be a mean for this for a very long sample is going to be around 0.25.
+
+126
+00:14:29,400 --> 00:14:41,640
+And notice when we generated this and then we used numpy to actually compute the mean.
+
+127
+00:14:41,640 --> 00:15:00,840
+And it turns out to be very close to 0.25. Now, let me make a claim. It's going to make
+
+128
+00:15:00,840 --> 00:15:09,080
+a somewhat serious claim before I kind of pause this what we're talking about. I claim
+
+129
+00:15:09,160 --> 00:15:25,640
+that if you compute the left eigenvectors of this matrix, that matrix, left eigenvector,
+
+130
+00:15:25,640 --> 00:15:36,040
+associated, I'll put a I'm going to take the left eigenvector of that matrix associated with
+
+131
+00:15:37,480 --> 00:15:46,840
+the unit eigenvalue. So I'm claiming that this matrix has a unit eigenvalue.
+
+132
+00:15:49,640 --> 00:15:54,840
+You could do this in next size. If you take the left eigenvector of that and you normalize it,
+
+133
+00:15:56,120 --> 00:16:13,880
+then you will compute, I'm going to say something called the stationary distribution
+
+134
+00:16:13,880 --> 00:16:30,360
+of the chain. Now, this is kind of mysterious. And then I could take the stationary distribution.
+
+135
+00:16:32,360 --> 00:16:39,320
+I haven't told you what a stationary distribution is yet. When I'm telling you take this matrix,
+
+136
+00:16:39,320 --> 00:16:45,080
+take the left eigenvector associated with the unit eigenvalue.
+
+137
+00:16:47,400 --> 00:16:56,120
+The left eigenvalue, that's equal to the right eigenvector of the matrix P transpose.
+
+138
+00:16:56,840 --> 00:17:03,320
+So if you take that and you normalize it, meaning the probability is sum to 1. So it sums to 1.
+
+139
+00:17:03,880 --> 00:17:08,440
+Normalize it so it sums to 1. You're going to get something that I'm going to call the
+
+140
+00:17:08,440 --> 00:17:21,720
+stationary distribution, which I haven't defined. And then if you compute the mean of x at the
+
+141
+00:17:21,720 --> 00:17:30,360
+stationary distribution, that's going to be equal to 0.25.
+
+142
+00:17:36,600 --> 00:17:43,080
+At this point, we could kind of leave this as an exercise, maybe for me and maybe for you.
+
+143
+00:17:43,800 --> 00:17:59,960
+So what do we need to do? We have to use numpy linear algebra to compute the eigenvalues and eigenvectors.
+
+144
+00:18:03,400 --> 00:18:07,400
+And then we're just about done to verify this.
+
+145
+00:18:07,400 --> 00:18:13,800
+OK, we're going to pause, take a break for a little bit now. Thank you.
+

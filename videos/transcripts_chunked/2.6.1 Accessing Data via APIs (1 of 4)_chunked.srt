@@ -1,0 +1,120 @@
+1
+00:00:00.000 --> 00:00:42.000
+Hello, this is Spencer Lyon and in this video we're going to be talking about APIs and communicating with web services. Our goals for this video will be to understand the roles of an API and when they may be useful. We'll also seek to become familiar with how different web services or websites, it's a big API information available and accessible to software developers like ourselves. Finally, we will work towards understanding the core parts of making an API request, and this will include a discussion of topics like endpoints, parameters and authentication.
+
+2
+00:00:36.000 --> 00:01:28.000
+and this will include a discussion of topics like endpoints, parameters and authentication. So to begin, what is an API? The acronym API stands for Application Programming Interface. Really an API is a way for one computer program or system to communicate with and use the facilities offered by another computer program or system. It's a layer that facilitates collaboration and communication between programs. Whenever you are interacting with an API, there will be two main participants in each of these participants has a specific role.
+
+3
+00:01:20.000 --> 00:01:56.000
+Whenever you are interacting with an API, there will be two main participants in each of these participants has a specific role. First, we'll be the producer. This participant or party will set up a service for others to consume. They dictate the behaviors and the permissions for how data can be accessed and how the service can be used. The counterparty is called the consumer. They make requests in order to utilize the service provided by the producer. They adhere to the structure that set up by the producer.
+
+4
+00:01:53.000 --> 00:02:42.000
+They adhere to the structure that set up by the producer. In most of our work, we will be playing the role of consumer where we would like to interact with the APIs provided by a third party. APIs have many uses or purposes. Some of them are as follows. An API can be used to perform a particular action on a service. For example, if you'd like to post a new message or video or photo to a social media network like Twitter. Another use for an API might be between different services within the walls of the same company.
+
+5
+00:02:34.000 --> 00:03:15.000
+Another use for an API might be between different services within the walls of the same company. An example when I've uploaded this photo to Twitter, perhaps they have a different system that will then do some analysis or perhaps a machine learning tasks on my photo to help me tag users or identify the contents of the photo. The way that the upload service may request that the machine learning task runs could be through an API. Finally, APIs are often used to have a controlled method for distributing data to users.
+
+6
+00:03:08.000 --> 00:03:58.000
+Finally, APIs are often used to have a controlled method for distributing data to users. An example here might be providing access to price feeds for financial asset within an exchange. In our class in our usage, we're mostly going to be using the API to request data from some third party data provider. So we would follow under this third example above. So how can we get started with identifying or finding an API? Well, in our experience, we found that most platforms or companies provide an API for the developers to leverage if they intend their system to be built upon or integrated into other software.
+
+7
+00:03:45.000 --> 00:04:17.000
+Well, in our experience, we found that most platforms or companies provide an API for the developers to leverage if they intend their system to be built upon or integrated into other software. When I get to a website that I would like to consume from say a Python program, I will typically search around the website for terms like API developers or tool on the website. Typically there will be a link that I can follow that will give me more information on how to get started. Let's look at a few examples.
+
+8
+00:04:15.000 --> 00:04:54.000
+Let's look at a few examples. So if we open this link right here and look at the GitHub page, you'll see here my GitHub is added and I'm going to do control F to open up my search window. And here I'll search for the term API. There's only one instance of this acronym here on the page. And if I click it, I now start to get information on how I can integrate a custom piece of software like a Python program with the GitHub API. As a second example, let's click on the second link that goes to and forgive my pronunciation.
+
+9
+00:04:49.000 --> 00:05:31.000
+As a second example, let's click on the second link that goes to and forgive my pronunciation. Who boy? This is a cryptocurrency exchange. And here again, I'll control F, I'll press API and down here in the footer again, there's something called API docs. If I click this, I'm open to a page that describes all the different things a program can do in order to interact with this particular website. Notice the pattern that in both of these cases, there was something near the bottom of the page in the footer that provided information for us.
+
+10
+00:05:23.000 --> 00:06:03.000
+Notice the pattern that in both of these cases, there was something near the bottom of the page in the footer that provided information for us. On this site is called API docs. On the GitHub site, it was called API. But it appeared and roughly the same location. This is a convention that's often followed. Let's look at the last example. I'm going to go here and go to the World Bank's Open Data website. And from here, if I search for API, I don't get much. But if I search for tool, see here that they do have what's called an open data toolkit.
+
+11
+00:05:55.000 --> 00:06:34.000
+But if I search for tool, see here that they do have what's called an open data toolkit. If I follow this link, I can now see that on this page, there is a way to search for APIs. And again, it's in the footer area. And here it says APIs for developers. If we click this, then we'll get more information on how we can start integrating with the data that the World Bank provides. You should see this in other examples of websites. But sometimes it takes a little bit of searching through the website in order to find the information that you need.
+
+12
+00:06:27.000 --> 00:07:15.000
+But sometimes it takes a little bit of searching through the website in order to find the information that you need. Now let's turn to how an API works. So typically what how an API works is that a website or data provider will set up a service that is ready to receive requests. And when we would like to interact with this API, we will make HTTP or web requests that have a certain structure. And a web request will have the following key elements in it. So there is something called the endpoint. And this is really the URL or the link that points to the API.
+
+13
+00:07:06.000 --> 00:07:45.000
+So there is something called the endpoint. And this is really the URL or the link that points to the API. We'll talk more about this soon. There's also the notion of a request type. There are a handful of these, but the two most common types of requests you'll see are get in all capitals. And this is typically used for when you want to receive data from the other service. And then there's the post request again in all capitals letters. And this is typically used when you would like to publish data or have it be saved by the other service.
+
+14
+00:07:39.000 --> 00:08:17.000
+And this is typically used when you would like to publish data or have it be saved by the other service. Once we have an endpoint and request type, there's also the notion of a query parameter. This is going to be part of a URL that follows a question mark. And we'll let us enable more options or details about our request. After the query, there's also something an optional part called the payload. And here the payload will allow us to attach additional data to the request. We'll see an example of what this means.
+
+15
+00:08:14.000 --> 00:08:54.000
+We'll see an example of what this means. Finally, the headers will allow us to provide a little more context behind who we are or why we're making the request. And sometimes this is required by an API provider. And then the last main content component is how we authenticate or identify ourselves to the API. So they know that we are accessing materials that we should have. So we'll encourage you to look back on this slide as kind of a cheat sheet or reference later on. And we'll go through what each of these components looks like right now.
+
+16
+00:08:49.000 --> 00:09:39.000
+And we'll go through what each of these components looks like right now. So an endpoint, what is an endpoint? An API is often organized around a set or a family of URLs or web links. And within the API structure, the URL is known as an endpoint. A URL has the following format. You have the scheme upfront followed by colon slash slash. Then you will have the host. Then a slash and the path. Then you'll have a question mark with an optional query. So typically the scheme, this part that appears first, is either HTTP or HTTPS.
+
+17
+00:09:32.000 --> 00:10:22.000
+So typically the scheme, this part that appears first, is either HTTP or HTTPS. Host is going to be something that ends in a dot com dot edu dot us dot cn. What follows after the host is the path, this specifies which part of a website or an API like to access. And then finally the query lets you attach a little bit of data to that request to make it specific to your use case. As an example, we have here an example for an API's endpoint. Here the URL is HTTPS. Here's our scheme. We then have the host which is api dot covadcounty data dot org.
+
+18
+00:10:17.000 --> 00:11:01.000
+We then have the host which is api dot covadcounty data dot org. After this, we have a slash and the path for this URL is covadus. Then there's a question mark and everything that follows is part of the query parameters. Here there are two parameters. One is the location parameter. And it's has the name of the query parameter on the left and the associated value on the right. And the other one is the variable parameter. The next main component after we've identified the URL, we need to know what type of request to make.
+
+19
+00:10:53.000 --> 00:11:46.000
+The next main component after we've identified the URL, we need to know what type of request to make. The two most common types of HTTP requests are get and post. And get is used when the user would like to obtain or get data from the provider. And post is used when the consumer would like to store, save, or post data to the provider. Now this, no-manclature to use get and post is a convention. So it's not necessarily required, but it is the most common way that these two request types are used. Now that we know what type of request to make and where we're going to send it, we need to think about what other information is associated with our request.
+
+20
+00:11:38.000 --> 00:12:13.000
+Now that we know what type of request to make and where we're going to send it, we need to think about what other information is associated with our request. The next part that shows up in the URL is called the query or query parameters. This is everything in the URL that follows a question mark. They provide additional details for what is being requested. We can have more than one query parameter by separating them with the and or ampersand. Let's go back to our example where we know that the query is beginning with this question mark.
+
+21
+00:12:08.000 --> 00:12:56.000
+Let's go back to our example where we know that the query is beginning with this question mark. And then it's the remainder of the URL. Here we have two query parameters, location. And its value is EQ dot 12045. And then we have variable and its value is EQ dot test total. If we had a third query parameter, what we would do is put another ampersand after the word total. And then we would have the name of the parameter equal sign its value. Now a payload is our first part of a request that is not found in the URL.
+
+22
+00:12:47.000 --> 00:13:33.000
+Now a payload is our first part of a request that is not found in the URL. Or specified as the type of the request. This is actually something that's kind of attached to a request. You can think of the payload as the an attachment to an email. So the the two address and who you're sending the email to, maybe the endpoint. The actual words inside the email might be the query parameters and then attachments could be thought of as the payload. Let's see an example of what this might look like. So suppose that we wanted to like a post on some social media platform.
+
+23
+00:13:27.000 --> 00:14:13.000
+So suppose that we wanted to like a post on some social media platform. To do this, we might make a post request to. Or that looks as follows we have the scheme. Then we have our host our path might be likes. And then the body of the request would then specify the type of data we would like the social media platform to remember or to use. And it could look something like this. It might require that we pass a user and then this key is mapping to a user name on the social media platform. And then a post ID where this number 42 here references the internal.
+
+24
+00:14:05.000 --> 00:14:57.000
+And then a post ID where this number 42 here references the internal. Identifier that the social media platform uses to identify the post that I would like that I wish to like. Notice how these this information does not appear in the URL, but it's attached to it in the body or the payload of our request. The next main component of making an API request is called the header. These are additional options that are passed with your HTTP request that provide context for who you are, what time it is, what machine you're coming from, what software you're using.
+
+25
+00:14:43.000 --> 00:15:24.000
+These are additional options that are passed with your HTTP request that provide context for who you are, what time it is, what machine you're coming from, what software you're using. Or the type of data you're sending or the type of data you'd like to get back. This is not specific to the actual request you're making it doesn't have data specifying a username or. The type of thing you're trying to interact with it's more just to provide context so that the server can maybe. Handle your request in the proper way.
+
+26
+00:15:19.000 --> 00:16:09.000
+Handle your request in the proper way. And then you're going to be passed as key value pairs, which is just like a dictionary and Python. Bampals of common headers that you'll see often in API requests are the content type header and this specifies the type of data that is in the payload. And this is the content type of text slash pith lane. Other times you might be passing an dictionary like we saw with the liking in social media example before. In this case, this should be given the content type application slash json, json, which tells the server that is processing our request that the payload.
+
+27
+00:15:57.000 --> 00:16:43.000
+In this case, this should be given the content type application slash json, json, which tells the server that is processing our request that the payload. And then you can see that the data is JSON data in. Other common headers are API key or authorization. These are sometimes used interchangeably to pass an API key and what the proper name is for the particular web service will have to be defined by that service is documentation. The last main step towards interacting with an API is to understand how we can identify yourself.
+
+28
+00:16:35.000 --> 00:17:34.000
+The last main step towards interacting with an API is to understand how we can identify yourself. There are two main forms of self identification or authentication that are used in modern web services or APIs. The first is called OAuth and the idea behind this is that we'll use a trusted third party like GitHub or Twitter or Facebook to. Establish and my identity. So I would log in to Facebook for example and then Facebook would send my information to the server so I want to interact with. Another option is the use of what's called an API key and with this option the API consumer or user would register themselves directly with the API provider and in return to be given a key or password.
+
+29
+00:17:19.000 --> 00:18:04.000
+Another option is the use of what's called an API key and with this option the API consumer or user would register themselves directly with the API provider and in return to be given a key or password. This password is unique for each user and identifies who you are. We're going to be using API keys in our example and sometimes there are actually a query parameter that's passed in the URL and other times it's passed in a header and yet other times it's passed in a payload. And exactly where you need to put the authentication credentials will vary one service to the next and you need to consult the documentation for how your service should work.
+
+30
+00:17:52.000 --> 00:18:16.000
+And exactly where you need to put the authentication credentials will vary one service to the next and you need to consult the documentation for how your service should work. That's the end of our overview of APIs stay tuned for further examples of how to actually use these concepts to interface with the real working API.
+

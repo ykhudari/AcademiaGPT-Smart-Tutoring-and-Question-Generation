@@ -1,0 +1,1560 @@
+1
+00:00:00,000 --> 00:00:13,000
+Hello, this is Spencer Lyon and in this video we'll be talking about how we can access the United States Bureau of Labor Statistics data using their own API.
+
+2
+00:00:13,000 --> 00:00:22,000
+Before watching this video, you should have seen our previous video on what an API is and its main structure and usage.
+
+3
+00:00:23,000 --> 00:00:34,000
+The goals for this video will be to understand how we can register for an API key from the BLS in order to have increased access to their data.
+
+4
+00:00:34,000 --> 00:00:42,000
+We will then write the Python code that can communicate with or make requests against the BLS API.
+
+5
+00:00:42,000 --> 00:00:52,000
+And finally we'll use this Python code to construct a data set filled with unemployment statistics or indicators as reported by the BLS.
+
+6
+00:00:55,000 --> 00:01:01,000
+Now the Bureau of Labor Statistics collects data on employment statistics for the United States.
+
+7
+00:01:01,000 --> 00:01:05,000
+They make this data publicly available via their API.
+
+8
+00:01:05,000 --> 00:01:16,000
+The data is available without the need for an API key, however, if we are able to provide an API key, we can get additional information in our response.
+
+9
+00:01:16,000 --> 00:01:19,000
+This is what we're going to do here today.
+
+10
+00:01:19,000 --> 00:01:23,000
+The first step then will be to register for an API key.
+
+11
+00:01:23,000 --> 00:01:29,000
+What we'll do is we will open the landing page for the BLS API documentation.
+
+12
+00:01:29,000 --> 00:01:34,000
+And once they're well identified where we can look for how to give an API key.
+
+13
+00:01:34,000 --> 00:01:40,000
+Once we've done that, we'll receive our API key of the email and we'll store it some more safe.
+
+14
+00:01:40,000 --> 00:01:45,000
+We need to remind you that we should treat this API key like a password.
+
+15
+00:01:45,000 --> 00:01:49,000
+Because in the world of APIs, the key really is a password.
+
+16
+00:01:49,000 --> 00:01:57,000
+It's something unique and secret for you that can identify you as a person and a user of their system.
+
+17
+00:01:57,000 --> 00:02:06,000
+If you, if this gets out, other people can pretend to be you as they interact with those services which could have unintended consequences.
+
+18
+00:02:06,000 --> 00:02:11,000
+So let's look right now at this documentation page on their website.
+
+19
+00:02:11,000 --> 00:02:14,000
+When we go there, we see the following.
+
+20
+00:02:14,000 --> 00:02:17,000
+We're greeted with a page that looks like this.
+
+21
+00:02:17,000 --> 00:02:24,000
+We'll see here that the there's some information on the data and it says it's currently available in two versions.
+
+22
+00:02:25,000 --> 00:02:30,000
+Version two requires registration to allow users to access data more frequently.
+
+23
+00:02:30,000 --> 00:02:37,000
+We'll click this registration link and we'll be taken to this page here.
+
+24
+00:02:37,000 --> 00:02:44,000
+Now in order to register, we have to specify which organization we are affiliated with, what our email address is,
+
+25
+00:02:44,000 --> 00:02:49,000
+and then respond to the capture that is put here.
+
+26
+00:02:49,000 --> 00:02:55,000
+We can read and review the terms of service, check that we agreed to them and submit a registration.
+
+27
+00:02:55,000 --> 00:03:05,000
+We should be able to then get an email very quickly with our API key.
+
+28
+00:03:05,000 --> 00:03:13,000
+And again, once we have that, we'll store it somewhere safe and we'll use it later on in this video.
+
+29
+00:03:13,000 --> 00:03:21,000
+Now, once we know how we can authenticate with the API, we need to figure out how to build the request that we'd like.
+
+30
+00:03:21,000 --> 00:03:29,000
+You recall from our previous video on an API that a request has the following components.
+
+31
+00:03:29,000 --> 00:03:34,000
+We need to have an endpoint or a URL for where our request should be sent.
+
+32
+00:03:34,000 --> 00:03:38,000
+We need to know what type we should associate with our request.
+
+33
+00:03:38,000 --> 00:03:46,000
+We need to know if there are any necessary query parameters that should be sent to identify what we would like to do at that endpoint.
+
+34
+00:03:46,000 --> 00:03:56,000
+We may have a payload that we send that gives additional information about what the specifics of our request entail.
+
+35
+00:03:56,000 --> 00:04:00,000
+Headers can provide some context around who we are and why we're making the request.
+
+36
+00:04:00,000 --> 00:04:06,000
+And finally, we need to know how to use our API key to authenticate ourselves.
+
+37
+00:04:06,000 --> 00:04:16,000
+We're going to work through how we can identify each of these points from the BLS API documentation.
+
+38
+00:04:16,000 --> 00:04:19,000
+So first, let's work on an endpoint.
+
+39
+00:04:19,000 --> 00:04:23,000
+We're going to go again to the API documentation page.
+
+40
+00:04:23,000 --> 00:04:27,000
+And our goal here is to find where we can access data.
+
+41
+00:04:27,000 --> 00:04:31,000
+So what we'll do is we'll go back to this getting started page.
+
+42
+00:04:31,000 --> 00:04:46,000
+And then this link right here, the using BLS API signatures, we'll take us to a page that describes all the different endpoints and other documentation for their API.
+
+43
+00:04:46,000 --> 00:04:52,000
+What we're going to be interested in is being able to gather data on multiple series.
+
+44
+00:04:52,000 --> 00:05:00,000
+So what we're going to be looking at is actually this third option called one or more series with optional parameters.
+
+45
+00:05:01,000 --> 00:05:08,000
+We'll go ahead and we'll click that and we created with the documentation.
+
+46
+00:05:08,000 --> 00:05:21,000
+So it tells us that we can use this format or this endpoint to get data for one or more time series for a time frame of up to 20 years.
+
+47
+00:05:21,000 --> 00:05:27,000
+We'll also be able to request different types of calculations, averages and catalog data.
+
+48
+00:05:27,000 --> 00:05:32,000
+We're not going to be looking at these three things, but the catalog data will be meaningful.
+
+49
+00:05:32,000 --> 00:05:42,000
+And the reason for it is by default, the BLS uses these series ID to identify a series and they look like what I've highlighted here.
+
+50
+00:05:42,000 --> 00:05:47,000
+They're quite difficult to understand and they don't have much human meaning.
+
+51
+00:05:47,000 --> 00:05:54,000
+The catalog on the other hand will have a lot of information that is easier for a person understand.
+
+52
+00:05:54,000 --> 00:05:57,000
+We can get if it's if the data.
+
+53
+00:05:57,000 --> 00:06:03,000
+Behind the series ID belongs to a particular geography, it will tell us that here.
+
+54
+00:06:03,000 --> 00:06:08,000
+It'll tell us the seasonality which survey the data comes from.
+
+55
+00:06:08,000 --> 00:06:13,000
+What the human readable name for the series is.
+
+56
+00:06:13,000 --> 00:06:23,000
+And so this catalog will be very helpful in helping us understand what data we're actually getting and how we can use it.
+
+57
+00:06:23,000 --> 00:06:31,000
+So it says here that in order to get these optional parameters, users must have a registration key.
+
+58
+00:06:31,000 --> 00:06:40,000
+So in order to get this catalog data, we need an API key and that's why we went through the registration step before.
+
+59
+00:06:40,000 --> 00:06:46,000
+And so for further down in the documentation, we see that users have to include at least one series ID.
+
+60
+00:06:46,000 --> 00:06:52,000
+The start year and the end year in the body or payload of the request.
+
+61
+00:06:52,000 --> 00:06:56,000
+If we have multiple series IDs, we need to separate them with a comma.
+
+62
+00:06:56,000 --> 00:07:02,000
+So again, our goal here is to find the end point or the URL we'll be using.
+
+63
+00:07:02,000 --> 00:07:06,000
+And here we see that the URL is the following.
+
+64
+00:07:06,000 --> 00:07:12,000
+The HTTPS scheme, we're going to be accessing the host api.bls.gov.
+
+65
+00:07:12,000 --> 00:07:18,000
+The path is highlighted here, public api slash v2 slash time series slash data.
+
+66
+00:07:18,000 --> 00:07:30,000
+This is the endpoint that we'll be using for accessing our data.
+
+67
+00:07:30,000 --> 00:07:38,000
+So let's go back to the documentation page and try to identify both the request type and the query parameters.
+
+68
+00:07:38,000 --> 00:07:45,000
+So when we go here, we see just above the URL, the documentation says that HTTP type is post.
+
+69
+00:07:45,000 --> 00:07:56,000
+So here, even though we're not requesting the BLS save our data or store it, we still are asked to send a request using the post type.
+
+70
+00:07:56,000 --> 00:08:04,000
+Now the reason for this is because technically a get request shouldn't have a JSON payload or body.
+
+71
+00:08:04,000 --> 00:08:09,000
+And so the most common type of request that allows for a payload is the post request.
+
+72
+00:08:09,000 --> 00:08:14,000
+So in this case, we're kind of bending the convention of when a post should be used.
+
+73
+00:08:14,000 --> 00:08:22,000
+And we're doing so in order to attach a payload to our request.
+
+74
+00:08:22,000 --> 00:08:29,000
+So we'll back up a little bit and we're trying we just identify that we're doing a post request and looking here at the URL.
+
+75
+00:08:29,000 --> 00:08:32,000
+We're actually not going to be using any query parameters.
+
+76
+00:08:32,000 --> 00:08:37,000
+There is a format of the API that allows us to query parameters.
+
+77
+00:08:37,000 --> 00:08:45,000
+But you'll see here that things like the registration key or catalog can be passed down in the payload.
+
+78
+00:08:45,000 --> 00:08:50,000
+Here it shows up again registration key catalog.
+
+79
+00:08:51,000 --> 00:09:02,000
+And because the documentation specified that we must include these things in the body of the request, we're going to opt for putting all that information in the body.
+
+80
+00:09:02,000 --> 00:09:09,000
+And not having to worry about putting some things in query parameters appear and other things as part of the body.
+
+81
+00:09:09,000 --> 00:09:19,000
+We're going to attach no query parameters, so we'll use this URL as is and we'll put all the other information into the body.
+
+82
+00:09:19,000 --> 00:09:23,000
+So here's kind of a summary of what we just walked through.
+
+83
+00:09:23,000 --> 00:09:34,000
+So now if we look at that data documentation, we'll see that the payload or the body has a structure that looks like this.
+
+84
+00:09:34,000 --> 00:09:40,000
+We were told that series ID start year and end year must be passed and they have the following form.
+
+85
+00:09:40,000 --> 00:09:44,000
+Notice here that this is kind of like a Python dictionary.
+
+86
+00:09:44,000 --> 00:09:48,000
+We're going to pass in a JSON payload.
+
+87
+00:09:48,000 --> 00:09:56,000
+The key series ID will map to a list or a ray of series IDs.
+
+88
+00:09:56,000 --> 00:10:05,000
+We can have a start year mapping to a year and this would be a four digit number or a string representing a four digit number.
+
+89
+00:10:05,000 --> 00:10:08,000
+And then the end year would be the same.
+
+90
+00:10:08,000 --> 00:10:14,000
+All the other options down here, these four are optional.
+
+91
+00:10:14,000 --> 00:10:25,000
+We are going to only worry about setting catalog equal true so that we can get the information about what each series ID represents.
+
+92
+00:10:25,000 --> 00:10:33,000
+We're going to skip these three and then finally we will pass our API key or registration key at the bottom.
+
+93
+00:10:33,000 --> 00:10:36,000
+We're going to be able to obtain a registration key.
+
+94
+00:10:36,000 --> 00:10:45,000
+Then you'll only have to pass these top three as the catalog feature is only enabled for users that have an API key.
+
+95
+00:10:45,000 --> 00:10:52,000
+And don't worry at the very end, we'll provide a downloadable file with all the catalog information.
+
+96
+00:10:52,000 --> 00:10:58,000
+So if you are unable to get a registration key, you'll still be able to proceed with further analysis.
+
+97
+00:10:58,000 --> 00:11:02,000
+But it's good practice to work through all these steps if possible.
+
+98
+00:11:04,000 --> 00:11:14,000
+Now, as we look through the documentation again, there's no notion of required HTTP headers.
+
+99
+00:11:14,000 --> 00:11:27,000
+So we won't include any except we will accept for the content type header because we're passing in our in the body or payload of our request that JSON object we just saw.
+
+100
+00:11:27,000 --> 00:11:33,000
+We're going to set the content type header to be application slash JSON.
+
+101
+00:11:33,000 --> 00:11:43,000
+This is just going to tell the BLS that we do have a payload and that its contents should be interpreted as JSON.
+
+102
+00:11:43,000 --> 00:11:56,000
+And we'll just kind of remind all the viewers that the JSON stands for JavaScript object notation and is kind of the web or API way to talk about it.
+
+103
+00:11:56,000 --> 00:12:02,000
+To talk about what we refer to as a dictionary in Python.
+
+104
+00:12:02,000 --> 00:12:09,000
+Okay, the final component in the in using an API is authentication.
+
+105
+00:12:09,000 --> 00:12:15,000
+We need to be able to identify who we are and for that we'll use our API key.
+
+106
+00:12:15,000 --> 00:12:30,000
+We've already talked about where this will go for the BLS API and what we need to do is set the registration key field on the payload or the body of our request.
+
+107
+00:12:30,000 --> 00:12:32,000
+So let's summarize.
+
+108
+00:12:32,000 --> 00:12:38,000
+What we'll be doing is making a post request to the following URL.
+
+109
+00:12:39,000 --> 00:12:42,000
+This is the endpoint that we're accessing.
+
+110
+00:12:42,000 --> 00:12:50,000
+We don't have any query parameters. So there's no question mark and parameters passed in the URL.
+
+111
+00:12:50,000 --> 00:12:56,000
+In the body of our request, we will be passing series ID.
+
+112
+00:12:56,000 --> 00:13:01,000
+Start year, end year, catalog and registration key.
+
+113
+00:13:01,000 --> 00:13:09,000
+And finally, we will set the content type to application JSON in the header of our request.
+
+114
+00:13:09,000 --> 00:13:18,000
+This will again let the BLS know that we're passing a payload or body with JSON data.
+
+115
+00:13:18,000 --> 00:13:23,000
+Okay, now that we've done our homework and we understand what we need to do.
+
+116
+00:13:23,000 --> 00:13:26,000
+Let's talk about how we do it.
+
+117
+00:13:26,000 --> 00:13:34,000
+In order to make our HTTP requests or API requests, we're going to be using the request library in Python.
+
+118
+00:13:34,000 --> 00:13:38,000
+We're also going to be needing to convert things to and from JSON.
+
+119
+00:13:38,000 --> 00:13:40,000
+So we'll import that.
+
+120
+00:13:40,000 --> 00:13:48,000
+We'll also import pandas as PD like usual and then finally, so that we have clean documented code.
+
+121
+00:13:48,000 --> 00:13:52,000
+We're going to import a few of these helpers from the typing library.
+
+122
+00:13:52,000 --> 00:13:58,000
+These aren't ever going to be called by us. They're just going to be attached to our function parameters.
+
+123
+00:13:58,000 --> 00:14:04,000
+And you'll see this below. So execute the cell and import the necessary packages.
+
+124
+00:14:04,000 --> 00:14:12,000
+Now, we need to make a request and we're going to use a Python function to do that.
+
+125
+00:14:12,000 --> 00:14:20,000
+And we're going to study what this request does. So here's the code that we've written for interacting with the BLS API.
+
+126
+00:14:20,000 --> 00:14:26,000
+So we need to, we have a function named request for series that takes four parameters.
+
+127
+00:14:26,000 --> 00:14:33,000
+These four are series IDs start year and year in API key and they map.
+
+128
+00:14:33,000 --> 00:14:42,000
+closely to the payload parameters series ID start year and year and registration key.
+
+129
+00:14:42,000 --> 00:14:56,000
+So the series ID, you see here that this syntax where we have a variable name, colon, a type is a way for us to write down the type that is expected in this parameter.
+
+130
+00:14:56,000 --> 00:15:05,000
+So that when people go to use our function, they see that this is the expected type and it provides a little bit more insight into how this should be used.
+
+131
+00:15:05,000 --> 00:15:11,000
+So here we're saying that the series ID should be specified as a list of strings.
+
+132
+00:15:11,000 --> 00:15:17,000
+Both start year and end year have the type union into comma string.
+
+133
+00:15:17,000 --> 00:15:24,000
+Now what union means is it could be any of the types contained within this square brackets.
+
+134
+00:15:24,000 --> 00:15:33,000
+So start year, it is appropriate to pass an integer or a string representing an integer, same for end year.
+
+135
+00:15:33,000 --> 00:15:50,000
+Finally, the API key has type optional string optional is Python's way of saying the value can either be the none value or it can be of type whatever's in the square brackets.
+
+136
+00:15:50,000 --> 00:15:56,000
+So here we're saying you either need to either need to pass a string or none.
+
+137
+00:15:56,000 --> 00:15:59,000
+We'll have a default value here of none.
+
+138
+00:15:59,000 --> 00:16:06,000
+We then wrote some documentation strings that describe what these things are and what they do.
+
+139
+00:16:06,000 --> 00:16:13,000
+And we have here a list of all the parameters we're going to describe what the responses are.
+
+140
+00:16:13,000 --> 00:16:20,000
+And in this case, we will have a list of response objects that come from the request package.
+
+141
+00:16:20,000 --> 00:16:28,000
+And then finally there are some notes that we've written for ourselves so that while we're member why we made certain decisions in the code.
+
+142
+00:16:29,000 --> 00:16:42,000
+Let's jump to the code and then you can look back on these notes on your own time and it will become clear what the notes are saying and how that influence what we wrote down below.
+
+143
+00:16:42,000 --> 00:16:44,000
+So here we go.
+
+144
+00:16:44,000 --> 00:16:51,000
+The first thing we'll do when we enter this function is we'll take our list of strings and we'll see how long it is.
+
+145
+00:16:51,000 --> 00:16:55,000
+This will be the number of series that are being requested.
+
+146
+00:16:55,000 --> 00:17:09,000
+If we were to look a little closer in the API documentation for the BLS, we would have seen that a user without an API key can only request up to 25 series at a time.
+
+147
+00:17:09,000 --> 00:17:18,000
+So if the user has asked for more than 25, we're going to need to make more than one request and here's how we do it.
+
+148
+00:17:18,000 --> 00:17:24,000
+If we have more than 25 series, we're going to start by saying that parts is an empty list.
+
+149
+00:17:24,000 --> 00:17:28,000
+Then we're going to establish some common keyword arguments.
+
+150
+00:17:28,000 --> 00:17:37,000
+Like ND or start year in API key, these are going to be passed as these three arguments.
+
+151
+00:17:37,000 --> 00:17:49,000
+Two different times. The first time we're going to call the same function we're currently in, but only for the first 25 series IDs.
+
+152
+00:17:49,000 --> 00:17:53,000
+And then we'll pass the same start year and year in API key.
+
+153
+00:17:54,000 --> 00:18:04,000
+Then we're going to extend our list with the return value from calling it with the first 25 IDs after that.
+
+154
+00:18:04,000 --> 00:18:07,000
+We're going to call extend again.
+
+155
+00:18:07,000 --> 00:18:15,000
+Or we're going to call this function one more time using IDs starting at the 26th ID until the end of the list.
+
+156
+00:18:15,000 --> 00:18:20,000
+And again, we're going to pass the same start year and year in API key.
+
+157
+00:18:20,000 --> 00:18:32,000
+Once that's done, we will have made the request for all the series contained in the series ID argument and we can return the list that is parts.
+
+158
+00:18:32,000 --> 00:18:41,000
+This technique of calling a function from within itself is known as recursion or recursive function calls.
+
+159
+00:18:41,000 --> 00:18:49,000
+Here we're utilizing this technique in order to allow the user to specify an arbitrary number of series ID.
+
+160
+00:18:49,000 --> 00:18:58,000
+And then we will do the work of making sure that we adhere to the BLS limits and only request 25 at a time.
+
+161
+00:18:58,000 --> 00:19:02,000
+That's what happens if we did request more than 25.
+
+162
+00:19:02,000 --> 00:19:07,000
+If we requested 25 or less, we fall into this else step.
+
+163
+00:19:07,000 --> 00:19:10,000
+And here's where we actually make a request.
+
+164
+00:19:10,000 --> 00:19:12,000
+On this line, we specify the headers.
+
+165
+00:19:13,000 --> 00:19:19,000
+Then we specify the parameters or the payload for our function or for our API request.
+
+166
+00:19:19,000 --> 00:19:24,000
+We're going to pass the series ID, start year and end year.
+
+167
+00:19:24,000 --> 00:19:32,000
+These names are required and they were what the BLS documentation said we needed to have.
+
+168
+00:19:32,000 --> 00:19:41,000
+Then if the user was able to pass us an API key, we're also going to say that we would like to request a catalog.
+
+169
+00:19:41,000 --> 00:19:50,000
+And then we'll attach the API key as the registration key field in the payload.
+
+170
+00:19:50,000 --> 00:19:54,000
+This completes the construction of the payload.
+
+171
+00:19:54,000 --> 00:19:57,000
+And now we need to convert it to JSON.
+
+172
+00:19:57,000 --> 00:20:00,000
+So in the header, we promised we'd be sending JSON.
+
+173
+00:20:00,000 --> 00:20:08,000
+We're going to use the JSON.dumpS function to convert our dictionary into a string of JSON data.
+
+174
+00:20:08,000 --> 00:20:22,000
+And then the S means to turn it to to you as a string.
+
+175
+00:20:22,000 --> 00:20:25,000
+Finally, we're going to actually make the request.
+
+176
+00:20:25,000 --> 00:20:30,000
+So here we're going to use the post function from the request library.
+
+177
+00:20:30,000 --> 00:20:35,000
+We're going to pass the end point or the URL.
+
+178
+00:20:35,000 --> 00:20:43,000
+And the code is set by passing an argument to the data field of the data parameter to this function.
+
+179
+00:20:43,000 --> 00:20:47,000
+And then the headers are set by passing it to the headers.
+
+180
+00:20:47,000 --> 00:20:56,000
+Once we're done, we're going to return the output of this function call in a list with the value P.
+
+181
+00:20:56,000 --> 00:21:04,000
+The reason we passed the list here was because in the case that we have more than 25 series IDs,
+
+182
+00:21:04,000 --> 00:21:09,000
+we're going to turn a list of API responses.
+
+183
+00:21:09,000 --> 00:21:16,000
+And so if we always are returning a list, then the list here is going to be consistent with the list here.
+
+184
+00:21:16,000 --> 00:21:19,000
+And everything will work as expected.
+
+185
+00:21:19,000 --> 00:21:24,000
+So what we'll do is we'll execute this code cell, which will define our function.
+
+186
+00:21:24,000 --> 00:21:31,000
+So here we see that we have a number, which is Jupiter's way of saying that this function has been defined.
+
+187
+00:21:32,000 --> 00:21:35,000
+And now let's do it. Let's try to run this.
+
+188
+00:21:35,000 --> 00:21:41,000
+And if we do this, we will first load up the API key.
+
+189
+00:21:41,000 --> 00:21:45,000
+So now I don't want to post my API key publicly in this video.
+
+190
+00:21:45,000 --> 00:21:48,000
+So I've saved it as an environment variable.
+
+191
+00:21:48,000 --> 00:21:51,000
+You shouldn't have to worry too much about this code.
+
+192
+00:21:51,000 --> 00:21:56,000
+If you are using this and you were able to successfully get me a P.
+
+193
+00:21:56,000 --> 00:22:01,000
+And if you are using this, you should replace the right hand side of this with your API key.
+
+194
+00:22:01,000 --> 00:22:05,000
+So your key here, that's a string.
+
+195
+00:22:05,000 --> 00:22:08,000
+So that I don't have to make one public in the video.
+
+196
+00:22:08,000 --> 00:22:14,000
+I will continue to access it from this environment variable.
+
+197
+00:22:14,000 --> 00:22:20,000
+So now we're going to go ahead and grab one series ID.
+
+198
+00:22:20,000 --> 00:22:25,000
+And this was one of the ones I took from the API documentation page.
+
+199
+00:22:25,000 --> 00:22:33,000
+And we're going to make a request for all the data for this particular series between 2010 and 2020.
+
+200
+00:22:33,000 --> 00:22:37,000
+And then we'll pass in our API key.
+
+201
+00:22:37,000 --> 00:22:48,000
+We run this, we'll check the output, and we get a request response object in return.
+
+202
+00:22:48,000 --> 00:22:55,000
+Our request for series function, it makes the request and it builds the correct payload and headers for us.
+
+203
+00:22:55,000 --> 00:22:59,000
+And it returns to us a list of response objects.
+
+204
+00:22:59,000 --> 00:23:08,000
+However, it doesn't do any type of work to validate that the request were successful or that they happened how we wanted.
+
+205
+00:23:08,000 --> 00:23:15,000
+So now we'll write a separate function that will validate or verify that our request were successful.
+
+206
+00:23:16,000 --> 00:23:22,000
+Our approach for doing this will be to utilize another part of the HTTP convention.
+
+207
+00:23:22,000 --> 00:23:36,000
+So one part of the standard is that whenever a request is made as part of the response, the API provider or the web service will provide a status code.
+
+208
+00:23:36,000 --> 00:23:40,000
+Now this code is an integer with three digits.
+
+209
+00:23:40,000 --> 00:23:46,000
+And there are conventions that specify what each three digit number represents.
+
+210
+00:23:46,000 --> 00:23:55,000
+All successful responses for getting data are going to be in the 200s, so they're going to be between 200 and 299.
+
+211
+00:23:55,000 --> 00:24:05,000
+So what we'll do now, because we were asking for some data, we should get a status code between 200 and 299.
+
+212
+00:24:05,000 --> 00:24:14,000
+And so we will write a function that just checks if the status code on our response was less than 300.
+
+213
+00:24:14,000 --> 00:24:21,000
+So here is that function. It takes one argument, which is the response object from the request library.
+
+214
+00:24:21,000 --> 00:24:25,000
+And it's a first extracts the status code.
+
+215
+00:24:25,000 --> 00:24:38,000
+If it is greater than 299, it will raise a Python value error saying we had a response error with a code and it will tell us what the code is.
+
+216
+00:24:38,000 --> 00:24:43,000
+Find this and then in the next cell will apply it to the response we received.
+
+217
+00:24:43,000 --> 00:24:52,000
+So if you remember our responses was a list of response objects, we're going to access the first and only response here.
+
+218
+00:24:52,000 --> 00:24:56,000
+Ask to check it and it didn't do anything. This is great.
+
+219
+00:24:56,000 --> 00:25:04,000
+We would we were expecting this because we didn't have this function have any return value down here.
+
+220
+00:25:04,000 --> 00:25:12,000
+And the only thing that could have happened is a error would have been raised if this status code indicated a failed request.
+
+221
+00:25:12,000 --> 00:25:21,000
+Nothing failed. We didn't see an error. So this is good for our application.
+
+222
+00:25:21,000 --> 00:25:27,000
+Next let's start to look at what is inside this response object.
+
+223
+00:25:27,000 --> 00:25:35,000
+There is a content field of the request dot response that returns the data sent from the API.
+
+224
+00:25:35,000 --> 00:25:43,000
+We'll go ahead and run this cell and look what this is. So this is fairly large and a little bit hard to read as is.
+
+225
+00:25:43,000 --> 00:25:56,000
+But if we look closely, we can see that the type of this looks like a JSON object or a Python dictionary. It has a curly brace, a string colon something else.
+
+226
+00:25:56,000 --> 00:26:01,000
+We can actually see if we do responses.
+
+227
+00:26:01,000 --> 00:26:05,000
+Zero got headers.
+
+228
+00:26:05,000 --> 00:26:11,000
+We can see here that the content type.
+
+229
+00:26:11,000 --> 00:26:16,000
+And now this is the content type on the response, not our request.
+
+230
+00:26:16,000 --> 00:26:21,000
+They sent us some headers and they set the content type to be application JSON.
+
+231
+00:26:21,000 --> 00:26:35,000
+So our hunch that this looked like JSON is supported by the content types sent back by the BLS API.
+
+232
+00:26:36,000 --> 00:26:48,000
+In addition to the content fields, if the response happens to have type JSON, which is very common, the request response object also has a JSON method on it.
+
+233
+00:26:48,000 --> 00:26:59,000
+If we call this method, request will do the work to read that into a Python dictionary that we can then use like any other Python dictionary.
+
+234
+00:26:59,000 --> 00:27:06,000
+Now that it's a dictionary instead of just a string, it's a little easier to use and to read.
+
+235
+00:27:06,000 --> 00:27:13,000
+On the next slide, we're going to unpack kind of the structure of this response.
+
+236
+00:27:13,000 --> 00:27:16,000
+So here, notice that the response had the following structure.
+
+237
+00:27:16,000 --> 00:27:25,000
+There were a few different fields at the very front of this dictionary that talked about the request as a whole.
+
+238
+00:27:25,000 --> 00:27:29,000
+Here we see status that the request succeeded.
+
+239
+00:27:29,000 --> 00:27:36,000
+We have a response time of 190 milliseconds and that there are no extra messages for us.
+
+240
+00:27:36,000 --> 00:27:41,000
+Everything worked as it should have the server didn't need to tell us anything special.
+
+241
+00:27:41,000 --> 00:27:44,000
+Then there's a results field.
+
+242
+00:27:44,000 --> 00:27:52,000
+Now what this says is it is another dictionary or another JSON object that has a series key.
+
+243
+00:27:52,000 --> 00:27:58,000
+This maps to a Python list or a JSON array.
+
+244
+00:27:58,000 --> 00:28:05,000
+And each object in this results.series list has the following structure.
+
+245
+00:28:05,000 --> 00:28:09,000
+We're going to be given a series ID.
+
+246
+00:28:09,000 --> 00:28:17,000
+There's also a catalog field that has another dictionary inside of it with information such as the series title.
+
+247
+00:28:17,000 --> 00:28:29,000
+Here, this particular series ID must represent the total employment or number of people working employees in Apache County, Arizona.
+
+248
+00:28:29,000 --> 00:28:34,000
+Then the series IDs repeated and there are a number of other fields.
+
+249
+00:28:34,000 --> 00:28:44,000
+Alongside the series ID and catalog, again, if you had an API key and we're able to request a catalog, there is a data field.
+
+250
+00:28:44,000 --> 00:28:52,000
+Here, the data field is another list and inside of it, there are objects or dictionaries containing the data.
+
+251
+00:28:52,000 --> 00:28:54,000
+So let's look at an example here.
+
+252
+00:28:54,000 --> 00:29:00,000
+We have this is the first item inside the data list.
+
+253
+00:29:00,000 --> 00:29:05,000
+It has keys year period, period name value and footnotes.
+
+254
+00:29:05,000 --> 00:29:12,000
+You'll see that these same things are repeated over and over.
+
+255
+00:29:12,000 --> 00:29:19,000
+So this is the structure of our return.
+
+256
+00:29:19,000 --> 00:29:24,000
+Now, a summary of what we just talked about.
+
+257
+00:29:24,000 --> 00:29:28,000
+The actual data that we're after is going to be in our JSON object.
+
+258
+00:29:28,000 --> 00:29:30,000
+Here, we've named that variable Js.
+
+259
+00:29:30,000 --> 00:29:33,000
+So I'll change that to read Js.
+
+260
+00:29:33,000 --> 00:29:37,000
+And there's a results field inside of that.
+
+261
+00:29:37,000 --> 00:29:39,000
+There's a series field.
+
+262
+00:29:39,000 --> 00:29:45,000
+Now, the series, the output of this will be a list of dictionaries.
+
+263
+00:29:45,000 --> 00:29:52,000
+Each of those dictionaries will have a series ID, a catalog, and a data field.
+
+264
+00:29:52,000 --> 00:29:55,000
+The data field has the actual data that we need.
+
+265
+00:29:55,000 --> 00:30:02,000
+And the catalog has some kind of metadata or information about the series.
+
+266
+00:30:02,000 --> 00:30:08,000
+What we'll now need to do now that we've unpacked the structure that was returned to us is we need to write a Python for
+
+267
+00:30:08,000 --> 00:30:12,000
+a Python function that can operate on one of these dictionaries.
+
+268
+00:30:12,000 --> 00:30:17,000
+So it's going to process the response for a single series.
+
+269
+00:30:17,000 --> 00:30:22,000
+What we'd like to get out of it is a data frame, a pandas data frame with all of this data in it,
+
+270
+00:30:22,000 --> 00:30:31,000
+and then a pandas series that contains all the catalog information.
+
+271
+00:30:31,000 --> 00:30:36,000
+Here is the function we've written that will unpack these series results.
+
+272
+00:30:36,000 --> 00:30:43,000
+You'll see here again, we've included a helpful dox string that described what the function does.
+
+273
+00:30:43,000 --> 00:30:51,000
+And we're going to dive right into the implementation, and you can look back at the dox string later when you use this later.
+
+274
+00:30:51,000 --> 00:30:58,000
+So the first thing we do is we extract the series ID from these results and we store that in a variable.
+
+275
+00:30:58,000 --> 00:31:05,000
+Next, we're going to create a pandas data frame from this, the data field of our series results.
+
+276
+00:31:05,000 --> 00:31:11,000
+And thankfully, pandas knows how to read a list of dictionaries and construct a data frame for us.
+
+277
+00:31:11,000 --> 00:31:14,000
+So there's very little work that needs to be done here.
+
+278
+00:31:14,000 --> 00:31:22,000
+And the last thing we'll do with the data is we'll attach the series ID as a new column.
+
+279
+00:31:22,000 --> 00:31:28,000
+So we extracted that on the first line and now we're adding that as an additional column in our data.
+
+280
+00:31:28,000 --> 00:31:36,000
+Then we're going to check to see if the catalog was returned as part of the series results.
+
+281
+00:31:36,000 --> 00:31:41,000
+If it was, we'll construct a pandas series from that.
+
+282
+00:31:41,000 --> 00:31:47,000
+If it wasn't, we'll just set it to none and finally we'll return our data and our metadata.
+
+283
+00:31:47,000 --> 00:31:52,000
+We'll define this function and test it out in the next cell.
+
+284
+00:31:52,000 --> 00:31:57,000
+So here we will make the data frames from our series.
+
+285
+00:31:57,000 --> 00:31:59,000
+We'll call our function.
+
+286
+00:31:59,000 --> 00:32:04,000
+We're going to pass it just the first value of the first series.
+
+287
+00:32:04,000 --> 00:32:08,000
+And we'll see that our data is the following.
+
+288
+00:32:08,000 --> 00:32:21,000
+And our metadata extracted from the catalog is a pandas series that has all the information that described what the series with this code or this ID.
+
+289
+00:32:21,000 --> 00:32:31,000
+So far it looks like our functions are all working for the single example that we tried.
+
+290
+00:32:31,000 --> 00:32:36,000
+And we made our request for earlier.
+
+291
+00:32:36,000 --> 00:32:37,000
+So now we're getting closer.
+
+292
+00:32:37,000 --> 00:32:41,000
+We're nearing the end of writing the code to get the data.
+
+293
+00:32:41,000 --> 00:32:50,000
+And we'll just remind you that the results.series feel of our response object or response body was a list.
+
+294
+00:32:51,000 --> 00:33:03,000
+The reason for this is that we're going to get one of the series objects for every series ID that we requested when we interacted with the API.
+
+295
+00:33:03,000 --> 00:33:16,000
+What we need now is to write a function that can take a single response object from the API and process all of the series data inside of it.
+
+296
+00:33:16,000 --> 00:33:24,000
+This will leverage the function we just wrote, but it will not look at just a single value from this list.
+
+297
+00:33:24,000 --> 00:33:29,000
+It will look at all of the values and return many data frames and many series.
+
+298
+00:33:29,000 --> 00:33:33,000
+Here's what this function looks like again.
+
+299
+00:33:33,000 --> 00:33:42,000
+The helpful doctrines can be read later, but the input now is one response object from the request library.
+
+300
+00:33:42,000 --> 00:33:48,000
+And the body here, the first thing we'll do is we'll compute the JSON form of our response.
+
+301
+00:33:48,000 --> 00:33:50,000
+And then we have one more line of code.
+
+302
+00:33:50,000 --> 00:33:54,000
+So what we do here is we call the map function.
+
+303
+00:33:54,000 --> 00:33:59,000
+So what map does in Python is it takes two arguments.
+
+304
+00:33:59,000 --> 00:34:04,000
+The first is the name of a function.
+
+305
+00:34:04,000 --> 00:34:08,000
+Here we're going to pass this make df from series function.
+
+306
+00:34:08,000 --> 00:34:11,000
+We wrote and applied just before.
+
+307
+00:34:11,000 --> 00:34:16,000
+And the second argument is a list or some type of iterator.
+
+308
+00:34:16,000 --> 00:34:26,000
+In our case, it is the list that is found at our JSON, RIS response, and then the results series feel.
+
+309
+00:34:26,000 --> 00:34:35,000
+And we're going to, so this map operation will instruct Python to call this function on each of the items in this list.
+
+310
+00:34:35,000 --> 00:34:42,000
+And to follow the map function returns what's called a generator or a lazy way of doing that.
+
+311
+00:34:42,000 --> 00:34:46,000
+And it's not actually going to do the work when the highlighted code finishes.
+
+312
+00:34:46,000 --> 00:34:57,000
+In order to make Python run the functions and do the work, I need to convert this map generator into a Python list by calling the list function.
+
+313
+00:34:57,000 --> 00:35:02,000
+So now this whole block of code down here after return.
+
+314
+00:35:02,000 --> 00:35:08,000
+We'll work through each of the items in the results series list.
+
+315
+00:35:08,000 --> 00:35:17,000
+Construct our data frame from those contents and then return them as a list.
+
+316
+00:35:17,000 --> 00:35:19,000
+Let's test this one out.
+
+317
+00:35:19,000 --> 00:35:23,000
+So now we're going to pass in our one response.
+
+318
+00:35:23,000 --> 00:35:29,000
+We're going to pass into this function and we're going to get back something that I'll call parsed.
+
+319
+00:35:29,000 --> 00:35:37,000
+So we see here, oops, excuse me, I need to define this by running this cell and we'll run it again.
+
+320
+00:35:37,000 --> 00:35:42,000
+And we'll see here that parsed is a list and that it has length 1.
+
+321
+00:35:42,000 --> 00:35:52,000
+Now the reason it has length 1 is because when we initially made our API request, we only asked for data for one series from the BLS.
+
+322
+00:35:52,000 --> 00:35:56,000
+If we look at the first element of parsed,
+
+323
+00:35:56,000 --> 00:36:03,000
+this will be the first value returned from our make dfs from series.
+
+324
+00:36:03,000 --> 00:36:12,000
+Excuse me, the first element of parse and the only element will be what is returned from our make dfs from series.
+
+325
+00:36:12,000 --> 00:36:17,000
+If we look at this, you see that this is a tuple.
+
+326
+00:36:17,000 --> 00:36:19,000
+It contains two objects.
+
+327
+00:36:19,000 --> 00:36:28,000
+The first one is the data frame containing the actual data and the second is the panda series containing the metadata information.
+
+328
+00:36:28,000 --> 00:36:44,000
+So again, for the very first BLS series in our request, we're going to get the parsed data from this parsed square bracket zero.
+
+329
+00:36:44,000 --> 00:36:49,000
+And the first item in this tuple is the data frame and the second is the metadata.
+
+330
+00:36:49,000 --> 00:36:55,000
+So we'll just look at these and we'll see here this is familiar it's what we saw before.
+
+331
+00:36:55,000 --> 00:37:06,000
+The difference this time is that had we made a request for more than one BLS series and we got a response containing multiple series data.
+
+332
+00:37:06,000 --> 00:37:22,000
+We parsed would have a length greater than one and we would be able to do something like parsed one zero to get the data frame for the second series we requested from the BLS.
+
+333
+00:37:22,000 --> 00:37:25,000
+Okay, we're getting close there's one last step.
+
+334
+00:37:25,000 --> 00:37:30,000
+Do you remember back at the very start when we wrote the request for series function?
+
+335
+00:37:30,000 --> 00:37:36,000
+We were given the return object is a list of request responses.
+
+336
+00:37:36,000 --> 00:37:44,000
+If we are requesting more than 25 BLS series, this list will have more than one item in it.
+
+337
+00:37:44,000 --> 00:37:51,000
+Our job will then be to unpack all the responses that are returned from the request for series function.
+
+338
+00:37:52,000 --> 00:37:59,000
+We want to concatenate or stack all of the data that was returned as well as all of the metadata series.
+
+339
+00:37:59,000 --> 00:38:07,000
+So we'll write one last Python function that does this unpacking and then concatenation step.
+
+340
+00:38:07,000 --> 00:38:16,000
+So now here we define a new function this one has one argument that is a list of response objects.
+
+341
+00:38:17,000 --> 00:38:35,000
+And we'll do the following. We're going to say that the unpacked is an empty list and then we'll do a for loop over all of the response objects in what was in the argument passed.
+
+342
+00:38:35,000 --> 00:38:45,000
+So for each res in all res, we want to unpack that and remember the unpack response return date list of unpack data.
+
+343
+00:38:45,000 --> 00:38:55,000
+So we're going to extend this empty list recreated with all the items from the list returned by this unpack response.
+
+344
+00:38:55,000 --> 00:39:00,000
+Now this line of code is a little bit tricky or mysterious.
+
+345
+00:39:00,000 --> 00:39:03,000
+And we will leave it to the viewer.
+
+346
+00:39:03,000 --> 00:39:21,000
+I have an assignment for exactly how the zip function works in this context, but effectively what it does is we're going to have the data underscore ds is just going to be a list of data frames containing all of the raw data in each of the requested series.
+
+347
+00:39:21,000 --> 00:39:28,000
+And the metadata series will be a list of pandas series with all the catalog information.
+
+348
+00:39:28,000 --> 00:39:38,000
+And once we have that, we can use the pd.com cat function to stack each of these data frames one on top of the other.
+
+349
+00:39:38,000 --> 00:39:41,000
+Creating a long form data set.
+
+350
+00:39:41,000 --> 00:39:44,000
+Each of these data frames will have its own index.
+
+351
+00:39:44,000 --> 00:39:49,000
+This is going to be just an integer from zero to the number of rows and it's not meaningful.
+
+352
+00:39:49,000 --> 00:39:57,000
+So we tow pandas that when it does the concatenation, it's safe to ignore the existing index from each of these data frames.
+
+353
+00:39:57,000 --> 00:40:03,000
+And then finally we're going to do something similar. We're going to call the conf-cat function again.
+
+354
+00:40:03,000 --> 00:40:09,000
+For all of our metadata, our all of our pandas series.
+
+355
+00:40:09,000 --> 00:40:13,000
+The contain the catalog or metadata information.
+
+356
+00:40:13,000 --> 00:40:20,000
+And because these are pandas series, what we're first going to do is we're going to stack them as separate columns in a data frame.
+
+357
+00:40:20,000 --> 00:40:24,000
+That's what this axis equal one argument does here.
+
+358
+00:40:24,000 --> 00:40:34,000
+Once that's done, we're going to have the row or the index is going to be the kind of the keys like series ID units, geography.
+
+359
+00:40:34,000 --> 00:40:39,000
+We'd really like those to be columns. So what we'll do is we'll transpose the output.
+
+360
+00:40:39,000 --> 00:40:48,000
+And now the series AD and string version of the series AD will become column names.
+
+361
+00:40:48,000 --> 00:40:53,000
+We'll become columns instead of rows. And this is, makes more sense.
+
+362
+00:40:54,000 --> 00:40:58,000
+You'll notice here that we also have a list comprehension.
+
+363
+00:40:58,000 --> 00:41:05,000
+Our code is set up that if you don't have an API key, you won't be able to get the catalog information.
+
+364
+00:41:05,000 --> 00:41:11,000
+And this metadata series object here will just be a list of the value none.
+
+365
+00:41:11,000 --> 00:41:20,000
+And so what we tell pandas to do is only try to concatenate items from metadata series if the item is not none.
+
+366
+00:41:21,000 --> 00:41:29,000
+Once we've done that, we return our data frame containing all of the data and then another data frame containing all of the metadata.
+
+367
+00:41:29,000 --> 00:41:32,000
+Go ahead and we'll execute that.
+
+368
+00:41:32,000 --> 00:41:38,000
+And now all of our functions are defined.
+
+369
+00:41:38,000 --> 00:41:45,000
+This point we're ready to do the core data gathering for our unemployment exercise.
+
+370
+00:41:45,000 --> 00:41:49,000
+So with all these functions in place, let's go ahead and put them to use.
+
+371
+00:41:49,000 --> 00:42:06,000
+I've defined for you in the next cell, a list of 108 series IDs that contains all of the series IDs at the national US level from the BLS monthly unemployment report.
+
+372
+00:42:06,000 --> 00:42:14,000
+I found these by looking through the BLS website at this monthly unemployment report and then looking through the source of the data behind their
+
+373
+00:42:15,000 --> 00:42:24,000
+So now with this list of BLS series IDs related to unemployment data, we will execute our code.
+
+374
+00:42:24,000 --> 00:42:33,000
+So what we'll do first is we'll use the request for series function pass that list of 108 series IDs,
+
+375
+00:42:33,000 --> 00:42:41,000
+specify that we'd like to gather data between the year 2001 and 2020 and then pass our API key from above.
+
+376
+00:42:41,000 --> 00:42:46,000
+What we'll get back is a list of requests response objects.
+
+377
+00:42:46,000 --> 00:42:52,000
+Once we have that, we will want to validate or check that they were all completed successfully.
+
+378
+00:42:52,000 --> 00:43:05,000
+Once that happens, we use our unpack all responses functions to extract all of the data return to us inside of a data frame and then a metadata data frame with the catalog data.
+
+379
+00:43:05,000 --> 00:43:09,000
+We'll go ahead and we'll run this cell.
+
+380
+00:43:10,000 --> 00:43:12,000
+And we'll see what we have.
+
+381
+00:43:12,000 --> 00:43:17,000
+We're waiting here for the previous so making the request to finish.
+
+382
+00:43:17,000 --> 00:43:22,000
+And once it has, we will see the results appear here on this slide.
+
+383
+00:43:22,000 --> 00:43:33,000
+So now we see that we have a data frame with 25,596 rows and the six seven columns we were expecting.
+
+384
+00:43:33,000 --> 00:43:49,000
+And our metadata data frame has the information about what each of these series is for all 108 series IDs that we've asked it.
+
+385
+00:43:49,000 --> 00:44:02,000
+Now what we'll do the last step in this video will be to save the metadata and the raw data to a file on our computer so that when we want to come back and do further analysis in the future.
+
+386
+00:44:02,000 --> 00:44:08,000
+We don't have to make the same API requests. We're able to just load the data and proceed from that point.
+
+387
+00:44:08,000 --> 00:44:12,000
+It also makes it easier to share a collaborate with others.
+
+388
+00:44:12,000 --> 00:44:23,000
+As if we give them this notebook, they can see the process we went through to get the data, but then they would just be able to use the file when loading and using the data.
+
+389
+00:44:23,000 --> 00:44:32,000
+So that concludes this video for how you can interact with the API provided by the US Bureau of Labor Statistics.
+
+390
+00:44:32,000 --> 00:44:34,000
+Thank you and see you next time.
+

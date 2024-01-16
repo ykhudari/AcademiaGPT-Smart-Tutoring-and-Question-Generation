@@ -1,0 +1,1692 @@
+1
+00:00:00,000 --> 00:00:05,360
+This is Chase and today we're going to be talking about some of the basic functionality
+
+2
+00:00:05,360 --> 00:00:07,600
+that we have in pandas.
+
+3
+00:00:07,600 --> 00:00:11,880
+At the end of the lecture today you should have been familiar with what is a date time
+
+4
+00:00:11,880 --> 00:00:18,080
+object and you also should have learned how to use aggregation functions, transformation
+
+5
+00:00:18,080 --> 00:00:24,560
+functions and scalar transformation functions and apply built-in and create customized versions
+
+6
+00:00:24,560 --> 00:00:29,000
+of these to make transformations to your data.
+
+7
+00:00:29,000 --> 00:00:34,480
+We'll also talk about how to select subsets of your data using Boolean selection and
+
+8
+00:00:34,480 --> 00:00:38,360
+we'll introduce you to what we call the WANT operator and we'll teach you how to apply
+
+9
+00:00:38,360 --> 00:00:39,860
+it.
+
+10
+00:00:39,860 --> 00:00:44,240
+The data that we'll be using for today's course comes from the US State Unemployment
+
+11
+00:00:44,240 --> 00:00:48,480
+Data from the Bureau of Labor Statistics.
+
+12
+00:00:48,480 --> 00:00:49,800
+So this is our outline.
+
+13
+00:00:49,800 --> 00:00:52,720
+Let's go ahead and get started.
+
+14
+00:00:52,720 --> 00:00:59,640
+So as usual we're going to import our pandas as PD and we're going to activate our custom
+
+15
+00:00:59,640 --> 00:01:02,960
+plotting theme.
+
+16
+00:01:02,960 --> 00:01:07,120
+Now whenever we do a pandas lecture this is our first one.
+
+17
+00:01:07,120 --> 00:01:11,800
+We'll typically read in some kind of a data set that we'll use as motivation for the things
+
+18
+00:01:11,800 --> 00:01:13,640
+that we do in class.
+
+19
+00:01:13,640 --> 00:01:19,520
+Again in this case we're going to be reading in state unemployment and you'll want to
+
+20
+00:01:19,520 --> 00:01:23,880
+take a note that there's going to be a column named date and we're going to specify
+
+21
+00:01:23,880 --> 00:01:28,560
+that that column should be read in as a date object.
+
+22
+00:01:28,560 --> 00:01:33,320
+And so if we look at this we can see the structure of our data.
+
+23
+00:01:33,320 --> 00:01:39,080
+It has a column for date, a column for state, a column for how many people are in the labor
+
+24
+00:01:39,080 --> 00:01:44,600
+force in that state and an unemployment rate.
+
+25
+00:01:44,600 --> 00:01:49,400
+You don't have to worry about this but what we want to do is we want to have a column
+
+26
+00:01:49,400 --> 00:01:58,080
+for each state and then along the index we would like to have the dates so one per month
+
+27
+00:01:58,080 --> 00:02:02,280
+in our case and the values that we'd like inside of our data frame will be the unemployment
+
+28
+00:02:02,280 --> 00:02:03,280
+rates.
+
+29
+00:02:03,280 --> 00:02:07,840
+And this is just some reshaping that we'll learn to do later in this course to make sure
+
+30
+00:02:07,840 --> 00:02:10,520
+that we have the data that we want.
+
+31
+00:02:10,520 --> 00:02:15,880
+So again you should just take note that the states are the columns, the date is the
+
+32
+00:02:15,880 --> 00:02:21,040
+index and the values are unemployment rates.
+
+33
+00:02:21,040 --> 00:02:25,200
+And to keep the data manageable we're just going to focus on seven states.
+
+34
+00:02:25,200 --> 00:02:30,040
+We're going to focus on Arizona, California, Florida, Illinois, Michigan, New York, and
+
+35
+00:02:30,040 --> 00:02:32,120
+Texas.
+
+36
+00:02:32,120 --> 00:02:36,400
+So this unimp data frame that we have will be the data frame we work with for the rest
+
+37
+00:02:36,400 --> 00:02:39,920
+of this course.
+
+38
+00:02:39,920 --> 00:02:45,320
+So the first thing we can do is we can plot the data and we talked briefly about this
+
+39
+00:02:45,320 --> 00:02:50,200
+in the last video that it will create this plot for us.
+
+40
+00:02:50,200 --> 00:02:55,600
+The thing I want to highlight right now is that it knows that the unemployment that the
+
+41
+00:02:55,600 --> 00:03:02,160
+date column has been moved to the index and so when we plot it places this on the index
+
+42
+00:03:02,160 --> 00:03:04,240
+for us and labels it.
+
+43
+00:03:04,240 --> 00:03:09,280
+Additionally it will create one line for each of the columns and this is why we chose
+
+44
+00:03:09,360 --> 00:03:13,880
+to have seven columns instead of 50 and it's going to label these for us.
+
+45
+00:03:13,880 --> 00:03:17,040
+So this purple line is Arizona.
+
+46
+00:03:17,040 --> 00:03:22,280
+This really low unemployment rate is from Texas.
+
+47
+00:03:22,280 --> 00:03:29,480
+And so we see that we get this some of this nice plotting features for free.
+
+48
+00:03:29,480 --> 00:03:36,720
+So let's go ahead and look at what index we have on our data frame.
+
+49
+00:03:37,440 --> 00:03:41,200
+You'll notice that it has these nice formatted text.
+
+50
+00:03:41,200 --> 00:03:45,120
+So 2000, 0101.
+
+51
+00:03:45,120 --> 00:03:51,800
+And that's because we specified when we read the data in that that column or that data
+
+52
+00:03:51,800 --> 00:03:53,640
+was a date time object.
+
+53
+00:03:53,640 --> 00:03:59,200
+And so Pandas has recognized that this is a date time object because we told it and
+
+54
+00:03:59,200 --> 00:04:03,600
+it's going to allow us to do some special things with it.
+
+55
+00:04:03,600 --> 00:04:09,240
+So for example we can index into a particular date.
+
+56
+00:04:09,240 --> 00:04:15,520
+So if we choose to look at January 1st from the year 2000 we see that Arizona had an unemployment
+
+57
+00:04:15,520 --> 00:04:16,760
+rate of 4.1.
+
+58
+00:04:16,760 --> 00:04:25,000
+Texas had an unemployment rate of 4.6 in California at an unemployment rate of 5.
+
+59
+00:04:25,000 --> 00:04:30,200
+We could also choose all of the days between New Year's Day and June 1st in the year 2000
+
+60
+00:04:30,200 --> 00:04:34,120
+just by putting 0101 2000.
+
+61
+00:04:34,120 --> 00:04:41,240
+And notice we can pass dates in in different formats and going to June 1st 2000.
+
+62
+00:04:41,240 --> 00:04:47,640
+And that will now give us a data frame with six rows where each of the rows corresponds
+
+63
+00:04:47,640 --> 00:04:51,360
+to a month.
+
+64
+00:04:51,360 --> 00:04:55,560
+So we'll talk much more about this in a future lecture but we just wanted to highlight
+
+65
+00:04:55,560 --> 00:04:56,560
+that.
+
+66
+00:04:56,560 --> 00:05:02,360
+So you have this functionality available to you.
+
+67
+00:05:02,360 --> 00:05:07,480
+So the next topic we'll talk about are data frame aggregations.
+
+68
+00:05:07,480 --> 00:05:12,880
+And loosely speaking, aggregation is an operation that takes multiple values and turns it into
+
+69
+00:05:12,880 --> 00:05:15,160
+a single value.
+
+70
+00:05:15,160 --> 00:05:19,200
+The example that we should all be familiar with is computing a mean.
+
+71
+00:05:19,200 --> 00:05:25,140
+So taking the three numbers 0, 1 and 2 and computing their mean returns a single
+
+72
+00:05:25,140 --> 00:05:26,140
+number.
+
+73
+00:05:26,140 --> 00:05:27,140
+1.
+
+74
+00:05:27,140 --> 00:05:32,440
+We're going to use aggregations extensively in this course and we're very grateful that
+
+75
+00:05:32,440 --> 00:05:35,800
+Pandas will make this easy for us.
+
+76
+00:05:35,800 --> 00:05:40,680
+So Pandas has some of the most frequently used aggregations already built in.
+
+77
+00:05:40,680 --> 00:05:49,800
+For example, mean variance, standard deviation, finding the minimum, median, max, etc.
+
+78
+00:05:49,800 --> 00:05:51,960
+We do want to note here this is not all of them.
+
+79
+00:05:51,960 --> 00:05:56,000
+There's many other aggregations Pandas has that we have not listed.
+
+80
+00:05:56,000 --> 00:06:00,280
+And we just encourage you to use a little bit of tab completion.
+
+81
+00:06:00,280 --> 00:06:10,000
+So if you take a data frame, so again, we can take the mean.
+
+82
+00:06:10,000 --> 00:06:16,800
+If you hit tab, notice it brings all of these options up.
+
+83
+00:06:16,800 --> 00:06:23,600
+And let's see an aggregation that we might do is standard deviation.
+
+84
+00:06:23,600 --> 00:06:27,840
+So if we just type ST and hit tab, it brings up STD.
+
+85
+00:06:27,840 --> 00:06:32,880
+And if we wanted to know what that was, we could put a question mark and return sample
+
+86
+00:06:32,880 --> 00:06:38,200
+standard deviation over requested access normalized by n minus 1 by default.
+
+87
+00:06:38,200 --> 00:06:46,240
+So it tells us a little bit more and we could then use that to get the standard deviation.
+
+88
+00:06:46,240 --> 00:06:53,400
+So by default, as you might have noticed, aggregation operates on the columns.
+
+89
+00:06:53,400 --> 00:06:57,840
+We can use the access argument though to specify whether we'd like to do aggregations by
+
+90
+00:06:57,840 --> 00:06:59,320
+rows.
+
+91
+00:06:59,320 --> 00:07:07,880
+So remember, the zero axis is going, you collapse the zero axis, which is going to collapse over
+
+92
+00:07:07,880 --> 00:07:10,520
+the rows.
+
+93
+00:07:10,520 --> 00:07:14,320
+But if we specify axis equals 1, we can collapse over the columns.
+
+94
+00:07:14,320 --> 00:07:20,320
+So when we take the variance with respect to axis equals 1, we're getting the variance
+
+95
+00:07:20,320 --> 00:07:32,040
+of the unemployment rate in the year 2000, in January 2000, or February 2000, etc.
+
+96
+00:07:32,040 --> 00:07:36,400
+So the built in aggregations get us pretty far in our analysis.
+
+97
+00:07:36,400 --> 00:07:39,760
+But sometimes you need a little bit more flexibility.
+
+98
+00:07:39,760 --> 00:07:45,600
+We can have pandas perform custom aggregations by following the next two steps.
+
+99
+00:07:45,600 --> 00:07:50,760
+Then you write a Python function that takes a series as an input and outputs a single
+
+100
+00:07:50,760 --> 00:07:52,280
+value.
+
+101
+00:07:52,280 --> 00:07:57,560
+And then you can call the Ag method with the function as an argument.
+
+102
+00:07:57,560 --> 00:08:03,320
+So let's do an example below where we classify states as low unemployment or high unemployment
+
+103
+00:08:03,320 --> 00:08:09,640
+based on whether their mean unemployment level is above or below 6.5.
+
+104
+00:08:09,640 --> 00:08:13,160
+So step one, let's write the aggregation function.
+
+105
+00:08:13,160 --> 00:08:19,680
+So higher low is a function that takes S, which is going to be a pandas series object.
+
+106
+00:08:19,680 --> 00:08:25,880
+And if the mean of S is less than 6.5, we'll return low.
+
+107
+00:08:25,880 --> 00:08:31,960
+And if it's higher than 6.5, which is in the else, then we'll return high.
+
+108
+00:08:31,960 --> 00:08:38,120
+And so now step two, all we have to do is call got Ag.
+
+109
+00:08:38,120 --> 00:08:42,960
+And notice we've now classified Arizona as a low unemployment state, California as
+
+110
+00:08:42,960 --> 00:08:47,480
+a high unemployment state, et cetera.
+
+111
+00:08:47,480 --> 00:08:51,760
+We also can get the access equals one.
+
+112
+00:08:51,760 --> 00:08:57,680
+And we can see which of the months were low or high unemployment.
+
+113
+00:08:57,680 --> 00:09:01,320
+Now all of the ones we can see are low unemployment because they were in times of growth.
+
+114
+00:09:01,320 --> 00:09:08,040
+But if we looked at, so let's go ahead and do our fancy date indexing.
+
+115
+00:09:08,040 --> 00:09:21,160
+So let's go from January 2008 to October of 2008.
+
+116
+00:09:21,160 --> 00:09:30,840
+And we noticed that at the end of 2008, we started seeing high unemployment rates.
+
+117
+00:09:30,840 --> 00:09:32,840
+And we just did this.
+
+118
+00:09:32,840 --> 00:09:34,160
+Great.
+
+119
+00:09:34,160 --> 00:09:38,320
+And the other thing you might notice is that Ag can accept multiple functions.
+
+120
+00:09:38,320 --> 00:09:41,640
+So here we're passing in three functions.
+
+121
+00:09:41,640 --> 00:09:47,960
+We're passing in the function min, max, and then higher low.
+
+122
+00:09:47,960 --> 00:09:54,400
+And what this will return is a data frame now where we have the columns the same as the
+
+123
+00:09:54,400 --> 00:09:57,920
+data frame that we passed in.
+
+124
+00:09:57,920 --> 00:10:01,960
+And now we have a row for each of the functions.
+
+125
+00:10:01,960 --> 00:10:07,440
+So the min unemployment rate in Texas was 3.9.
+
+126
+00:10:07,440 --> 00:10:11,920
+The max unemployment rate in Michigan was 14.6.
+
+127
+00:10:11,920 --> 00:10:16,320
+And then we have our high low classifier that's telling us whether each of the states is
+
+128
+00:10:16,320 --> 00:10:21,720
+a high or low unemployment state.
+
+129
+00:10:21,720 --> 00:10:28,600
+So now let's take a pause and let's do an exercise to see whether we understood the concepts
+
+130
+00:10:28,600 --> 00:10:30,600
+that were just presented.
+
+131
+00:10:30,600 --> 00:10:36,680
+So at each state, at each state, we'd like you to find the minimum unemployment rate
+
+132
+00:10:36,680 --> 00:10:40,360
+across all of the states in our sample.
+
+133
+00:10:40,360 --> 00:10:45,120
+We'd like you to find what was the median unemployment rate in each state.
+
+134
+00:10:45,120 --> 00:10:49,440
+What was the maximum unemployment rate across the states in our sample?
+
+135
+00:10:49,440 --> 00:10:54,560
+What state did it happen in and in what month or year was this achieved?
+
+136
+00:10:54,560 --> 00:10:59,600
+And then we'd like you to classify each state as being high or low volatility based on
+
+137
+00:10:59,600 --> 00:11:03,920
+whether the variance of their unemployment is above or below 4.
+
+138
+00:11:03,920 --> 00:11:12,640
+And we'll go ahead and pause for 5 to 10 minutes and see how we see how we do.
+
+139
+00:11:12,640 --> 00:11:14,400
+Let's review the answers.
+
+140
+00:11:14,400 --> 00:11:20,320
+So these exercises asked first at each state what is the minimum unemployment rate across
+
+141
+00:11:20,320 --> 00:11:22,600
+all of the states in our sample.
+
+142
+00:11:22,600 --> 00:11:27,760
+And the way we can find that is for each month, we want to find the minimum unemployment
+
+143
+00:11:27,760 --> 00:11:32,960
+rate which means we want to take the minimum across the columns or the axis.
+
+144
+00:11:32,960 --> 00:11:36,520
+So axis equals 1.
+
+145
+00:11:36,520 --> 00:11:41,200
+Then the second was what was the median unemployment rate in each state?
+
+146
+00:11:41,200 --> 00:11:47,600
+Since this is the median across within a column is we're going to just take the median which
+
+147
+00:11:47,600 --> 00:11:54,120
+will default to axis equals 0 which collapses the rows.
+
+148
+00:11:54,120 --> 00:11:58,440
+Next we're going to try and find what the maximum unemployment rate was across each
+
+149
+00:11:58,440 --> 00:12:00,200
+of the states.
+
+150
+00:12:00,200 --> 00:12:05,360
+What state did this maximum unemployment rate happen in and when was it achieved?
+
+151
+00:12:05,360 --> 00:12:09,520
+And the way we're going to do that is first we're going to take the maximum across all
+
+152
+00:12:09,520 --> 00:12:14,600
+of the unemployment which will tell us the maximum unemployment rate in each state.
+
+153
+00:12:14,600 --> 00:12:20,440
+And then the max will tell us what the maximum unemployment rate was.
+
+154
+00:12:20,440 --> 00:12:24,760
+The IDX max, again the first part is the same, is going to tell us which state that occurred
+
+155
+00:12:24,760 --> 00:12:26,240
+in.
+
+156
+00:12:26,240 --> 00:12:32,240
+And then we're going to take the maximum according to axis equals 1 to find the maximum
+
+157
+00:12:32,240 --> 00:12:34,240
+unemployment rate in each month.
+
+158
+00:12:34,240 --> 00:12:37,480
+And if we take the IDX max that will tell us when it occurred.
+
+159
+00:12:37,480 --> 00:12:44,240
+And so the maximum unemployment rate in our sample was 14.6 percent which happened in Michigan
+
+160
+00:12:44,240 --> 00:12:47,880
+in June of 2009.
+
+161
+00:12:48,200 --> 00:12:53,360
+The last question in this exercise was to classify each state as high or low volatility
+
+162
+00:12:53,360 --> 00:12:59,440
+based on whether the variance of their unemployment was above or below 4.
+
+163
+00:12:59,440 --> 00:13:07,080
+So we defined a new function, unemployment rate, volatility classify which takes a series
+
+164
+00:13:07,080 --> 00:13:08,920
+as an input.
+
+165
+00:13:08,920 --> 00:13:15,640
+And then it returns either the string high or low depending on whether the variance is
+
+166
+00:13:15,640 --> 00:13:19,320
+above or below 4.
+
+167
+00:13:19,320 --> 00:13:25,640
+And so what we see is Arizona, California, Florida, and Michigan are high variance unemployment
+
+168
+00:13:25,640 --> 00:13:31,760
+rate states and Illinois, New York, and Texas are low variance unemployment rate states.
+
+169
+00:13:31,760 --> 00:13:33,720
+Hopefully these lined up with what you did.
+
+170
+00:13:33,720 --> 00:13:38,040
+Otherwise you should review after class and feel free to ask us questions.
+
+171
+00:13:38,040 --> 00:13:39,040
+Great.
+
+172
+00:13:39,040 --> 00:13:43,000
+So we're done talking about aggregations for now.
+
+173
+00:13:43,000 --> 00:13:46,920
+Next we're going to talk about what we call transforms.
+
+174
+00:13:46,920 --> 00:13:51,920
+And transforms are going to be analytical operations of some sort that do not necessarily
+
+175
+00:13:51,920 --> 00:13:53,960
+involve an aggregation.
+
+176
+00:13:53,960 --> 00:14:00,480
+So the output of a transform would be a series that is mapped to another series.
+
+177
+00:14:00,480 --> 00:14:04,160
+Some examples of what this might be are the percentage change in unemployment rate from
+
+178
+00:14:04,160 --> 00:14:11,400
+month to month or the cumulative sum of the elements in some column.
+
+179
+00:14:11,400 --> 00:14:14,360
+So there's lots of built in transforms for us.
+
+180
+00:14:14,360 --> 00:14:19,880
+Just like there were aggregations, we can take the cumulative sum, the cumulative min,
+
+181
+00:14:19,880 --> 00:14:22,880
+the cumulative max, the cumulative product.
+
+182
+00:14:22,880 --> 00:14:24,960
+We can take the difference.
+
+183
+00:14:24,960 --> 00:14:30,240
+We can do element wise additions, retraction, multiplication, or division, percent change,
+
+184
+00:14:30,240 --> 00:14:32,840
+value counts, or absolute values.
+
+185
+00:14:32,840 --> 00:14:39,480
+And again, we encourage you to explore what functions are available using tab condition.
+
+186
+00:14:39,480 --> 00:14:43,080
+So let's go ahead and do a couple of examples.
+
+187
+00:14:43,080 --> 00:14:50,240
+So we call this is the data that we have.
+
+188
+00:14:50,240 --> 00:14:53,920
+The first we're going to do is computing the percent change.
+
+189
+00:14:53,920 --> 00:14:57,760
+Notice it can't compute the percent change for the first element because there's nothing
+
+190
+00:14:57,760 --> 00:15:00,280
+that precedes it.
+
+191
+00:15:00,280 --> 00:15:06,320
+And then we see that unemployment rate did not change in most states, but in Michigan it
+
+192
+00:15:06,320 --> 00:15:13,120
+went down by 3% and it computes these percent changes for us.
+
+193
+00:15:13,120 --> 00:15:18,600
+Additionally, we can compute the difference, which will instead of taking the percent change,
+
+194
+00:15:18,600 --> 00:15:19,920
+it's just going to take the difference.
+
+195
+00:15:19,920 --> 00:15:25,920
+And again, the first row is going to be all missing because you can't take the difference
+
+196
+00:15:25,920 --> 00:15:31,200
+between something before the first row.
+
+197
+00:15:31,200 --> 00:15:36,640
+So we classify transforms into a few main categories.
+
+198
+00:15:36,640 --> 00:15:41,160
+The first is going to be a series transforms.
+
+199
+00:15:41,160 --> 00:15:46,440
+And that's a function that takes in one series and produces another series.
+
+200
+00:15:46,440 --> 00:15:51,400
+And this will result in the index of the input and the output not necessarily being the
+
+201
+00:15:51,400 --> 00:15:53,520
+same.
+
+202
+00:15:53,520 --> 00:15:57,480
+Scalar transforms are going to be functions that take a single value and produce a single
+
+203
+00:15:57,480 --> 00:15:58,680
+value.
+
+204
+00:15:58,680 --> 00:16:03,360
+So one example would be the absolute value method, which we're adding a constant to each
+
+205
+00:16:03,360 --> 00:16:05,600
+value of a series.
+
+206
+00:16:05,600 --> 00:16:10,600
+So these are going to take a particular value and do an operation to that one value rather
+
+207
+00:16:10,600 --> 00:16:14,600
+than to the entire series.
+
+208
+00:16:14,600 --> 00:16:21,920
+So just like we could write custom aggregation functions, we can also write custom transformations.
+
+209
+00:16:21,920 --> 00:16:25,480
+The steps are going to be the same as we're going to write a Python function that will
+
+210
+00:16:25,480 --> 00:16:28,680
+take a series and output a new series.
+
+211
+00:16:28,680 --> 00:16:33,760
+And now rather than pass our new function as an argument to the ag method for aggregation,
+
+212
+00:16:33,760 --> 00:16:37,240
+we're going to pass it to the apply method.
+
+213
+00:16:37,240 --> 00:16:41,720
+So as an example, what we're going to do is we're going to standardize all of the unemployment
+
+214
+00:16:41,720 --> 00:16:46,040
+data to have mean zero and standard deviation one.
+
+215
+00:16:46,040 --> 00:16:50,520
+And we'll do this so that we can classify which date the unemployment rate differs most
+
+216
+00:16:50,520 --> 00:16:54,120
+from normal times in each state.
+
+217
+00:16:54,120 --> 00:16:58,040
+So step one is to write a function that can standardize the data.
+
+218
+00:16:58,040 --> 00:17:02,920
+So it takes in a series and it's going to take the mean of that series and the standard
+
+219
+00:17:02,920 --> 00:17:04,000
+deviation.
+
+220
+00:17:04,000 --> 00:17:09,760
+And then it's going to create a new series that's going to be the original series minus
+
+221
+00:17:09,760 --> 00:17:14,760
+the mean divided by the standard deviation.
+
+222
+00:17:14,760 --> 00:17:19,240
+Next we can apply this to our data.
+
+223
+00:17:19,240 --> 00:17:29,160
+And what we'll see is that in the early 2000s we had negative values for our, they call
+
+224
+00:17:29,160 --> 00:17:32,160
+this the Z transform.
+
+225
+00:17:32,160 --> 00:17:39,120
+So our standardized data is going to have minus one which means that the data was abnormally
+
+226
+00:17:39,120 --> 00:17:45,200
+low, which in unemployment is a good thing.
+
+227
+00:17:45,200 --> 00:17:50,680
+And then finally we're going to take the absolute value of all of the elements.
+
+228
+00:17:50,680 --> 00:17:59,000
+And again this is a scalar transformation because it's going to take one value and map
+
+229
+00:17:59,000 --> 00:18:05,040
+it into one new value and do this for each value in the data frame.
+
+230
+00:18:05,040 --> 00:18:09,720
+And now let's go ahead and find out when the unemployment rate was most different than
+
+231
+00:18:09,720 --> 00:18:13,480
+normal from for each state.
+
+232
+00:18:13,480 --> 00:18:22,480
+And so what we see is that the 2008, 2009, 2010 recession really did strange things to
+
+233
+00:18:22,480 --> 00:18:23,680
+unemployment rates.
+
+234
+00:18:23,680 --> 00:18:30,320
+And those were the most abnormal unemployment rates in our series.
+
+235
+00:18:30,320 --> 00:18:35,960
+And in addition to doing customized series transformations, we can also do customized
+
+236
+00:18:35,960 --> 00:18:38,120
+scalar transformations.
+
+237
+00:18:38,120 --> 00:18:42,880
+And the way that you do this is again the first step will always be to find a Python function.
+
+238
+00:18:42,880 --> 00:18:47,200
+In this case it will take a scalar as an input and produce a new scalar.
+
+239
+00:18:47,200 --> 00:18:51,880
+And second, it's going, you're going to pass this function as an argument to the apply
+
+240
+00:18:51,880 --> 00:18:54,480
+map method.
+
+241
+00:18:54,480 --> 00:18:55,680
+So let's go ahead and look at this.
+
+242
+00:18:55,680 --> 00:19:04,720
+So imagine we want to determine whether unemployment rate was high, greater than 6.5, medium or low.
+
+243
+00:19:04,720 --> 00:19:08,800
+So we can write a Python function that takes a single number as an input and outputs a
+
+244
+00:19:08,800 --> 00:19:10,640
+single string.
+
+245
+00:19:10,640 --> 00:19:15,800
+And then we're going to pass this function to apply map.
+
+246
+00:19:15,800 --> 00:19:20,200
+So one question you should ask yourself is why are you passing this to apply map and
+
+247
+00:19:20,200 --> 00:19:22,440
+not aggregate or apply?
+
+248
+00:19:22,440 --> 00:19:28,640
+And think about why neither aggregate or apply would work.
+
+249
+00:19:28,640 --> 00:19:30,000
+So here's our function.
+
+250
+00:19:30,000 --> 00:19:32,200
+We define unemployment classifier.
+
+251
+00:19:32,200 --> 00:19:34,600
+And if it's above 6.5, we write high.
+
+252
+00:19:34,600 --> 00:19:36,000
+It's above 4.5.
+
+253
+00:19:36,000 --> 00:19:38,440
+But below 6.5 we return medium.
+
+254
+00:19:38,440 --> 00:19:42,400
+So why is we return low?
+
+255
+00:19:42,400 --> 00:19:51,040
+And now when we do apply map, what happens?
+
+256
+00:19:51,040 --> 00:19:55,120
+We're going to get back a new data frame and notice every value in this data frame is
+
+257
+00:19:55,120 --> 00:19:59,840
+either going to be low, medium or high because those were the values that we could potentially
+
+258
+00:19:59,840 --> 00:20:02,680
+put in.
+
+259
+00:20:02,680 --> 00:20:04,920
+So now we're going to move on.
+
+260
+00:20:04,920 --> 00:20:08,680
+We're doing these as examples rather than exercises.
+
+261
+00:20:08,680 --> 00:20:14,800
+So let's use another transformation on unemployment bins, which was the data frame we just created,
+
+262
+00:20:14,800 --> 00:20:21,560
+to figure out how many times each state had one, each of the three classifications.
+
+263
+00:20:21,560 --> 00:20:26,400
+So if you are doing this on your own, which I'd encourage you to try and do after class,
+
+264
+00:20:26,400 --> 00:20:31,400
+you should think about will this value counting function be a series or a scalar transform?
+
+265
+00:20:31,400 --> 00:20:37,240
+And Google pandas count unique value or something similar to find which transformation.
+
+266
+00:20:37,240 --> 00:20:40,960
+We're then going to construct a horizontal bar chart of the number of occurrences of each
+
+267
+00:20:40,960 --> 00:20:45,160
+level with one bar per state and classification.
+
+268
+00:20:45,160 --> 00:20:46,160
+Okay.
+
+269
+00:20:46,160 --> 00:20:50,920
+So the method we were looking for is one called value counts.
+
+270
+00:20:50,920 --> 00:20:57,000
+And so what we're going to do is we're going to take unemployment bins, which you remember,
+
+271
+00:20:57,000 --> 00:21:00,600
+looks like this.
+
+272
+00:21:00,600 --> 00:21:07,440
+And we're then going to count each of the times that occurrence, a value occurs for each
+
+273
+00:21:07,440 --> 00:21:08,440
+column.
+
+274
+00:21:08,440 --> 00:21:13,840
+And then we'll go ahead and look at what this looks like.
+
+275
+00:21:13,840 --> 00:21:24,560
+So now we have for Arizona, the high unemployment, Arizona had high unemployment 75 times, low
+
+276
+00:21:24,560 --> 00:21:34,560
+unemployment 44 times, and medium unemployment 97 times, et cetera, et cetera.
+
+277
+00:21:34,560 --> 00:21:38,680
+And we're going to plot the transpose so that it does something.
+
+278
+00:21:38,680 --> 00:21:41,720
+So that's what this dot capital T was.
+
+279
+00:21:41,720 --> 00:21:51,400
+And let's go ahead and reorder this data a little bit so that we can have low, medium,
+
+280
+00:21:51,400 --> 00:21:58,400
+high.
+
+281
+00:21:58,400 --> 00:22:02,080
+Oh, here we go.
+
+282
+00:22:02,080 --> 00:22:09,040
+And so if the blue bar is high, it means that state has a low unemployment a lot of time.
+
+283
+00:22:09,040 --> 00:22:17,120
+Whereas if the yellow bar is high, it means that that state has high unemployment frequently.
+
+284
+00:22:17,120 --> 00:22:24,480
+So from this chart, you might not be particularly keen on California or Florida.
+
+285
+00:22:24,480 --> 00:22:32,800
+Whereas somewhere like Texas or New York or Florida might be much better in terms of
+
+286
+00:22:32,800 --> 00:22:36,520
+their unemployment rates.
+
+287
+00:22:36,520 --> 00:22:39,520
+So finally, we're going to repeat the previous step.
+
+288
+00:22:39,520 --> 00:22:45,880
+But now we're going to count how many states had each classification and each month.
+
+289
+00:22:45,880 --> 00:22:48,000
+So we're going to do almost the same thing.
+
+290
+00:22:48,000 --> 00:22:50,680
+But now we're going to count across the columns.
+
+291
+00:22:50,680 --> 00:22:53,480
+So we're going to use axis equals one.
+
+292
+00:22:53,480 --> 00:22:57,760
+And whenever there's a missing value, which just means that none of the states had a particular
+
+293
+00:22:57,760 --> 00:23:02,720
+value, we're going to fill it with a zero because it just means that there are zero states
+
+294
+00:23:02,720 --> 00:23:08,440
+with that value.
+
+295
+00:23:08,440 --> 00:23:09,440
+And here we go.
+
+296
+00:23:09,440 --> 00:23:10,440
+This is what it looks like.
+
+297
+00:23:10,440 --> 00:23:15,280
+So notice in the early 2000s, no states had high unemployment.
+
+298
+00:23:15,280 --> 00:23:20,480
+Most states had low unemployment and a few states had medium unemployment.
+
+299
+00:23:20,480 --> 00:23:27,000
+And so now which state, which month had the most states with high unemployment?
+
+300
+00:23:27,000 --> 00:23:36,120
+You might be unsurprised when we say 2009, which when was the most medium unemployment?
+
+301
+00:23:36,120 --> 00:23:39,920
+2001.
+
+302
+00:23:39,920 --> 00:23:44,040
+And when was there lots of low unemployment?
+
+303
+00:23:44,040 --> 00:23:49,440
+The beginning of 2000, late in the year 2000.
+
+304
+00:23:49,440 --> 00:23:54,440
+And we found these with IDX max, which is going to search for the maximum about the index
+
+305
+00:23:54,440 --> 00:23:58,560
+associated with the maximum value.
+
+306
+00:23:58,560 --> 00:23:59,560
+Great.
+
+307
+00:23:59,560 --> 00:24:04,640
+So now we've covered aggregations, transforms, and scalar transformations.
+
+308
+00:24:04,640 --> 00:24:09,600
+Another thing that we'll often want to do is Boolean selection, which is we're going
+
+309
+00:24:09,600 --> 00:24:15,040
+to frequently want to select pieces of data based on whether certain conditions are met.
+
+310
+00:24:15,040 --> 00:24:19,600
+For example, if you were in marketing, you might be interested in a particular target audience.
+
+311
+00:24:19,600 --> 00:24:26,200
+And so you might subset your data to only include adults between 18 and 32 if you got a particular
+
+312
+00:24:26,200 --> 00:24:30,360
+product for adults, young adults.
+
+313
+00:24:30,360 --> 00:24:35,720
+You might also be looking at data that corresponds to a particular time period or some of the work
+
+314
+00:24:35,720 --> 00:24:39,880
+we did while we were, the most Spencer and I were at NYU, was we looked at data that
+
+315
+00:24:39,880 --> 00:24:43,000
+corresponded to recessions.
+
+316
+00:24:43,000 --> 00:24:48,280
+So we'll be able to do this by using a series or list of Boolean values to index into
+
+317
+00:24:48,280 --> 00:24:50,200
+a series or data frame.
+
+318
+00:24:50,200 --> 00:24:54,920
+So we're going to take a small view of our unemployment data frame.
+
+319
+00:24:54,920 --> 00:24:59,720
+So we took the dot head, which is going to be only five rows of our data.
+
+320
+00:24:59,720 --> 00:25:06,280
+And we're doing this so that we can see what's happening as we do these operations.
+
+321
+00:25:06,280 --> 00:25:10,080
+So we can use Booleans to select particular rows.
+
+322
+00:25:10,080 --> 00:25:17,520
+So in this case, we need seven values or five values associated with, let's be explicit
+
+323
+00:25:17,520 --> 00:25:18,520
+here.
+
+324
+00:25:18,520 --> 00:25:21,160
+So five values that are going to be associated with our five rows.
+
+325
+00:25:21,160 --> 00:25:27,400
+So in this case, we'll select the first three, true, true, true, and disregard the last
+
+326
+00:25:27,400 --> 00:25:35,600
+two, whether or false is.
+
+327
+00:25:35,600 --> 00:25:39,320
+We can also use Booleans to select both rows and columns.
+
+328
+00:25:39,320 --> 00:25:43,000
+So in this case, we're again selecting the first three rows, but now we're only going
+
+329
+00:25:43,000 --> 00:25:51,080
+to select the first and last two columns.
+
+330
+00:25:51,080 --> 00:25:56,240
+Now we did these, we did these selections with lists, but obviously you're not going
+
+331
+00:25:56,240 --> 00:26:01,040
+to be able to write by hand a list with a million values in it.
+
+332
+00:26:01,040 --> 00:26:05,120
+And so what we're going to do next is we're going to use conditional statements to construct
+
+333
+00:26:05,120 --> 00:26:07,840
+new series of Booleans from our data.
+
+334
+00:26:07,840 --> 00:26:12,760
+And this will look a lot like some of what we covered in the conditional section of our
+
+335
+00:26:12,760 --> 00:26:15,120
+introduction to Python.
+
+336
+00:26:15,120 --> 00:26:17,520
+So what can we do here?
+
+337
+00:26:17,520 --> 00:26:22,240
+So we're looking at the unemployment small data frame, the Texas column, and we're asking
+
+338
+00:26:22,240 --> 00:26:26,680
+when the unemployment in Texas was less than 4.5.
+
+339
+00:26:26,680 --> 00:26:31,600
+And what this says is that unemployment was above 4.5 for the first three months of
+
+340
+00:26:31,600 --> 00:26:38,440
+the year, but then in April and May, the unemployment fell below 4.5.
+
+341
+00:26:38,440 --> 00:26:43,480
+And once we have that, we can start selecting subsets of our data.
+
+342
+00:26:43,480 --> 00:26:49,240
+So notice we have unemployment small Texas less than 4.5, which is going to create a series
+
+343
+00:26:49,240 --> 00:26:51,880
+that has trues and false sentences in it.
+
+344
+00:26:51,880 --> 00:26:54,920
+So we can select all of the columns.
+
+345
+00:26:54,920 --> 00:27:00,360
+And this just gives us the last two rows like we expected.
+
+346
+00:27:00,360 --> 00:27:05,280
+We could check for when the unemployment in New York was higher than the unemployment
+
+347
+00:27:05,280 --> 00:27:07,480
+in Texas.
+
+348
+00:27:07,480 --> 00:27:15,480
+And in this small data set, that always happens to be true.
+
+349
+00:27:15,480 --> 00:27:21,760
+And in the Boolean section of our basic Python lecture, we saw that we could use the words
+
+350
+00:27:21,760 --> 00:27:26,200
+and or to combine multiple Booleans into a single Boolean.
+
+351
+00:27:26,200 --> 00:27:32,000
+Just as a quick refresher, we use and and or in the mathematical sense, which means true
+
+352
+00:27:32,000 --> 00:27:38,280
+and false, results and false, true and true, results and true, false and false, results
+
+353
+00:27:38,280 --> 00:27:45,800
+and false, true or false is true, true or true is true, and false or false is false.
+
+354
+00:27:45,800 --> 00:27:50,120
+We can do something similar in pandas, but rather than writing Boolean 1 and Boolean
+
+355
+00:27:50,120 --> 00:27:51,600
+2, we write.
+
+356
+00:27:52,000 --> 00:27:59,000
+Boolean series 1 and sign, Boolean series 2.
+
+357
+00:27:59,000 --> 00:28:05,720
+Likewise, rather than writing Boolean 1 or Boolean 2, we use the Pyke symbol to denote
+
+358
+00:28:05,720 --> 00:28:07,120
+or.
+
+359
+00:28:07,120 --> 00:28:07,880
+Let's see this.
+
+360
+00:28:07,880 --> 00:28:16,160
+So in this case, we're going to look at when unemployment rate was below 4.7 in Texas,
+
+361
+00:28:16,160 --> 00:28:19,800
+and the unemployment rate was below 4.7 in New York.
+
+362
+00:28:19,800 --> 00:28:22,600
+Notice the ampersand.
+
+363
+00:28:22,600 --> 00:28:26,920
+This is going to say this is false for the first two months and true for the last three
+
+364
+00:28:26,920 --> 00:28:31,440
+months.
+
+365
+00:28:31,440 --> 00:28:36,000
+And if we select using this, notice that the unemployment rates in both New York and Texas
+
+366
+00:28:36,000 --> 00:28:42,240
+will be below 4.7 for every month.
+
+367
+00:28:42,240 --> 00:28:47,840
+We'll want to check whether a data takes on one of several fixed values.
+
+368
+00:28:47,840 --> 00:28:53,000
+The way we could do this right now is we could write DF of a particular column axis equal
+
+369
+00:28:53,000 --> 00:29:00,640
+to the value 1 or DF column axis equal to value 2, etc.
+
+370
+00:29:00,640 --> 00:29:05,600
+But because this is a frequent operation, pandas provides us a better way.
+
+371
+00:29:05,600 --> 00:29:09,400
+So in this case, we're going to look at the Michigan column and we're going to ask
+
+372
+00:29:09,480 --> 00:29:14,160
+whether the values are in 3.3 and 3.2.
+
+373
+00:29:14,160 --> 00:29:18,800
+And so in the first four months of the year 2000, the value of unemployment in Michigan
+
+374
+00:29:18,800 --> 00:29:21,760
+was either 3.3 or 3.2.
+
+375
+00:29:21,760 --> 00:29:30,960
+And we can confirm that here.
+
+376
+00:29:30,960 --> 00:29:33,880
+And next, we're going to talk about any and all methods.
+
+377
+00:29:33,880 --> 00:29:39,000
+You may remember from our first Boolean in conditional lecture that the Python functions
+
+378
+00:29:39,000 --> 00:29:44,400
+any and all are functions that take a collection of Booleans and return a single Boolean.
+
+379
+00:29:44,400 --> 00:29:49,360
+Any returns true whenever at least one of the inputs is true, while all returns true
+
+380
+00:29:49,360 --> 00:29:52,000
+only when all of the inputs are true.
+
+381
+00:29:52,000 --> 00:29:57,600
+Series and data frames have, with the D type Boole, have dot any and dot all methods that
+
+382
+00:29:57,600 --> 00:30:00,040
+can apply these logic, this logic.
+
+383
+00:30:00,040 --> 00:30:03,520
+So what we're going to do is we're going to count, we're going to learn this by counting
+
+384
+00:30:03,520 --> 00:30:08,600
+how many months all of the states in our sample have high unemployment.
+
+385
+00:30:08,600 --> 00:30:12,400
+And as we work through this example, we think this is a great opportunity to talk about
+
+386
+00:30:12,400 --> 00:30:18,200
+the want operator, which is a helpful concept that Spencer and I learned from Tom.
+
+387
+00:30:18,200 --> 00:30:21,200
+So here's how the want operator works.
+
+388
+00:30:21,200 --> 00:30:25,280
+You start by writing want, followed by what we want to accomplish.
+
+389
+00:30:25,280 --> 00:30:30,080
+In this case, we would write, we want to count the number of months in which all states
+
+390
+00:30:30,080 --> 00:30:34,480
+in our sample had unemployment above 6.5%.
+
+391
+00:30:34,480 --> 00:30:39,440
+And now let's work backwards to identify a sequence of steps necessary to accomplish
+
+392
+00:30:39,440 --> 00:30:41,000
+our goal.
+
+393
+00:30:41,000 --> 00:30:46,000
+So to count the number of months in which all states in our sample had unemployment above
+
+394
+00:30:46,000 --> 00:30:51,600
+6.5, we would just want to sum the number of true values in a series indicating dates
+
+395
+00:30:51,600 --> 00:30:54,400
+for which all series had high unemployment.
+
+396
+00:30:54,400 --> 00:31:02,040
+So now how do we get a series that has true values when the states had a high unemployment?
+
+397
+00:31:02,040 --> 00:31:09,240
+So the one way to do this is to build a series by using the all method on a data frame,
+
+398
+00:31:09,240 --> 00:31:15,920
+containing Booleans indicating whether each state had high unemployment at each date.
+
+399
+00:31:15,920 --> 00:31:24,600
+So what this means is we want to know when every state in our sample had high unemployment,
+
+400
+00:31:24,600 --> 00:31:30,200
+which we can do using the dot all method with access equals one.
+
+401
+00:31:30,920 --> 00:31:34,640
+Finally, how do we get to one that can do this?
+
+402
+00:31:34,640 --> 00:31:39,520
+We can just build a data frame by using a greater than comparison to compare whether the
+
+403
+00:31:39,520 --> 00:31:42,640
+data was above 6.5%.
+
+404
+00:31:42,640 --> 00:31:44,840
+So here is a plan.
+
+405
+00:31:44,840 --> 00:31:49,300
+And to apply the want operator, all we're going to do is start at step three and work our
+
+406
+00:31:49,300 --> 00:31:50,300
+way back.
+
+407
+00:31:50,300 --> 00:31:55,280
+And the reason we find this helpful is because if you start knowing what you want, it's
+
+408
+00:31:55,280 --> 00:32:00,160
+easier to figure out what you need to get one step ahead and you keep stepping backward
+
+409
+00:32:00,160 --> 00:32:02,680
+inductively.
+
+410
+00:32:02,680 --> 00:32:09,720
+So great, step three, unemployment greater than 6.5.
+
+411
+00:32:09,720 --> 00:32:15,920
+This tells us, well, the early 2000s were good years for the unemployment rate, so in
+
+412
+00:32:15,920 --> 00:32:19,520
+this case they're all false.
+
+413
+00:32:19,520 --> 00:32:24,680
+In step two, we're going to use the dot all method with access equal one, which will
+
+414
+00:32:24,680 --> 00:32:33,440
+check whether every single column is equal to true for, and we're going to apply this
+
+415
+00:32:33,440 --> 00:32:34,720
+to every row.
+
+416
+00:32:34,720 --> 00:32:41,880
+So high dot all, access equals one will give us a new series and now it's going to have
+
+417
+00:32:41,880 --> 00:32:48,760
+a true or a false based on whether all of the states had high unemployment rates.
+
+418
+00:32:48,760 --> 00:32:55,760
+And now finally, simply summing this series will tell us when all states had high unemployment.
+
+419
+00:32:55,760 --> 00:33:04,280
+And so out of 216 months, only 41 months had high unemployment in all states.
+
+420
+00:33:04,280 --> 00:33:07,080
+And this ties up our Pandas basic lecture.
+
+421
+00:33:07,080 --> 00:33:08,080
+Thanks for being here.
+
+422
+00:33:08,080 --> 00:33:10,480
+I look forward to seeing you soon.
+
+423
+00:33:10,480 --> 00:33:10,840
+Bye.
+

@@ -1,0 +1,1028 @@
+1
+00:00:00,000 --> 00:00:02,000
+Hi, this is Chase Coleman.
+
+2
+00:00:02,000 --> 00:00:06,000
+Today we're going to be talking about the Python library pandas.
+
+3
+00:00:06,000 --> 00:00:09,000
+Prior to today, you should have completed the Python fundamentals training.
+
+4
+00:00:09,000 --> 00:00:12,000
+This was something we offered over the summer.
+
+5
+00:00:12,000 --> 00:00:16,000
+At the end of today, you should understand some of the core pandas objects,
+
+6
+00:00:16,000 --> 00:00:19,000
+such as a series and a data frame.
+
+7
+00:00:19,000 --> 00:00:24,000
+You should understand how to index into particular elements of series and data frames,
+
+8
+00:00:24,000 --> 00:00:29,000
+and you should understand some of the basic types that can be stored inside of a series or a data frame.
+
+9
+00:00:30,000 --> 00:00:34,000
+Additionally, as we go, you'll learn how to make some basic visualizations.
+
+10
+00:00:34,000 --> 00:00:40,000
+The outline for today is to talk a little bit about the pandas library to introduce what a series is,
+
+11
+00:00:40,000 --> 00:00:43,000
+and then introduce what a data frame is.
+
+12
+00:00:43,000 --> 00:00:46,000
+To talk about some of the different data types available in pandas,
+
+13
+00:00:46,000 --> 00:00:50,000
+and then to talk about modifying some of the data frames.
+
+14
+00:00:51,000 --> 00:00:56,000
+So, let's go ahead and get started.
+
+15
+00:00:56,000 --> 00:01:01,000
+So, the pandas package will be imported, and typically you'll give it the alias PD.
+
+16
+00:01:01,000 --> 00:01:05,000
+So, we'll write import pandas as PD.
+
+17
+00:01:05,000 --> 00:01:19,000
+Don't worry about what this line does for now, but basically what it does is it's going to allow us to put plots inside of our notebook.
+
+18
+00:01:19,000 --> 00:01:26,000
+And then finally, we're going to activate the QuantyCon data science plotting theme.
+
+19
+00:01:30,000 --> 00:01:34,000
+Now, let's go ahead and figure out what version of pandas everyone has.
+
+20
+00:01:34,000 --> 00:01:38,000
+So, on my computer, I have version 1.1.1,
+
+21
+00:01:38,000 --> 00:01:45,000
+but anything that's higher than 0.25 should be okay.
+
+22
+00:01:45,000 --> 00:01:49,000
+Great.
+
+23
+00:01:49,000 --> 00:01:54,000
+So, the first data type we're going to introduce is called a pandas series.
+
+24
+00:01:54,000 --> 00:01:59,000
+And a series represents a single column of data,
+
+25
+00:01:59,000 --> 00:02:04,000
+and it will be associated with row labels for each observation.
+
+26
+00:02:04,000 --> 00:02:13,000
+And pandas is going to refer to these row labels, which are right here in this case 0.1 and 2, as the index.
+
+27
+00:02:13,000 --> 00:02:18,000
+And we might have named, we might have a name associated with this series.
+
+28
+00:02:18,000 --> 00:02:21,000
+In this case, maybe we just call it S.
+
+29
+00:02:21,000 --> 00:02:26,000
+So, the series named S has an index of 0.1.2,
+
+30
+00:02:26,000 --> 00:02:32,000
+and the values that are stored inside of the series are called, the values.
+
+31
+00:02:34,000 --> 00:02:41,000
+So, on the next slide, we're going to create a series, which includes the US unemployment for every other year,
+
+32
+00:02:41,000 --> 00:02:44,000
+starting in 1995.
+
+33
+00:02:44,000 --> 00:02:48,000
+So, here we have the values.
+
+34
+00:02:48,000 --> 00:02:50,000
+And here we have each of the years.
+
+35
+00:02:50,000 --> 00:02:55,000
+Notice we started 1995, and we go until 2017,
+
+36
+00:02:55,000 --> 00:02:58,000
+and we take a step by two.
+
+37
+00:02:58,000 --> 00:03:02,000
+So, this will have 1995, 1997, et cetera.
+
+38
+00:03:02,000 --> 00:03:10,000
+And then we're going to create a series by putting the values as the data argument.
+
+39
+00:03:10,000 --> 00:03:17,000
+The years is the index argument, and then we're going to give this series the name unemployment.
+
+40
+00:03:17,000 --> 00:03:20,000
+And let's see what we have.
+
+41
+00:03:20,000 --> 00:03:28,000
+So, we can see, like we just talked in the previous slide, that we have the index right here,
+
+42
+00:03:28,000 --> 00:03:32,000
+and it was this list of years that we talked about.
+
+43
+00:03:32,000 --> 00:03:39,000
+And then over here, we have each of the values that are associated with that index.
+
+44
+00:03:40,000 --> 00:03:46,000
+And we have the name of our series at the bottom.
+
+45
+00:03:49,000 --> 00:03:57,000
+So, we can look at the index where the values notice the values are stored inside of a numpy array,
+
+46
+00:03:57,000 --> 00:04:03,000
+and the index is stored inside of a pandas index object.
+
+47
+00:04:04,000 --> 00:04:10,000
+So, now that we have a series, what can we do with it?
+
+48
+00:04:10,000 --> 00:04:15,000
+So, typically our data will have kind of thousands or hundreds of thousands of rows,
+
+49
+00:04:15,000 --> 00:04:18,000
+or maybe even millions or billions of rows.
+
+50
+00:04:18,000 --> 00:04:22,000
+So, we obviously don't want to display all of it at once.
+
+51
+00:04:22,000 --> 00:04:29,000
+And there's two methods for series that will just show us the first few observations,
+
+52
+00:04:29,000 --> 00:04:32,000
+or the last few observations.
+
+53
+00:04:32,000 --> 00:04:36,000
+Anemployment.head will show us the first five,
+
+54
+00:04:36,000 --> 00:04:40,000
+an unemployment.tail will show us the last five.
+
+55
+00:04:40,000 --> 00:04:45,000
+We could also give an argument to either of these of just an integer,
+
+56
+00:04:45,000 --> 00:04:51,000
+and it will show us the last n observations from this series.
+
+57
+00:04:54,000 --> 00:04:58,000
+So, let's go ahead and do some basic plotting.
+
+58
+00:04:58,000 --> 00:05:04,000
+And if we plot a series using the plot method, all it will do is plot the values.
+
+59
+00:05:04,000 --> 00:05:09,000
+So, if we go ahead and look at the values we have,
+
+60
+00:05:09,000 --> 00:05:14,000
+notice 5.6 is associated with 1995.
+
+61
+00:05:14,000 --> 00:05:21,000
+5.3 is associated with 1997, 4.3 in 99, et cetera, et cetera.
+
+62
+00:05:21,000 --> 00:05:24,000
+And it's created this nice little line plot for us.
+
+63
+00:05:25,000 --> 00:05:29,000
+And as we mentioned earlier, we needed this percent map plot lib in line
+
+64
+00:05:29,000 --> 00:05:33,000
+in order to get the plot to show up in the right place.
+
+65
+00:05:35,000 --> 00:05:39,000
+So, in this data set, it's not such an interesting observation,
+
+66
+00:05:39,000 --> 00:05:46,000
+but in other data sets, you might be interested in knowing what unique values are in a series.
+
+67
+00:05:46,000 --> 00:05:53,000
+So, for example, if you had a series that had the ages of the individuals in your data set,
+
+68
+00:05:53,000 --> 00:06:00,000
+that might take the values 18, 19, 20, 21, dot, dot, dot until the maximum age.
+
+69
+00:06:00,000 --> 00:06:05,000
+So, again, here it's not interesting because each value is different,
+
+70
+00:06:05,000 --> 00:06:08,000
+but it's something you might do in the future.
+
+71
+00:06:10,000 --> 00:06:15,000
+One of the things that you'll frequently want to do is to select particular elements from a series.
+
+72
+00:06:15,000 --> 00:06:20,000
+And we can use this using the dot lock method or modifier,
+
+73
+00:06:20,000 --> 00:06:25,000
+where index items is going to be some item from inside of the index.
+
+74
+00:06:25,000 --> 00:06:29,000
+So, if we look here, we can see we have our unemployment series,
+
+75
+00:06:29,000 --> 00:06:34,000
+and if we wanted to get the value associated with 1995,
+
+76
+00:06:34,000 --> 00:06:38,000
+all we would do is write dot lock 1995.
+
+77
+00:06:38,000 --> 00:06:48,000
+And if we wanted to get multiple values, maybe we wanted the values from 1995 to 2005 and 2015,
+
+78
+00:06:49,000 --> 00:06:56,000
+we can just give it a list of values and notice extracted the correct values.
+
+79
+00:06:56,000 --> 00:06:59,000
+So, let's take a minute and pause,
+
+80
+00:06:59,000 --> 00:07:05,000
+and we're going to have each of you do some experimentation with these series methods.
+
+81
+00:07:05,000 --> 00:07:11,000
+So, the first thing is we'd like you to display only the first two elements of the series using the head method.
+
+82
+00:07:11,000 --> 00:07:16,000
+We'd like you to use the plot method to make a bar plot.
+
+83
+00:07:17,000 --> 00:07:23,000
+We'll use the dot lock to select the lowest and hide it highest unemployment rate shown in the series,
+
+84
+00:07:23,000 --> 00:07:27,000
+and run the code unemployment.detip below.
+
+85
+00:07:27,000 --> 00:07:30,000
+What does it give you? What do you think it corresponds to?
+
+86
+00:07:30,000 --> 00:07:34,000
+And we'll go ahead and take about five minutes to do this.
+
+87
+00:07:35,000 --> 00:07:37,000
+Okay, welcome back.
+
+88
+00:07:37,000 --> 00:07:39,000
+So, as we saw a few minutes ago,
+
+89
+00:07:39,000 --> 00:07:45,000
+the way to select the first two values from a series using the head method is to do unemployment.net.
+
+90
+00:07:45,000 --> 00:07:52,000
+with the integer two, and it's notice it's selected 1995 and 1997.
+
+91
+00:07:52,000 --> 00:07:58,000
+To do the plotting, we wanted you to investigate the documentation,
+
+92
+00:07:58,000 --> 00:08:04,000
+and recall from our lectures this summer that you can do this by taking the unemployment.plot method
+
+93
+00:08:04,000 --> 00:08:08,000
+and putting a question mark after and running the cell.
+
+94
+00:08:09,000 --> 00:08:11,000
+And so that brings up the documentation.
+
+95
+00:08:11,000 --> 00:08:16,000
+And it tells you that the inputs are the series or data frame,
+
+96
+00:08:16,000 --> 00:08:21,000
+the x and y labels, and then what kind of plot you'd like to produce.
+
+97
+00:08:21,000 --> 00:08:24,000
+And notice one of the options is bar.
+
+98
+00:08:24,000 --> 00:08:29,000
+So to make the bar plot, all we have to do is unemployment.plot,
+
+99
+00:08:29,000 --> 00:08:36,000
+kind equals bar, and by default it will set the index as the x-value's,
+
+100
+00:08:36,000 --> 00:08:39,000
+and the values as the y-values.
+
+101
+00:08:39,000 --> 00:08:43,000
+And here we've got a bar plot.
+
+102
+00:08:43,000 --> 00:08:49,000
+To select the minimum in maximum value of unemployment,
+
+103
+00:08:49,000 --> 00:08:52,000
+you might have just looked by hand and noticed 2001,
+
+104
+00:08:52,000 --> 00:08:56,000
+and it was the lowest unemployment in 2011 was the highest,
+
+105
+00:08:56,000 --> 00:09:03,000
+but you also could have used the IDX min and IDX max arguments.
+
+106
+00:09:03,000 --> 00:09:05,000
+And what do these do?
+
+107
+00:09:05,000 --> 00:09:09,000
+Is if you look at IDX min question mark,
+
+108
+00:09:09,000 --> 00:09:13,000
+it returns the row label of the minimum value.
+
+109
+00:09:13,000 --> 00:09:18,000
+If multiple values equal the minimum, the first row label with that value is returned.
+
+110
+00:09:18,000 --> 00:09:20,000
+So this will find us the minimum one,
+
+111
+00:09:20,000 --> 00:09:25,000
+and the maximum one could be done just like it.
+
+112
+00:09:25,000 --> 00:09:31,000
+And then unemployment.detite tells us float 64.
+
+113
+00:09:31,000 --> 00:09:36,000
+So if we look at our unemployment series,
+
+114
+00:09:36,000 --> 00:09:39,000
+just notice that the values themselves are float 64,
+
+115
+00:09:39,000 --> 00:09:44,000
+so unemployment.detite is just telling us what kind of values
+
+116
+00:09:44,000 --> 00:09:48,000
+are being stored inside of our series.
+
+117
+00:09:48,000 --> 00:09:50,000
+Great.
+
+118
+00:09:50,000 --> 00:09:54,000
+So now we've talked about what a series is,
+
+119
+00:09:54,000 --> 00:09:57,000
+and we'll now talk about what a data frame is.
+
+120
+00:09:57,000 --> 00:10:03,000
+So a data frame is just going to be how pandas will store multiple columns of data.
+
+121
+00:10:03,000 --> 00:10:10,000
+You could think about data frames as simply just multiple series stacked side by side.
+
+122
+00:10:10,000 --> 00:10:14,000
+You'll notice that we still have an index,
+
+123
+00:10:14,000 --> 00:10:17,000
+and now the index is zero,
+
+124
+00:10:17,000 --> 00:10:23,000
+we'll just call this column zero,
+
+125
+00:10:23,000 --> 00:10:26,000
+one and two.
+
+126
+00:10:26,000 --> 00:10:31,000
+So index zero is associated with the A in columns zero,
+
+127
+00:10:31,000 --> 00:10:36,000
+the A in column one and the A in column two.
+
+128
+00:10:36,000 --> 00:10:40,000
+Index one is associated with the B in column zero,
+
+129
+00:10:40,000 --> 00:10:44,000
+the B in column one and the B in column two.
+
+130
+00:10:44,000 --> 00:10:49,000
+And the index two is associated with the C in column zero,
+
+131
+00:10:49,000 --> 00:10:54,000
+et cetera, et cetera.
+
+132
+00:10:54,000 --> 00:10:59,760
+So on the next slide, we're going to create a data frame that contains the unemployment rate
+
+133
+00:10:59,760 --> 00:11:07,840
+every other year for each region in the United States starting in 1995.
+
+134
+00:11:07,840 --> 00:11:17,520
+And so what you'll notice is now rather than giving it a given the data frame function,
+
+135
+00:11:17,520 --> 00:11:23,120
+a single list, we're going to give it a dictionary and we're going to say,
+
+136
+00:11:23,120 --> 00:11:28,960
+North East is the key and that maps to the list 5.9, 5.6.
+
+137
+00:11:28,960 --> 00:11:35,760
+South is the key, which maps to the value 5.3, 5.2.
+
+138
+00:11:35,760 --> 00:11:40,960
+And then national is the key that maps to, etc.
+
+139
+00:11:41,920 --> 00:11:46,960
+And we're going to turn that into a data frame and we'll use the same index as we did before,
+
+140
+00:11:46,960 --> 00:11:50,000
+which was years. And then let's just see what that looks like.
+
+141
+00:11:51,200 --> 00:11:55,920
+So notice what it's done is it's taken the list that was associated with each key
+
+142
+00:11:56,720 --> 00:12:00,800
+in the dictionary and it's turned that into a column of data.
+
+143
+00:12:01,840 --> 00:12:09,040
+So the first value in North East was 5.9, then 5.6, 4.4, etc.
+
+144
+00:12:09,760 --> 00:12:13,760
+And notice now these are associated with the index 1995.
+
+145
+00:12:14,720 --> 00:12:19,280
+So in 1995, the Northeast region had an unemployment rate of 5.9,
+
+146
+00:12:19,280 --> 00:12:24,800
+while the Midwest had an unemployment rate of 4.5, the South had an unemployment rate of 5.3,
+
+147
+00:12:24,800 --> 00:12:30,400
+and the West had an unemployment rate of 6.6, and the national unemployment was 5.6.
+
+148
+00:12:33,120 --> 00:12:40,720
+So again, we can extract the index from our unemployment, and this is the same index that we saw earlier,
+
+149
+00:12:41,040 --> 00:12:47,520
+and we can extract the values from the unemployment region data frame.
+
+150
+00:12:48,240 --> 00:12:52,080
+And notice all this is, is it's a two-dimensional array, it's a matrix.
+
+151
+00:12:53,040 --> 00:13:01,600
+And these values 5.9, 5.6, 4.4 are associated with the values that correspond to Northeast,
+
+152
+00:13:01,600 --> 00:13:05,440
+because it was the first column, 5.9, 5.6, 4.4.
+
+153
+00:13:06,160 --> 00:13:10,880
+So what can we do with a data frame?
+
+154
+00:13:11,920 --> 00:13:15,680
+The answer is pretty much everything we can do with a series and a little more.
+
+155
+00:13:16,480 --> 00:13:24,160
+So just like with the series, we can take the head and the tail of the data frame to give an idea of what our data looks like.
+
+156
+00:13:25,840 --> 00:13:30,880
+Additionally, we can create a plot and notice this plot now has
+
+157
+00:13:31,600 --> 00:13:34,960
+one line for each column in the data frame.
+
+158
+00:13:37,280 --> 00:13:42,320
+And we can index. Now this is going to look a lot like the indexing for a series,
+
+159
+00:13:42,320 --> 00:13:47,600
+but it's going to be a little bit more complicated because we have to choose from both an index
+
+160
+00:13:48,080 --> 00:13:53,920
+and a column. So let's see how you do that. So if we wanted to get the value
+
+161
+00:13:54,000 --> 00:14:01,280
+that was associated with the unemployment rate in the Northeast in 1995, we would specify
+
+162
+00:14:02,000 --> 00:14:09,040
+1995 as the index and Northeast as the column. And that gives us the 5.9.
+
+163
+00:14:10,960 --> 00:14:19,680
+If we wanted to get the 1995 and 2005 unemployment for the South, we could give it a list of 1995
+
+164
+00:14:20,160 --> 00:14:28,000
+and then the South. And notice in this case we were returned just a single number,
+
+165
+00:14:28,800 --> 00:14:33,200
+but because we're now asking for multiple things, it's returned a series to us.
+
+166
+00:14:36,720 --> 00:14:42,240
+And like we can select multiple values from the index, we can also select multiple values from
+
+167
+00:14:42,800 --> 00:14:47,200
+the columns, but notice it's also turned into a series.
+
+168
+00:14:49,680 --> 00:15:00,320
+We can also select an entire column by using the colon. And we also could select an entire row
+
+169
+00:15:01,440 --> 00:15:04,640
+by doing it the other way and notice both of those return a series.
+
+170
+00:15:07,360 --> 00:15:15,760
+You can also select multiple values from both in which case you'll be returned a new data frame.
+
+171
+00:15:20,160 --> 00:15:29,120
+And if you don't use the dot lock, it will just extract the column associated with the string
+
+172
+00:15:29,120 --> 00:15:37,840
+you pass in. Great. So now we know how to select data inside of a data frame. What types of things can we do?
+
+173
+00:15:39,520 --> 00:15:46,320
+So we can divide by 100, which moves it from percent units to a rate.
+
+174
+00:15:46,640 --> 00:15:52,480
+And notice it's divided every element of our column by 100.
+
+175
+00:15:53,840 --> 00:15:55,840
+We can find the maximum value.
+
+176
+00:15:57,920 --> 00:16:04,720
+We can subtract one column from another, so we've taken the unemployment in the west and subtracted
+
+177
+00:16:04,720 --> 00:16:08,800
+the unemployment in the Midwest, which just tells us the difference.
+
+178
+00:16:08,880 --> 00:16:16,560
+And we can also compute the correlation between two columns. So the unemployment in the west and
+
+179
+00:16:16,560 --> 00:16:23,200
+the unemployment in the Midwest had a 0.9 correlation. And if we wanted all of the correlations at once,
+
+180
+00:16:23,920 --> 00:16:29,840
+we can simply compute the correlation matrix. So notice it says a northeast is correlated
+
+181
+00:16:29,840 --> 00:16:36,400
+perfectly with the northeast and surprising. It's got a 0.87 correlation with the Midwest,
+
+182
+00:16:36,400 --> 00:16:43,040
+a 0.96 with the south and the west and a 0.97 with the national unemployment rate.
+
+183
+00:16:45,280 --> 00:16:50,640
+So let's stop for a minute and do another exercise. In this case, we'll continue to encourage
+
+184
+00:16:50,640 --> 00:16:57,040
+using introspection, the tab completion, and GoogleFoo to fulfill the following exercises.
+
+185
+00:16:58,080 --> 00:17:02,960
+Let's find a way to obtain a list that contains all of the column names in the data frame
+
+186
+00:17:02,960 --> 00:17:08,640
+unemployment region. Let's use the plotting method, the plot method, to make a bar plot.
+
+187
+00:17:09,440 --> 00:17:13,680
+What does this look like now and how does it compare to the plot we created with this series?
+
+188
+00:17:14,960 --> 00:17:21,440
+Let's use dot lock to select the unemployment data for the northeast and west in the years 1995,
+
+189
+00:17:21,440 --> 00:17:29,120
+2005, 2011, and 2015. And let's run the code unemployment region dot detights below.
+
+190
+00:17:30,080 --> 00:17:36,000
+What does this give you? How does this compare to the same thing on the series operation?
+
+191
+00:17:38,560 --> 00:17:45,280
+Welcome back. So let's go over the answers. So there's a property of the data frame called dot columns.
+
+192
+00:17:45,280 --> 00:17:51,040
+And notice this just corresponds to the equivalent of dot index, but for the column data.
+
+193
+00:17:51,040 --> 00:17:55,440
+And notice it gives us northeast, Midwest, southwest, and national.
+
+194
+00:17:55,920 --> 00:18:05,360
+We can make the bar plot and notice what it's done is it's plotted each of the columns for each year.
+
+195
+00:18:05,360 --> 00:18:12,240
+So the x-axis is still the indexes, but now we have five different bars for each year.
+
+196
+00:18:12,240 --> 00:18:16,720
+And the color's correspond to the northeast, Midwest, southwest, and national.
+
+197
+00:18:19,360 --> 00:18:24,400
+To select the subset of data we talked about, we can do as we discussed in past two lists.
+
+198
+00:18:26,320 --> 00:18:33,360
+And with detights, notice we were told float 64, but it now gives us a series. So it says,
+
+199
+00:18:34,480 --> 00:18:40,560
+the northeast column has all float data, the Midwest column has all float data, etc.
+
+200
+00:18:44,720 --> 00:18:51,120
+So in the previous exercise, we asked you to run the commands unemployment dot detight and unemployment
+
+201
+00:18:51,200 --> 00:18:56,320
+regions dot detights and to think about the outputs. As we've already discussed, they return the types of
+
+202
+00:18:56,320 --> 00:19:02,080
+the values inside of each column. Call them. If we do this with a series, it will just give us a single type.
+
+203
+00:19:02,720 --> 00:19:08,400
+And if we do this with a data frame, it gives us a series that maps the column name
+
+204
+00:19:08,400 --> 00:19:15,680
+into what type of data is stored inside of that column. So it's important that you often check
+
+205
+00:19:15,680 --> 00:19:21,840
+what type of data you're reading into. Pandas, because you can get some things where,
+
+206
+00:19:21,840 --> 00:19:25,040
+if data is not of the type you think it is, that it will miss behave.
+
+207
+00:19:27,120 --> 00:19:31,680
+So let's see for example, so data frames will only distinguish between a few types.
+
+208
+00:19:32,400 --> 00:19:38,400
+They can recognize Boolean's floating point numbers, integers, dates, which we'll talk more about
+
+209
+00:19:38,400 --> 00:19:43,760
+soon, categorical data, and then everything else, including strings, is stored as an object.
+
+210
+00:19:44,720 --> 00:19:49,760
+In the future, we will continue to refer to the data type of data stored in a column as its
+
+211
+00:19:49,760 --> 00:19:54,800
+detight. So let's look more closely at an example of when having an incorrect detight can cause
+
+212
+00:19:54,800 --> 00:20:02,240
+problems. So suppose that we imported this unemployment data from somewhere else, but instead,
+
+213
+00:20:02,240 --> 00:20:08,720
+the data for the South column came as a string. So notice what we've done here is we've
+
+214
+00:20:09,680 --> 00:20:17,040
+created, we've taken the column of the South, and we've turned it into a string data type,
+
+215
+00:20:17,040 --> 00:20:22,720
+and then we've saved it back into that column. And now when we look at string unemployment
+
+216
+00:20:22,720 --> 00:20:32,880
+detights, we see float 64, float 64, and object. So if we just look at the data frame, notice
+
+217
+00:20:32,960 --> 00:20:37,920
+everything looks okay, we can't, you don't notice that the South is of type string,
+
+218
+00:20:39,120 --> 00:20:46,320
+but if we try to do something like compute the sum, you'll get something weird. So notice for
+
+219
+00:20:46,320 --> 00:20:52,240
+the northeast Midwest and national, it's performed to the sum as we might expect, but when we
+
+220
+00:20:52,240 --> 00:20:58,800
+sum to the South, it's just taken all of the unemployment rates, and it's tied the strings together.
+
+221
+00:20:59,520 --> 00:21:05,120
+And this happens because dot sum is just calling plus between each of the rows in a column,
+
+222
+00:21:05,120 --> 00:21:10,240
+and when we add two strings, the result is the two strings being concatenated. And so right here,
+
+223
+00:21:10,240 --> 00:21:16,800
+all we've done is concatenate all of the strings. So these types of errors will pop up unexpectedly,
+
+224
+00:21:16,800 --> 00:21:24,400
+and it's useful to check what type your data is. Now let's go ahead and talk about how we can change
+
+225
+00:21:24,400 --> 00:21:29,440
+the data inside of a data frame in various ways. In particular, we'll talk about adding new columns,
+
+226
+00:21:30,160 --> 00:21:34,720
+renaming the index labels or column names, and altering the data inside of the data frame.
+
+227
+00:21:35,760 --> 00:21:40,960
+Some of these will be discussed at length later in the class, but we'll just give a brief introduction.
+
+228
+00:21:42,080 --> 00:21:47,760
+So to create a new column, you can take the data frame, we'll often abbreviate our data frames
+
+229
+00:21:47,760 --> 00:21:56,400
+as a DF, and we can give it a new name and strings and assign it to the values. So let's see how we could do that.
+
+230
+00:21:57,280 --> 00:22:04,000
+So we could create unemployment region, a new column called unweighted mean, and we could do that by adding
+
+231
+00:22:04,000 --> 00:22:10,400
+the northeast, Midwest, South, and west unemployment regions, and then dividing by four.
+
+232
+00:22:11,040 --> 00:22:18,000
+And notice if we do that, we now have the national mean, which is going to be population-weighted,
+
+233
+00:22:18,000 --> 00:22:24,800
+and the unweighted mean, which is what we just performed right here. You can also change the values
+
+234
+00:22:24,800 --> 00:22:30,400
+inside of a data frame. Again, you should do this very sparingly because you don't want to change
+
+235
+00:22:30,400 --> 00:22:40,240
+the data that you're using. So in this case, we're going to take the 1995 unweighted mean value,
+
+236
+00:22:40,240 --> 00:22:46,480
+and we're going to assign it to zero. And so now in the year 1995, the unweighted mean has been
+
+237
+00:22:46,480 --> 00:22:56,160
+reset to the value zero. And we can also rename columns. So one of my favorite examples that's
+
+238
+00:22:56,160 --> 00:23:00,160
+entirely frustrating is the Bureau of Labor Statistics here in the United States,
+
+239
+00:23:01,200 --> 00:23:05,520
+names their regional unemployment rate according to the following protocol.
+
+240
+00:23:06,400 --> 00:23:17,280
+LASRD 91000000000000000303.dot.dot. And you're supposed to know that that's the unemployment
+
+241
+00:23:17,280 --> 00:23:23,200
+rate for the northeast. So they have reasons internally for doing this because they have so many
+
+242
+00:23:23,200 --> 00:23:28,800
+variables, but it makes our job really difficult because we'll need to type it repeatedly. And so what
+
+243
+00:23:28,800 --> 00:23:33,760
+we'll do is we'll often rename these columns by passing a dictionary to the rename method.
+
+244
+00:23:34,720 --> 00:23:40,480
+And what you do is you take a dictionary and you take the value that it currently is.
+
+245
+00:23:40,480 --> 00:23:45,680
+In this case, northeast, Midwest, south, and west, and that will be the key of your dictionary.
+
+246
+00:23:45,680 --> 00:23:50,320
+And the value of your dictionary will be the new name. So in this case, we have
+
+247
+00:23:50,320 --> 00:23:58,160
+NEMWS and W. And so if we look at our data frame, it looks like things have been renamed.
+
+248
+00:23:58,800 --> 00:24:07,040
+Well, maybe not. So what happened here? Why does the data frame show that
+
+249
+00:24:07,040 --> 00:24:12,800
+why does the data frame still show the old column names? The reason is, most panda operations
+
+250
+00:24:12,800 --> 00:24:19,360
+are going to create a copy of your data. And to specify that you meant to overwrite your data frame,
+
+251
+00:24:19,360 --> 00:24:27,680
+you have to use the in-place option. We recommend that you avoid using this too much until you
+
+252
+00:24:27,680 --> 00:24:33,280
+understand exactly what you're changing because you don't want to overwrite your data.
+
+253
+00:24:33,280 --> 00:24:40,320
+And we'll often just create the new data frame and assign it back to something of the same name.
+
+254
+00:24:40,320 --> 00:24:45,600
+So in this case, we've renamed our columns and this creates a new data frame.
+
+255
+00:24:46,400 --> 00:24:51,440
+And then we've assigned it to unemployment short name and in the short name data frame,
+
+256
+00:24:52,160 --> 00:25:01,120
+we now have the renamed columns. And that's all we have for this lecture. So we'll see you soon
+
+257
+00:25:01,120 --> 00:25:05,120
+to talk about pandas basics.
+

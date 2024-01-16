@@ -1,0 +1,13 @@
+pgvector==0.2.3
+langchain==0.0.335
+langchain-cli==0.0.16
+python-dotenv==1.0.0
+pydantic==2.5.0
+pydantic_core==2.14.1
+fastapi==0.104.1
+psycopg2-binary==2.9.9
+tiktoken==0.5.1
+uvicorn==0.23.2
+pydantic-settings==2.1.0
+openai==1.2.4
+structlog==23.2.0

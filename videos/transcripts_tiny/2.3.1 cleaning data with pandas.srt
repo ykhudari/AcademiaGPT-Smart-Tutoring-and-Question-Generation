@@ -1,0 +1,892 @@
+1
+00:00:00,000 --> 00:00:05,720
+Hi everyone, the first topic we're going to be talking about today is cleaning data.
+
+2
+00:00:05,720 --> 00:00:11,240
+Prior to this course to today, you should have seen the introduction to pandas, Boolean
+
+3
+00:00:11,240 --> 00:00:15,720
+selection, and indexing which we talked about last time.
+
+4
+00:00:15,720 --> 00:00:20,520
+And after today, you'll be able to use string methods to clean data that comes as a string.
+
+5
+00:00:20,520 --> 00:00:24,760
+You'll be able to drop and fill missing data and you'll be able to use some of the cleaning
+
+6
+00:00:24,760 --> 00:00:29,760
+methods we discuss to prepare and analyze a real data set.
+
+7
+00:00:29,760 --> 00:00:35,040
+The data set that we'll use today comes from the New York Times, a blog called The Upshot.
+
+8
+00:00:35,040 --> 00:00:43,000
+And it includes information from about 3,000 meals from a fast food chain called Chipotle.
+
+9
+00:00:43,000 --> 00:00:47,960
+So our outline for today is we'll first talk about cleaning data generally.
+
+10
+00:00:47,960 --> 00:00:51,840
+Then we'll talk about how to use string methods to clean data.
+
+11
+00:00:51,840 --> 00:00:56,120
+We'll talk about type conversions and how to change data from one type to another.
+
+12
+00:00:56,520 --> 00:01:01,720
+We'll then talk about missing data and finally we'll give you a chance to do a short case study
+
+13
+00:01:01,720 --> 00:01:03,120
+using the data set we described.
+
+14
+00:01:06,680 --> 00:01:08,680
+Let's get started.
+
+15
+00:01:08,680 --> 00:01:14,280
+So for many data projects, a significant proportion of time is actually spent collecting
+
+16
+00:01:14,280 --> 00:01:18,560
+and cleaning the data, not just performing the analysis.
+
+17
+00:01:18,560 --> 00:01:22,400
+The non-assin analysis type of work is often generally called data cleaning even though
+
+18
+00:01:22,400 --> 00:01:25,120
+it entails many different operations.
+
+19
+00:01:26,280 --> 00:01:31,560
+One of the reasons that we've chosen to use Python for our data analysis and why so many
+
+20
+00:01:31,560 --> 00:01:36,480
+other people choose to use Python for data analysis is that the tools that pandas provides
+
+21
+00:01:36,480 --> 00:01:41,520
+are very helpful and very powerful and they'll allow us to do many of the types of
+
+22
+00:01:41,520 --> 00:01:46,680
+operations that might take more effort very easily.
+
+23
+00:01:46,680 --> 00:01:51,840
+So let's create just a toy data set.
+
+24
+00:01:51,840 --> 00:01:54,600
+In this toy data set we're going to have four columns.
+
+25
+00:01:54,600 --> 00:02:01,680
+We'll have a column called numbers, numbs, colors and other columns.
+
+26
+00:02:01,680 --> 00:02:06,640
+So what do you think would happen if we tried to compute the mean of the columns of the column
+
+27
+00:02:06,640 --> 00:02:08,640
+numbers?
+
+28
+00:02:08,640 --> 00:02:12,960
+Well, let's go ahead and see.
+
+29
+00:02:12,960 --> 00:02:16,040
+Well, it returns an error.
+
+30
+00:02:16,040 --> 00:02:21,800
+So looking at this last message, can you figure out why it's returning an error?
+
+31
+00:02:22,040 --> 00:02:25,800
+This returning an error because this data frame, if we look at the details, it would
+
+32
+00:02:25,800 --> 00:02:29,240
+tell us that numbers is a deep-type string.
+
+33
+00:02:29,240 --> 00:02:34,280
+And so when it computed the mean, what it did was summed up this column, which for strings
+
+34
+00:02:34,280 --> 00:02:43,840
+just means string concatenation, and then it tried to divide that string by the number of rows.
+
+35
+00:02:43,840 --> 00:02:47,240
+So we've seen this error before in our Python fundamentals.
+
+36
+00:02:47,240 --> 00:02:50,640
+We kind of hinted that we would run into similar problems.
+
+37
+00:02:50,640 --> 00:02:55,680
+And so let's go ahead and step back away from our data frame and think about how we would
+
+38
+00:02:55,680 --> 00:02:59,360
+fix a single string that had this problem.
+
+39
+00:02:59,360 --> 00:03:07,600
+How we would convert a single string of the format number and then a number to an integer.
+
+40
+00:03:07,600 --> 00:03:13,960
+And the way we would do that is we would use a string method called replace to replace the
+
+41
+00:03:13,960 --> 00:03:16,880
+pound sign and we would replace it with an empty string.
+
+42
+00:03:16,880 --> 00:03:18,880
+So with nothing.
+
+43
+00:03:18,880 --> 00:03:23,640
+And once we had done that, we would convert that whole thing to an integer.
+
+44
+00:03:23,640 --> 00:03:27,760
+And what we can see is if we print these three objects.
+
+45
+00:03:27,760 --> 00:03:32,000
+So if we print numbers string, we get back our original string.
+
+46
+00:03:32,000 --> 00:03:33,880
+We print back numbers num.
+
+47
+00:03:33,880 --> 00:03:38,600
+We now have something that no longer has the pound sign.
+
+48
+00:03:38,600 --> 00:03:44,200
+And just to make sure it's an integer, we print the type of numbers num and it tells us it's
+
+49
+00:03:44,200 --> 00:03:46,960
+an integer.
+
+50
+00:03:46,960 --> 00:03:47,960
+So this is useful.
+
+51
+00:03:47,960 --> 00:03:55,240
+So this tells us that one way that we could fix our data set is if we went row by row and
+
+52
+00:03:55,240 --> 00:03:58,240
+applied these string methods to fix the data set.
+
+53
+00:03:58,240 --> 00:03:59,440
+And so that's what we do here.
+
+54
+00:03:59,440 --> 00:04:04,560
+So for each row in DF dot inter rows, which is just going to iterate.
+
+55
+00:04:04,560 --> 00:04:12,800
+It's an iterable that produces an index value and a group of column values.
+
+56
+00:04:12,800 --> 00:04:16,640
+And these column values are stored inside of a series.
+
+57
+00:04:16,640 --> 00:04:25,120
+So if we look at the column values numbers, that's going to give us the current number.
+
+58
+00:04:25,120 --> 00:04:29,600
+So some string with a pound and then a number.
+
+59
+00:04:29,600 --> 00:04:35,480
+And then we can replace it with the pound with nothing and convert it to an integer.
+
+60
+00:04:35,480 --> 00:04:41,480
+And then we can store that clean number inside of a column called numbers loop.
+
+61
+00:04:41,480 --> 00:04:45,800
+And here at the top, all we're going to do is this percent percent time is what they call
+
+62
+00:04:45,800 --> 00:04:51,080
+a Jupiter magic that allows you to time a whole cell.
+
+63
+00:04:51,080 --> 00:04:56,840
+So this whole cell together took about five milliseconds.
+
+64
+00:04:56,840 --> 00:05:01,400
+So this is fine, but in data sets in which you have thousands or hundreds of thousands
+
+65
+00:05:01,400 --> 00:05:07,960
+or millions of rows, this will quickly become very slow and you'll not want to use.
+
+66
+00:05:07,960 --> 00:05:11,000
+You'll not want to use loops.
+
+67
+00:05:11,000 --> 00:05:17,840
+So instead what Pandas is done is it's created string methods that you can apply to an
+
+68
+00:05:17,840 --> 00:05:20,520
+entire column at a time.
+
+69
+00:05:20,520 --> 00:05:24,400
+And so most of the same methods that a string would have available to it, you can apply
+
+70
+00:05:24,400 --> 00:05:27,680
+to an entire column of a Pandas data frame.
+
+71
+00:05:27,680 --> 00:05:35,800
+And the way you access this is if you have a series S, if you write S dot STR, that changes
+
+72
+00:05:35,800 --> 00:05:39,680
+the series into what I'll call STRING form.
+
+73
+00:05:39,680 --> 00:05:44,720
+And then you can simply just do dot the method name where the method name is the method
+
+74
+00:05:44,720 --> 00:05:47,400
+that you'd like to apply to the entire column.
+
+75
+00:05:47,400 --> 00:05:52,400
+And when you do this, it's going to apply this to each row in that series at one time.
+
+76
+00:05:52,400 --> 00:05:58,000
+And it's going to do this using kind of fast C code without having to perform the loop
+
+77
+00:05:58,000 --> 00:06:00,640
+we described previously.
+
+78
+00:06:00,640 --> 00:06:03,000
+So let's go ahead and look at doing this.
+
+79
+00:06:03,000 --> 00:06:06,840
+So we're going to take the numbers column.
+
+80
+00:06:06,840 --> 00:06:09,480
+So this gives us a series.
+
+81
+00:06:09,480 --> 00:06:12,920
+We're going to write dot STR.
+
+82
+00:06:12,920 --> 00:06:17,960
+And then if we write dot replace, we can call this method the same way we would on a normal
+
+83
+00:06:17,960 --> 00:06:19,200
+string.
+
+84
+00:06:19,200 --> 00:06:25,560
+So we replace it with, we replace all of the pound signs with nothing.
+
+85
+00:06:25,560 --> 00:06:28,960
+And let's see what that gives us.
+
+86
+00:06:28,960 --> 00:06:31,720
+So that gives us a bunch of columns.
+
+87
+00:06:31,720 --> 00:06:36,880
+So now we have numbers of string, which you'll notice is still a string.
+
+88
+00:06:36,880 --> 00:06:41,160
+And the reason it's still a string is because so far, all we've done is we've applied the string
+
+89
+00:06:41,160 --> 00:06:46,040
+method and just replaced the pound sign with nothing.
+
+90
+00:06:46,040 --> 00:06:51,840
+So there's more to do if we want to turn it into a number.
+
+91
+00:06:51,840 --> 00:06:56,720
+So the string methods, again, like we said, pretty much any string method that works on
+
+92
+00:06:56,720 --> 00:07:01,000
+a normal string will work inside of these string methods.
+
+93
+00:07:01,000 --> 00:07:05,960
+So we could find out which strings contain the letter P.
+
+94
+00:07:05,960 --> 00:07:13,560
+So we had purple and pink, which both have a P and everything else did not have a P.
+
+95
+00:07:13,560 --> 00:07:18,120
+And we could also capitalize these strings.
+
+96
+00:07:18,120 --> 00:07:22,160
+And again, there's so many of them we're not going to go over them all, but we encourage
+
+97
+00:07:22,160 --> 00:07:26,120
+you to look at the official documentation and just skim through some of the methods that
+
+98
+00:07:26,120 --> 00:07:29,840
+you have available to you.
+
+99
+00:07:29,840 --> 00:07:34,880
+So this leaves us back to where we started.
+
+100
+00:07:34,880 --> 00:07:40,160
+In our example, the detail of number string is still a string even after we've removed the
+
+101
+00:07:40,160 --> 00:07:41,400
+pound sign.
+
+102
+00:07:41,400 --> 00:07:45,040
+So now we need to convert this column to numbers.
+
+103
+00:07:45,040 --> 00:07:50,720
+The best way to do this is going to be using the PD.tunumeric function.
+
+104
+00:07:50,720 --> 00:07:56,160
+This function converts whatever a store into a series into numeric values.
+
+105
+00:07:56,200 --> 00:07:57,880
+So let's go ahead and try this.
+
+106
+00:07:57,880 --> 00:08:07,280
+So if we take PD.tunumeric and pass it a series and save it into numbers numeric, let's go ahead
+
+107
+00:08:07,280 --> 00:08:08,280
+and look at this.
+
+108
+00:08:08,280 --> 00:08:16,560
+And notice this is converted the numbers that were in numbers string into integers
+
+109
+00:08:16,560 --> 00:08:22,920
+and stored them inside of a new column called numbers numeric.
+
+110
+00:08:22,960 --> 00:08:28,160
+We can verify this all looks good.
+
+111
+00:08:28,160 --> 00:08:36,520
+So we can also convert to other types as well and you can do this using an as type method.
+
+112
+00:08:36,520 --> 00:08:39,520
+So imagine we wanted to convert these numbers back to strings.
+
+113
+00:08:39,520 --> 00:08:43,360
+I don't know why you would do that, but you might want to.
+
+114
+00:08:43,360 --> 00:08:51,000
+So if we do dot as type and pass string, notice it gives us a new series with the values
+
+115
+00:08:51,000 --> 00:08:54,200
+of this 232418 dot dot.
+
+116
+00:08:54,200 --> 00:08:58,000
+And it tells us that the detail is object.
+
+117
+00:08:58,000 --> 00:09:02,400
+Instead we could also convert these to floating point numbers.
+
+118
+00:09:02,400 --> 00:09:09,120
+You notice these are all floating point numbers now.
+
+119
+00:09:09,120 --> 00:09:16,880
+So in our data set, we are missing a single element from the column and numbs.
+
+120
+00:09:16,880 --> 00:09:26,760
+And in pandas any data that's missing will show up as an a n, which stands for not a number.
+
+121
+00:09:26,760 --> 00:09:31,200
+So you can find missing data by using the is no method.
+
+122
+00:09:31,200 --> 00:09:38,360
+So if we do df dot is no, what it returns is it gives us our entire data frame filled with
+
+123
+00:09:38,360 --> 00:09:40,640
+true or false.
+
+124
+00:09:40,640 --> 00:09:45,760
+And these values will be false anywhere there is an actual value.
+
+125
+00:09:45,760 --> 00:09:52,440
+It will be true if there's any data that's missing.
+
+126
+00:09:52,440 --> 00:09:56,440
+So now this ties back into some of our Boolean selection.
+
+127
+00:09:56,440 --> 00:10:02,040
+You might be interested in knowing which particular row or column has missing data.
+
+128
+00:10:02,040 --> 00:10:07,720
+So if we do df dot is no, remember it's going to create this data frame.
+
+129
+00:10:07,720 --> 00:10:15,160
+So if we do dot any axis equals zero, this will tell us that the only column that is missing
+
+130
+00:10:15,160 --> 00:10:18,640
+data is the numbs column.
+
+131
+00:10:18,640 --> 00:10:23,440
+And if we do dot any axis equals one, it tells us that the only row that's missing
+
+132
+00:10:23,440 --> 00:10:27,960
+any data is row four.
+
+133
+00:10:27,960 --> 00:10:35,160
+So there are a lot of potential methods to deal with missing data.
+
+134
+00:10:35,160 --> 00:10:39,440
+Some are more complex than what we'll talk about today and they're more fitting for lots
+
+135
+00:10:39,440 --> 00:10:41,400
+of types of analyses.
+
+136
+00:10:41,400 --> 00:10:48,200
+But two of the simplest ways that you would often use are to simply ignore any data that's
+
+137
+00:10:48,200 --> 00:10:55,240
+missing or to compute predicted values for the data that's missing.
+
+138
+00:10:55,240 --> 00:11:03,280
+So df dot drop an A, notice by default, all that's going to do is drop row four because
+
+139
+00:11:03,280 --> 00:11:05,840
+row four was the one that's missing.
+
+140
+00:11:05,880 --> 00:11:10,320
+But we could also set axis equals one.
+
+141
+00:11:10,320 --> 00:11:16,720
+And notice instead of dropping row four, it's dropped the column numbs.
+
+142
+00:11:16,720 --> 00:11:23,600
+We can tell it to fill any missing values with the number 100, which remember numbs in row
+
+143
+00:11:23,600 --> 00:11:28,640
+four was our missing data and now it has the value 100.
+
+144
+00:11:28,640 --> 00:11:32,040
+We could do something called backfilling.
+
+145
+00:11:32,080 --> 00:11:38,240
+And so it takes the next value and replaces the missing value with the value that comes
+
+146
+00:11:38,240 --> 00:11:40,200
+next.
+
+147
+00:11:40,200 --> 00:11:46,400
+And you can also use forward filling, which will take the previous value and carry it
+
+148
+00:11:46,400 --> 00:11:48,600
+forward.
+
+149
+00:11:48,600 --> 00:11:54,480
+A lot of times when you're doing some type of a time series analysis, something like
+
+150
+00:11:54,480 --> 00:12:00,840
+forward fill is a really natural way to fill in missing data.
+
+151
+00:12:00,840 --> 00:12:08,520
+Just because you don't know what this value takes between time t and time t plus two.
+
+152
+00:12:08,520 --> 00:12:16,000
+And so just carrying forward that time t value is a simple but relatively effective way
+
+153
+00:12:16,000 --> 00:12:18,400
+of dealing with missing data.
+
+154
+00:12:18,400 --> 00:12:24,800
+And again, we'll talk more about how to deal with missing data in the future.
+
+155
+00:12:24,800 --> 00:12:25,960
+Excellent.
+
+156
+00:12:25,960 --> 00:12:30,240
+So that was our whirlwind introduction to cleaning data.
+
+157
+00:12:30,240 --> 00:12:37,160
+And now we're going to use this data that we talked about from the New York Times.
+
+158
+00:12:37,160 --> 00:12:42,280
+So you can load it using the Quanticon data science package and we'll look at the Chipotle
+
+159
+00:12:42,280 --> 00:12:45,640
+raw data set.
+
+160
+00:12:45,640 --> 00:12:48,720
+And what you'll see is it has an order ID.
+
+161
+00:12:48,720 --> 00:12:55,080
+So everything in order ID one was ordered at the same time.
+
+162
+00:12:55,080 --> 00:12:59,800
+And it tells you a quantity how many of these things were ordered.
+
+163
+00:12:59,800 --> 00:13:01,320
+Tell you the item name.
+
+164
+00:13:01,320 --> 00:13:06,680
+So maybe the chicken bowl, chips and tomatillo, green chili salsa.
+
+165
+00:13:06,680 --> 00:13:09,400
+What options were selected for that choice?
+
+166
+00:13:09,400 --> 00:13:15,280
+And then what the total price of that order of that item was.
+
+167
+00:13:15,280 --> 00:13:19,960
+So in this case, the item price is 1698.
+
+168
+00:13:19,960 --> 00:13:21,720
+But that's because there were two chicken bowls.
+
+169
+00:13:21,720 --> 00:13:28,600
+The actual price of a chicken bowl is closer to 850.
+
+170
+00:13:28,600 --> 00:13:32,960
+So what we'd like you to do is take five to 10 minutes.
+
+171
+00:13:32,960 --> 00:13:37,160
+And we'd like you to use this data to answer the following questions.
+
+172
+00:13:37,160 --> 00:13:40,240
+What is the average price of an item with chicken?
+
+173
+00:13:40,240 --> 00:13:43,520
+What is the average price of an item with steak?
+
+174
+00:13:43,520 --> 00:13:46,880
+Did chicken or steak produce more revenue?
+
+175
+00:13:46,880 --> 00:13:49,760
+And how many missing items are there in this data set?
+
+176
+00:13:49,760 --> 00:13:53,240
+And how many missing items are there in each column?
+
+177
+00:13:53,240 --> 00:13:55,840
+The one hint will give you is before you are able to do these things.
+
+178
+00:13:55,840 --> 00:14:00,080
+You'll have to make sure the item price column has a numeric detail.
+
+179
+00:14:00,080 --> 00:14:03,240
+So we'll go ahead and stop here.
+
+180
+00:14:03,240 --> 00:14:13,400
+And once we're done with this exercise, we'll go ahead and start the next lecture.
+
+181
+00:14:13,400 --> 00:14:16,000
+Let's review our answers.
+
+182
+00:14:16,040 --> 00:14:22,680
+So in order to clean this data set, we need to convert the price call to something numeric.
+
+183
+00:14:22,680 --> 00:14:27,920
+And remember, item price had a dollar sign in it, which would prevent you from converting
+
+184
+00:14:27,920 --> 00:14:29,720
+things to a numeric type.
+
+185
+00:14:29,720 --> 00:14:33,520
+So first, we have to replace the dollar sign with nothing.
+
+186
+00:14:33,520 --> 00:14:37,160
+And then convert it to a numeric.
+
+187
+00:14:37,160 --> 00:14:42,440
+Then what we're going to do is we're going to find all of the items with chicken or
+
+188
+00:14:42,440 --> 00:14:43,880
+steak.
+
+189
+00:14:43,880 --> 00:14:48,880
+And the way we're going to do that is it's not exactly clear whether chicken will be
+
+190
+00:14:48,880 --> 00:14:51,720
+capitalized consistently.
+
+191
+00:14:51,720 --> 00:14:56,400
+So first what we're going to do is we're going to take all of the strings in item name
+
+192
+00:14:56,400 --> 00:14:59,760
+and we're going to make everything lowercase.
+
+193
+00:14:59,760 --> 00:15:04,400
+And then once we've done that, we'll check whether that string contains the all lowercase
+
+194
+00:15:04,400 --> 00:15:05,400
+word chicken.
+
+195
+00:15:05,400 --> 00:15:08,560
+And we'll do the same thing with steak.
+
+196
+00:15:08,560 --> 00:15:15,040
+And then we can go ahead and select a subset of the items in our data frame and we're
+
+197
+00:15:15,040 --> 00:15:21,200
+going to select just the chicken items or just the steak items and all of the columns.
+
+198
+00:15:21,200 --> 00:15:26,560
+And then we'll use a method called e-vow which allows us to perform operations, kind
+
+199
+00:15:26,560 --> 00:15:29,080
+of binary operations between different columns.
+
+200
+00:15:29,080 --> 00:15:33,600
+And so in this case, we'll take the new price column that we've created that has numeric
+
+201
+00:15:33,600 --> 00:15:35,320
+information.
+
+202
+00:15:35,320 --> 00:15:40,560
+We'll divide it by the quantity of items ordered and we'll take the mean of that to figure
+
+203
+00:15:40,560 --> 00:15:44,120
+out what the average price per item was.
+
+204
+00:15:44,120 --> 00:15:52,640
+And so what you see is that steak costs about 50 cents more than chicken items.
+
+205
+00:15:52,640 --> 00:15:58,280
+We can use our same series of booleans, chicken item and steak item.
+
+206
+00:15:58,280 --> 00:16:02,360
+And look at the price which is really more like revenue.
+
+207
+00:16:02,360 --> 00:16:07,520
+And if we take the sum of that column for the chicken items and the steak items, what
+
+208
+00:16:07,520 --> 00:16:13,200
+we see is that chicken items created almost double the revenue of steak items.
+
+209
+00:16:13,200 --> 00:16:19,280
+So even though the chicken items were cheaper, they sold in a much higher quantity.
+
+210
+00:16:19,280 --> 00:16:23,080
+And finally we can check which columns had missing data.
+
+211
+00:16:23,080 --> 00:16:27,760
+And we'll see that the only ones that had missing data was the choice description column.
+
+212
+00:16:27,800 --> 00:16:34,560
+And there were 1,246 missing observations.
+
+213
+00:16:34,560 --> 00:16:39,960
+Just as kind of like a little appendix, let's go ahead and create a fake data set that
+
+214
+00:16:39,960 --> 00:16:42,040
+has a bunch of strings.
+
+215
+00:16:42,040 --> 00:16:46,240
+And so now we're going to have 100,000 elements instead of the six that we were looking
+
+216
+00:16:46,240 --> 00:16:47,240
+at.
+
+217
+00:16:47,240 --> 00:16:53,320
+And let's just compare how different the two speeds are.
+
+218
+00:16:53,320 --> 00:16:55,520
+This is just like a quick little test.
+
+219
+00:16:55,560 --> 00:17:03,560
+So when we have 100,000 columns, notice the number string method only took about 27 milliseconds
+
+220
+00:17:03,560 --> 00:17:07,760
+whereas looping over these items took six seconds.
+
+221
+00:17:07,760 --> 00:17:15,040
+So kind of that's in the ballpark of 300 times speed up, which is roughly what we told you
+
+222
+00:17:15,040 --> 00:17:16,800
+you would get.
+
+223
+00:17:16,800 --> 00:17:19,040
+So let's go on to our next topic.
+

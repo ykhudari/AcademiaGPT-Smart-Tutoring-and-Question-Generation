@@ -1,0 +1,479 @@
+Hello, this is Spencer Lyon and in this lecture we will learn about the different plotting
+libraries that are available to us for use from within Python.
+Before viewing this lecture, you should be familiar with pandas and the core operations
+on a DataFrame or series as well as some familiarity with MAT plotlib.
+As when we discuss other plotting libraries, we will make comparisons that draw upon our
+knowledge of MAT plotlib.
+The goals or outcomes for this lecture will be to have a better sense of the variety of
+different plotting packages that are available inside of Python as well as learn a bit about
+the differences and some of the benefits of web or JavaScript-based plotting libraries.
+First let's talk about plotting in Python.
+There are many, many different packages that can be used to create charts, graphs, or
+other visualizations from within Python.
+In a 2017 talk, Jake Vanderplace summarized the Python plotting landscape and one of his
+killer slides in his talk had this image on it.
+And this is a graphic where each of these circular objects represents one plotting package
+that you could use from within Python.
+There are many others that are not mentioned here, but these are going to be the most popular
+ones, at least as of the time of his talk in 2017.
+You'll see that they're organized into three kind of large networks as well as a smaller
+little network here and then some random independent ones down in the left corner.
+We'll start up in the top right.
+Here we see map plotlib.
+This is the original Python plotting package that was at least original in the sense of
+scientific programming.
+It has very wide adoption, is integrated into many other packages, and is something that
+we've studied throughout this course.
+You'll see that from this hub that is map plotlib, there are a number of spokes that connect
+to this wheel.
+Some of these we already know about like pandas and seaborn, others we haven't learned
+too much about like GGPY, Yellowbrick, FaceMap or CartoPy.
+But these are all different packages that in one way or another integrate with or leverage
+map plotlib to create charts.
+The next main hub here on the left hand side is JavaScript.
+JavaScript is a programming language used to create interactive websites and widgets
+for components within a website.
+You'll see here that there are many different examples of JavaScript-based plotting libraries
+that can be used from Python.
+Branching off from JavaScript, we see a, this red line connects from JavaScript to this
+circle here called D3JS.
+D3 is something that we'll talk more about here soon, but it is one of the core libraries
+in the JavaScript language for creating visualizations.
+From D3 things like Vega, VegaLite, even plotlib which is up here are based and created.
+We won't talk too much about these other sections as they're not tools we will be using
+in this course.
+Let's review what we know about map plotlib and we'll talk a little bit about its history
+so we understand the context.
+Mapplotlib was created by one John Hunter back in the early 2000s and his goal was to create
+a Python plotting package that could produce publication quality plots that were similar
+in style and appearance to plots produced by the software map lab.
+Up until now or to date it is the most widely used plotting package and its strength is
+creating these publication quality plots as well as being an integral part to many of the
+data analytics based libraries and Python.
+We've become familiar with the plot method of a panda series or data frame.
+There's another library called Seaborn used to construct statistical visualizations that
+are all rendered with map plotlib.
+So when you write code that uses Seaborn inside of the Seaborn implementation it will be
+writing map plotlib code.
+Then there are other libraries for specific applications such as Scikit learn.
+This is using map plotlib to generate some common visualizations in machine learning applications.
+Mapplotlib is very good and really excellent at doing its job or fulfilling its main purpose
+of creating print or the charts.
+However, since map plotlib was created in 2003 there have been many striking advances
+in technology.
+Three that we'll talk about now are the proliferation of internet connected devices.
+Many people now have access to smartphones, laptops, tablets and these things either
+didn't exist or are far less common back when map plotlib was created in the early 2000s.
+The next thing is that websites have gone from being mostly a digital representation of
+printed content to fully interactive applications where you can do quite sophisticated things that
+were previously possible only on native applications running on your operating system.
+And then finally something we all know and understand is that computers or computing devices
+are far more powerful and inexpensive today compared to the early 2000s.
+These three phenomena as well as maybe some others that have a more secondary impact have
+led to a rise of web-based plotting tools.
+Web-based plotting libraries are primarily written in another programming language called
+JavaScript.
+JavaScript is the language of the internet.
+It's what powers the vast majority of online applications.
+Ranging from things like online shopping, video or media outlets, social media and many
+others.
+JavaScript-based plots have a few distinct advantages over static plots like those produced
+by map plotlib.
+First, they are fully interactive.
+You can zoom, pan, toggle, rotate, have tooltips, etc.
+You can really interact with them as you would many websites.
+A second, these charts are responsive meaning that they can automatically know how to resize
+themselves, maybe changing font sizes, if the screen where the plot is being viewed
+is smaller, so that the chart can look great on a variety of different device types.
+Finally, the web-based charts are very shareable in the full interactive form.
+You can embed them on a website, perhaps in a blog post or on social media, or even put
+them inside of a different application or a mobile application.
+Static charts have some version or form of these three things, but it's much less intuitive
+to users of modern devices.
+Let's talk about one particular library in the JavaScript visualizations base called
+D3.
+This is one of the original and most powerful visualization libraries for JavaScript.
+The name D3 stands for Data-Driven Documents, where the D comes from the first letter of
+those words and the three because there are three words.
+From the D3 homepage, we could read the following quote.
+D3 describes itself by saying D3.js is a JavaScript library from manipulating documents based
+on data.
+D3 helps you bring data to life using HTML, SVG and CSS.
+These acronyms here are acronyms for different technologies within the website world.
+Moving on with the quote, D3's emphasis on web standards gives you the full capabilities
+of modern browsers without tying yourself to a proprietary framework, combining powerful
+visualization components and a data-driven approach to DOM manipulation.
+This is a fairly technical way to say that D3 is all about creating website components
+that are tied to an underlying data source.
+It contains the raw building blocks that can map from a data set into some form of visualizing
+that data set.
+With D3, you can create just about any visualization.
+We're going to go through and click on many of these links and just see and appreciate
+the variety of charts that can be created using D3.
+This first link will take us to a candlestick chart.
+This type of chart is commonly used in financial settings.
+You'll see here that for every day of the year, there's going to be one plot element.
+This plot element has two main components.
+It has a colored cylinder or rectangle as well as a line.
+The interpretation of these are that the color of this rectangle tells us if overall
+the stock price for here, it's Apple stock, if the stock price for Apple went up throughout
+the day or down.
+We would color each rectangle green if the closing price for Apple is higher than the
+opening price.
+If the closing price was lower, then the rectangle would be red.
+You can see here because this particular rectangle is green, this must mean that the closing
+price is higher than the opening.
+They wear the bottom and the top of these rectangles are marked the open and close price.
+On this particular date, the opening price must have been near about 170.
+While the closing price would have been near 172.5.
+Looking over at another example, this bar is red.
+This time, the opening price is going to be at the top of the bar because over the
+course of the day, the stock price went down.
+Here, the opening price on what looks like about April 23rd would have been about $171
+and the closing price would have been closer to $165.
+The other component would be the black vertical line that passes through the middle of the
+rectangle.
+This represents the high and low price obtained throughout the day.
+On this example, with the most extreme black line down here, we'll see that the highest
+price reached by that by Apple stock throughout the day was about $157.
+On this day, the lowest price would have been down here near $150.
+If we hover over it, my browser is saying that the low was 150.24 and the high was 157.89.
+So you'll see that in this one type of chart, we have a lot of information.
+We have the date, we have for each date the open, high, low, and closed prices for the
+Apple stock.
+This is a candlestick chart and down here, you could see the D3 code needed to import
+the data and construct the chart.
+Another common type of chart would be a line chart.
+Here we have a D3 visualization that shows off some of the flexibility of D3.
+Here are some of the features of this chart.
+On the horizontal axis, we see that there's a log scale.
+We have 100,000 here and then 200, 3, 4, 5, up to a million and so on.
+So we have a very custom notion of scale on this horizontal axis.
+Then we also have a very custom type of legend.
+What this tells us is that the black dot for each of these lines represents the value of
+the variable in the year 1980.
+I'll make this a little bit bigger so we can see in one.
+What this is saying is that the black dot shows us where a particular city was with population
+on the horizontal axis and inequality by the gene coefficient on the vertical one.
+This black dot says that New York City had a population of probably about 15 million in
+1980 and an inequality index of about 4.25.
+Then continuing to read the legend says that the arrow will point to the value for that
+particular location in 2015.
+So we'll see here that the population in New York City grew from maybe about 15 million
+to about 20.
+But the inequality measure grew substantially.
+It went from about 4.25 all the way to about 7.
+We'll see here that there are other extreme examples of inequality growth.
+For example, the city of San Jose in California, Fairfield, Connecticut, and so on.
+You also can see based on the direction of the arrow that some cities experience population
+decline.
+This city, I'm not sure which it is, but actually had population about the same, but had a decline
+in inequality.
+So this is an example of a particularly customized line chart and trying to think of how you might
+do this in say, Matplotlib or another library could be quite a bit more difficult, especially
+getting things like this legend.
+Correct.
+Correct.
+Another common visualization is a heat map.
+Here, this is a document written by Mike Bostak.
+He's actually the creator of D3 and he used to be the editor of graphics and visualization
+at the New York Times.
+He's shown us here a heat map of his home's electricity usage for every hour of the year.
+He actually mentions in the text up here that he has, I believe, some solar panels on his home.
+And you'll see here that the net power consumption in the middle of the day in January is actually
+negative, meaning his solar panels are producing more energy than he and his household are
+consuming on some areas where this legend, or sorry, where the box is blue.
+You'll see that this happens quite a bit in the springtime.
+So where he lives must be fairly sunny, but moderate in temperature in order for him to
+not need to consume a lot of electricity, but be able to produce a lot.
+You can see here there's a fairly consistent pattern of high energy usage between the
+hours of 6 and 9 pm.
+As there's a lot of deep red towards the right of the chart, and then there's also some
+high energy usage in the middle of the night between midnight and 1 am.
+I thought that this was a particularly deep example of a heat map being able to display
+a wide variety of information that was personally relevant to Mike Boston.
+We'll go through these next ones quickly.
+Here's a calendar chart.
+This shows the daily percent change in the Dow Jones industrial average between 2000 and
+2020.
+So this would all the trading days are represented for the year 2000 right here.
+We have a Monday, Tuesday, Wednesday, Thursday, Friday are the days that US equity markets
+are open.
+Then we have these columns, we represent these four columns right here, represent the month
+of January, and then we'll have February it follows and so on.
+So here we have 20 years worth of financial data showing the daily returns on the Dow Jones.
+You'll see a particularly volatile time filled with many deep colors in late 2008.
+This corresponds to the onset of the real estate market related financial crisis.
+Also known as the Great Recession.
+You'll see here at the beginning of 2020 in March, there's also quite a bit of volatility
+with deep colors.
+This would be when the COVID-19 virus started to make a big impact in the United States.
+This is also another chart type that I personally would struggle to create using MAT Plot Lib,
+but isn't all that difficult using D3.
+This next one I think is nearly impossible to create with standard plotting tools.
+So what this is, it's called an Arc diagram that connects one component to one or more
+other components.
+The actual example used here is the number of scenes for which each character appears
+in the book, Lames Rob by Victor Hugo.
+The link here, so Jean Valjean, this link down here, is the main character in this story.
+You'll see that he co-appears with many, many different other characters in the book.
+So you'll see, for example, I don't know how to pronounce these names because I don't
+speak French, but this character starting with a G, Griveur, perhaps, was only in a scene
+with one other character, and the character's name was this one starting with an F.
+This character wasn't a scene with the character starting with a G, as well as down below
+a scene with Jean Valjean, and then way down into the purple section, the largest arc
+with Javé.
+And we could continue looking through the different characters in this play and earn this book
+and seeing who co-appears in a scene with other characters.
+What's really cool about this particular chart is the interactivity, as I hover over
+a name, I immediately see in bold the other characters that co-appeared with this one, and
+we also can make it even more interactive.
+So here, it's ordered based on group, which would be probably what part of the book,
+these characters appeared.
+You can also order it alphabetically by first name.
+Here we see that the A's show up at the top, B, C, or all the B's and so on, and you
+can also order it by what's called degree.
+What this would do is it will put the character who is connected to the most other characters
+at the top.
+So here we have Valjean, the main character, because he has the most co-appearances of
+any character in the book.
+And all the way down to the bottom, we have some characters who only appear once with
+one other character.
+So the most commonly co-appearing character at the top and then down to the bottom.
+But it's amazing to watch how it interactively reorganizes and reshuffles itself.
+B3s often used to create maps.
+And this map is called a Hexbin map, which has a some unique aesthetic to it, but also
+has some unique properties for being able to represent data in a more discrete way than
+a contour would.
+But perhaps in a more localized way than you would get with only having dots or something
+like that.
+This map shows the density or sorry, the location of each of the 3,000 operating wall-march
+stores in the United States, as well as the median year for when the stores in a particular
+region opened.
+What's interesting here is that this region of the United States is known as the Midwest
+and is relatively less populated than regions on the coast.
+You'll see that California has varied population as does some of New England here, especially
+in New York.
+Florida has high population in Texas, but the Midwest doesn't.
+However, the dots in this area are warm colors, meaning reds and oranges.
+The reason for this is that this section has the state Arkansas, which was where wall-march
+was founded.
+Wall-march headquarters are in a town called Bentonville, Arkansas, and you'll see that there
+are many wall-marchs in this region based on the size of the hexagon, and they are the
+oldest wall-marchs in the United States based on the color.
+You'll see that other regions, for example, in Nevada, there's much of this region as desert
+or mountain, and there are almost no wall-marchs to be found.
+Those that are found are relatively newer.
+They have cool colors like greens and blues.
+Other types of chart for D3, this is an interactive chart that is showing you the top 10, or
+maybe top 15 or so, publicly traded companies in the United States, and they're ordered
+based on their market capitalization, the total value of all their stock.
+We'll see here the year is 2008, and the time is going up, and these orderings are
+reshuffling.
+You'll see that Google started not even in here.
+Here comes Apple in the early 2010s.
+Google and Apple really started to grow, and now Apple's pace of growth is accelerating
+in terms of its market value.
+As we near the end of the 2010 decade, you'll see that Amazon cropped up here, and you'll
+see that the top four equities in terms of market cap by the end of 2019, we're all in
+the technology industry, Apple, Google, Amazon, and Microsoft.
+This type of interactive visualization wouldn't possible in print, or with something like
+MATPOT LIVE, without having to go through some extra hurdles.
+But in D3, again, because it's all web-based and meant to be interactive, it's quite
+possible to make these types of charts.
+As I mentioned before, D3 can be used for mapping.
+Here is a, what's called a core of PLFMAP, where each region on the map is shaded or highlighted
+in a different color, or a color of a different intensity.
+Here what's being plotted is the health-adjusted life expectancy from the World Health Organization.
+You can see here some socioeconomic patterns occurring.
+Our regions in less developed countries, for example, a large portion of Africa, it has
+a far lower healthy life expectancy than developed areas like Europe, North America, South
+America, or Asia.
+Finally, the last one we'll look at is another type of MATP, and here, where this is called,
+what the author called a spike map, and what this is representing is the population in
+each of the counties of the United States.
+The center of the county, or its capital, will be where the spike is located, and then
+the height of the spike captures the population.
+So you'll see here that the largest spike here is in Los Angeles County in California,
+with a population of 10 million people.
+Then you have other large spikes.
+This would be Merrill Copa County in Arizona, where Phoenix, Arizona is.
+This would be the county with Chicago in it, and Cook County in Illinois, and so on.
+One thing that we want you to pay attention to here is that you can see a highly customized
+type of MATP created with the same basic primitives that this more standard MATP was created
+with, or even this hex-game MATP.
+So the ability to create all three of these types of MATP with one set of tools and one
+library is pretty powerful.
+However, this power and flexibility does rather unsurprisingly come at a cost.
+The D3 library by itself is rather low level, which means that you're not writing more
+code than you would with a package or library that's relatively higher level.
+For this reason, there have been many libraries created that build upon or utilize D3 to make
+things easier for users to construct their charts.
+Two of these packages that build upon D3 are called Vega and Plotly.
+Both Vega and Plotly have corresponding Python packages that we'll explore later on today.
+But first, we're going to talk about the native JavaScript version of these libraries
+so that we can understand what makes each of them unique.
+We'll start by talking about Vega, and it's sibling Vega Lite.
+Vega is a research product that comes out of the interactive data lab at the University
+of Washington.
+From the Vega's homepage, we can see this core sentence, we'll read just this first one,
+and leave the rest for you to read on your own.
+Vega's documentation says that Vega is a visualization grammar, a declarative language
+for creating, saving, and sharing interactive visualization designs.
+Now, this term grammar was chosen very carefully and precisely by the Vega team.
+The grammar, forgive the typo here, the grammar is used to build the specification for a
+chart.
+Once we have this specification for what a chart should contain, we can then apply the
+specification to a data set, and that will let us generate or let Vega generate a visualization.
+With this structure that is the Vega grammar, some rather complicated charts can be created
+fairly easily using this core set of primitives that form the grammar.
+This is very similar, and similar intentionally, to how written or spoken language is constructed.
+When we write or we speak, we'll use a core set of concepts, things like nouns, adjectives,
+verbs, punctuation, as well as rules for how they can be composed, as well as rules,
+as well as relate to one another to create arbitrarily complex phrases and concepts.
+This Vega is built in a similar way.
+There are a few core foundational principles that need to be learned, and then there are
+rules for how they can be composed and used together, and then it is very flexible once
+you are within the confines of this grammar in what can be produced.
+The Vega grammar is quite flexible, and similar to D3, this flexibility comes at the cost
+of being rather low level.
+To make things easier for users, the team at University of Washington created a second
+more simplified grammar called Vega light.
+Let's see an example.
+Here we have a bar chart that was created with Vega light.
+Let's see a few of its properties or features.
+We'll see that we have labels for the y-axis, as well as the x-axis.
+We have tick labels here on the vertical axis that correspond to different locations perhaps,
+and then we also have different colors for the bars, and these colors are stacked to
+form a stacked bar chart.
+The specification for this particular chart in Vega light is entirely contained right
+here.
+The first line says, instructs Vega light what version of Vega light we are using.
+Here it says we are using Vega light version four.
+Then there's a way to describe where the data can be found.
+Here the data is contained at a URL, and is at this particular path.
+Then we set what's called the mark.
+This is telling Vega that we like to draw bars on our chart, and then we have an encoding.
+This is mapping what the field x, y, and how the different components here should be
+colored.
+We'll see the x will be the sum of the yield variable, which is consistent with this label,
+sum of yield.
+The y variable should be based on variety.
+That's why you see this label here, as well as these items on the vertical axis, and
+then color should be come from the site variable in our dataset.
+That's why the legend here has a title of site, and these are the different farms where
+this bar is grown.
+Notice that in this chart, we didn't specify anything about how or when chart elements
+should be drawn.
+We only described what we wanted the chart to look like.
+This is all contained here in the JavaScript object by specifying a dataset, a mark, and
+included.
+This type of programming is known as declarative programming.
+In the declarative programming paradigm, the user will specify what should be done, but
+not give any instruction or detail regarding how or when things should happen.
+This is different from the standard programming paradigm we're used to when we worked with
+Python.
+Our typical Python program is imperative, where we provide to the computer a sequence of
+tasks to perform, and then we build up the end result, one instruction or task at a time.
+To really make clear the distinction between declarative and imperative styles of programming,
+let's consider a non-code example.
+Suppose that you were hungry and needed a midnight snack, and you wanted to pour for yourself
+a bowl of cold cereal with milk.
+A declarative way of specifying how your end goal or want might look like this.
+You might say that you would like to have a bowl, and that this bowl should contain cereal,
+milk, and a spoon.
+So that you're prepared to eat the cereal.
+On the other hand, a more imperative set of instructions for achieving this same result
+might be the following.
+Step 1.
+Get bowl from cupboard.
+Step 2.
+Get cereal from pantry.
+Step 3.
+Pour cereal into bowl.
+Step 4.
+Get milk from fridge.
+Step 5.
+Pour milk into bowl.
+Step 6.
+Get spoon from drawer.
+Step 7.
+Put spoon in bowl.
+Notice that in this list of instructions, we had to describe both what we wanted, as
+well as how and when things should happen.
+Both Vega and Plotly are declarative.
+Meaning, we can specify just what the end result should look like and not worry about how
+it should be constructed or created.
+We'll see these examples throughout the class, or throughout the lecture today.
+Plotly is another JavaScript-based plotting library that also builds upon D3.
+From their homepage, we could read, built on top of D3JS and stacked.gl, PlotlyJS is
+a high-level declarative charting library.
+PlotlyJS ships with over 40 chart types, including 3D charts, statistical graphs, and SVG
+maps.
+Plotly has a very diverse set of chart types that range from your basic charts like bar
+and line to some statistical charts like violins and distributions, financial charts,
+like candlestick, scientific ones, like heat maps, or contours, as well as maps, 3D charts
+and more.
+It is one of the most...
+It's one of the charting libraries that has the most variety in the chart type in the
+JavaScript space.
+Plotly is a declarative charting library like Vega Lite, however, Plotly does not attempt
+to create a grammar for describing visualizations.
+Instead, a Plotly chart is constructed by directly setting features or attributes of
+the chart.
+For this reason, Plotly will feel a bit more familiar than Vega does to users of MAT Plot
+Live or other imperative plotting libraries.
+We'll look at one example of creating a chart with Plotly to show you what we mean.
+The chart will be looking at as shown here in this tab.
+We see here we have another candlestick chart, this one again for stock prices for Apple,
+and this chart apparently based on the horizontal axis ranges from the start of 2015 through
+to early 2017.
+And you'll see here that this chart is very interactive.
+We can zoom, we can hover and get some tooltip information.
+We'll see here the candlestick features we talked about before, and upon hovering,
+we'll be able to see the date shown for us at the bottom, as well as the open, high,
+low, close information that forms a candlestick.
+Now this chart was created with the following code back here in our notebook.
+First, we'll use the D3 library to load up a CSV chart for CSV.
+Then we have the following.
+We have one function that will unpack one column from this data set, and we'll use it as
+follows.
+We will say that the x variable on our item to be plotted comes from the date column in
+the CSV, close comes from apl.close, high, apl.high, and so on.
+Then there's a little bit of work here to customize the appearance, and we'll see that we can
+specify that on a day where the price was increasing, we would like the line color to
+be black, on a day where the price was decreasing, we would like for the line color to be red.
+We'll then specify that this is a candlestick type chart that's plotted on the standard
+xy axis.
+We can then do a little bit of customization of the chart.
+We'll get to this more when we understand the structure of plotly.
+We'll skip this for now.
+Then the last thing we'll do is we'll call the plot function, and we'll pass it the
+description of our candlesticks, as well as a little bit more information on the chart
+as a whole.
+That's it.
+You'll see here that this is quite different from the Vega approach, where there was a
+grammar where we had mark types and encodings.
+This is a bit more direct where we're saying here's where x should be, here's the close,
+high, low, and open, etc.
+This is a little bit closer to how we might do things in that plotlet.
+But it's still fully declarative.
+Notice that here we just described what we want the chart to look like.
+We don't say at all how the candlesticks should be drawn or in what order.
+We just described the end result we are after.
+Then we handed that description to plotly, and it is responsible for drawing the chart
+for us.
+Don't worry if you didn't follow all of the code here.
+When we study plotly directly, we'll understand a bit more about how this works.
+Now, we just showed you above that D3, Vega, and plotly are all libraries for the JavaScript
+programming language.
+We've done most of our examples in the Python language.
+It turns out that for both Vega and plotly, there are Python packages that allow you to
+write Python code and work with Python data structures like pandas, data frames, or Python
+dictionaries.
+The Python package will use your Python data and instructions, send those to the JavaScript
+libraries for actually drawing with charts.
+In this way, we can have the best of both worlds.
+We can continue to use our Python skills that we've developed and all of the tools and
+packages we know in that ecosystem for doing our analysis.
+We can get the benefits of interactivity from these JavaScript-based plotting libraries.

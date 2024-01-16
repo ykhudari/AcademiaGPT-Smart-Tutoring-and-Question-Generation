@@ -1,0 +1,173 @@
+Okay, let's continue with the lecture on finite Markov chains.
+Okay.
+We'll come back to some of these claims on eigenvectors and eigenvalues of T later, but just
+store those.store those.
+It's on your own, you could read this part.
+And this section teaches you some useful things.
+So with this, that's best gone over on your own.So let's see some of the things about Markov chains and concepts about distributions that
+we already have seen, marginal distributions.So we have a Markov chain pi, an initial distribution we'll call pi zero.
+So then pi zero, a psi zero, that's the distribution, that's the distribution of the state at
+time zero.time zero.
+If we want to know the marginal distribution of the state at time T, that's going to be
+psi sub T. We're going to note that psi sub T. And we're going to use this notation.So there's a way to find psi T plus one given psi T. And we just use the standard
+laws of probability to do this.So psi T plus one, that's going to be a list of probabilities that X T plus one is equal
+to Y for every possible value of Y.And if we just compute that, that's the summation probability X T plus one equals I, conditioned
+on X T equals X times the probability X T equals X.This is all the information that we need to get this is in psi T. All the information
+we need to get this is in psi.
+So the formula that we get is this formula, if we just substitute that in.So this is an equation.
+We're going to see it has a very simple form.
+It's going to be a matrix equation that maps psi T into psi T plus one.
+And these are both marginal distributions.So if we write that out, if we write that out, that's just this equation.
+And if we repeat this many times, we can get this equation.So psi T plus A m is equal to psi T, post-multiplied by P to the m.
+That's just the m power of P.
+And now we're going to define this thing called a special case.It's an initial distribution that has the property.
+It has a property is, suppose we had an initial distribution that had the property thatis psi 0 equal psi 0 P. But just suppose that that's such a psi 0 is very special.
+And it's called a stationary distribution or a stationary marginal distribution.It's going to play an important role.
+Now, if we just stare at this equation, I'm just going to rewrite that by transposing
+both sides.
+I'm going to get psi 0 transpose is equal to P transpose psi 0.And if you look at this, and now you look up at the definition of an eigenvector, this
+is psi 0 transpose is an eigenvector for P transpose with eigenvalue 1.
+Check that out.
+Check that out.Check that out.
+So what that's telling you is we can compute psi 0 by just taking the eigenvector of P
+transpose and normalizing.That's associated with the unit eigenvalue and normalizing it so it's a probability vector.
+So that's what's summarized here.
+And it's a very important idea.So such a psi 0 is called a stationary marginal distribution.
+This material, which I ask you to read, that's about multi-step transition probabilities.
+And we already talked about that a little bit.And now here's something I'm going to skip this example, although you might want to read
+this conjunction with the Hamilton example.
+I want to jump to this section 5, 3.Because in this section, lots of sentences are going to be worth reading several times.
+So the marginal distributions read the sentence 10 times.The marginal distributions can be viewed either as probabilities or as cross-sectional
+frequencies in large samples.
+Cross-sectional frequencies in large samples.
+Remember a theme.Remember a theme.
+What does probability mean?
+It means anticipated frequencies of random draws in very large samples.
+So that's continuing that theme.So we're going to think of our employment dynamics model.
+And we're going to see, now what we're going to consider is this isn't just one worker,
+but there's a large number of workers.And they're identical from the point of view of an outsider.
+Of course, they're all individuals, but they all face the same probabilities.The alpha-beta probabilities of moving from unemployment to employment and the probability
+beta moving from unemployment to unemployment.
+And they each live their lives like that.So now what we're going to let, we're going to reinterpret the model as saying, well,
+there's very, very many of these people.
+You could think of an infinite number, in principle.And we're going to let side be the current cross-sectional distribution over zero one,
+which are unemployed and employed states.So the cross-sectional distribution records the fractions of workers who are employed
+and unemployed at any given moment.
+And those fractions, so psi zero, that's the unemployment rate.And what we want to know now is, and we're going to spend more time talking about this,
+because this relates to things that people in all countries are interested in at all times.And especially during periods of big recessions or big booms.
+So if you want to know is, what do you think the cross-sectional distribution will be10 periods from now, the whole cross-sectional distribution?
+Well, that means, what do you think the unemployment rate and the employment rate is going to be
+10 periods from now?Well, that answer is just psi p to the 10th, where p's are stochastic matrix.
+So this section, I want you to simple, but also, and a deep.
+Okay.Okay.
+So when the sample is really large, that's why I said outcomes, frequencies, outcomes,
+this is frequencies, relative frequencies, relative frequencies.
+And probabilities are roughly equal.And this is our law of large numbers that we talked about before.
+So for a very large population, this is going to represent the fraction of workers in each
+state.
+Okay.state.
+Okay.
+Okay, I promised you that I would talk a little bit about these two key concepts, irreducibility,
+and aperiodicity.and aperiodicity.
+And the way to think about these, these are sufficient conditions that we'd like to have.
+Why?
+Because they make, they deliver, they imply very nice, very nice properties of a markof chain.
+And these things both modify their properties of p.
+So I'll ask you to read this, but I'll tell you what irreducibility means.It irreducibility means p's going to be a, a fixed stochastic matrix.
+It's just fixed over time.
+And we say, we say that two states communicate with each other.If there's some positive integer such that p j, there's some positive, positive integer
+j in case such that in j steps you go from x to y.And in k steps you can go, there's, it's possible for you to go from y to x.
+So somehow if there's a state here, over here in the state y, somehow, we're going to
+go with enough steps.There's a positive probability getting here.
+And there's a positive, positive probability getting there.
+So they quote unquote communicate.
+That's what this means.
+And that's what communicates means.The stochastic matrix is irreducible if all states communicate.
+In other words, you can get from any state to any other state if you wait long enough.
+That's what we mean by irreducible.And we often assume irreducibility.
+We often assume it because it gives very nice properties.
+And it's often true.
+So here's one that labor economists might talk about.So if you stare at this, you could see if it's irreducible.
+Check that.
+Is this irreducible?
+In other words, could you, if you're rich, could you ever be poor?And if you're poor, could you ever be rich?
+You could talk about that.
+So here's an example of this.
+You could check this is irreducible.
+You could check whether that's true.Actually, how could you check?
+Ah, I have quarantine time.
+And I have the Markov chain.
+I say, I check right there.
+You have a really big chain and you want to check whether it's irreducible.There's your secret weapon.
+Just by creating the chain.
+These are your two Python commands.
+And here's another chain.
+Another concept is called a periodicity.So a chain is a periodic if it's not periodic.
+So this is something that we also want.
+So here's a periodic chain.
+This is periodic.This is periodic.
+And this chain, you notice if you're at C, you go to A, if you're A, you go to B.
+You just keep going, you just cycle across these three for sure.
+So here's this chain.That chain has period three.
+And how could you figure out the chain of a periodic?
+You do these Python commands.
+Okay.
+So here's a definition of a periodic.
+So that's a notion.So that's a notion.
+So there's two things people who deal with Markov's bearings often check.
+Re-reducibility.
+This is what they want.
+An A periodic.An A periodic.
+And if both those are true, some very interesting things and nice things are going to happen.
+If they're true, I'm going to let you read about it.Something is nice about the stationary distributions, about the existence, and something is nice
+about convergence to stationary distributions.
+So here's our definition of a stationary distribution.Let's repeat that again.
+I see to read this.
+Lots of this is repeating over and over again because I think you've learned by repeating.So stationary distributions, read this, have a natural interpretation as the castic
+steady states because you just stay there.You don't stay in a particular state, but you stay in the same distributions over states.
+So here's kind of a theorem.
+Here's kind of a theorem.
+It is a theorem.It is a theorem.
+Every stacastic matrix has at least one stationary distribution.
+I'm not going to ask you to prove that.
+Now, here's the key thing that we are after, this one.
+This is our reward.This is our reward.
+If P is both a periodic and irreducible, then P has only one stationary distribution.
+There's only one.
+That's a uniqueness.And for any stationary distribution, you'll eventually converge to the stationary distribution.
+No matter where you start, you'll eventually converge to the stationary distribution.And so again, we have A periodicity and irreducibility.
+We know what those are.
+Then we know there's a unique stationary distribution.
+You'll converge this for there no matter where you start.And this thing is often called such a distribution is called such a such a chain is called uniformly
+ergodic.
+And now here's a check, easy check.If every element of P is strictly positive, then you're done.
+It's irreducible and api-erotic.
+This is good.
+So now, let's go back to our example, which is going to be the unemployment model.It looks for a given worker that we had above.
+We have two parameters.
+We have unemployment to employment.That was characterized by a transition probability alpha, employment to unemployment, that was our
+beta.
+So we have these two parameters.
+And we actually have our mean, it's beautiful.We have our mean waiting time.
+So that's our average length of unemployment.
+And that's our average length of employment.So let's make a guess that, OK, so we know our chain is, our chain is, let's get this
+right.
+Hopefully I did that right.
+Our chain is irreducible and api-erotic.We could just check that every element's that.
+So if we check, we check this out.
+We take this and this, we could actually solve for the, we can solve for the stationary
+distribution.distribution.
+This is the stationary distribution.
+We spend a fraction of our time p being unemployed, fraction of time 1 minus p being employed.And there's the, there's the, there's a formula for p.
+And you could see, you could see how beta and alpha both influence this.
+And this makes sense.OK, and then you could also check is, you could also check is, you could use eigenvalues
+and eigenvectors to compute the same thing.So if you want to, you could use simpy and calculate eigenvectors and you, and eigenvalues
+and you would, you would get this.
+You can verify that in various ways.I'll ask you to read this on your own.
+How to calculate a stationary distribution.
+And some of you may be interested in, in parts of econometrics, basically, Bayesian econometrics
+later.later.
+This calculating stationary distributions is a big part of that because it's, it's used
+in Bayesian statistics a lot.
+So I'm going to skip over this section.And because we're going to come back and visit both this section and this section in, in
+a later, in, in, in later lectures.

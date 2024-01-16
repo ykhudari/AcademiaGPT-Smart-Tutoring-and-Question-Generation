@@ -1,0 +1,209 @@
+Hi everyone, we're going to start today's lecture by introducing a new data set.
+This data set is from a company called Instacart. Instacart is an online grocery retailer that
+sells and delivers grocery products. The data that we'll use today comes from a subset
+of their data that they open sourced, which includes three million different Instacart
+orders and contains data on which particular items were ordered and which customer made
+each particular order. As usual, we're going to import the package we need. For this
+lecture, it will just be pandas because we're only working with a little bit of data.
+So this data set was initially released as a part of a Kaggle competition. Instacart
+described this data set and the competition description saying the following. The data
+set for this competition is a relational set of files. You should remember this term. We're
+going to come back to talking about this in the next video describing customers orders
+over time. The goal of the competition is to predict which products will be in a user's
+next order. The data set is anonymized and contains a sample of over three million grocery
+orders from more than 200,000 Instacart users. For each user, we provide between four and
+100 of their orders with the sequence of products perst just in each order. We also provide
+the week and hour of day the order was placed in a relative measure of time between orders.
+For more information, see the blog post accompanying its public release. And so we've linked to
+this blog post and we're also adding a citation that they ask that if we use this data source
+that we appropriately cite them. Now, let's start diving into the data and seeing what's
+contained. So the first file that they that they distribute as part of this data set is
+one called Isles.csv. And this file just contains some meta information about something
+they refer to as Isles. They have an ILID which is just an integer and an IL which is a string
+name describing the integer. So for example, ILID-1 corresponds to prepared soups and salads.
+ILID-4 corresponds to instant foods. And we could see ILID-131 is dry pasta. 132 is beauty.
+In addition to reading this data set in, we've gone ahead and we've saved to a parquet file.
+And that's because some of these data sets that they're going to include are quite large.
+And so we're going to read in their raw CSV files. But then we're going to write out parquet files
+to be able to load them more quickly. The next data set we're going to look at is one called
+department. So department.csv is going to look a lot like ILCSV and that it's going to contain a
+department identifier which is called a department ID and a string name for department that describes
+which department we're working with. So if we load this data, we see that department ID-1
+corresponds with the frozen department. Department ID-4 corresponds with produce.
+And we could see there's only about 20 departments. So we have 17 is households and 18 corresponds to
+babies. Next we come to the products.csv file. This file contains metadata about each of the products.
+And this has more than two columns unlike the last two data sources. So the first element is a
+product ID. And this is going to be an identifier for the product that was purchased.
+There's going to be a product name which will be a string name that describes the product that
+we're working with. And then there's going to be an ILID and a department ID. At the beginning in
+the introduction that Instacart wrote for the Kaggle competition, they said that this was a
+relational data set. And what they meant by relational is that each of the sub data sets,
+so in this case products.csv, refers to other data sets that are bundled together. So
+in this case, we are referencing the IL and the department from the products.csv folder.
+We can go ahead and load this just like the others. And we see some examples of products. So
+product ID.1 is chocolate sandwich cookies. And that is found in ILID.61, which is in department 19.
+Green chili anytime sauce is product ID.5, which is found in ILID.5, department ID.13.
+So we might be interested in, for example, determining which ILs. So let's group by ILID.count.
+So all this is going to do is we're going to use the pandas group by that we learned earlier in
+the course to group by each of the ILIDs. We're going to select the product name column. And we're
+just going to count how many non-missing values this takes. So what we see, and let's go ahead and
+describe. So the IL with the lowest number of items would be 12 items. The IL with the most items
+has 1258. I'm actually a little bit curious about that. Sort values sending equals false.
+And then we can again, we can merge IL.fysetindex.merge.io on equals ILID. How equals
+left? So the IL with the most products in the IL is the IL called missing. So the IL that does not
+have anything followed closely by candy chocolate and ice cream ice. I don't know what other
+kind of ice cream there is, but ice cream ice is the IL. Let's go ahead and clean this up a little
+bit so it's not quite as ugly. There we go. That's a little more readable. We may also be interested
+in which departments have the most products. So again, we're now going to run the same code,
+but we're going to group by the different department IDs. And there's a much fewer departments
+than ILs. So we should see more items per group. We're going to again select the product name
+and count how many observations there were. We're then going to sort these values.
+Reset the index and we're going to merge now with department on department ID. And let's go ahead
+and run this. So we'll see that the department with the most products is department 11, which was
+personal care with 6,500 products closely followed by the snacks department with 6,264 different
+products. And I suspect that each IL corresponds to this is an open question. I haven't actually
+answered this. But I suspect each IL corresponds to a single department, but we can test this
+by grouping by both ILID and department ID. Selecting the product name, counting, sorting the
+values. Again, we're going to reset the index to move ILID and department ID into the columns.
+And then we're going to merge on the IL and department data frames on their corresponding
+identifiers. And it looks like, oh, maybe I was wrong. Let's go ahead and sort
+by the ILID and the department ID. And so what we see is IL1 has,
+I see. So it looks like each IL only has corresponds to a single department,
+but that there can be multiple ILs per department. So for example, IL132 maps to department 11,
+as does department 133.
+And that seems to hold true in a larger subset of the data.
+So multiple ILs can map to a single department, but each IL only corresponds to a single department.
+So in this case, grouping by IL and department gives us the same product accounts as grouping by
+IL would have. Okay, well, we learned something. So let's keep exploring our data.
+So the next file is exciting. So this is going to be the orders.csv file.
+It's going to contain meta information about each of the 3 million orders that are covered in
+the data set. The columns in this data set are order ID, which is a unique identifier for each order,
+user ID, which is a unique identifier for each consumer that made one of the 3 million orders.
+So there's going to be 3, about 3 million different order IDs, but only 2 million different user IDs,
+or 200,000 rather, 200,000 unique consumer IDs. And then there's going to be an aval set.
+This is just a classifier that Instacart used. They wanted this data to be used in a machine learning
+context. And so they classified these orders into a prior order, a training order, and a test order.
+Then we're not going to use the aval set. Order number is going to be
+which the order and which the individual made the given orders. So for example, we could see
+the following. We could see order ID one made by user one. Then we're not going to talk about a
+valset. And this might have been order one. We could have seen a new order, which had order ID one
+or two made by consumer two. And this would have been their first order.
+Then we could have seen an order ID three, followed by perhaps order ID three was made by user one.
+Then this would have been order number two made by user one. So this is user one's second order.
+And we're going to track the order in which the orders were made.
+There's going to be an order day of week, which is going to be an integer between 0 and 6,
+where 0 is Sunday and 6 is Saturday. That denotes the day of the week the order was made.
+There's going to be an order hour of the day, which is an integer between 0 and 23,
+which denotes the hour of the day that the order was made. So 0 would mean that the order was made
+between midnight and 1 am. 7 would mean that the order was made between 7 am and 8 am, etc.
+And then a days since prior order. And this is going to be an integer that represents how many
+days it has been since a customer's previous order. So the first order that an individual would make
+would have this value be missing. But all subsequent orders they made would be able to reference
+how long it has been since that consumer has made an order.
+So what's not included here is we don't know anything about the exact date of the transactions.
+So we understand the order in which the transactions occurred and the amount of time that took
+the place between each order. But we don't know the year or month or anything else about that.
+Additionally, we don't know where these orders were made. So we don't know whether this
+corresponds to New York City or maybe Austin, Texas or Seattle, Washington. So we have no
+ability to say user ID orders in New York City, user ID 1 orders in New York City, while user ID 5
+orders in Seattle. So we're not going to be able to do that. But let's go ahead and read in this data
+and describe it. So let's describe this order's data set. So we see we have about
+3 million observations. They're just going to be the days since prior order. The minimum is 0,
+which means someone ordered something on a particular day. They may have forgotten something,
+so they ordered again on the same day. The maximum number of days between orders is 30.
+And again, that corresponds to only the subset of data that is included in this sample.
+The average time that individuals were ordering was 4 a.m. Oh, sorry. I knew that was funny. So
+this corresponds to about 13 and a half, which if we map that into time is about 130 in the afternoon.
+And the day of week is about a 2.7, which is most orders are occurring on Wednesday.
+It seems and that lines up with this median. So now we have an idea of so we could go ahead and
+also look at what's in this data. So we have as we promised an order ID, a user ID,
+which order was made. So for example, these are user IDs, first 5 user ID ones, first 5 orders.
+They ordered one day on a Tuesday, two times on a Wednesday,
+and two times on a Thursday. You'll notice it was about, it was two weeks and one day between
+order one and two. It was three weeks exactly between orders two and three. Then it was 29 days between
+orders three and four and 28 days are four weeks between orders four and five.
+And this all builds up to the final data set of interest, the order products. So this can file
+contains detailed information about each of the orders. So the previous data set told us some
+metadata about the orders when they happened, which individual made them. And now this is going
+to tell us what was ordered. So the first column is an order ID, which again is going to allow us to
+reference the order ID from the previous data set. There's going to be a product ID, which tells us
+which product was purchased. There's going to be an add to cart order. So Instacart is watching the
+order in which individuals add items to their cart. And then there's going to be a reordered column.
+Was this an item that the individual has ordered in the past so that there it's a reordered item?
+Again, what's not included? Importantly, they are not including any information about the price
+paid for each product. Let's be precise here for a product. And then they're not telling us the
+quantity purchased. So for example, if you bought bananas, they're not telling us did you buy
+three bananas or did you buy seven? They're just saying user ID one purchased 10 bananas.
+Okay. So let's talk a little bit more about the relational nature of these files.
+So as we said, Iles and Departments provide additional context for the products file.
+The products file is then going to describe, provide context for the order products. So that
+when we see particular products ordered, we know what products were ordered. And then orders
+is going to contain information about when and who made the orders given in these two files.
+So we had
+Isle which had an ID. We had Department
+which had an ID. And these both mapped into the
+product which had an ID. And then told us the Isle ID and the Department ID.
+Then we had the orders data set which had an
+and kind of the important information from here was the product name. Also the name here.
+And the name here. The order is this told us the order ID. And importantly the user
+who used it in addition to the when in order was made. And then finally was what we think is the
+most important data set here was the ordered products. And so this mapped into
+so this needed an order ID so that we knew which order we were talking about.
+Let's go ahead and box these so that we know these are the different data sets.
+Then it told us the product ID that was ordered. And then it told us the order that items were
+added to the cart and whether an item was reordered or not. But now we're having information about
+the product come from the product table. So if we wanted to know the name of a particular
+particular product that an individual ordered we would need to merge this data in from product.
+Likewise if we wanted to know which department or Isle that product came from we would need to
+take the data in Isle and Department and merge it into product and then we would take that
+merged data set and merge it into the order products.
+So let's do a small example about kind of referencing these different data sets.
+So Instacart was interested in determining whether certain items or groups of items were
+reordered more than others. So let's explore what items or groups of items were the most reordered.
+We're going to do this by computing the fraction of reorders for a particular item or group.
+And the way we're going to compute that is we're going to count how many times a particular item
+was ordered and what fraction of those orders were a reorder. This isn't a perfect measure
+but we think this is in line with the goals that Instacart had.
+So what are we going to do? We're going to take our order product and so we're going to take the order
+product table which has information on what was ordered and we're going to merge it with the
+orders column and in particular we're very interested in the user ID to know who ordered what.
+So we'll go ahead and merge this. Again we're doing a left. So we're only merging in data that is relevant to the order products data frame.
+We're going to sort this table by user ID, order number and the add to cart order to get an idea of what this data looks like.
+So we can see that order ID 253 9329 was done by user 1. This was user 1's first order.
+You can also see that because there's no days since their prior order.
+They had a they had product ID 196 that they added to the cart.
+They added product 14084 all the way to I'm not sure but you can see the structure of this data.
+So let's determine which products were the most reordered.
+So we're going to do this by selecting the non-NAN values of the day since prior order
+and again we're doing this because of this right here. So the first time an individual interacts with the store
+they're not going to be reordering and so we're going to drop all of the first interactions.
+We're then going to group by the product ID
+then we're going to aggregate by counting the add to cart order. So this is just going to give us
+how many observations there were. Then we're going to sum reordered because it takes the zeroes
+or ones so we know how many items were reordered. We're only going to work with products that were
+reordered at least 10 times and this is just going to cut out some items that were only reordered
+once or twice. We're then going to rename these two columns so we're going to change add to cart
+order to N order and reordered to N reorder. We're going to create a new column. This new column
+is going to be named frack reorder for the fraction of orders that were a reorder
+and then we're going to sort this by the fraction of reorders and then we're going to merge in
+product information so that we can see which items are being reordered. So you can see that the
+product with the lowest fraction of reorders was about 2% and the maximum was 100%.
+With the median about 50% the mean about 50%. Let's look at what this data looks like.
+So we see the most reordered products were zero-peach nutrient enhanced water beverage
+and Amazake Almond Shake and orange energy shots. So I was particularly interested in
+kind of who is ordering orange energy shots and so what we did was remember order product user
+contains information about the products along with the users and the orders that were made.
+So we're going to return to this data frame and we're only going to look at observations
+in which orange energy shots which are product ID 43553 were ordered.
+And what we see is let's go ahead and sort values by order number.
+If we want it to be proper we do it by user ID and then order number.
+But what you'll see is that there is a single user user 202 557 who every 10 days on average or so
+orders these orange energy shots. So they ordered them on their first order.
+They then waited about two weeks. They had two additional orders. So notice this jumps from order
+1 to order 4. So in order 2 and 3 they did not order orange energy shots. And then they ordered
+again during order 6. So not during order 5 during order 8 then order 9. And so once they got
+started on this product they were ordering them about every about once a week. Again we're not seeing
+the quantity ordered. And so we're losing in cases like this. There's a question of
+did the individual purchase you know two weeks of orange energy shots and then just use them over
+those two weeks as opposed to here at the end it looks like they were ordering them every couple of days.
+But we hope this sets the stage for the data set that we'll be discussing today.

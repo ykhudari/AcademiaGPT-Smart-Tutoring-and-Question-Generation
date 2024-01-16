@@ -1,0 +1,320 @@
+Hi everyone, this is Chase. We're going to continue today by discussing SQL.
+We're going to focus in particular on heavy usage of SQL and learned through many different examples.
+The data that we're going to use to motivate SQL comes from the InstaCart dataset that we discussed previously
+and has the feature of it that we're interested in is that there are multiple tables that all reference one another.
+It's a relational dataset.
+As you will see we'll start today by importing the packages, some of which you're familiar with,
+the one that's new is SQL Alchemy and we'll talk about why we import that in the coming slides.
+So SQL or SQL stands for Structured Query Language.
+A query language is a programming language that can be used to communicate with databases.
+As we've mentioned SQL is going to focus on ways to communicate with relational databases.
+And rather than being a particular piece of software, SQL itself is more of a standard for a programming language
+to communicate with databases. So it sets particular protocols and particular syntaxes
+for how one should communicate with a database and then the database itself needs to create their
+own implementation of how to translate SQL commands into their back end.
+Because of this, there have emerged multiple variants of SQL.
+Today we're going to be using one called SQL Light.
+And SQL Light, the reason it's convenient especially for a first introduction to SQL is
+that it comes packaged with Python. In production you wouldn't typically use something like SQL Light,
+and one of the ones that I'm particularly fond of is called PostgreSQL,
+or PostgreSQL. And we won't talk about that today, but we may talk about that later in the semester.
+So what problem does SQL solve? We think there are kind of four bullet points.
+There's probably other problems it solves, but we wanted to talk about these ones.
+So the first one and most importantly is it creates a language to ingest data from a database.
+It's a query language. It creates queries and interacts with the database to return new data.
+The second is it sets an industry standard that helps make database code and requirements
+very close to compatible. So as we mentioned, there are a few different variants and flavors of
+SQL that are commonly used. And while they're very similar, there are slight differences.
+But it's relatively low cost to change from one database to another because SQL has made the
+commands similar. Next, the database implementations in some of the standards in SQL
+make it really easy to provide multiple levels of data set access. For example, in this class,
+we're going to assume that we are mostly data users. And our only objective is to take a SQL database
+as given and use the data in that database for our analysis. Because of that, we can be read
+only users to the database, which allows us to which sets permission so that we couldn't
+mess something up on the database, even if we wanted to. On the other side, there are data
+creators or administrators. And their job is to maintain an update data that is stored in the database.
+Of course, they're going to need the permissions necessary to add data or participate in other
+administration roles. And the final one is that it allows administrators or the database manager
+to impose strict requirements across the data. For example, we can impose things like a uniqueness
+constraint that if we don't want an email to correspond to more than one user, we could throw an
+error if someone tried to add another user with the email that had already been used. And in fact,
+on many on many websites, Facebook and others, this is how their requirements are being secured.
+So our focus today, like we said, is going to be really on how to be database users,
+rather than being database administrators. We want you to be able to be given a SQL database
+and to extract data from that database. And we think that's the use case that you are more likely to
+fall into. So let's now discuss a few thematic details of SQL and SQL Alchemy.
+SQL Alchemy is a Python package that allows one to generically interface with many different
+flavors of SQL, like we said, Postgres, MySQL, SQL Lite, etc. And SQL Alchemy allows us to do this
+using Python code. We've discussed it only briefly today because it's not the focus of the lecture,
+but we did want to introduce it to you so that you could interact with it.
+We're going to be writing all of our SQL code in Python today because it's convenient. It's a
+medium that we've used previously. But in another setting, you might interact directly with a
+SQL database. And we wanted to show you what that might look like as well. So this is a tool called
+Postgres Admin for a project that Spencer and I are working on. And it allows us to write, and you'll
+will review these statements later. It allows us to write SQL commands rather than Python code,
+and spits out data below. So like I said, we're going to be using Python code today, but Python is
+not the necessary ingredient here. Now, as we've mentioned, one of the benefits of SQL is that it
+allows those who are creating the databases to impose tight requirements on what is contained in
+the data. Additionally, that means if you're a user of the data set or the database, you have a very
+good idea of what data is contained in that database. And you know which columns are defined,
+and what values they can take. SQL is going to require you to specify each of your tables up front,
+and set predefined columns. You could also impose cross table restrictions and other restrictions,
+such as unique values or things like that. Additionally, every column in a SQL table is going to
+have a specified type. These types are the usual ones that we've come across in Python. So they're
+things like a Boolean, some kind of a date time representation, numeric types. They have float integer,
+they allow you to specify different sizes. So you could do smaller integers or a bigger integer
+than in Python. And what that just means is a smaller integer is an integer that is less precise.
+So a small int can't represent numbers above approximately 32,000, whereas a big int can represent
+much larger numbers. And the last type is going to be strings. So we're going to declare the
+table structures that we reviewed in the previous notebook using SQL Alchemy. We don't want to
+spend too much time on this. Again, we view this as mostly a task for database administrators,
+but as a data user, it's helpful to know how to explore the table definitions.
+So each table is going to have a name. So we've named this table Isles. And if you recall, Isles has
+two values. It has an ILID. And another column called Isle that contains a string description of
+what is in that isle. The other thing you'll note here is that we've imposed that ILID is a primary
+key. Well, so it's an integer and a primary key. And all primary key means is that we can't duplicate
+this value. So if we had an ILID one defined, we could not insert another ILID one value into this
+table. Likewise, we'll define the department's table, the products table. So in the products table,
+we had product ID, which was the primary key, product name, just like in departments and Isles.
+But then we had two additional columns. We had an ILID and a department ID, which were integers.
+And if we wanted to, we could define these such that they referenced the ILID and department ID
+from the other tables. And you could not, and these restrictions would say that you can not insert
+a value for products unless the ILID and department ID exist in these other tables. We're not going
+to talk about it today, like I said, but we wanted you to know that things such as four
+and keys is the word you should Google if you're interested exist. And then there's the orders table
+and the products order table. Well, let me make sure I ran this.
+Then to create a SQL Alchemy engine, which is just going to be some kind of an interface into the
+SQL database that Python can use is we're going to use the SQL Alchemy Create Engine function.
+And again, we're going to be using SQL Lite. We're going to use it. We're going to save the SQL
+Lite database into a file called instacart.db. Then we're going to create, we're going to specify
+that all of the tables we mentioned exist. And we're going to create a session maker,
+which we're not going to talk about today. We wanted to leave the data that we used to create our
+instacart.db database here. If you're interested, we specified kind of a mapping from tables
+to files. And then we just read the parquet files and dump everything from the parquet file into
+each table. But again, this takes a few minutes to run, so we're not going to do it again.
+Okay. Now this sets the stage for reading data from a SQL database. So like we've said,
+unless you end up becoming a data engineer or a database administrator, most of your time
+interacting with a database is going to be reading data that someone else has created for you.
+And so what we're going to do is we're going to walk through all of the different things that
+you can do with a SQL query. We're going to run these raw SQL commands in the SQL alchemy engine.
+But like we showed you on the other tab, you could interact directly with a SQL database. You
+don't need Python to be the intermediary. We're going to define a helper function called run query.
+And run query is just going to take one of our SQL alchemy engines and a raw SQL query.
+And it's going to execute that query. And then it's going to print the column names
+and each of the rows returned from that query. We'll see how this works on the next slide.
+The last thing we wanted to note is that it's good practice to capitalize your SQL keywords.
+The first two we're going to talk about are select and from. So rather than writing select lower case
+and from lower case, you should write select and from in all caps.
+And now we're ready to get started. So the most fundamental read command and SQL
+is the command select from select is going to specify what data to read in. And as we'll see what
+to call it. And from is going to specify where that data can be read from. So our first
+our first SQL command is going to be select star and star is just a shortcut for every column.
+So select every column from the table products. And if we do that, we get the product ID,
+the product name, the ILEID and the department ID. And just like with specified in the
+table definition. Now you don't always want every column from a particular table. So
+notice this product name is a little bit long and it's making our printing ugly because it
+collides with our next column. So we could specify that we wanted to select the product ID,
+the ILEID and the department ID from the products table. And then we're just going to get
+three of the columns that we specified.
+Now, the data in your database isn't always named according to conventions that match the rest
+of your code or just sometimes you need a shorter name. So SQL allows you to rename columns that
+you're reading in. So in this case, we're going to select three columns. We're going to select
+products. We're going to select product ID, ILEID and department ID. And what we've done is
+violated our all caps rule first. We've said we're selecting the product ID and we'd like you to
+name it PID. We're selecting the ILEID and we'd like you to name it AID, department ID to DID.
+And now what we see is that the column names that were returned are PID, AID and DID.
+The next thing that we can do, and we're going to use this much more heavily in the
+coming sections. But you can reference tables using an abbreviation. So in this case, we've said
+from the products table, which we're going to nickname P. We'd like to select P.Product ID,
+which specifies we're getting the product ID column from the P table. We'd like to select the P
+dot ILEID and P dot department ID. And we can run that query as well.
+And notice this has been the same data each time once we stopped tracking the product name. And so
+so we can see that it lines up.
+And in addition to being able to reference this abbreviation or rename columns,
+we can also combine columns. So in this case, we're going to select product ID.
+We're going to select the ILEID, the department ID. And then we're going to select the sum of the
+ILEID and the department ID. And we're going to store that as ILE department ID.
+And just like we promised, we have the product ID, we have the ILEID, the department ID.
+And then in the last column, we've taken the ILEID, which is 61 in the department ID, which is 19.
+And we summed those together to get 80.
+Next, we're going to talk about joins. So as we've discussed, SQL is a relational database,
+which means that we will typically store data across multiple tables. And we often want to be
+able to combine and manipulate the data from these multiple tables. Join will allow us to bring
+together two or more data sets into a single query. So in this first example, what we're going to do
+is we're going to select all of the columns from the products table. And we're going to join
+so we're going to select all of the columns from products joined with ILEs. And the way that we're
+going to join these two data sets is we're going to join them on places where the products that ILEID
+is equal to the ILEs. ILEID. And so if we combine this, notice we have our original products
+table, which has product ID, product name, ILEID and department ID. But we've now added ILEID
+and ILE from the ILEs table. So this is now a duplicate. And we can see that it matches everywhere.
+Now at the very least, we don't want to be returning ILEID twice unless we're checking
+to see whether the code is performing as we expect. So we'd like to be able to select
+sets, subsets of columns from each table. And this is where the column nickname, or the table
+nickname rather, becomes more useful. So we can do things now like select p.product name, p.ilid,
+p.departmentid, and a.il. And we're going to select those from the products table and to the
+ILEs table, which we are joining on the ILEID. And so we can see we no longer have the duplicate
+ILEID, but we've added the ILE names. So the merges we've done so far have just used the
+join command. But there's actually four different merges that we can do. And maybe more, I know
+of four merges that we can do. And they're going to line up closely to the merging that we've
+done using pandas. So there's the left merge, the right merge, the inner merge, and the outer merge.
+We think it's best to describe these using a vendiagram. So if we have data set x and data set y,
+and both data set x and y have ID, little x, and ID, and y. And what we're trying to do is we're
+trying to create a data set that has ID, x, and y. Then these vendi, these two circles represent
+the values of ID that exist in each of the data sets. So a left join, so let's write a small example.
+So in table x, we have ID, x, we have one, one, two, two, three, three, four, four.
+And in table y, we have ID, and y, and we have 11, 12, 15, and 16.
+So we're going to review each of the four merges that we can do. So what is a left merge? A left merge
+is going to look at the left table or data set, and it's going to find all of the values for ID that
+exist in the left data set. So that's this shaded area right here, including the intersection.
+And so that will create the ID, x, and y, one, two, three, four, because we're keeping the ID values
+from the left data set. The x's are going to just match, and they're going to come straight from
+the x data set itself, and the y values are going to be the ID, the ID, one for x, ID, one for y.
+The little value of y is 11. The value two for x matches the value two for y. We get 12.
+The value three for x matches no value from y, and the value four for x matches no value in y.
+So we'd end up with a data set that looks like this.
+Now similarly, right would do a similar case,
+but it would now have one, two, five, and six,
+and we would end up with a data set that looked like this. I'll let you work through the details.
+And then we could look at an inner join. And an inner join is it only finds the values of ID.
+So it's this section of the Venn diagram right here. It's only going to find values of ID,
+which are in both data sets. So inner would give us one, two,
+and when ID is one, x is one, and y is 11, when ID is two, x is two, and y is 12.
+And so we would say when ID is three, there's no three and y, so we don't include it. Same with four,
+same with five, same with six. Now we could do the opposite in some sense, which is an outer,
+and the outer join is going to be all of both circles. So it's going to be every value of ID
+that's either in x or y. So we end up with one, two, three, four, five, six,
+and x is one, two, three, four, and y would be 11, 12, missing, missing, 15, 16. And this is what we would end up with with the outer join.
+So that's what these words say. And in the case of the data that we're working with right now,
+this is, I don't know why write join didn't work.
+I see. Write and outer joins are not currently supported by SQL light. So if you were working with a
+different flavor of SQL, write and outer would work. But because we're working with SQL light,
+we aren't able to run the right and outer joins. Again, because the data that we're working with is clean,
+they're just all returning the same subset of data.
+And we don't actually have to restrict ourselves to only combining two datasets. We can combine as many as we like.
+So in this case, we're going to take the same selection. But now we're going to select the product name, the ILE,
+and the department, which is just going to give us all of the string representations of the products description.
+So we're going to select the product name, the ILE, the department from the products table,
+which is left joined with the ILEs table on the ILE. And then all of that is left joined on the
+department's table on the department ID. And we end up with all of the string representations of
+this data. And notice we can do this join using the ILE and the department ID, even though we're not
+returning that data. Next, we're going to talk about the wear statement. And the wear statement is used
+when we're interested in working with particular subsets of the data, rather than selecting all of the rows at once.
+SQL is going to allow us to specify certain conditions that are going to do this restriction for us using the wear class.
+So let's look at a simple starting example. So we're going to take the multiple joined table that we
+looked at previously. So it's selecting product name, ILE, and department. And up until now, we keep selecting this
+chocolate sandwich cookies first. And so what we're going to do is we're going to look for a place
+where the department is not equal to snacks. And so notice the cookies no longer come first because
+they were filtered out due to not being due to us not wanting snacks. Similarly, we could check for where
+the snacks are. So now this is going to give us products that are in the snacks department. And the thing to note here is that
+there is no, there's not much variable assignment in terms of SQL. It's not entirely true, but you can use one equal sign to denote equality.
+So we're saying here that the, we're looking for product ILE department values where the department is equal to snacks.
+And that gave us the chocolate sandwich cookies that we had before. And also gave us mint chocolate flavored syrup.
+And not to choose white bean dips chips.
+Similarly, we could ask for particular ILEs. So in this case, we're restricting to places where the ILE is greater than 132.
+So in addition to comparing strings, we can compare numbers. And that gives us specialty wines,
+champagne and muscle joints, pain relief. And those are in ILEs 134 and 133. So we can confirm that they satisfy our requirement.
+We could also check for less than 132. But that's the same data set we've been getting in our other queries.
+And of course, we can specify multiple conditions. So in this case, we're running the same query to get the product name, the ILE and the department.
+Left joined to the ILEs and department's data. And now we're going to specify we want the ILE ID to be greater than 100.
+But the department ID to be less than 10. And notice this is specified with an AND. So let's go ahead and
+these values.
+So what we see is the ILE IDs are all greater than 100 and the department IDs are less than 10.
+So when we write AND here, we mean it in the same sense that we mean it in Python of both things must be true.
+Similarly, we could check for where the ILE ID was greater than 100 or the department ID was less than 10.
+And as long as either of these conditions are satisfied, the data can show up in this query.
+So notice the ILE ID here is greater than 100. But the department ID is greater than 10. So the first condition was satisfied.
+The second row, the first condition was not satisfied because the ILE ID is 94, which is less than 100.
+But the second condition, department ID less than 10 is satisfied. Same for the next two. And then in the last row, the first condition is satisfied. But not the second.
+Now, as we mentioned, the data set that we're working with right now does not have a notion of dates or time.
+Other than the number of days since the last order. So we just wanted to highlight that you can use where to retrieve to subset data based on the date time.
+So if we had a table that had a date time, so this is March 31, 2020, for store ID, one, they had $100,000 in sales.
+And so on and so forth. We could do the select star from our sales table where the date time is less than April.
+And what that would give us is it would give us this first row. And it would give us this second, this fifth row.
+And the thing to note is when you do this comparison, you put the date in strings. Likewise, if we wanted to get the observations from quarter three and four, we could write greater than June 31st.
+And we would end up with the observation three and four and seven and eight.
+Again, this is this is just a toy data set meant to show you that we can impose restrictions based on the date times as well.
+The next argument we'll talk about is the group by. So group by is going to allow us to aggregate certain groups of values, much like the pandas group by method.
+The thing to especially note, which is true in pandas as well, is that any column that is not an element of the grouping must have a reduction function applied to it.
+So we're now going to start working with the orders data. And just so we can remember what that looks like.
+Select we'll do star. So we have seven columns. We have the order ID, the user ID, which set the data belonged to the order number, the order day of week, the order hour of day, and the days since the previous order.
+So what we're going to do is we're going to select the day of week that an order was made. And then we're going to count how many non missing values of user ID there are.
+And we're going to store that as a new column called number of orders. That's going to be from the orders table. And we're going to group by the order day of week.
+So what this is going to give us is in the data set that we were given.
+There were 600,000 orders placed on Sunday.
+And about 425 to 450,000 orders placed on Tuesday, Wednesday and Thursday.
+We're only looking at the first five rows. So we could see Thursday, Friday, Saturday, if we wanted.
+Now, just like in pandas, we can group by more than one column.
+So we can we're going to select the user ID and the order day of week. And then we're going to count the number of order IDs that are not missing.
+We're going to do that from the orders table. And now we're going to group by the user ID and the order day of week.
+And so what this tells us is that user one only ever ordered on Monday, Tuesday, Wednesday or Thursday.
+Because otherwise there would be another user one ID here.
+And they ordered three times on Monday, two times on Tuesday, two times on Wednesday, and four times on Thursday.
+And we can also aggregate. So we've only been counting the order numbers in the previous two cases.
+And we can also aggregate multiple columns. So here we're going to select user ID and order day of week again.
+And then we're going to count the order IDs for the number of orders. And these as this should be all caps.
+And then what we're going to do is we're going to use a different reduction function average. And we're going to find out the average days since the prior order.
+And so if we run this query, what we're going to read is that user one, when they order on Mondays, they have an average of 11 days since their previous order.
+When they order on Tuesdays, it's been almost three weeks and Wednesdays, almost three weeks and on Thursdays, almost three weeks.
+One hypothesis that you might put to the test if you had more data is that individual one only orders on Mondays when they realize that they have something missing.
+Again, that's something we would have to test. But we don't have enough data necessarily to do it for this data set.
+Now we're going to talk about the order by which will allow us to sort the output of a particular SQL query.
+So we can order by a single column. So here we're going to select the order ID user ID order number and days since prior order.
+And that will give us user ID one.
+And the data is kind of out of order here. These order number should be the order that they put in their dates.
+So we can order by more than one column. So now we're going to select order ID user ID order number and days since the previous order.
+And we're going to order by user ID and order number. And that will give us the ordered set of orders. So user ID user one, their first order happened, their second order happened about two weeks later.
+Their third order happened about three weeks after that. Another three or four weeks, four weeks, and so on and so forth.
+In addition to ordering by one or multiple columns, we can specify what order we'd like things to be ordered. So we can either have the data ordered in an ascending format or descending format.
+So here we write select our columns, the same ones we've been using in the previous queries.
+But now we're going to be ordered by the days since the prior order. And we want that to be descending.
+And then we want it ordered by user ID and we want that to be ascending. So we should have the highest values from the days since prior order first and the lowest numbers, the lowest values for user ID first.
+So we can run this query and notice the days since prior order is 30, which is the maximum value in this data set.
+And then you can see that the user ID is also ordered one, two, four.
+We could add a where statement if we wanted days since prior order less than 30. And we would end up with a 29 here. That's less than 30. And user ID again is increasing.
+The final clause that we're going to talk about is the limit clause. And limit is going to play the same role as the head method did for a pandas data frame.
+It's going to allow you to select the enlarged or smallest values. And you can use it to simply get a preview of your data.
+So what we're going to do is we're going to run a small horse race.
+So we're going to query with a limit 10. So the database is only going to find the first 10 values that satisfy our criteria.
+You'll notice that took about a millisecond. And now what we're going to do is we're going to query all of the values.
+And that's going to take about three to three and a half seconds.
+So if you're just looking for a small subset of data that you can start playing with before you move on to your full analysis, limit can be a helpful clause.
+Up until this point, we've been using SQL alchemy's engine directly to read data.
+But we'd like to also point out that you can read directly from pandas. So here we've defined a particular query.
+And if we pass this query along with the SQL alchemy engine, pandas will go ahead and execute this query and put it into a data frame, which can be convenient.
+And now to conclude, we wanted to wrap up to show you kind of what type of flexibility SQL can achieve.
+So in the Instacart data description, we had a command at the bottom that built up the fraction of reorders that a particular fraction of orders that were reorders that a particular product has.
+We're going to do the same thing here, but we're only going to use SQL.
+In order to do this, we found it helpful to use a with clause and a with clause allows you to define a temporary table that can then be used in a subsequent query.
+So let's think about how we're going to break this up.
+So in our with clause, what we're going to do is we're going to create the number of orders and the number of reorders for a particular product.
+And we'll do this by selecting the product ID by counting the number of add to cart orders and by summing the number of reordered values.
+Additionally, we're going to so this is coming from the products order table.
+We're going to left join the products order table on the orders table.
+And we're going to join that on the order ID column.
+Then we're going to only look at values where the orders dot the days since prior order column from the orders table is not missing because remember the first time that an individual made an order, they had a missing value for days since the prior order and they could not have ordered it prior to that event.
+Then we're going to group by the product ID and we're going to compute this and order and reorder.
+So we've now defined this as a new table called aggregate product ordered.
+And so we can do select from this new table, the product ID, the end order and the end reorder.
+We can do an reorder divided by an order and because these are both integers, we needed to multiply by a float so that we didn't do integer division.
+An inter division, if you have two divided by four, that equals zero.
+And so we multiplied by a 1.0 in order to get float division where that becomes one half.
+So that's what that does. And then we're also going to select the product name, the ILD and the department ID like we did in the previous pandas version.
+This is going to come from the aggregate products ordered table that we created from the with statement.
+We're going to join it on the products table using the product ID column.
+And we're only going to look at products which had at least 10 reorders.
+We're then going to order this query by the fracked reorder column and we want it to be descending so that the highest values are at the top.
+Now, if all goes well, we should be able to run this command and get back the same answer that we had in the previous notebook.
+And the thing that I'll be looking for is we had a product that we investigated called orange energy shots.
+And so if orange energy shots shows up, it was ordered, reordered 100% at the time.
+It was only by one person, but they continually reordered it.
+And we see we have our orange energy shots.
+There were 12 orders, 12 reorders for a 100% fraction reordered.
+We saw this one as well.
+So at first glance, this looks like we were able to produce the exact same answer we did in pandas, but directly with SQL.
+This wraps up what we're going to talk about for SQL today.
+Hopefully you learned something.
+If this was new, this is a lot to take in.
+And the only way to master a tool like this or even become literate in a tool like this is to practice.
+So we encourage you to come back to these examples and to ask yourselves questions and ask this data questions.
+And that wraps up everything we have.
+Bye now.

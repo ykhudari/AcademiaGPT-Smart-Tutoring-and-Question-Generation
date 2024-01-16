@@ -1,0 +1,7 @@
+1
+00:00:00,000 --> 00:00:16,000
+Hi, this is Chase Coleman. Today we're going to be talking about the Python library pandas. Prior to today, you should have completed the Python fundamentals training. This was something we offered over the summer At the end of today, you should understand some of the core pandas objects,
+
+2
+00:00:12,000 --> 00:00:34,000
+At the end of today, you should understand some of the core pandas objects, such as a series and a data frame. You should understand how to index into particular elements of series and data frames, and you should understand some of the basic types that can be stored inside of a series or a data frame. Additionally, as we go, you'll learn how to make some basic visualizations.

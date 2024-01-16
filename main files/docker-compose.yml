@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "22322:80"
+    depends_on:
+      - db
+    environment:
+      - DB_CONNECTION=postgresql://postgres:password@db:5432/postgres
+      # NOTE: you must also have a .env file with the keys OPENAI_API_KEY and API_TOKEN available
+    volumes:
+      - ./pickles:/code/pickles
+  db:
+    image: ankane/pgvector:v0.5.1
+    environment:
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "25432:5432"
+    volumes:
+      - ./pgvector_data:/var/lib/postgresql/data

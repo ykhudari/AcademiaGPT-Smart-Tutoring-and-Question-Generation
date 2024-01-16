@@ -1,0 +1,668 @@
+1
+00:00:00,000 --> 00:00:09,000
+Okay, so now we are ready for our lead example of a Markov chain, something that we really
+
+2
+00:00:09,000 --> 00:00:13,920
+want to talk about, the economics and statistics of.
+
+3
+00:00:13,920 --> 00:00:24,800
+So this is going to be a version of a famous model called the Lake Model of, in our instance,
+
+4
+00:00:24,800 --> 00:00:28,840
+unemployment, but it could be some, a lake model of other things.
+
+5
+00:00:28,840 --> 00:00:36,000
+So we are going to consider a worker who at any given time T is either unemployed and
+
+6
+00:00:36,000 --> 00:00:42,600
+we will call that state zero, if he is unemployed, or is employed state one.
+
+7
+00:00:42,600 --> 00:00:50,380
+So, employed means he or she has a job, unemployed means doesn't have a job, but is looking
+
+8
+00:00:50,380 --> 00:00:53,360
+for a job.
+
+9
+00:00:53,360 --> 00:01:02,120
+And suppose that over one month, if you are an unemployed worker, you find a job with
+
+10
+00:01:02,120 --> 00:01:05,360
+probability alpha.
+
+11
+00:01:05,360 --> 00:01:18,160
+So alpha equals the probability that an unemployed worker finds a job with his next draw.
+
+12
+00:01:18,160 --> 00:01:31,600
+But an employed worker could become, so basically we have an unemployed worker could switch
+
+13
+00:01:31,600 --> 00:01:37,880
+to become an employed worker with a probability alpha.
+
+14
+00:01:37,880 --> 00:01:49,080
+But an employed worker sometimes becomes unemployed with probability beta.
+
+15
+00:01:49,080 --> 00:01:56,040
+So in terms of our Markov model, we are going to have the state space, here we go.
+
+16
+00:01:56,040 --> 00:02:01,040
+S equals zero one, there we go.
+
+17
+00:02:01,040 --> 00:02:08,160
+The transition probability, we go from zero to one with probability alpha.
+
+18
+00:02:08,160 --> 00:02:13,200
+We go from one to zero with probability beta.
+
+19
+00:02:13,200 --> 00:02:19,440
+And then because the row sums have to sum to one, we automatically can fill in the whole
+
+20
+00:02:19,440 --> 00:02:21,320
+matrix.
+
+21
+00:02:21,320 --> 00:02:36,760
+So this is our first stochastic matrix.
+
+22
+00:02:36,760 --> 00:02:47,020
+And if I supplement that with some probability of your employment state, let's call the
+
+23
+00:02:47,020 --> 00:02:56,700
+employment state, x t, if I supplement at times zero, if I supplement that with a probability
+
+24
+00:02:56,700 --> 00:03:05,580
+of distribution, which would look like this, let's say, I'll just make this up.
+
+25
+00:03:05,580 --> 00:03:09,820
+I'll call it pi zero, it's just a matrix.
+
+26
+00:03:09,820 --> 00:03:24,540
+So let's say it's a 20% chance you're unemployed and 80% chance that you're employed at times
+
+27
+00:03:24,540 --> 00:03:28,340
+zero, I'm just making this up.
+
+28
+00:03:28,340 --> 00:03:35,860
+Then the pair, pi zero, that is a Markov chain.
+
+29
+00:03:35,860 --> 00:03:44,980
+And that Markov chain generates a probability distribution over our entire sequence, an entire
+
+30
+00:03:44,980 --> 00:03:55,300
+infinite sequence of the random variable employed versus unemployed.
+
+31
+00:03:55,300 --> 00:04:06,540
+So our random variable would take two values, zero or one.
+
+32
+00:04:06,540 --> 00:04:15,900
+And so a history of a person might look like starts out at times zero being unemployed,
+
+33
+00:04:15,900 --> 00:04:21,940
+unemployed, finds a job, stays in the job, stays in the job, stays in the job, stays in the
+
+34
+00:04:21,940 --> 00:04:28,380
+job, gets fired, stays unemployed.
+
+35
+00:04:28,380 --> 00:04:37,100
+So this sequence, going on forever, describes the life history of the worker.
+
+36
+00:04:37,100 --> 00:04:45,500
+So if we know the values of alpha and beta, we can ask all sorts of questions.
+
+37
+00:04:45,500 --> 00:04:53,700
+We could ask what's the average duration of unemployment?
+
+38
+00:04:53,700 --> 00:05:00,020
+We could ask over a long horizon, what's the fraction of time that a worker finds yourself
+
+39
+00:05:00,020 --> 00:05:03,620
+unemployed?
+
+40
+00:05:03,620 --> 00:05:09,780
+We could say conditional unemployment, what is the probability of becoming unemployed, at
+
+41
+00:05:09,780 --> 00:05:14,180
+least once, over the next 12 months?
+
+42
+00:05:14,180 --> 00:05:23,380
+That's a complicated event, but we could figure that out.
+
+43
+00:05:23,380 --> 00:05:30,060
+And that's going to be useful.
+
+44
+00:05:31,060 --> 00:05:48,380
+I want to take a little detour now and show you some properties of a geometric
+
+45
+00:05:48,380 --> 00:05:57,780
+distribution, an important distribution.
+
+46
+00:05:57,780 --> 00:06:01,900
+So here's why we do this in a minute.
+
+47
+00:06:01,900 --> 00:06:08,260
+The geometric distribution is, this is going to be a random variable.
+
+48
+00:06:08,260 --> 00:06:15,060
+And we're going to let p be the probability of what we're going to call success.
+
+49
+00:06:15,060 --> 00:06:17,980
+And one minus p be the probability of failure.
+
+50
+00:06:17,980 --> 00:06:24,860
+This is actually one to Bernoulli trial.
+
+51
+00:06:24,860 --> 00:06:26,700
+That's all this is.
+
+52
+00:06:26,700 --> 00:06:30,140
+And now what we're going to do is we're just going to repeat.
+
+53
+00:06:30,140 --> 00:06:35,300
+We're going to take a sequence of independent Bernoulli trials.
+
+54
+00:06:35,300 --> 00:06:42,100
+And we're going to form a certain random variable, which I'm going to tell you about.
+
+55
+00:06:42,100 --> 00:06:46,540
+And the random variable we're interested is this.
+
+56
+00:06:46,540 --> 00:06:54,980
+It's the times in a sequence of Bernoulli trials.
+
+57
+00:06:54,980 --> 00:06:59,660
+It's the time before we get one success.
+
+58
+00:06:59,660 --> 00:07:01,780
+So I'm going to take a sequence of draws.
+
+59
+00:07:01,780 --> 00:07:11,340
+And I want to know the probability of k failures, the probability of k failures, before the
+
+60
+00:07:11,340 --> 00:07:13,460
+first success.
+
+61
+00:07:13,460 --> 00:07:19,580
+And k is going to be go from 0, 1, 2, onto infinity.
+
+62
+00:07:19,580 --> 00:07:26,980
+And I'm going to let yi be the value of the random variable success of failure in the
+
+63
+00:07:26,980 --> 00:07:29,820
+Ith trial.
+
+64
+00:07:29,820 --> 00:07:37,460
+So if I just take a sequence of Bernoulli trials, I'm just going to get a sequence of 0s or
+
+65
+00:07:37,460 --> 00:07:39,060
+1s.
+
+66
+00:07:39,060 --> 00:07:43,620
+So I want to compute this probability.
+
+67
+00:07:43,620 --> 00:07:44,780
+So here goes.
+
+68
+00:07:44,780 --> 00:07:50,460
+Let's compute it.
+
+69
+00:07:50,460 --> 00:07:55,340
+Well, I want to compute, I just go, I do not skip steps.
+
+70
+00:07:55,340 --> 00:07:57,260
+I write down what I want to compute.
+
+71
+00:07:57,260 --> 00:08:11,620
+I want this, the probability that y equals 0, y1 equals 0, y1 equals 0, yk1 minus 1 equals
+
+72
+00:08:11,620 --> 00:08:12,620
+0.
+
+73
+00:08:12,620 --> 00:08:26,220
+Finally, this is my first one occurs at the kth trial.
+
+74
+00:08:26,220 --> 00:08:28,220
+I want to compute the probability of this.
+
+75
+00:08:28,220 --> 00:08:32,100
+This is what I want to compute.
+
+76
+00:08:32,100 --> 00:08:34,740
+And I know that my draws are independent.
+
+77
+00:08:34,740 --> 00:08:36,300
+They're independent.
+
+78
+00:08:36,300 --> 00:08:37,300
+Why?
+
+79
+00:08:37,300 --> 00:08:40,300
+Because I'm assuming it.
+
+80
+00:08:40,300 --> 00:08:46,860
+OK, so now I just write down, I use independence.
+
+81
+00:08:46,860 --> 00:08:51,380
+The probability of this is of that, that's a joint distribution.
+
+82
+00:08:51,380 --> 00:08:56,540
+No, that's a joint distribution.
+
+83
+00:08:56,540 --> 00:09:03,380
+I want to compute, that's a probability that comes from the joint distribution.
+
+84
+00:09:03,380 --> 00:09:06,220
+I now use independence.
+
+85
+00:09:06,220 --> 00:09:12,900
+So the joint distribution is just the product of the marginal distributions.
+
+86
+00:09:12,900 --> 00:09:16,860
+That's independence.
+
+87
+00:09:16,860 --> 00:09:17,860
+So I write that down.
+
+88
+00:09:17,860 --> 00:09:24,940
+So that's just the probability y0 equals 0, probability y1 equals 0, dot, dot, dot, probability
+
+89
+00:09:24,940 --> 00:09:29,580
+yk minus 1 equals 0.
+
+90
+00:09:29,580 --> 00:09:33,900
+Finally, times probability yk equals 1.
+
+91
+00:09:33,900 --> 00:09:36,180
+Now I just copy.
+
+92
+00:09:36,180 --> 00:09:44,060
+Well, this is equal to 1 minus p, where I got that from here.
+
+93
+00:09:44,060 --> 00:09:51,060
+This is equal to 1 minus p again, 1 minus p k times, and then finally, p.
+
+94
+00:09:51,060 --> 00:09:53,380
+Get that from here.
+
+95
+00:09:53,380 --> 00:09:55,140
+Isn't that beautiful?
+
+96
+00:09:55,140 --> 00:09:56,820
+And then I just collect.
+
+97
+00:09:56,820 --> 00:10:14,100
+So that's equal to this, 1 minus p k times p.
+
+98
+00:10:14,100 --> 00:10:21,700
+So when I set up the draws like that, how long do I have to wait?
+
+99
+00:10:21,700 --> 00:10:23,260
+That's the probability.
+
+100
+00:10:23,260 --> 00:10:28,700
+So this is a probability, that's a probability distribution.
+
+101
+00:10:28,700 --> 00:10:33,460
+And it's a waiting time.
+
+102
+00:10:33,460 --> 00:10:34,660
+It's called a waiting time.
+
+103
+00:10:34,660 --> 00:10:37,060
+It's a time to my first success.
+
+104
+00:10:40,300 --> 00:10:46,860
+And it is called a geometric distribution.
+
+105
+00:10:46,860 --> 00:10:47,700
+Well, why?
+
+106
+00:10:47,700 --> 00:10:50,540
+Why is it called a geometric distribution?
+
+107
+00:10:50,540 --> 00:10:59,780
+Well, it's because of this factor, 1 minus p raised to the k.
+
+108
+00:10:59,780 --> 00:11:02,340
+That's a geometric series.
+
+109
+00:11:02,340 --> 00:11:05,620
+That's a geometric series.
+
+110
+00:11:05,620 --> 00:11:08,020
+So this is called a geometric series.
+
+111
+00:11:08,020 --> 00:11:13,140
+And then it's just normalized so the probabilities add up to 1.
+
+112
+00:11:13,140 --> 00:11:14,660
+So we'll note this.
+
+113
+00:11:14,660 --> 00:11:20,420
+You calculate summation 1 minus p to the k times p.
+
+114
+00:11:20,420 --> 00:11:21,700
+Sum that up.
+
+115
+00:11:21,700 --> 00:11:24,580
+Use your high school knowledge of geometric series.
+
+116
+00:11:24,580 --> 00:11:25,220
+We get 1.
+
+117
+00:11:30,260 --> 00:11:39,380
+So now we could calculate the expected time to first success.
+
+118
+00:11:39,380 --> 00:11:44,860
+And this has a name, expected time to first success.
+
+119
+00:11:44,860 --> 00:11:52,100
+This is called expected waiting time.
+
+120
+00:11:55,340 --> 00:12:01,460
+We're going to use this in a minute in this lecture, in a really fun way.
+
+121
+00:12:01,460 --> 00:12:05,180
+So if you just calculate that now, this is a little tricky to calculate.
+
+122
+00:12:05,180 --> 00:12:07,180
+Well, we calculate the expected time.
+
+123
+00:12:07,180 --> 00:12:09,740
+I'm just going to calculate the mean.
+
+124
+00:12:09,740 --> 00:12:11,260
+How do I calculate a mean?
+
+125
+00:12:11,260 --> 00:12:16,460
+I take summation k, goes from 0 to infinity.
+
+126
+00:12:16,460 --> 00:12:17,780
+Those are all the values.
+
+127
+00:12:17,780 --> 00:12:23,740
+I multiply the values of the random variable times the probability, which I just
+
+128
+00:12:23,740 --> 00:12:25,940
+read off from my probability distribution.
+
+129
+00:12:25,940 --> 00:12:31,300
+If you sum those up, I'm not going to derive this here.
+
+130
+00:12:31,300 --> 00:12:35,980
+But if you sum this up, you can check it on a computer.
+
+131
+00:12:35,980 --> 00:12:38,740
+This is just equal to 1 over p.
+
+132
+00:12:38,740 --> 00:12:44,500
+So 1 over p is the expected waiting time for a geometric distribution.
+
+133
+00:12:49,260 --> 00:12:58,060
+And we're going to see why I did that right now.
+
+134
+00:12:58,060 --> 00:13:03,300
+So let's return to where we were before.
+
+135
+00:13:03,300 --> 00:13:13,540
+And we have this quote unquote lake model we were talking about.
+
+136
+00:13:13,540 --> 00:13:15,620
+We have this Markov chain.
+
+137
+00:13:15,620 --> 00:13:22,260
+And the probability, if we come back up here,
+
+138
+00:13:22,260 --> 00:13:28,180
+the probability that an unemployed worker moves into employment
+
+139
+00:13:28,340 --> 00:13:36,900
+is in any given period, the probability of success, the probability of a success,
+
+140
+00:13:36,900 --> 00:13:39,580
+is alpha.
+
+141
+00:13:39,580 --> 00:13:41,500
+I will call that a success.
+
+142
+00:13:41,500 --> 00:13:47,020
+We'll call the failure as the person stays unemployed.
+
+143
+00:13:47,020 --> 00:13:54,820
+So what we can read right from this is the expected waiting time.
+
+144
+00:13:54,820 --> 00:13:59,300
+Here is just 1 over alpha.
+
+145
+00:13:59,300 --> 00:14:02,820
+That's 1 over alpha.
+
+146
+00:14:02,820 --> 00:14:06,060
+So that's the expected duration.
+
+147
+00:14:06,060 --> 00:14:09,780
+That's the average duration of unemployment.
+
+148
+00:14:09,780 --> 00:14:18,740
+That's the average duration of unemployment for an unemployed worker who
+
+149
+00:14:18,740 --> 00:14:21,540
+fits this model.
+
+150
+00:14:21,540 --> 00:14:29,020
+And now we can come up here as success is just a definition.
+
+151
+00:14:29,020 --> 00:14:32,260
+We have an employed worker going the other way.
+
+152
+00:14:32,260 --> 00:14:35,780
+An employed worker here, a quote unquote success.
+
+153
+00:14:35,780 --> 00:14:37,620
+It's a bad word now in this sense.
+
+154
+00:14:37,620 --> 00:14:41,300
+Success is the employed worker becomes unemployed.
+
+155
+00:14:41,300 --> 00:14:44,660
+Well, we have a waiting time distribution.
+
+156
+00:14:44,660 --> 00:14:50,740
+So if we do a calculation, what's the average duration of employment?
+
+157
+00:14:50,740 --> 00:14:57,860
+Well, this will turn out to be, it won't be this.
+
+158
+00:14:57,860 --> 00:15:02,740
+We could figure that out.
+
+159
+00:15:02,740 --> 00:15:07,300
+So the average duration of, yeah.
+
+160
+00:15:07,300 --> 00:15:13,300
+So I'm going to ask you to figure that out as an exercise.
+
+161
+00:15:13,300 --> 00:15:32,220
+Maybe I'll stop this now and ask what's the average duration of employment.
+
+162
+00:15:32,220 --> 00:15:34,940
+How long do you keep a job?
+
+163
+00:15:34,940 --> 00:15:36,420
+That's an interesting number.
+
+164
+00:15:36,420 --> 00:15:38,420
+It's going to depend on data.
+
+165
+00:15:38,420 --> 00:15:41,820
+And we'll be able to calculate that.
+
+166
+00:15:41,820 --> 00:15:43,860
+So why don't you work on that?
+
+167
+00:15:43,860 --> 00:15:44,860
+And I'll work on it for a minute.
+

@@ -1,0 +1,2404 @@
+1
+00:00:00,000 --> 00:00:09,000
+So we're very excited for this lecture in which we're going to estimate a Markov chain using some of the employment data that we've talked about.
+
+2
+00:00:09,000 --> 00:00:19,000
+And we'll try to be specific about what we mean by estimate, but some of these are details that we'll learn later on in the class.
+
+3
+00:00:19,000 --> 00:00:24,000
+Okay, so let's start with a short digression.
+
+4
+00:00:24,000 --> 00:00:31,000
+We have a friend named Jim Savage who's a statistician, a good one actually.
+
+5
+00:00:31,000 --> 00:00:38,000
+And he has thought about the right way to do modern statistical work.
+
+6
+00:00:38,000 --> 00:00:46,000
+And we think that many of the things that he's learned in thinking about this apply to economics as well.
+
+7
+00:00:46,000 --> 00:00:53,000
+So let's start by talking about what he envisions as a modern statistical workflow.
+
+8
+00:00:54,000 --> 00:01:07,000
+So he's kind of created nine steps, which seems long, but they're pretty short. So step one would be to prepare and visualize your data.
+
+9
+00:01:07,000 --> 00:01:13,000
+So this involves things like data cleaning or making some plots.
+
+10
+00:01:13,000 --> 00:01:23,000
+We did lots of this in a previous lecture with the BLS data and looked at how employment has changed in response to the COVID recession.
+
+11
+00:01:23,000 --> 00:01:27,000
+Step two is to create a generative model.
+
+12
+00:01:27,000 --> 00:01:33,000
+And what do we mean by generative model is all we mean is some probability distribution.
+
+13
+00:01:33,000 --> 00:01:35,000
+Over outcomes.
+
+14
+00:01:35,000 --> 00:01:47,000
+That are a function of some model parameters and he thinks it's very important that the first model created should be as simple as possible.
+
+15
+00:01:47,000 --> 00:01:55,000
+And the next step is something that lots of people don't necessarily think to do because it's not necessarily natural.
+
+16
+00:01:55,000 --> 00:02:00,000
+But one of the first things you should do is take the model that you've written down.
+
+17
+00:02:00,000 --> 00:02:04,000
+And you should now actually generate some data.
+
+18
+00:02:04,000 --> 00:02:14,000
+So we generate a bunch of observations from our model, given a particular parameter that we've picked out of a hat.
+
+19
+00:02:14,000 --> 00:02:22,000
+And then step four is let's see if we can back out what theta looks like.
+
+20
+00:02:22,000 --> 00:02:24,000
+So we'll call theta hat.
+
+21
+00:02:24,000 --> 00:02:35,000
+The parameter is that we get from our model sitting and see how this compares to theta.
+
+22
+00:02:35,000 --> 00:02:40,000
+And you do that because what you want to know is in step five.
+
+23
+00:02:40,000 --> 00:02:52,000
+You should check that you understand and that you're able to, you know, if you have certain parameters for your model that your fitting procedure is able to recover those parameters when you know them.
+
+24
+00:02:52,000 --> 00:02:56,000
+Because if it does, if you can't get the parameters that you know.
+
+25
+00:02:56,000 --> 00:03:01,000
+It's very unlikely that you'll be able to find the parameters that you don't know.
+
+26
+00:03:02,000 --> 00:03:07,000
+And he emphasizes that you possibly repeat steps three through five.
+
+27
+00:03:07,000 --> 00:03:22,000
+So two through five with different methods and parameters to get an understanding, oh, sorry, to get an understanding of how your model works and what fitting procedure is seem to be successful.
+
+28
+00:03:22,000 --> 00:03:27,000
+After this, so we've now worked with some fake data.
+
+29
+00:03:27,000 --> 00:03:30,000
+We understand the fitting procedure and how the model works.
+
+30
+00:03:31,000 --> 00:03:34,000
+Now, we move on to our real data.
+
+31
+00:03:34,000 --> 00:03:45,000
+So we take the same procedure and do the same fitting procedures on the data that we observed in step one.
+
+32
+00:03:45,000 --> 00:03:48,000
+And then step seven and this makes me laugh.
+
+33
+00:03:48,000 --> 00:03:52,000
+So he says, argue about the results with your friends and colleagues.
+
+34
+00:03:52,000 --> 00:03:57,000
+So Jim's not a particularly.
+
+35
+00:03:57,000 --> 00:04:03,000
+Hard guy to get along with. He's actually very friendly. And so his choice of the word argue.
+
+36
+00:04:03,000 --> 00:04:07,000
+I think tells you a little bit about who you should be talking to about this.
+
+37
+00:04:07,000 --> 00:04:10,000
+You don't want someone that's going to just tell you that it's nice work.
+
+38
+00:04:10,000 --> 00:04:15,000
+You want someone that's going to be able to ask you questions and say, why did you do that?
+
+39
+00:04:15,000 --> 00:04:20,000
+Well, what if you did this instead? So you want someone that's going to push back a little bit.
+
+40
+00:04:21,000 --> 00:04:32,000
+Step eight is then returned to step two and work with a slightly richer model and we repeat steps three, four, five, six and seven.
+
+41
+00:04:32,000 --> 00:04:39,000
+And then once you've done this with a sufficiently rich model, you should think about what decisions are going to be made from this analysis.
+
+42
+00:04:39,000 --> 00:04:46,000
+Figure out what your loss function will be, kind of what are the costs of getting this right or wrong.
+
+43
+00:04:46,000 --> 00:04:55,000
+And then you should perform make decisions based on statistical decision analysis.
+
+44
+00:04:55,000 --> 00:05:05,000
+And so later in the semester, we'll talk more formally about what we mean by fitting your model and the work that goes along with it.
+
+45
+00:05:05,000 --> 00:05:15,000
+But right now, anytime we say fit, you should just imagine some type of a procedure that allows us to take a generative model that depends on parameter's data.
+
+46
+00:05:15,000 --> 00:05:25,000
+And data and try to get a guess at what those data parameters are if we could not see them.
+
+47
+00:05:25,000 --> 00:05:38,000
+And so we're going to go ahead and do some of these steps on the labor data to see if we can work through this process.
+
+48
+00:05:38,000 --> 00:05:41,000
+So what's our plan for this lecture?
+
+49
+00:05:41,000 --> 00:05:51,000
+So we're going to actually skip steps one. We've already mostly done step one. We created some graphs. We cleaned the data. So we're going to take that as given.
+
+50
+00:05:51,000 --> 00:06:05,000
+And then the plan for the remainder of this class and this probably will go into our next class is to work through some of the remaining steps of a modern statistical workflow.
+
+51
+00:06:05,000 --> 00:06:10,000
+And we're going to develop a generative model of employment and unemployment.
+
+52
+00:06:10,000 --> 00:06:16,000
+We're going to use that model to simulate some fake data from our generative model.
+
+53
+00:06:16,000 --> 00:06:24,000
+We're then going to fit that model using simulated data and we'll tell you explicitly how we're going to do that fitting.
+
+54
+00:06:24,000 --> 00:06:32,000
+Then we're going to explore some options that we might have had for having for how we could choose to fit the data.
+
+55
+00:06:32,000 --> 00:06:42,000
+So we're going to fit the model with the BLS data. And finally we're going to examine what our model implies for the effects of COVID on employment and unemployment.
+
+56
+00:06:42,000 --> 00:06:51,000
+So again, we won't get through all of these today and it's an ambitious lecture, but I think we're going to have a lot of fun along the way.
+
+57
+00:06:51,000 --> 00:06:55,000
+Okay, so let's develop a generative model.
+
+58
+00:06:55,000 --> 00:07:02,000
+So Jim's recommendation is that the first model created should be as simple as possible.
+
+59
+00:07:02,000 --> 00:07:12,000
+So in the spirit of as simple as possible, we're going to return to the model that we talked about in class when we talked about mark-off chains.
+
+60
+00:07:12,000 --> 00:07:15,000
+So we're going to consider a single individual.
+
+61
+00:07:15,000 --> 00:07:23,000
+This individual is going to move between two states, employment and unemployment.
+
+62
+00:07:23,000 --> 00:07:30,000
+When an individual is unemployed, they're going to find a new job with probability alpha.
+
+63
+00:07:30,000 --> 00:07:36,000
+So we'll call this the job finding rate.
+
+64
+00:07:36,000 --> 00:07:43,000
+And while an individual is employed, they're going to lose their job with probability beta.
+
+65
+00:07:43,000 --> 00:07:50,000
+So we'll call this the job separation rate.
+
+66
+00:07:50,000 --> 00:08:08,000
+And that's it. That's our model. So our model is entirely defined by two parameters and alpha, which is the job finding rate and a beta, which is the job separation rate.
+
+67
+00:08:08,000 --> 00:08:16,000
+Okay, well, we now have a generative model. So the next step is for us to actually simulate data from this generative model.
+
+68
+00:08:16,000 --> 00:08:26,000
+And we're going to do this in two steps. So first, we're going to take an individual's state of employment or unemployment.
+
+69
+00:08:26,000 --> 00:08:30,000
+And the transition probabilities, which are our parameters.
+
+70
+00:08:30,000 --> 00:08:33,000
+And then we're going to draw from tomorrow's state.
+
+71
+00:08:33,000 --> 00:08:38,000
+And determine whether that person will be employed or unemployed.
+
+72
+00:08:38,000 --> 00:08:51,000
+Next, once we have what we're going to call the one step transition, we're going to specify, we're going to create a function that takes an initial state and the parameters.
+
+73
+00:08:51,000 --> 00:08:59,000
+And that can then simulate the entire history of employment or unemployment using our one step function.
+
+74
+00:08:59,000 --> 00:09:02,000
+So let's start doing this.
+
+75
+00:09:02,000 --> 00:09:06,000
+So how can we simulate the one step function?
+
+76
+00:09:07,000 --> 00:09:19,000
+So we're going to specify again, we highly encourage everyone to win their writing code, follow good coding habits and write documentation.
+
+77
+00:09:19,000 --> 00:09:28,000
+So our function called the next state is going to take three arguments. It's going to take an ST, which is an individual's current state.
+
+78
+00:09:28,000 --> 00:09:37,000
+And we're going to specify ST equals zero is going to map to unemployment. And ST equals one is going to be employment.
+
+79
+00:09:37,000 --> 00:09:43,000
+There's going to be the alpha, which is the job finding probability.
+
+80
+00:09:43,000 --> 00:09:49,000
+And there's going to be the beta, which is the job separation.
+
+81
+00:09:49,000 --> 00:10:01,000
+And so what it's going to return, this is actually, I should have written this documentation previously, but it's going to return an ST plus one, which is also an integer.
+
+82
+00:10:01,000 --> 00:10:14,000
+And it's going to be the individuals employment state and period T plus one.
+
+83
+00:10:14,000 --> 00:10:25,000
+Okay, so what are we going to do? The first thing is there's going to be some random randomness in whether an individual transitions from one state to another.
+
+84
+00:10:25,000 --> 00:10:32,000
+So we're going to draw our random number up front just that we don't have to do it multiple times.
+
+85
+00:10:32,000 --> 00:10:48,000
+Then, and so this random number is going to be drawn from from a uniform zero one. So this is coming from uniform zero one.
+
+86
+00:10:48,000 --> 00:11:03,000
+So if an individual is unemployed, so this is ST equals zero, then we want to know whether they become unemployed or employed.
+
+87
+00:11:03,000 --> 00:11:17,000
+Well, they find a job with probability alpha. So there's lots of ways that we could potentially do this, but the easiest is what's another event that has probability alpha.
+
+88
+00:11:17,000 --> 00:11:31,000
+Well, if X is distributed uniform zero one, then the probability that X is less than alpha is equal to alpha.
+
+89
+00:11:31,000 --> 00:11:42,000
+And so what we do is we say if an individual is unemployed and our random number is less than alpha. So this is our probability alpha.
+
+90
+00:11:42,000 --> 00:11:48,000
+Then they transition from unemployment to employment.
+
+91
+00:11:48,000 --> 00:11:59,000
+Similarly, if an individual is employed, so this is ST equals one, then they could either become unemployed or employed.
+
+92
+00:11:59,000 --> 00:12:11,000
+And they do this with probability beta, they become unemployed. And so we check whether the number was less than beta. And if so, then they become unemployed.
+
+93
+00:12:11,000 --> 00:12:21,000
+So if they're state, state is the same, it doesn't change. So this means either U.T. was greater than alpha or U.T. was greater than beta.
+
+94
+00:12:21,000 --> 00:12:26,000
+Or you gave us a state that was incorrect.
+
+95
+00:12:26,000 --> 00:12:37,000
+So we also could have added a check at the front to make sure that S sub T was less than or equal to one.
+
+96
+00:12:37,000 --> 00:12:44,000
+But we're going to be the ones using this code, so it's probably okay.
+
+97
+00:12:44,000 --> 00:12:53,000
+So one thing we wanted to point out was that this function actually depends on the markoff property, which we've previously discussed.
+
+98
+00:12:53,000 --> 00:13:13,000
+In case you don't remember, the markoff property states that the probability of ST plus one given ST, so the probability of a state tomorrow given the state today, is the same as the probability of ST plus one given ST ST minus one dot dot S zero.
+
+99
+00:13:13,000 --> 00:13:30,000
+And what this means is other than the transition probabilities, we only need to give the function the previous state and not an entire history. And so that's why in this function we can specify that ST is just an integer, just a single integer.
+
+100
+00:13:30,000 --> 00:13:38,000
+And again, we've started with the simplest model we could have, and so this is just purely by assumption.
+
+101
+00:13:39,000 --> 00:13:48,000
+Okay, well, now we've written some code and did we run the code, I'm not sure, so just double check.
+
+102
+00:13:48,000 --> 00:13:59,000
+And whenever you write a function that will be used kind of frequently, oh, you forgot code from even earlier.
+
+103
+00:13:59,000 --> 00:14:05,000
+There we go, so we forgot to import our packages.
+
+104
+00:14:08,000 --> 00:14:23,000
+Let's just read that. Okay, perfect. So once you've written a function that's going to be used somewhat frequently and just in general if you write a function, it's a good idea to create some simple test cases.
+
+105
+00:14:23,000 --> 00:14:32,000
+So what we're doing here is we have an individual who's starting in state zero and they're transitioning to unemployment with about probability one half.
+
+106
+00:14:32,000 --> 00:14:41,000
+So we should expect to see about half ones and half zeros and, you know, modular randomness that seems to be the case.
+
+107
+00:14:41,000 --> 00:14:44,000
+Okay, so what other checks can we do?
+
+108
+00:14:45,000 --> 00:14:54,000
+If we set the probability of going from unemployed to employed, so if we set the alpha to zero, then the individual should stay unemployed.
+
+109
+00:14:54,000 --> 00:15:06,000
+Well, that works. Likewise, if we set the job separation probability to zero, then an individual who is currently employed should stay employed.
+
+110
+00:15:06,000 --> 00:15:16,000
+And likewise, we can set the job finding probability to one and then an individual who is unemployed should always find a job.
+
+111
+00:15:16,000 --> 00:15:18,000
+That works.
+
+112
+00:15:18,000 --> 00:15:27,000
+And we can set the job separation probability to one and check whether an individual who is currently employed will become unemployed next time.
+
+113
+00:15:27,000 --> 00:15:34,000
+And even if we ran all of these things, because we've set the probability to one, they're not going to change.
+
+114
+00:15:36,000 --> 00:15:43,000
+Okay, great. So now we can simulate a single step.
+
+115
+00:15:43,000 --> 00:15:49,000
+And so all we have to do is now be able to simulate an entire history.
+
+116
+00:15:49,000 --> 00:15:55,000
+We do want to advise you, eventually we're going to allow alpha and beta to change over time.
+
+117
+00:15:55,000 --> 00:16:03,000
+So we want you to think of them as constant for now, but we're going to write this code in a way that allows them to fluctuate period by period.
+
+118
+00:16:03,000 --> 00:16:10,000
+And the way we'll do that, notice you can see this in the documentation is alpha and beta.
+
+119
+00:16:10,000 --> 00:16:14,000
+Our both numpy of rays and they're going to have type of float.
+
+120
+00:16:14,000 --> 00:16:23,000
+And each element is going to be a probability that an individual finds a job or loses a job.
+
+121
+00:16:23,000 --> 00:16:30,000
+And then the other thing we're going to specify is the initial state of unemployment or employment that an individual is in.
+
+122
+00:16:30,000 --> 00:16:38,000
+So in order to be able to take our first step, we need to know whether someone was employed or unemployed.
+
+123
+00:16:38,000 --> 00:16:46,000
+So we're going to do some test checking first. So we're going to make sure that alpha and beta were the same length.
+
+124
+00:16:46,000 --> 00:16:50,000
+And we're going to call their length T.
+
+125
+00:16:50,000 --> 00:16:56,000
+And then we're going to make room for a history of employment or unemployment.
+
+126
+00:16:56,000 --> 00:17:02,000
+We're going to set the first value to our initial state.
+
+127
+00:17:02,000 --> 00:17:07,000
+And then we're going to do T steps.
+
+128
+00:17:07,000 --> 00:17:13,000
+So how do we do that is we compute the next state by giving it the previous state.
+
+129
+00:17:13,000 --> 00:17:22,000
+And what the transition probabilities for that period are, which are alpha, T and beta, T.
+
+130
+00:17:22,000 --> 00:17:26,000
+And then we're going to save the new value back into S naught.
+
+131
+00:17:26,000 --> 00:17:30,000
+And this is just to kind of keep a minimum number of variables here.
+
+132
+00:17:30,000 --> 00:17:35,000
+So then we'll save that value into our array.
+
+133
+00:17:35,000 --> 00:17:41,000
+And then we'll return our history of employment or unemployment.
+
+134
+00:17:41,000 --> 00:17:46,000
+Okay, well, let's check the output of this function.
+
+135
+00:17:46,000 --> 00:17:54,000
+So we're going to set the job finding rate at 25, 0.25, and the job separation at 0.025.
+
+136
+00:17:54,000 --> 00:17:56,000
+And let's see what happens.
+
+137
+00:17:56,000 --> 00:18:04,000
+Well, an individual who is employed is likely to instead employ it for a long time.
+
+138
+00:18:04,000 --> 00:18:12,000
+So we see it takes a long time to lose a job because you're only losing it with probability 0.025.
+
+139
+00:18:13,000 --> 00:18:24,000
+Well, if we run it again, now let's start an individual as unemployed and see what happens.
+
+140
+00:18:24,000 --> 00:18:28,000
+And it doesn't take very long for them to find a job.
+
+141
+00:18:28,000 --> 00:18:32,000
+And that's because the probability of finding a job is 0.25.
+
+142
+00:18:32,000 --> 00:18:40,000
+And so you should kind of expect this to take two, five, six.
+
+143
+00:18:40,000 --> 00:18:44,000
+This person, I guess, was really unlucky.
+
+144
+00:18:44,000 --> 00:18:48,000
+And then continue to be unlucky because they eventually became unemployed.
+
+145
+00:18:48,000 --> 00:18:54,000
+But you get the idea and the output of this function seems to be sensible.
+
+146
+00:18:54,000 --> 00:18:56,000
+So we'll call that a success.
+
+147
+00:18:56,000 --> 00:18:58,000
+Great.
+
+148
+00:18:58,000 --> 00:19:03,000
+So we've now completed step two, which is defined a generative model.
+
+149
+00:19:03,000 --> 00:19:07,000
+And step three, which is simulate data from your generative model.
+
+150
+00:19:07,000 --> 00:19:11,000
+And now we're going to come to step four, which is going to be
+
+151
+00:19:11,000 --> 00:19:15,000
+Picture model to fake data.
+
+152
+00:19:15,000 --> 00:19:21,000
+There's a lot of different procedures that we could have chosen to map our data into the implied parameters.
+
+153
+00:19:21,000 --> 00:19:27,000
+So remember, fitting our model is just going to be a procedure in which we uncover
+
+154
+00:19:27,000 --> 00:19:31,000
+Unknown parameters of our model.
+
+155
+00:19:31,000 --> 00:19:39,000
+The way we're going to do this for our mark-off chain is just by counting the frequencies of transitions.
+
+156
+00:19:39,000 --> 00:19:43,000
+So let's start by thinking about the general case.
+
+157
+00:19:43,000 --> 00:19:47,000
+So consider an end state mark-off chain.
+
+158
+00:19:47,000 --> 00:19:55,000
+The parameters of an end state mark-off chain are going to be the elements of the transition matrix, cat bottle P.
+
+159
+00:19:55,000 --> 00:19:59,000
+So what do each of these P's stand for?
+
+160
+00:19:59,000 --> 00:20:07,000
+So remember that P sub one one stands for the probability that an individual in state one is in
+
+161
+00:20:07,000 --> 00:20:09,000
+state one next period.
+
+162
+00:20:09,000 --> 00:20:17,000
+P one two is the probability that an individual in state one is in state two next period.
+
+163
+00:20:17,000 --> 00:20:19,000
+That that that.
+
+164
+00:20:19,000 --> 00:20:28,840
+So let why not, why one to y t be a sequence of generations that are generated from our
+
+165
+00:20:28,840 --> 00:20:30,840
+end state mark-off chain.
+
+166
+00:20:30,840 --> 00:20:38,840
+Then the proposed fitting procedure we're going to use is going to assign the following value to Pij.
+
+167
+00:20:38,840 --> 00:20:44,840
+We're going to sum up over all of the T. So let's have a sample.
+
+168
+00:20:44,840 --> 00:20:48,840
+So again, we're going to use a two state mark-off chain at first.
+
+169
+00:20:48,840 --> 00:20:54,840
+Okay, so we have seven.
+
+170
+00:20:54,840 --> 00:20:56,840
+That's enough.
+
+171
+00:20:56,840 --> 00:21:00,840
+Okay, so it's going to sum up over our seven values.
+
+172
+00:21:00,840 --> 00:21:08,840
+And the one in bold like this is a function.
+
+173
+00:21:08,840 --> 00:21:14,840
+And this is, why, equals S.
+
+174
+00:21:14,840 --> 00:21:16,840
+It's called the indicator function.
+
+175
+00:21:16,840 --> 00:21:24,840
+And it takes the value one if the condition below is true and zero otherwise.
+
+176
+00:21:24,840 --> 00:21:34,840
+So let's go ahead and compute P zero zero according to this formula.
+
+177
+00:21:34,840 --> 00:21:44,840
+Okay, so we're going to look for places where that subti observation is equal to zero.
+
+178
+00:21:44,840 --> 00:21:48,840
+So this one is equal to zero.
+
+179
+00:21:48,840 --> 00:21:50,840
+This one is equal to zero.
+
+180
+00:21:50,840 --> 00:21:54,840
+And this one is equal to zero.
+
+181
+00:21:54,840 --> 00:22:04,840
+And so now we want to know, so this is what going to be one times is YT plus one equal to
+
+182
+00:22:04,840 --> 00:22:06,840
+also zero.
+
+183
+00:22:06,840 --> 00:22:08,840
+Nope.
+
+184
+00:22:08,840 --> 00:22:10,840
+So that could say zero.
+
+185
+00:22:10,840 --> 00:22:14,840
+These will all be zero's just because they're not zero's.
+
+186
+00:22:14,840 --> 00:22:18,840
+And then we're now going to do zero.
+
+187
+00:22:18,840 --> 00:22:22,840
+So that's good so one.
+
+188
+00:22:22,840 --> 00:22:24,840
+And T plus one is also equal to zero.
+
+189
+00:22:24,840 --> 00:22:26,840
+So that gets a one.
+
+190
+00:22:26,840 --> 00:22:32,840
+So this is, and then the last one is going to transition from zero to one.
+
+191
+00:22:32,840 --> 00:22:34,840
+So it will get a zero.
+
+192
+00:22:34,840 --> 00:22:40,840
+And if we sum up over all of the places that YT was equal to zero,
+
+193
+00:22:40,840 --> 00:22:46,840
+we get one plus one plus one.
+
+194
+00:22:46,840 --> 00:22:50,840
+So this comes out to one over three.
+
+195
+00:22:50,840 --> 00:23:00,840
+And so we think there's a lot of potential intuition in understanding this.
+
+196
+00:23:00,840 --> 00:23:04,840
+And we believe this procedure is intuitive.
+
+197
+00:23:04,840 --> 00:23:10,840
+And if it's not necessarily intuitive, I think the right place to start is to
+
+198
+00:23:10,840 --> 00:23:22,840
+compute the sum across the Pijs for given I, where these Pijs are defined by this procedure.
+
+199
+00:23:22,840 --> 00:23:24,840
+And you should think about what value do you get?
+
+200
+00:23:24,840 --> 00:23:26,840
+And why do you think you get that value?
+
+201
+00:23:26,840 --> 00:23:28,840
+You might already see it.
+
+202
+00:23:28,840 --> 00:23:32,840
+But if you don't, this is kind of a, we find something,
+
+203
+00:23:32,840 --> 00:23:38,840
+things like this to be useful exercises and understanding how the fitting procedure's work.
+
+204
+00:23:38,840 --> 00:23:44,840
+Okay, so let's write some code that can count frequencies.
+
+205
+00:23:44,840 --> 00:23:52,840
+So our function is going to compute the transition probabilities for a two state mark-off chain.
+
+206
+00:23:52,840 --> 00:23:54,840
+So we're going to specialize.
+
+207
+00:23:54,840 --> 00:24:04,840
+The input is going to be a history with the state values of the two state mark-off chain.
+
+208
+00:24:04,840 --> 00:24:10,840
+It's going to return two values and alpha and a beta.
+
+209
+00:24:10,840 --> 00:24:16,840
+Where the alpha is going to be the probability of transitioning from state zero to state one.
+
+210
+00:24:16,840 --> 00:24:20,840
+And the beta is from state one to state zero.
+
+211
+00:24:20,840 --> 00:24:22,840
+So how do we do this?
+
+212
+00:24:22,840 --> 00:24:27,840
+Well, the first thing is let's check what the length of the history is.
+
+213
+00:24:27,840 --> 00:24:30,840
+So how many observations did we see total?
+
+214
+00:24:30,840 --> 00:24:35,840
+And then we're going to create this little IDX so the stands for index.
+
+215
+00:24:35,840 --> 00:24:39,840
+And it's just going to be a counter.
+
+216
+00:24:39,840 --> 00:24:46,840
+So this will take the values zero, one, two, two,
+
+217
+00:24:46,840 --> 00:24:49,840
+T.
+
+218
+00:24:49,840 --> 00:24:59,840
+And now what we're going to do is let's find all of the places where
+
+219
+00:24:59,840 --> 00:25:03,840
+the history was equal to zero.
+
+220
+00:25:03,840 --> 00:25:07,840
+So this is going to give us some truths and falses.
+
+221
+00:25:07,840 --> 00:25:14,840
+It's right here based on whether that element of the history was zero or not.
+
+222
+00:25:14,840 --> 00:25:21,840
+And we want to make sure we're not looking at the last step because we won't be able to see what comes after it.
+
+223
+00:25:21,840 --> 00:25:23,840
+And we do the same things for the ones.
+
+224
+00:25:23,840 --> 00:25:27,840
+And so what does our counting procedure look like here?
+
+225
+00:25:27,840 --> 00:25:32,840
+Well, let's go ahead and sum up all of the,
+
+226
+00:25:32,840 --> 00:25:36,840
+So this is kind of clever.
+
+227
+00:25:36,840 --> 00:25:39,840
+So let's talk through it.
+
+228
+00:25:39,840 --> 00:25:43,840
+So zero, one, one, zero, zero.
+
+229
+00:25:43,840 --> 00:25:56,840
+So we've created zero IDX's true and true.
+
+230
+00:25:57,840 --> 00:26:04,840
+Zero, one, two, three, four, five, six, seven.
+
+231
+00:26:04,840 --> 00:26:07,840
+Okay, so let's talk through what each of these things are.
+
+232
+00:26:07,840 --> 00:26:12,840
+So IDX is these numbers from zero to T.
+
+233
+00:26:12,840 --> 00:26:20,840
+History equal equal zero is going to give us true, false, true, false, false true, true.
+
+234
+00:26:20,840 --> 00:26:25,840
+And that and IDX less than T minus one is going to give us
+
+235
+00:26:25,840 --> 00:26:30,840
+true, true, true, true, true, true, false.
+
+236
+00:26:30,840 --> 00:26:35,840
+And so then if we index with those truths and falsees,
+
+237
+00:26:35,840 --> 00:26:43,840
+we're going to get the numbers zero, two and six.
+
+238
+00:26:43,840 --> 00:26:53,840
+Because these are values in which the history is equal to zero and are not the very last value in our observation.
+
+239
+00:26:54,840 --> 00:27:02,840
+Okay, now we're going to sum up the history zero IDX is plus one.
+
+240
+00:27:02,840 --> 00:27:13,840
+So the IDX is so now we're moving them from zero to one, two to three and six to seven.
+
+241
+00:27:13,840 --> 00:27:20,840
+So that's going to be this value, this value, and this value.
+
+242
+00:27:20,840 --> 00:27:30,840
+And we're going to sum them up and so we get two and we're going to divide it by the length of these indexes, which was three.
+
+243
+00:27:30,840 --> 00:27:40,840
+And we see that's because we moved from the state zero to one, two times and from zero to zero, one time.
+
+244
+00:27:40,840 --> 00:27:48,840
+And likewise we do the same thing to compute the beta, except now we're looking at the indexes that are ones.
+
+245
+00:27:48,840 --> 00:27:51,840
+And so we want to know when they were zeroes.
+
+246
+00:27:51,840 --> 00:27:59,840
+And so to get that we do one minus, because if we do one minus zero, it will be equal to one, so they will each count as one.
+
+247
+00:27:59,840 --> 00:28:06,840
+And when it's one, it will be one minus one, so it will get set to zero.
+
+248
+00:28:06,840 --> 00:28:14,840
+So if you didn't quite follow that, you should take a minute and break out each of these pieces of the function.
+
+249
+00:28:14,840 --> 00:28:19,840
+And think about what's happening.
+
+250
+00:28:19,840 --> 00:28:26,840
+And I often, when I write code, I break my code into as natural steps of possible.
+
+251
+00:28:26,840 --> 00:28:32,840
+So in this case, I'm thinking about this is kind of pre analysis.
+
+252
+00:28:32,840 --> 00:28:37,840
+In this step, I'm finding out where the zeroes and the ones are.
+
+253
+00:28:37,840 --> 00:28:47,840
+And then this step, I'm using where the zeroes and the ones are to figure out what the corresponding counts should be.
+
+254
+00:28:47,840 --> 00:28:49,840
+Okay.
+
+255
+00:28:49,840 --> 00:28:59,840
+So now what we're going to do is we're going to use this count frequencies individual to check the accuracy of our fit.
+
+256
+00:28:59,840 --> 00:29:03,840
+Let's see if we know what our parameters are.
+
+257
+00:29:03,840 --> 00:29:07,840
+Can we uncover them if we pretend that we don't know them?
+
+258
+00:29:07,840 --> 00:29:14,840
+So we're going to use this function and it's just going to be a length of simulation.
+
+259
+00:29:14,840 --> 00:29:17,840
+And some parameters for alpha and beta.
+
+260
+00:29:17,840 --> 00:29:21,840
+It's going to create the arrays that we pass into our simulation.
+
+261
+00:29:21,840 --> 00:29:29,840
+We'll then simulate to create an employment history and we'll always start the individual as unemployed in this case.
+
+262
+00:29:29,840 --> 00:29:34,840
+So you can think about this as someone who's graduated from college and is initially unemployed.
+
+263
+00:29:34,840 --> 00:29:40,840
+We're then going to count the frequencies and we'll call these alpha hat and beta hat.
+
+264
+00:29:40,840 --> 00:29:48,840
+And then we're going to print out what the true alpha was and what the fitted value was.
+
+265
+00:29:48,840 --> 00:29:49,840
+Okay.
+
+266
+00:29:49,840 --> 00:29:51,840
+So let's check the accuracy.
+
+267
+00:29:51,840 --> 00:29:58,840
+Let's simulate for 10,000 periods with the same probabilities that we've been using.
+
+268
+00:29:59,840 --> 00:30:03,840
+And what we find is we get rather accurate results.
+
+269
+00:30:03,840 --> 00:30:11,840
+So you'll find that all of the numbers we've had so far have been within a percentage or so.
+
+270
+00:30:11,840 --> 00:30:13,840
+So that's good news.
+
+271
+00:30:13,840 --> 00:30:21,840
+So it means that if we have enough data, our fitting procedure is recovering the true parameter.
+
+272
+00:30:21,840 --> 00:30:26,840
+Well, let's now think about what the interpretation of this is.
+
+273
+00:30:26,840 --> 00:30:31,840
+So we're viewing this as monthly transitions in employment.
+
+274
+00:30:31,840 --> 00:30:39,840
+So if we observe 10,000 months of employment history for someone, that's a very long time.
+
+275
+00:30:39,840 --> 00:30:45,840
+We're unlikely to have that much data on anyone.
+
+276
+00:30:45,840 --> 00:30:48,840
+And so that's just not going to be what our data looks like.
+
+277
+00:30:48,840 --> 00:30:52,840
+So what happens if we have less data?
+
+278
+00:30:52,840 --> 00:30:56,840
+So maybe we have a lifetime of employment transition.
+
+279
+00:30:56,840 --> 00:30:59,840
+So this is someone who works for 45 years.
+
+280
+00:30:59,840 --> 00:31:04,840
+For 12 months a year with the same parameters.
+
+281
+00:31:04,840 --> 00:31:10,840
+And you'll immediately notice that before all of our values were in the 0.24, 0.26.
+
+282
+00:31:10,840 --> 00:31:12,840
+I think we had a 0.27.
+
+283
+00:31:12,840 --> 00:31:18,840
+And now we're at 0.15 when the true value is 0.25.
+
+284
+00:31:18,840 --> 00:31:24,840
+I wouldn't call that a disaster, but you're certainly not as accurate.
+
+285
+00:31:24,840 --> 00:31:26,840
+We could get a 0.3.
+
+286
+00:31:26,840 --> 00:31:31,840
+And you see it just really depends on what the particular history is.
+
+287
+00:31:31,840 --> 00:31:35,840
+This one's particularly inaccurate.
+
+288
+00:31:35,840 --> 00:31:39,840
+It just depends on what sequence of draws you get.
+
+289
+00:31:39,840 --> 00:31:41,840
+And you can't quite tell.
+
+290
+00:31:41,840 --> 00:31:47,840
+But again, it's unlikely that we have an entire lifetime of employment transitions for very many people.
+
+291
+00:31:47,840 --> 00:31:52,840
+And you might not even want to do that because you think their structural changes and how employment has worked.
+
+292
+00:31:52,840 --> 00:31:55,840
+And so what if we just look at two years?
+
+293
+00:31:55,840 --> 00:31:58,840
+What's going to happen?
+
+294
+00:31:58,840 --> 00:32:00,840
+Well, it's not terrible.
+
+295
+00:32:00,840 --> 00:32:05,840
+We're getting the job separation rate very wrong.
+
+296
+00:32:05,840 --> 00:32:10,840
+If we re-run this, so this person over two years.
+
+297
+00:32:10,840 --> 00:32:12,840
+So they became employed.
+
+298
+00:32:12,840 --> 00:32:16,840
+And once they were employed, they never became unemployed again.
+
+299
+00:32:17,840 --> 00:32:23,840
+And what you see is our fitting procedure gets very noisy.
+
+300
+00:32:23,840 --> 00:32:29,840
+So what could we do to deal with this?
+
+301
+00:32:29,840 --> 00:32:32,840
+How could we fix this?
+
+302
+00:32:32,840 --> 00:32:40,840
+So the BLS doesn't actually base their transition probabilities off of a single individual.
+
+303
+00:32:40,840 --> 00:32:44,840
+Instead, they're using an entire cross section of individuals.
+
+304
+00:32:44,840 --> 00:32:51,840
+So can we do the same thing if we use a cross section rather than a single individual's history?
+
+305
+00:32:51,840 --> 00:32:54,840
+The answer is yes.
+
+306
+00:32:54,840 --> 00:32:58,840
+But in order for our frequency counting frequency counting to work,
+
+307
+00:32:58,840 --> 00:33:06,840
+what we need is we need job finding and job separation to be independent across individuals.
+
+308
+00:33:06,840 --> 00:33:11,840
+So in our previous case, all of the work was being done by the Markov property.
+
+309
+00:33:11,840 --> 00:33:22,840
+And we simply assumed that the transition from one state to the next today was independent of the transition from one state to the next tomorrow,
+
+310
+00:33:22,840 --> 00:33:26,840
+conditioning on what the current state was.
+
+311
+00:33:26,840 --> 00:33:28,840
+So what happens?
+
+312
+00:33:28,840 --> 00:33:30,840
+So we could this break.
+
+313
+00:33:30,840 --> 00:33:40,840
+So again, so formally what we're saying for independence is that the joint distribution over SIT plus one and SJT plus one,
+
+314
+00:33:40,840 --> 00:33:44,840
+where I and J are individuals in our cross section,
+
+315
+00:33:44,840 --> 00:33:50,840
+conditional on their previous states and the parameters.
+
+316
+00:33:50,840 --> 00:34:01,840
+Independence is going to be that joint distribution is equal to the product of their marginal distributions.
+
+317
+00:34:01,840 --> 00:34:09,840
+So what's the probability of SIT plus one given SIT and the parameters?
+
+318
+00:34:10,840 --> 00:34:15,840
+Times the probability of SJT plus one given SJT.
+
+319
+00:34:15,840 --> 00:34:19,840
+So what could violate this?
+
+320
+00:34:19,840 --> 00:34:22,840
+Well, we thought of three examples.
+
+321
+00:34:22,840 --> 00:34:26,840
+I'm sure there's lots of others that someone could think of.
+
+322
+00:34:26,840 --> 00:34:31,840
+But one example might be there's a changing government policy for one year.
+
+323
+00:34:31,840 --> 00:34:34,840
+That results in a job guarantee.
+
+324
+00:34:35,840 --> 00:34:45,840
+Well, then if two individuals are unemployed, then finding a job is not necessarily an independent event.
+
+325
+00:34:45,840 --> 00:34:52,840
+You could have a technological change that results in the destruction of an entire industry.
+
+326
+00:34:52,840 --> 00:34:56,840
+And if that happens, then there's going to be lots of correlated job loss.
+
+327
+00:34:56,840 --> 00:35:02,840
+So everyone who worked in that industry is likely to lose their job.
+
+328
+00:35:02,840 --> 00:35:05,840
+And if temporarily, you may also see a recession.
+
+329
+00:35:05,840 --> 00:35:10,840
+And this recession could cause increased firing across the country.
+
+330
+00:35:10,840 --> 00:35:17,840
+As a spoiler alert, some of these problems, some of these are going to be problems that are active in the data.
+
+331
+00:35:17,840 --> 00:35:23,840
+And this is actually why we're going to allow for the fact for alpha and beta to move each period.
+
+332
+00:35:23,840 --> 00:35:31,840
+Because we think, at least, roughly, the transition from employment to unemployment or unemployment to employment
+
+333
+00:35:31,840 --> 00:35:36,840
+is close to independent on a period by period basis.
+
+334
+00:35:36,840 --> 00:35:47,840
+And I think you could show examples of where that's not true, but we're just going to assume in our model for now, that it's true.
+
+335
+00:35:47,840 --> 00:35:51,840
+So how could we simulate a cross-section?
+
+336
+00:35:51,840 --> 00:35:57,840
+So we're going to give it, give our function, an alpha and beta.
+
+337
+00:35:57,840 --> 00:36:06,840
+And if these are going to be the same function of same arrays that they were before, then we're going to give it an S0,
+
+338
+00:36:06,840 --> 00:36:10,840
+but we're going to change what S0 is and what the interpretation is.
+
+339
+00:36:10,840 --> 00:36:20,840
+S0 is now going to be an array with two elements that represent the fraction of the population that begins in each employment state.
+
+340
+00:36:20,840 --> 00:36:27,840
+And then we're going to specify a number of individuals that will be in our cross-section.
+
+341
+00:36:27,840 --> 00:36:36,840
+And the output is going to be an N by T matrix that contains individual histories of employment along each row.
+
+342
+00:36:36,840 --> 00:36:47,840
+So what we're going to see is we're going to get the history.
+
+343
+00:36:47,840 --> 00:36:59,840
+So we'll call this person 0 and period 0, then we're going to see person 0 in period 1, all the way until person 0 at period T,
+
+344
+00:36:59,840 --> 00:37:03,840
+where T is again going to be the length of alpha and beta.
+
+345
+00:37:03,840 --> 00:37:06,840
+Then there's going to be person 1.
+
+346
+00:37:06,840 --> 00:37:09,840
+We're going to observe them in period 0.
+
+347
+00:37:09,840 --> 00:37:15,840
+We're going to observe them in period 1, all the way up to T.
+
+348
+00:37:15,840 --> 00:37:23,840
+And we're going to store this in a big matrix.
+
+349
+00:37:23,840 --> 00:37:29,840
+Okay, so how do we do this? We check sizes again.
+
+350
+00:37:29,840 --> 00:37:36,840
+We're going to check to make sure that you gave us two fractions that add up to 1.
+
+351
+00:37:36,840 --> 00:37:46,840
+And then we're going to figure out based on the number of individuals that the fraction of individuals that should be employed.
+
+352
+00:37:46,840 --> 00:37:54,840
+How many should start as an employed? And so the first NZ individuals will all start as an employed.
+
+353
+00:37:54,840 --> 00:38:01,840
+We're going to allocate room for us to store these employment histories.
+
+354
+00:38:01,840 --> 00:38:06,840
+And we're going to set all of the individuals who start employed.
+
+355
+00:38:06,840 --> 00:38:10,840
+We're going to set their states to 1.
+
+356
+00:38:10,840 --> 00:38:16,840
+And then this turns out to be pretty easy because we've already done the work.
+
+357
+00:38:16,840 --> 00:38:21,840
+Where now we can simulate the employment history and we've already explored this function.
+
+358
+00:38:21,840 --> 00:38:24,840
+It just simulates a single individual's history.
+
+359
+00:38:24,840 --> 00:38:30,840
+And we're going to give them the initial state that they'll start in.
+
+360
+00:38:30,840 --> 00:38:35,840
+And we're just going to store those values into the array that we've allocated.
+
+361
+00:38:35,840 --> 00:38:38,840
+And then we're going to return it.
+
+362
+00:38:38,840 --> 00:38:43,840
+So let's see what happens when we simulate 10 individuals for two periods.
+
+363
+00:38:43,840 --> 00:38:52,840
+And we specified that roughly 35% of the individuals should be starting as unemployed.
+
+364
+00:38:52,840 --> 00:38:55,840
+So we've rounded down and we got three.
+
+365
+00:38:55,840 --> 00:39:00,840
+And so two of these three found jobs. One did not.
+
+366
+00:39:00,840 --> 00:39:04,840
+And of the seven that were employed, all of them stayed employed.
+
+367
+00:39:04,840 --> 00:39:07,840
+So this seems plausible.
+
+368
+00:39:07,840 --> 00:39:10,840
+So this is just with one transition.
+
+369
+00:39:10,840 --> 00:39:13,840
+We could increase the number of transitions.
+
+370
+00:39:13,840 --> 00:39:20,840
+And so now we have 0, 1, 2, 3.
+
+371
+00:39:21,840 --> 00:39:26,840
+So that function seems to be working.
+
+372
+00:39:26,840 --> 00:39:31,840
+Just as a matter of practice and kind of keeping with our data.
+
+373
+00:39:31,840 --> 00:39:39,840
+If we when we import real data into Python, we're typically going to import this data into a data frame.
+
+374
+00:39:39,840 --> 00:39:45,840
+So let's go ahead and keep our simulated data in a data frame as well.
+
+375
+00:39:45,840 --> 00:39:51,840
+So we're going to allow to give it a data frame that's going to have the alpha and beta.
+
+376
+00:39:51,840 --> 00:39:54,840
+So the job finding and separation probabilities.
+
+377
+00:39:54,840 --> 00:39:57,840
+We're going to specify again the S naught.
+
+378
+00:39:57,840 --> 00:40:00,840
+It's the fraction of the population that begins in each population.
+
+379
+00:40:00,840 --> 00:40:02,840
+Stay in each employment state.
+
+380
+00:40:02,840 --> 00:40:10,840
+And we're going to have an N, which is the number of individuals.
+
+381
+00:40:11,840 --> 00:40:17,840
+In our cross section.
+
+382
+00:40:17,840 --> 00:40:25,840
+And so all we're going to do is we'll make sure that our alpha's and beta's are ordered by their date.
+
+383
+00:40:25,840 --> 00:40:29,840
+We'll extract the alpha and beta arrays.
+
+384
+00:40:29,840 --> 00:40:32,840
+We'll simulate our entire cross section.
+
+385
+00:40:32,840 --> 00:40:37,840
+And we'll dump the output into a data frame.
+
+386
+00:40:40,840 --> 00:40:47,840
+Okay.
+
+387
+00:40:47,840 --> 00:40:51,840
+So let's see whether this function works.
+
+388
+00:40:51,840 --> 00:40:53,840
+So we're going to simulate.
+
+389
+00:40:53,840 --> 00:40:58,840
+Let's initially just do six months.
+
+390
+00:40:58,840 --> 00:41:03,840
+And we're going to have alpha equal to the same thing.
+
+391
+00:41:03,840 --> 00:41:05,840
+It's been forever.
+
+392
+00:41:05,840 --> 00:41:09,840
+Data are going to start in January 2018.
+
+393
+00:41:09,840 --> 00:41:15,840
+And we're going to go forward six months.
+
+394
+00:41:15,840 --> 00:41:17,840
+And let's see what comes out.
+
+395
+00:41:17,840 --> 00:41:20,840
+So we have a single person.
+
+396
+00:41:20,840 --> 00:41:22,840
+Oh, we just are looking at the head.
+
+397
+00:41:22,840 --> 00:41:26,840
+So let's look at 12.
+
+398
+00:41:26,840 --> 00:41:30,840
+So we're going to see this person, person zero.
+
+399
+00:41:31,840 --> 00:41:36,840
+We're going to observe their employment history for six months.
+
+400
+00:41:36,840 --> 00:41:40,840
+So this person took five months of being unemployed.
+
+401
+00:41:40,840 --> 00:41:44,840
+And in their six months, they found a job.
+
+402
+00:41:44,840 --> 00:41:48,840
+Person one was unemployed for two months.
+
+403
+00:41:48,840 --> 00:41:55,840
+And then found and held a job for the remainder of their simulated history.
+
+404
+00:41:55,840 --> 00:42:01,840
+Obviously, we can increase how many simulations we do.
+
+405
+00:42:01,840 --> 00:42:03,840
+And it continues to work.
+
+406
+00:42:03,840 --> 00:42:08,840
+So this is good news.
+
+407
+00:42:08,840 --> 00:42:09,840
+Okay.
+
+408
+00:42:09,840 --> 00:42:16,840
+So just to keep it interesting, let's actually pretend that we are the BLS.
+
+409
+00:42:16,840 --> 00:42:19,840
+And so the BLS has their hands tied.
+
+410
+00:42:19,840 --> 00:42:24,840
+And are actually not able to observe in individuals
+
+411
+00:42:24,840 --> 00:42:27,840
+entire employment history.
+
+412
+00:42:27,840 --> 00:42:31,840
+So what we're going to do is we're going to take our full employment
+
+413
+00:42:31,840 --> 00:42:34,840
+history and we're going to restrict it.
+
+414
+00:42:34,840 --> 00:42:39,840
+And we're going to pretend to ask the individuals from our generative model,
+
+415
+00:42:39,840 --> 00:42:41,840
+the CPS questions.
+
+416
+00:42:41,840 --> 00:42:48,840
+So if you remember, so if we have January, February, March, April, May,
+
+417
+00:42:48,840 --> 00:42:54,840
+June, July, August, September, October, November, December.
+
+418
+00:42:54,840 --> 00:43:01,840
+So if an individual, and we'll call this year one and year two,
+
+419
+00:43:01,840 --> 00:43:06,840
+if an individual begins interviewing with the CPS and February of year one,
+
+420
+00:43:06,840 --> 00:43:13,840
+they're interviewed in February, March, April, and May.
+
+421
+00:43:13,840 --> 00:43:18,840
+And then they are left out of the survey for eight months.
+
+422
+00:43:18,840 --> 00:43:24,840
+And they're interviewed again in February, March, April, and May.
+
+423
+00:43:24,840 --> 00:43:31,840
+And then they're no longer interviewed.
+
+424
+00:43:31,840 --> 00:43:32,840
+Okay.
+
+425
+00:43:32,840 --> 00:43:34,840
+So how could we do that?
+
+426
+00:43:34,840 --> 00:43:38,840
+So what we're going to do is this is going to take a single individual,
+
+427
+00:43:38,840 --> 00:43:42,840
+and then we're going to simulate an employment history,
+
+428
+00:43:42,840 --> 00:43:46,840
+and it's going to interview that individual.
+
+429
+00:43:46,840 --> 00:43:51,840
+So the inputs are going to be a data frame that have the columns person ID,
+
+430
+00:43:51,840 --> 00:43:54,840
+so who are we talking to?
+
+431
+00:43:54,840 --> 00:44:00,840
+DT, which is in what month are we talking to them and employment?
+
+432
+00:44:00,840 --> 00:44:07,840
+And then we're going to have start year and start month as when the interviews occur.
+
+433
+00:44:07,840 --> 00:44:12,840
+And so now the CPS is going to be a version of this data frame,
+
+434
+00:44:12,840 --> 00:44:19,840
+but it's only going to contain the observations that would correspond to the CPS schedule
+
+435
+00:44:19,840 --> 00:44:25,840
+for someone who starts interviewing in start year, start month.
+
+436
+00:44:25,840 --> 00:44:31,840
+So the way we're going to do this is we're going to create some date ranges,
+
+437
+00:44:32,840 --> 00:44:39,840
+and we're going to talk about these when we talk about pandas, dates,
+
+438
+00:44:39,840 --> 00:44:42,840
+and how to work with them.
+
+439
+00:44:42,840 --> 00:44:49,840
+And we're just going to put these together.
+
+440
+00:44:49,840 --> 00:44:56,840
+So we're going to start the four months of observations in our first year,
+
+441
+00:44:56,840 --> 00:45:00,840
+and then we're going to start four months of observations in our second year.
+
+442
+00:45:00,840 --> 00:45:08,840
+And then we're only going to keep data that's in those two sets of dates.
+
+443
+00:45:08,840 --> 00:45:12,840
+And so how do we interview someone?
+
+444
+00:45:12,840 --> 00:45:18,840
+Is we're going to pass this function, so we're going to do CPS interviews,
+
+445
+00:45:18,840 --> 00:45:21,840
+we're going to give it some data frame,
+
+446
+00:45:21,840 --> 00:45:26,840
+and then we're going to randomly sample from our year.
+
+447
+00:45:27,840 --> 00:45:31,840
+Let's go ahead and make this an X.
+
+448
+00:45:31,840 --> 00:45:36,840
+And then we're going to group by the person IDs,
+
+449
+00:45:36,840 --> 00:45:41,840
+and so we're going to randomly choose a year and an integer,
+
+450
+00:45:41,840 --> 00:45:45,840
+and then we're going to group by the person IDs,
+
+451
+00:45:45,840 --> 00:45:49,840
+and we're going to interview that person and get a subset of the data,
+
+452
+00:45:49,840 --> 00:45:54,840
+and then we're just going to drop some of the extra indexes that show up.
+
+453
+00:45:54,840 --> 00:46:01,840
+So this will take a minute or so to run.
+
+454
+00:46:03,840 --> 00:46:08,840
+Okay, so now that we've let this finish running,
+
+455
+00:46:08,840 --> 00:46:13,840
+let's go ahead and see what this data looks like.
+
+456
+00:46:13,840 --> 00:46:18,840
+So let's revert,
+
+457
+00:46:18,840 --> 00:46:24,840
+let's revert, let me room to see about 25 observations.
+
+458
+00:46:24,840 --> 00:46:33,840
+So individual zero was interviewed in October of 2019.
+
+459
+00:46:41,840 --> 00:46:46,840
+I see, so this person, we stopped interviewing them in 2020,
+
+460
+00:46:46,840 --> 00:46:49,840
+because we haven't seen those dates yet.
+
+461
+00:46:49,840 --> 00:46:51,840
+Okay, so,
+
+462
+00:46:51,840 --> 00:46:55,840
+yeah, because we started interviewing in 2018,
+
+463
+00:46:55,840 --> 00:47:00,840
+zero one zero one, and we simulated two years of history.
+
+464
+00:47:00,840 --> 00:47:05,840
+So because we interviewed this person in October of 2019,
+
+465
+00:47:05,840 --> 00:47:11,840
+we stopped all of our interviews in January of 2020,
+
+466
+00:47:11,840 --> 00:47:15,840
+so this person's employment history was cut short.
+
+467
+00:47:15,840 --> 00:47:19,840
+But this person started in April of 2018.
+
+468
+00:47:19,840 --> 00:47:22,840
+So let's go ahead and look at what happened to them.
+
+469
+00:47:22,840 --> 00:47:27,840
+So person one was interviewed in April, May June, July of 2018,
+
+470
+00:47:27,840 --> 00:47:31,840
+and then April, May June, July in 2019.
+
+471
+00:47:31,840 --> 00:47:35,840
+So this looks, this looks accurate.
+
+472
+00:47:35,840 --> 00:47:41,840
+Let's go ahead and see how many individuals are we observing per month.
+
+473
+00:47:41,840 --> 00:47:52,840
+So if I remember, I believe we interviewed 5,000 individuals overall.
+
+474
+00:47:52,840 --> 00:47:59,840
+So we're going to interview 5,000 individuals over the course of two years.
+
+475
+00:47:59,840 --> 00:48:04,840
+And so what you see is, as we start interviewing people,
+
+476
+00:48:04,840 --> 00:48:10,840
+there's not very much data, because this is when all of our employment history starts.
+
+477
+00:48:10,840 --> 00:48:15,840
+And we're going to add about 200 people per month.
+
+478
+00:48:15,840 --> 00:48:21,840
+And because of that, by the time we get to April of 2019,
+
+479
+00:48:21,840 --> 00:48:32,840
+we're adding 200 people a month, which means that we have 200 people times four months,
+
+480
+00:48:32,840 --> 00:48:39,840
+because you could happen in any of four months that you could start in any of four months
+
+481
+00:48:39,840 --> 00:48:43,840
+and be interviewed in April.
+
+482
+00:48:43,840 --> 00:48:50,840
+So if you started being interviewed in January, then you were still being interviewed in April,
+
+483
+00:48:50,840 --> 00:48:53,840
+same with February, March, and April.
+
+484
+00:48:53,840 --> 00:49:00,840
+And so that gives us 800, and there's about another 800 that come from individuals
+
+485
+00:49:00,840 --> 00:49:03,840
+who started being interviewed in the four months from last year.
+
+486
+00:49:03,840 --> 00:49:10,840
+So once our interview is started, we expect to see about 1,600 people per interview,
+
+487
+00:49:10,840 --> 00:49:15,840
+and that seems to line up with what we're seeing.
+
+488
+00:49:15,840 --> 00:49:17,840
+So all of this is good.
+
+489
+00:49:17,840 --> 00:49:27,840
+So now what we're going to do is we're going to go ahead and fit to the cross section.
+
+490
+00:49:27,840 --> 00:49:31,840
+So our data looks exactly like what the BLS uses.
+
+491
+00:49:31,840 --> 00:49:42,840
+So how can we modify our frequency of transition concept to account for the fact that we're now observing cross sectional data?
+
+492
+00:49:42,840 --> 00:49:51,840
+So the parameters of the Markov chain are still going to be the elements of our transition matrix P.
+
+493
+00:49:51,840 --> 00:50:00,840
+But now our data is going to be, remember, Y0, 0, Y0, 1, Y0, 2, Y0,
+
+494
+00:50:00,840 --> 00:50:06,840
+Y10, Y11, Y12, and that's what we get from here.
+
+495
+00:50:06,840 --> 00:50:13,840
+So Y10, Y11, dot dot dot.
+
+496
+00:50:13,840 --> 00:50:20,840
+So the way that we're going to do this is we're simply going to add an additional sum.
+
+497
+00:50:20,840 --> 00:50:27,840
+So if we look at this equation here, we're doing the exact same sum as before.
+
+498
+00:50:27,840 --> 00:50:34,840
+But now we're going to add a sub m to stand for individual.
+
+499
+00:50:34,840 --> 00:50:42,840
+And we're going to check whether that individual experience state i during period t and state j in t plus 1.
+
+500
+00:50:42,840 --> 00:50:48,840
+And then we'll do the same thing for the bottom.
+
+501
+00:50:48,840 --> 00:50:53,840
+So not much new there.
+
+502
+00:50:53,840 --> 00:50:57,840
+So how could we do this?
+
+503
+00:50:57,840 --> 00:51:00,840
+There's some clever pieces of this function.
+
+504
+00:51:00,840 --> 00:51:02,840
+So I'm going to walk through it.
+
+505
+00:51:02,840 --> 00:51:10,840
+But again, I'd invite you to come back and think carefully about each step of this function.
+
+506
+00:51:10,840 --> 00:51:17,840
+So our input is now just going to be a sample of individuals from our CPS survey.
+
+507
+00:51:17,840 --> 00:51:23,840
+So this is going to have columns dt, pid, and employment.
+
+508
+00:51:23,840 --> 00:51:34,840
+And the output of this function is going to be alpha and beta, which is the job finding and job separation rates.
+
+509
+00:51:34,840 --> 00:51:44,840
+So the way that we're going to do this is the first thing we'll do is we'll put date and person ID on the index.
+
+510
+00:51:44,840 --> 00:51:49,840
+Then we're going to extract the date values.
+
+511
+00:51:49,840 --> 00:51:53,840
+So this is just going to give us all of the date values.
+
+512
+00:51:53,840 --> 00:51:58,840
+And we're going to do dot shift 1 by month.
+
+513
+00:51:58,840 --> 00:52:00,840
+And so what is this going to do?
+
+514
+00:52:00,840 --> 00:52:05,840
+Oh, don't do that.
+
+515
+00:52:05,840 --> 00:52:06,840
+What is this going to do?
+
+516
+00:52:06,840 --> 00:52:13,840
+If this is going to transform 2020, 01, that's 01 to 01.
+
+517
+00:52:13,840 --> 00:52:26,840
+So we're simply going to move things forward one month.
+
+518
+00:52:26,840 --> 00:52:31,840
+And you'll see why we do that in a second.
+
+519
+00:52:31,840 --> 00:52:36,840
+Next thing we do is just extract all of the associated person IDs.
+
+520
+00:52:37,840 --> 00:52:48,840
+So these are two vectors that are the same shape, same height as the original data.
+
+521
+00:52:48,840 --> 00:52:59,840
+Then we're going to create another index that has the shifted dates and the original people, person IDs.
+
+522
+00:52:59,840 --> 00:53:10,840
+And now we're going to reindex the original data by using this new index that we've created.
+
+523
+00:53:10,840 --> 00:53:17,840
+And so then we're going to reassign the column employment to unemployment T plus 1.
+
+524
+00:53:17,840 --> 00:53:27,840
+So what this is going to give us is we're going to have DT and PID and employment,
+
+525
+00:53:28,840 --> 00:53:34,840
+which will eventually be named Employment T plus 1.
+
+526
+00:53:34,840 --> 00:53:38,840
+And it's going to associate.
+
+527
+00:53:38,840 --> 00:53:56,840
+So we'll have 2020, 01, 01, 02, 01, person 0, and their employment value in February of 2020.
+
+528
+00:53:56,840 --> 00:54:06,840
+And what's going to happen is we won't have a value for January.
+
+529
+00:54:06,840 --> 00:54:13,840
+But this will be the same size as our original data frame.
+
+530
+00:54:13,840 --> 00:54:20,840
+So now we're going to reset the index on both data frames.
+
+531
+00:54:20,840 --> 00:54:25,840
+So DT and PID will become columns.
+
+532
+00:54:25,840 --> 00:54:30,840
+And then we're just going to concat them horizontally.
+
+533
+00:54:30,840 --> 00:54:41,840
+So we're going to set access equals 1 and we're going to keep DT and PID and employment from the original data frame.
+
+534
+00:54:41,840 --> 00:54:50,840
+And we're only going to keep employment T plus 1 from the new data frame from the data T plus 1.
+
+535
+00:54:50,840 --> 00:54:59,840
+And then we're going to drop any missing values because these are associated with when individual stopped being interviewed.
+
+536
+00:54:59,840 --> 00:55:04,840
+And then we're going to make sure things are integers again.
+
+537
+00:55:04,840 --> 00:55:22,840
+And so what we're going to have is we're going to have data frame that has DT, PID, employment and employment T plus 1.
+
+538
+00:55:22,840 --> 00:55:30,840
+And this is going to have a date, a person ID and an employment status.
+
+539
+00:55:30,840 --> 00:55:37,840
+So let's say that the individual was unemployed and that in T plus 1 they were employed.
+
+540
+00:55:37,840 --> 00:55:42,840
+And then we're going to see the next month's date.
+
+541
+00:55:42,840 --> 00:55:44,840
+So this is going to be February 1.
+
+542
+00:55:44,840 --> 00:55:47,840
+Now we're going to have the same person ID.
+
+543
+00:55:47,840 --> 00:55:55,840
+Except their new employment must line up with what the T plus 1 set.
+
+544
+00:55:55,840 --> 00:55:58,840
+So that's what all of this code is going to do.
+
+545
+00:55:58,840 --> 00:56:06,840
+And then this could be in 1, which would mean that there would be a 1 here until we get, we had a missing value.
+
+546
+00:56:06,840 --> 00:56:12,840
+But we would have dropped it that row.
+
+547
+00:56:12,840 --> 00:56:19,840
+So that's roughly what all of this code does.
+
+548
+00:56:19,840 --> 00:56:31,840
+Once we have the T's and the T plus 1's, we can just do exactly the same thing we did with the other frequency counting function, where we find all of the zero states.
+
+549
+00:56:31,840 --> 00:56:43,840
+And we take the mean across just the one values, or the mean of 1 minus the zero values.
+
+550
+00:56:43,840 --> 00:56:54,840
+So we're also going to write another function to check for the accuracy of our cross sectional work.
+
+551
+00:56:54,840 --> 00:56:58,840
+So what happens when we have 1,000 individuals?
+
+552
+00:56:58,840 --> 00:57:02,840
+We observe them for up to two years.
+
+553
+00:57:02,840 --> 00:57:11,840
+And these are our alpha and beta.
+
+554
+00:57:12,840 --> 00:57:24,840
+Well, there we go. So that looks pretty accurate. This will again take another second.
+
+555
+00:57:24,840 --> 00:57:31,840
+So that's not so bad. It's not as good as when we had 10,000 observations, but it's pretty good.
+
+556
+00:57:31,840 --> 00:57:38,840
+And when we do it with 500 observations, we see some success.
+
+557
+00:57:38,840 --> 00:57:49,840
+We're going to see that this is less successful than with a thousand, but it performs relatively well.
+
+558
+00:57:49,840 --> 00:57:57,840
+And by the time we get down to 100, our data starts being pretty noisy again.
+
+559
+00:57:58,840 --> 00:58:06,840
+If you think about this, the BLS is interviewing approximately 60,000 individuals per month.
+
+560
+00:58:06,840 --> 00:58:20,840
+And so if this generative model is correct, we should expect that what they're doing is pretty accurate that they're uncovering the right transition probabilities.
+
+561
+00:58:20,840 --> 00:58:32,840
+So I think this is good news in terms of what we've learned for our generative model and our fitting process.
+
+562
+00:58:32,840 --> 00:58:42,840
+And so the last thing we're going to do is actually we're going to go ahead and take our model and we're going to fit it with real CPS data.
+
+563
+00:58:42,840 --> 00:58:51,840
+So we've downloaded and cleaned for you. You're welcome. A subset of CPS data for the years 2018 and 2019.
+
+564
+00:58:51,840 --> 00:58:56,840
+So let's see what our constant parameter model does with this data.
+
+565
+00:58:56,840 --> 00:59:00,840
+So let's go ahead and load our data.
+
+566
+00:59:00,840 --> 00:59:06,840
+We'll take a look. Notice this looks very similar to the data we've been generating.
+
+567
+00:59:06,840 --> 00:59:24,840
+We have a date time. We have a person ID, but they create their CPS creates their person ID slightly differently in that the ID is generated by using the first for the first four digits is generated by the year that their interviews begin.
+
+568
+00:59:24,840 --> 00:59:29,840
+And the next two digits are generated by the month in which they are first interviewed.
+
+569
+00:59:29,840 --> 00:59:35,840
+So their person IDs are more meaningful than our numbers zero one two, etc.
+
+570
+00:59:36,840 --> 00:59:44,840
+So let's find some employment histories. So what we're going to do is we're going to group by the person ID.
+
+571
+00:59:44,840 --> 00:59:52,840
+And we're going to count how many times a DT shows up and we're going to sum up how many periods they were employed for it.
+
+572
+00:59:52,840 --> 00:59:56,840
+And then we're going to sort by these counts and look at the bottom.
+
+573
+00:59:56,840 --> 01:00:07,840
+So we're going to just grab one of these identifiers and we can see an individual's employment history.
+
+574
+01:00:07,840 --> 01:00:11,840
+So this person started being interviewed in June 2018.
+
+575
+01:00:11,840 --> 01:00:18,840
+They were employed and they continued to be employed for all four months in which they were observed for 2018.
+
+576
+01:00:19,840 --> 01:00:30,840
+And then when we return in 2019, this individual is still employed and continues employed throughout the remainder of their history.
+
+577
+01:00:30,840 --> 01:00:35,840
+So let's try and find someone that's not employed for the entire time.
+
+578
+01:00:35,840 --> 01:00:41,840
+So let's search for IDs in which we have eight observations for date time.
+
+579
+01:00:41,840 --> 01:00:46,840
+But the sum of the employment states is less than eight.
+
+580
+01:00:46,840 --> 01:00:54,840
+So previously I picked a this ID out of a hat. It looks like there's plenty of others that we could have chosen.
+
+581
+01:00:54,840 --> 01:01:02,840
+And so what we see is this person was wasn't employed in 2018 in July was when they began their interviews.
+
+582
+01:01:02,840 --> 01:01:08,840
+And they were employed for all four months that we observed them in 2018.
+
+583
+01:01:08,840 --> 01:01:17,840
+But fast forward to 2019. We now see that this person is employed in July, but they lose their job from July to August.
+
+584
+01:01:17,840 --> 01:01:24,840
+And during September and October, they continued as an unemployed individual.
+
+585
+01:01:24,840 --> 01:01:28,840
+Let's see if there's someone who finds a job.
+
+586
+01:01:28,840 --> 01:01:37,840
+Oh yeah, so here's someone they have an unfortunate history I guess. So this person was employed for all of their 2018 interviews.
+
+587
+01:01:37,840 --> 01:01:40,840
+They were employed for their first 2019 interview.
+
+588
+01:01:40,840 --> 01:01:46,840
+Became unemployed. Then became employed again. And then became unemployed again.
+
+589
+01:01:46,840 --> 01:01:51,840
+So I don't know what it happened. But there we go.
+
+590
+01:01:52,840 --> 01:01:58,840
+And so now since we've done all of the work and we've our data is in our clean format.
+
+591
+01:01:58,840 --> 01:02:05,840
+All we have to do is apply our CPS count frequencies function and it's going to return to us two numbers.
+
+592
+01:02:05,840 --> 01:02:08,840
+It's going to return an alpha and a beta.
+
+593
+01:02:08,840 --> 01:02:12,840
+And the alpha is going to be the job finding probability.
+
+594
+01:02:12,840 --> 01:02:21,840
+So notice in 2018 and 2019 these were relatively good economic times. And so there was lots of job finding.
+
+595
+01:02:21,840 --> 01:02:29,840
+So the probability of finding a job if you were unemployed was about 0.37.
+
+596
+01:02:29,840 --> 01:02:35,840
+And the probability of losing your job was only about 0.01.
+
+597
+01:02:36,840 --> 01:02:41,840
+And so that kind of wraps up what we're going to do today.
+
+598
+01:02:41,840 --> 01:02:51,840
+We're going to continue this lecture. So recall one of the goals that we have with this lecture is to kind of build a model, fit it.
+
+599
+01:02:51,840 --> 01:02:59,840
+And then do some kind of forecasting or prediction where we start thinking about what could happen in the future.
+
+600
+01:02:59,840 --> 01:03:09,840
+And to do that we're going to talk about a model in which these transition probabilities, the job finding in job loss rates can fluctuate over time.
+
+601
+01:03:09,840 --> 01:03:15,840
+And we're going to see what comes out of that model next time. So talk soon.
+

@@ -1,0 +1,1136 @@
+1
+00:00:00,000 --> 00:00:09,000
+Hello, this is Spencer Lyon and today we will be doing a review of pandas by way of example.
+
+2
+00:00:09,000 --> 00:00:15,000
+What we will be looking at today is an example dataset called the movie lens dataset.
+
+3
+00:00:15,000 --> 00:00:19,000
+We will be using this to learn a few things.
+
+4
+00:00:19,000 --> 00:00:29,000
+First, we will be learning how to use the request library in pandas, which is a very popular library for handling interactions with web services.
+
+5
+00:00:30,000 --> 00:00:35,000
+Second part of this will be downloading a file that is contained in a zip archive.
+
+6
+00:00:35,000 --> 00:00:46,000
+So we are going to learn how to allow pandas to operate on these zip files, but we will do so entirely in memory without having to write the file out to a hard drive.
+
+7
+00:00:46,000 --> 00:00:55,000
+And finally, we are going to practice merging datasets so that we can do a more complete analysis on a variety of datasets.
+
+8
+00:00:56,000 --> 00:01:05,000
+Just to note that you will need to enter an access if you are following along in running this notebook because we will be downloading a file from the internet.
+
+9
+00:01:05,000 --> 00:01:21,000
+And also this was originally created a few years ago by a team led by Dave Bacchus, Dr. Coleman and myself, as well as one of our teaching assistants Brian the block for a course that we taught at NYU Stern in their data boot camp course.
+
+10
+00:01:22,000 --> 00:01:31,000
+And we have taken this notebook and it has been modified for today's purposes, but this was when the content was originally developed.
+
+11
+00:01:31,000 --> 00:01:36,000
+Okay, so we are going to start by importing some packages.
+
+12
+00:01:36,000 --> 00:01:42,000
+So first we are going to make sure that our plots are going to show up, then we are going to do our standard imports of pandas and map plotlib.
+
+13
+00:01:42,000 --> 00:01:54,000
+We also have a new import of date time as dt and then a handful of new imports down at the bottom where we are going to import the OS package requests, IOs, zip file and SSU2.
+
+14
+00:01:54,000 --> 00:02:05,000
+Don't worry too much about these now, we will go over what they are, but we will run these now and we will be ready to go when we get later on.
+
+15
+00:02:05,000 --> 00:02:16,000
+Okay, so a little background on the data set that we are going to be using. So there is a group out of the University of Minnesota called the group lens team.
+
+16
+00:02:16,000 --> 00:02:23,000
+And this team has gone and put together and collected a number of data sets that are now publicly available for academic use.
+
+17
+00:02:23,000 --> 00:02:32,000
+And one of which is called the movie lens data set. So this contains millions of movie ratings by users of the movie lens website.
+
+18
+00:02:32,000 --> 00:02:41,000
+That's where the data set gets its name and we are going to be using a small subset of this data set that contains a 100,000 ratings.
+
+19
+00:02:41,000 --> 00:02:49,000
+This is down from about 27 million that are contained within the full data set.
+
+20
+00:02:49,000 --> 00:02:55,000
+So the data itself comes in a zip file that we could download from the group lens data set.
+
+21
+00:02:55,000 --> 00:03:03,000
+And inside the zip file there will be a few different CSV files containing different parts of the data as well as a handy read me file.
+
+22
+00:03:03,000 --> 00:03:14,000
+We've gone ahead and we've downloaded the zip file and looked inside of it and we've read the read me and here are some details about the different data files that are in this zip archive.
+
+23
+00:03:15,000 --> 00:03:28,000
+So first there is a ratings.csv file and here each line in the file is going to have the rating user gave for a particular film at a particular time.
+
+24
+00:03:28,000 --> 00:03:35,000
+Next we have the tags.csv and this would include a number of tags for specific film that a user applied.
+
+25
+00:03:35,000 --> 00:03:43,000
+And maybe it would be a tag to say I watched this with a particular individual or a tag to put it in some sort of list.
+
+26
+00:03:43,000 --> 00:03:45,000
+These are kind of defined by the users.
+
+27
+00:03:45,000 --> 00:03:50,000
+We won't be using these but it does exist in case you're interested.
+
+28
+00:03:50,000 --> 00:03:54,000
+Third is the movies.csv file.
+
+29
+00:03:54,000 --> 00:03:58,000
+Here each line in the file is a movie name.
+
+30
+00:03:59,000 --> 00:04:03,000
+And then we also have each line represents a movie.
+
+31
+00:04:03,000 --> 00:04:08,000
+And the columns are going to be the movie ID, the title and the genres.
+
+32
+00:04:08,000 --> 00:04:15,000
+And these genres are going to be most together in a single stream each separated by a pipe or a vertical bar.
+
+33
+00:04:15,000 --> 00:04:23,000
+And then finally there's a link.csv and this would provide links to external websites if you wanted to get more information about the movies.
+
+34
+00:04:24,000 --> 00:04:29,000
+Our analysis today will focus on the ratings and the movies files.
+
+35
+00:04:29,000 --> 00:04:40,000
+So we would like to be able to download the file from the internet and read the ratings.csv and movies.csv and to appendis data frame.
+
+36
+00:04:40,000 --> 00:04:42,000
+And there are at least two ways of doing this.
+
+37
+00:04:42,000 --> 00:04:50,000
+One is kind of what we'll call the more manual approach where we could use our internet browser navigate to the movie landscape.
+
+38
+00:04:50,000 --> 00:04:55,000
+And then we'll click the link to download the file, put it on our hard drive.
+
+39
+00:04:55,000 --> 00:05:04,000
+And then we could extract the zip archive, put the file somewhere and finally go back to our Jupiter session and use PD.reads.csv.
+
+40
+00:05:04,000 --> 00:05:11,000
+That option is comfortable and something that we may have done a lot in the past.
+
+41
+00:05:11,000 --> 00:05:13,000
+But there's also a second option.
+
+42
+00:05:13,000 --> 00:05:17,000
+So the second option is to have Python automate the whole process.
+
+43
+00:05:17,000 --> 00:05:22,000
+Python will go it will request a zip file, download it, it'll start opening it up.
+
+44
+00:05:22,000 --> 00:05:27,000
+And it will prepare these two files for pandas to read.
+
+45
+00:05:27,000 --> 00:05:34,000
+Of these two options, the first is likely easier at first glance because it's something we're familiar with.
+
+46
+00:05:34,000 --> 00:05:37,000
+However, the second is going to be a lot more powerful.
+
+47
+00:05:37,000 --> 00:05:42,000
+And so we're going to choose that option for our work today.
+
+48
+00:05:43,000 --> 00:05:46,000
+So why do we do it the hard way? Well, first of all, it builds character.
+
+49
+00:05:46,000 --> 00:05:50,000
+And if you haven't done things that build character, you're welcome.
+
+50
+00:05:50,000 --> 00:05:52,000
+We're going to do this today.
+
+51
+00:05:52,000 --> 00:06:02,000
+Secondly and more seriously, one major benefit of doing it through the second option is that the entire analysis can be self-contained in the notebook.
+
+52
+00:06:02,000 --> 00:06:10,000
+And what this means is that there's no need for the user of the notebook to do anything quote by hand.
+
+53
+00:06:10,000 --> 00:06:18,000
+They don't have to open up a particular website, make sure that the zip archive gets extracted into a particular place.
+
+54
+00:06:18,000 --> 00:06:22,000
+So we can hand somebody our notebook and they can run the whole process.
+
+55
+00:06:22,000 --> 00:06:28,000
+And finally, once we learn how to use these tools, we can apply them to other data sets.
+
+56
+00:06:28,000 --> 00:06:35,000
+As it's almost inevitable that we'll come across an archive or compressed version of data at some point.
+
+57
+00:06:35,000 --> 00:06:52,000
+Be it through a zip file or a tar file and being able to handle these directly in our Python code will give us an extra tool in our belt that will likely need going forward.
+
+58
+00:06:52,000 --> 00:06:56,000
+So how do we actually get about go about this?
+
+59
+00:06:56,000 --> 00:07:00,000
+First, we're going to start by defining very clearly what we want to accomplish.
+
+60
+00:07:00,000 --> 00:07:15,000
+So in words what we want is to create pandas data frames from the ratings.csv and movies.csv files that are contained in the zip archive that we could download from the group lens website.
+
+61
+00:07:15,000 --> 00:07:21,000
+So let's take it one step at a time and try to map out what needs to happen to fulfill our want.
+
+62
+00:07:21,000 --> 00:07:29,000
+So first we need to download the file and our strategy for doing this will be to lean on and use the request package.
+
+63
+00:07:30,000 --> 00:07:40,000
+Second, once we've downloaded the file, we need to be able to unpack this contents that were downloaded and treat them as a file.
+
+64
+00:07:40,000 --> 00:07:49,000
+And there's going to be some special handling. We'll talk more about that. But to do this step, we're going to use a built in Python module called the IOM module.
+
+65
+00:07:50,000 --> 00:07:57,000
+Next, once we are able to get our hands on the file, we need to then recognize and treat this file as a zip archive.
+
+66
+00:07:57,000 --> 00:08:05,000
+The itself contains multiple files. Again, we're going to use this with a built in tool in Python called the zip file module.
+
+67
+00:08:05,000 --> 00:08:16,000
+And then finally, once we've been able to identify the CSVs within the zip file, we need to use the pandas.readcsv function to construct our data frames.
+
+68
+00:08:17,000 --> 00:08:29,000
+That's the outline. We're going to go through these things one step at a time and we'll make sure that we provide a bit more detail on how they work when we get to each of them.
+
+69
+00:08:29,000 --> 00:08:33,000
+Before we get there, there's a couple of digressions first.
+
+70
+00:08:33,000 --> 00:08:37,000
+And we felt that this was important. The request documentation states the following.
+
+71
+00:08:37,000 --> 00:08:52,000
+Recreation a use of other HTTP libraries may result in dangerous side effects, including security vulnerabilities verbose code reinventing the wheel constantly reading documentation to press it headaches or even death.
+
+72
+00:08:52,000 --> 00:09:02,000
+This is a bit like hard to but we totally agree. The request package of library is by far the easiest way to interact with websites that we found in Python.
+
+73
+00:09:02,000 --> 00:09:12,000
+So we're going to be learning a bit more about it today. And I'm sure certain that as you continue in your programming careers, you'll be continuing to use it.
+
+74
+00:09:12,000 --> 00:09:22,000
+Second digression is when we are constructing this solution. We knew what we wanted and we did our homework and Google the round for a solution that could work.
+
+75
+00:09:22,000 --> 00:09:31,000
+And we ended up finding a particular the helpful stack overflow thread that let us piece together our solution.
+
+76
+00:09:31,000 --> 00:09:41,000
+Okay, so let's get started. So remember our first step is to use the request library to download the file. So here's how we do this.
+
+77
+00:09:41,000 --> 00:09:51,000
+In code first we have a variable called url that is just contains a string that points to the url where we can download our file.
+
+78
+00:09:51,000 --> 00:09:58,000
+Once we've defined this we can use the request.get function and pass it our url as an argument.
+
+79
+00:09:58,000 --> 00:10:05,000
+We'll store the output as a variable called res which is short for response.
+
+80
+00:10:05,000 --> 00:10:10,000
+And I may use the term res or response interchangeably as we go forward.
+
+81
+00:10:10,000 --> 00:10:18,000
+And once we've done that we'll just print out a few things contained within this response object to see what it looks like.
+
+82
+00:10:18,000 --> 00:10:21,000
+So we'll go ahead and run that.
+
+83
+00:10:21,000 --> 00:10:37,000
+And so we see here that we got a response status code. So the HTTP or web language has a set of principles or standards defined in it.
+
+84
+00:10:37,000 --> 00:10:40,000
+And one of these is called the status code.
+
+85
+00:10:40,000 --> 00:10:50,000
+So when you, your browser, Python attempts to make a request over HTTP to a different web service.
+
+86
+00:10:50,000 --> 00:10:54,000
+That service will do its operations and then return something.
+
+87
+00:10:54,000 --> 00:10:59,000
+If everything was successful the convention is to return the code 200.
+
+88
+00:10:59,000 --> 00:11:05,000
+And this just means you asked me for something. I was able to find it and I gave it to you.
+
+89
+00:11:05,000 --> 00:11:15,000
+So that's great. Second we want to look at the type of this response object and sure enough it's a class implemented in the request module called response.
+
+90
+00:11:15,000 --> 00:11:18,000
+And that's where we get its name.
+
+91
+00:11:18,000 --> 00:11:23,000
+Each of these request responses has what's called a content field.
+
+92
+00:11:23,000 --> 00:11:29,000
+And this is where the actual data that is sent back from the external web server is contained.
+
+93
+00:11:29,000 --> 00:11:33,000
+And when we look at this we can see that this is a bytes object.
+
+94
+00:11:33,000 --> 00:11:44,000
+So in Python we've typically work with textual data as a string, but there's also a way to have Python interpret characters or text as bytes.
+
+95
+00:11:44,000 --> 00:11:49,000
+And this is kind of the native way to represent or encode files.
+
+96
+00:11:49,000 --> 00:11:54,000
+So in this case the content of our response has class bytes.
+
+97
+00:11:54,000 --> 00:11:57,000
+And then finally we can look at the headers.
+
+98
+00:11:57,000 --> 00:12:06,000
+Another part of the HTTP standard for we have communicating extra information about the request.
+
+99
+00:12:06,000 --> 00:12:09,000
+Here we are able to see things like content length.
+
+100
+00:12:09,000 --> 00:12:16,000
+This header tells us how long in bytes the response.content field is.
+
+101
+00:12:16,000 --> 00:12:21,000
+There are other things like when the file was that modified what the content type is.
+
+102
+00:12:21,000 --> 00:12:33,000
+And notice here that we have content type is application slash zip, which is again another convention for demonstrating to us the consumer of this web URL.
+
+103
+00:12:33,000 --> 00:12:39,000
+That the content the bytes contained within it represent a zip file.
+
+104
+00:12:39,000 --> 00:12:42,000
+So this all looks good. It's what we are expecting.
+
+105
+00:12:42,000 --> 00:12:48,000
+And it's nice to see that returned in the response object.
+
+106
+00:12:49,000 --> 00:12:57,000
+So step two is to read the file as a bytes object that Python can work with.
+
+107
+00:12:57,000 --> 00:13:02,000
+So we've talked about a few different file formats in the past.
+
+108
+00:13:02,000 --> 00:13:05,000
+CSV would be a plain text file.
+
+109
+00:13:05,000 --> 00:13:14,000
+You can open it up in any text editor and you can actually read the characters that are there and it's human readable.
+
+110
+00:13:14,000 --> 00:13:20,000
+We talked about other file formats like feather or parquet or excel that are not human readable.
+
+111
+00:13:20,000 --> 00:13:23,000
+They are binary file formats.
+
+112
+00:13:23,000 --> 00:13:26,000
+Well the zip archives and other binary file format.
+
+113
+00:13:26,000 --> 00:13:34,000
+So in order to work with this, we're going to actually take the content that we just obtained.
+
+114
+00:13:34,000 --> 00:13:40,000
+And we're going to wrap it inside of an instance of the IO.bites IO class.
+
+115
+00:13:40,000 --> 00:13:48,000
+So to do this it's one line of code. We imported the IO module that was built into Python up at the top of our notebook.
+
+116
+00:13:48,000 --> 00:13:51,000
+And now we're just going to create a new variable called bytes.
+
+117
+00:13:51,000 --> 00:13:58,000
+That is the IO.bites IO instance formed by the content of our response.
+
+118
+00:13:58,000 --> 00:14:05,000
+So we execute that. Everything worked okay for us.
+
+119
+00:14:05,000 --> 00:14:13,000
+Now we need to move on to step three. So where we are now is we've downloaded the file and we've interpreted it as a binary source.
+
+120
+00:14:13,000 --> 00:14:19,000
+But we actually have more information. This isn't just any arbitrary binary blob of data.
+
+121
+00:14:19,000 --> 00:14:26,000
+It's actually a file with a very particular format called the zip file format.
+
+122
+00:14:26,000 --> 00:14:31,000
+Python knows how to handle zip files intrinsically.
+
+123
+00:14:31,000 --> 00:14:35,000
+And there's a built in the zip file module for doing this.
+
+124
+00:14:35,000 --> 00:14:49,000
+So the next step will be to have Python understand we'll be able to tell Python or communicate to it that our bytes IO object has data that represents a zip file.
+
+125
+00:14:49,000 --> 00:14:56,000
+And once we do that we'll be able to do common zip archive operations on our our data.
+
+126
+00:14:56,000 --> 00:15:07,000
+So here we're going to pass our bytes object into the ZF, which is short for zip file zip file class.
+
+127
+00:15:07,000 --> 00:15:15,000
+And we're going to return back something called zip and the zip file is an object that has class zip file.
+
+128
+00:15:16,000 --> 00:15:22,000
+So that's great. Again, what we were expecting.
+
+129
+00:15:22,000 --> 00:15:31,000
+So now that we have a zip file, we need to take a look with inside. So the zip file class and all move out of the way here.
+
+130
+00:15:31,000 --> 00:15:36,000
+The zip file class has a handy method called name list.
+
+131
+00:15:36,000 --> 00:15:43,000
+Now this method, it will list all the different files and folders that are contained within the zip archive.
+
+132
+00:15:43,000 --> 00:15:52,000
+So let's go ahead and take a look at what these contents are for our file.
+
+133
+00:15:52,000 --> 00:15:56,000
+So we have our zip object and we're going to call the name list method.
+
+134
+00:15:56,000 --> 00:16:04,000
+And we see here that there must be one folder called ml-ladest-small.
+
+135
+00:16:04,000 --> 00:16:07,000
+And then inside that folder there are a number of files.
+
+136
+00:16:07,000 --> 00:16:13,000
+There's a read me and then there's those four CSV files we talked about earlier.
+
+137
+00:16:13,000 --> 00:16:21,000
+Now we notice that the ratings.csv and the movie CSV.files or sorry.csv files are in there.
+
+138
+00:16:21,000 --> 00:16:26,000
+And in order to actually have pandas read this data, we need to give it that full path.
+
+139
+00:16:26,000 --> 00:16:34,000
+We need to give it ml-ladest-small slash ratings.csv and the same for movies.
+
+140
+00:16:34,000 --> 00:16:45,000
+Now we could just write that text out but we're actually going to just search through that list for any of the file names that includes the string movies.
+
+141
+00:16:45,000 --> 00:16:52,000
+And since there's only one, that will be our movies, the path to our movies file and we'll repeat the same for our ratings.
+
+142
+00:16:52,000 --> 00:16:58,000
+So that's what we're doing just down here.
+
+143
+00:16:58,000 --> 00:17:06,000
+And we'll see here that it did correctly find the path to our movies file.
+
+144
+00:17:06,000 --> 00:17:07,000
+Okay.
+
+145
+00:17:07,000 --> 00:17:11,000
+Finally, we're ready to let pandas read in our CSV file.
+
+146
+00:17:11,000 --> 00:17:15,000
+I'll move back over here to be more centered.
+
+147
+00:17:15,000 --> 00:17:27,000
+So we're going to use our friend, pd.reads CSV and the only extra step here is that we need to call on our zip file object.
+
+148
+00:17:27,000 --> 00:17:32,000
+We need to call the open method and pass the path to the file we'd like to open.
+
+149
+00:17:32,000 --> 00:17:43,000
+So here we want to open the movie file, open the ratings file, and that will allow us to read these two CSV files into a data frame.
+
+150
+00:17:43,000 --> 00:17:45,000
+So we'll run that.
+
+151
+00:17:45,000 --> 00:17:48,000
+Again, everything executed without error.
+
+152
+00:17:48,000 --> 00:17:52,000
+And let's take a look at the data and see what we got.
+
+153
+00:17:53,000 --> 00:17:59,000
+So first we'll print out the info, which will tell us what the columns are, and then we'll look at the first few rows.
+
+154
+00:17:59,000 --> 00:18:15,000
+So here it looks like the movies dataset has three columns, one being movie ID, which is an integer, and then it has two string columns, one for the title of the movie, and then one for the genre.
+
+155
+00:18:15,000 --> 00:18:26,000
+So it looks also like there are 9,742 rows, and each of the three columns has a non-null value for all those rows.
+
+156
+00:18:26,000 --> 00:18:29,000
+So we don't have any missing data, which is very helpful.
+
+157
+00:18:29,000 --> 00:18:32,000
+We'll do the same for the ratings dataset.
+
+158
+00:18:32,000 --> 00:18:40,000
+And here we have a user ID, a movie ID, a rating, and the timestamp.
+
+159
+00:18:40,000 --> 00:18:48,000
+The two ID columns as well as the timestamp are all integers right now, and then the rating is a floating, a float 64.
+
+160
+00:18:48,000 --> 00:18:57,000
+Okay, so we've just seen how the ratings dataset has a movie ID column, but not the title of the movie.
+
+161
+00:18:57,000 --> 00:19:00,000
+Let's think about why this is.
+
+162
+00:19:00,000 --> 00:19:05,000
+So the reason for this is a concept called normalization.
+
+163
+00:19:05,000 --> 00:19:07,000
+Let's think this through.
+
+164
+00:19:07,000 --> 00:19:20,000
+The movie names directly in the rating data frame would potentially cause each movie name to repeat it many times, because for every movie there may be many different users who are reviewed the movie.
+
+165
+00:19:20,000 --> 00:19:27,000
+So one of the movie names we've seen so far is called Grumpy or Old Men parentheses 1995.
+
+166
+00:19:27,000 --> 00:19:36,000
+Now thinking about this, this takes up a whole lot more room than the integer three if we were to save this as a CSV file.
+
+167
+00:19:36,000 --> 00:19:40,000
+We have many characters just as it is one.
+
+168
+00:19:40,000 --> 00:19:51,000
+So for this reason and others, the group plans team decided to store the movie names and genres in the movies.czv file, alongside an integer movie ID.
+
+169
+00:19:51,000 --> 00:20:03,000
+Now this is unique for every row of that CSV file, and this movie ID is then used throughout all the other files as a way to refer to a specific movie.
+
+170
+00:20:03,000 --> 00:20:13,000
+This is an example of a relational database technique called normalization, and pardon the typo in the word example there.
+
+171
+00:20:13,000 --> 00:20:17,000
+So you might be thinking, well, why would we normalize?
+
+172
+00:20:17,000 --> 00:20:22,000
+If we're just trying to save space and this is only a couple megabytes, it's probably not that big a deal.
+
+173
+00:20:22,000 --> 00:20:31,000
+Well, there are other examples where instead of having 100,000 rows, as we do in our ratings dataset, there may be millions or billions of rows.
+
+174
+00:20:31,000 --> 00:20:36,000
+And at that point, it really does matter trying to optimize storage space.
+
+175
+00:20:36,000 --> 00:20:42,000
+But there's a second reason for why we would normalize that may even work compelling.
+
+176
+00:20:42,000 --> 00:20:53,000
+So for the second point, let's consider a scenario where the group plans team wanted to add an additional column of information about each movie.
+
+177
+00:20:53,000 --> 00:20:58,000
+They wanted to add the director or perhaps the producer of the movie.
+
+178
+00:20:58,000 --> 00:21:06,000
+So in their current structure, in order to do this, they would go through that 9,000 line movies CSV file.
+
+179
+00:21:06,000 --> 00:21:11,000
+They would add a director column, and then for each movie, they would add a director.
+
+180
+00:21:11,000 --> 00:21:19,000
+There would be no duplication of movie director pairs, because each movie only shows up one time and in one row.
+
+181
+00:21:20,000 --> 00:21:31,000
+Now, contrast this with a different version of the dataset that has the movie title and genre in the same CSV file as the ratings.
+
+182
+00:21:31,000 --> 00:21:40,000
+If we wanted to add a director column to this file, what we would have to do is we would go through the 100,000 different ratings.
+
+183
+00:21:40,000 --> 00:21:43,000
+We would look at what the movie title is and add the director.
+
+184
+00:21:43,000 --> 00:21:51,000
+Now, if there were 50 users, for example, who rated a single movie, would repeat that director's name 50 times,
+
+185
+00:21:51,000 --> 00:21:55,000
+just as we're repeating the title of the movie 50 times.
+
+186
+00:21:55,000 --> 00:22:08,000
+This process of finding every single row that goes to a particular movie, could be more cumbersome and time consuming than adding a single row,
+
+187
+00:22:08,000 --> 00:22:12,000
+or adding the director column to just a single row of the movie's data frame.
+
+188
+00:22:12,000 --> 00:22:21,000
+In this sense, adding new features or richness to the movie's dataset was much easier when it was self-contained and isolated,
+
+189
+00:22:21,000 --> 00:22:27,000
+instead of having it be already combined and mixed in with the ratings.
+
+190
+00:22:27,000 --> 00:22:39,000
+So, for our analysis, however, we want to be able to analyze the ratings for specific movies, the ID, the movie ID, that integer doesn't really mean much to us,
+
+191
+00:22:39,000 --> 00:22:45,000
+and we would like to see the title of the movie because it has a bit more context.
+
+192
+00:22:45,000 --> 00:22:50,000
+So, we need a way to bring in the movie title into the ratings data frame.
+
+193
+00:22:51,000 --> 00:23:04,000
+And as you're probably thinking to yourself, given what we learned a few weeks ago, this is the perfect use case for the merge functionality that pandas offers.
+
+194
+00:23:04,000 --> 00:23:11,000
+To understand how this is going to work, we're going to do just a small example looking at the first three rows of ratings dataset.
+
+195
+00:23:11,000 --> 00:23:13,000
+So here's what it looks like.
+
+196
+00:23:13,000 --> 00:23:16,000
+In the first three rows, we have a...
+
+197
+00:23:16,000 --> 00:23:20,000
+The user ID column is filled entirely with the integer one.
+
+198
+00:23:20,000 --> 00:23:24,000
+This means that the same user rated three different movies.
+
+199
+00:23:24,000 --> 00:23:30,000
+The movie that was rated was movie with ID one, ID three and ID six.
+
+200
+00:23:30,000 --> 00:23:37,000
+Each of these movies was given a rating of four by user with ID one, and then we have the timestamp.
+
+201
+00:23:38,000 --> 00:23:47,000
+So let's see taking just these three rows, let's see what happens when we merge in the movies dataset on the movie ID column.
+
+202
+00:23:47,000 --> 00:23:52,000
+We see here that the first four columns are exactly the same as what we had.
+
+203
+00:23:52,000 --> 00:23:55,000
+However, we have an additional two columns.
+
+204
+00:23:55,000 --> 00:23:59,000
+We have the title and the list of genres for this particular movie.
+
+205
+00:23:59,000 --> 00:24:02,000
+Here's a breakdown of what happened.
+
+206
+00:24:02,000 --> 00:24:11,000
+For each of the three rows in ratings.head three, pandas went and it found the value in the movie ID column.
+
+207
+00:24:11,000 --> 00:24:18,000
+Now we can think of pandas storing that in memory or keeping a record of what the current movie ID is.
+
+208
+00:24:18,000 --> 00:24:29,000
+Once it has this, it goes to the movie's data frame, and it searches the movie ID column for all of the rows that have a matching movie ID.
+
+209
+00:24:30,000 --> 00:24:38,000
+Once it finds one, it brings over any columns from movies that aren't found in ratings, in this case title and genres,
+
+210
+00:24:38,000 --> 00:24:46,000
+and it brings them into the output alongside the existing columns for this particular movie ID.
+
+211
+00:24:46,000 --> 00:24:57,000
+It would then go to the next row, find the movie ID from ratings, look up the corresponding rows inside movies, and bring over the data, and we'll do this one row at a time.
+
+212
+00:24:58,000 --> 00:25:07,000
+The output then has all of the columns found in either ratings or movies.
+
+213
+00:25:07,000 --> 00:25:15,000
+Now that we've kind of understood how that works with just the first few rows, let's look at what happens when we do this on the entire data set.
+
+214
+00:25:15,000 --> 00:25:21,000
+So I'll move to the site here so we can see all of the rows that are being displayed.
+
+215
+00:25:21,000 --> 00:25:30,000
+So what we've done is we've called the PD.merge function, passed it the ratings data frame first, and then the movies, and then we set two arguments.
+
+216
+00:25:30,000 --> 00:25:36,000
+One, we set how it equal to left, and then on equal movie ID.
+
+217
+00:25:37,000 --> 00:25:52,000
+Now as you remember, the how equal left argument says that the output should contain all rows found in the left or first data frame passed to the merge function.
+
+218
+00:25:52,000 --> 00:26:01,000
+In this case that would be ratings, so the output needs to have every movie ID that can contain in the ratings data frame.
+
+219
+00:26:02,000 --> 00:26:17,000
+The on keyword argument here says that when we're trying to match up the rows of ratings with the rows of movies, we need to be looking at the value of the movie ID column from both the ratings data frame and then from the movies one.
+
+220
+00:26:17,000 --> 00:26:31,000
+Once we've done this merge, we print out the shapes of our three data frames now, the combined one, the ratings and the movies, as well as show the first 20 rows of our movie of our combined data set.
+
+221
+00:26:31,000 --> 00:26:39,000
+Looking at the dimensions, we see that the number of rows in the ratings data frame and the new combined data frame is equal.
+
+222
+00:26:39,000 --> 00:26:42,000
+This is what happened for two reasons.
+
+223
+00:26:42,000 --> 00:26:47,000
+One is that we called how equal left. We passed that argument.
+
+224
+00:26:47,000 --> 00:26:54,000
+When how is left, all of the ratings that appear or movie ID is appeared in the ratings data set are going to show up in the output.
+
+225
+00:26:54,000 --> 00:27:05,000
+Reason number two is that each of those movie ID should up in only one row of our movies data frame.
+
+226
+00:27:05,000 --> 00:27:11,000
+The reason the rows are the same are one, which shows how equal left.
+
+227
+00:27:11,000 --> 00:27:16,000
+So every row of ratings is represented in the output and then second.
+
+228
+00:27:16,000 --> 00:27:23,000
+Each movie ID from ratings shows up only once and exactly once in the movie data frame.
+
+229
+00:27:23,000 --> 00:27:34,000
+Had the movie ID number one appeared two times in the movie's data frame, we would have actually seen that the first rating would be repeated.
+
+230
+00:27:34,000 --> 00:27:39,000
+We'd have user one movie one rating four.
+
+231
+00:27:39,000 --> 00:27:45,000
+And then we'd have the title of genre from the first match in the movie's column.
+
+232
+00:27:45,000 --> 00:27:54,000
+In this case it's toy story and then if it was actually a duplicate movie ID in the movie's data frame, we would repeat the first four columns that came from ratings.
+
+233
+00:27:54,000 --> 00:27:58,000
+And then we'd have the new title in genre that appeared in movies.
+
+234
+00:27:58,000 --> 00:28:08,000
+That's not the case here. We have a perfect one to one mapping between the movie ID in the ratings data frame and the movie ID in the movie's data frame.
+
+235
+00:28:08,000 --> 00:28:15,000
+Finally the number of columns here is going to be the first four columns that come from the ratings data frame.
+
+236
+00:28:15,000 --> 00:28:26,000
+Plus all of the non movie ID columns from movies in this case that's going to be two and so we end up with six columns.
+
+237
+00:28:26,000 --> 00:28:32,000
+So at this point now that we have our combined data frame, we're ready to do a little bit of analysis.
+
+238
+00:28:32,000 --> 00:28:40,000
+And this is going to be the last part of this section of the Pandas review and we want to do this exercise together.
+
+239
+00:28:40,000 --> 00:28:55,000
+So some of the things we're going to ask you to do, you already have the tools for, but some of them you don't quite yet have the tools and the reason we're doing this is we're trying to motivate one of the concepts we're going to be talking about next week when we go into
+
+240
+00:28:55,000 --> 00:29:10,000
+what are called group by operations. You'll see here soon. What we'd like to do now is pause the video, we want to work through and talk through these things together, be able to ask questions and answer them.
+
+241
+00:29:10,000 --> 00:29:19,000
+Okay, welcome back. I've moved myself for physically and on the screen so that I can be a bit closer to my keyboard.
+
+242
+00:29:19,000 --> 00:29:35,000
+So let's go ahead and we'll work through each of these examples one of the time. So in order to under to get the average rating across all movies and all users will be able to use the mean method on the rating column.
+
+243
+00:29:35,000 --> 00:29:47,000
+When we do this we see that the answer is three and a half, which on a scale from one to five makes a lot of sense. It's fairly in the average of that range.
+
+244
+00:29:48,000 --> 00:30:01,000
+So next we were asked to find and try to understand the distribution of ratings and the way we want to do this for our answer was to compute or to display a histogram of the data.
+
+245
+00:30:02,000 --> 00:30:12,000
+Of how many ratings fell in each bin and what we're going to do here is at the top we have a map plot lib version of this and at the bottom we have a plot lib version.
+
+246
+00:30:12,000 --> 00:30:20,000
+So using to be the same graph effectively, but they're going to be using two different libraries and we're just going to show you this for variety.
+
+247
+00:30:20,000 --> 00:30:35,000
+So the first thing to notice here is that we have the bins that we're creating and this is going to be equally space starting at 0.25 going all the way to 5.25.
+
+248
+00:30:35,000 --> 00:30:45,000
+So when we do this we're telling pandas and map plot lib to count the number of ratings that occurred in each of these intervals that are each half a rating wide.
+
+249
+00:30:45,000 --> 00:30:51,000
+So this very first interval would be from 0.25 to 1 and then so on.
+
+250
+00:30:52,000 --> 00:31:09,000
+Now we see here that there's kind of a peak that it seems like the mode or the most likely most common rating is a 4 and there are also kind of other peaks at 5 and then again just below 3 and the way I might think of this is.
+
+251
+00:31:09,000 --> 00:31:16,000
+If a user is going to go and write a review it seems more likely that they're going to write a review about movies that they like.
+
+252
+00:31:17,000 --> 00:31:19,000
+There seem to be.
+
+253
+00:31:20,000 --> 00:31:32,000
+A handful of movies that get rated as top ratings by a lot of people and then fewer ratings just beneath that bar so once you've crossed the threshold of going past four.
+
+254
+00:31:32,000 --> 00:31:42,000
+It's more likely to get to five than you stop at four and a half and then the idea that the average rating would be a four.
+
+255
+00:31:43,000 --> 00:31:51,000
+Again, reinforces the idea that there are more users willing to rate movies that they enjoy than ones that they didn't.
+
+256
+00:31:51,000 --> 00:31:54,000
+So let's take another look at the same.
+
+257
+00:31:54,000 --> 00:31:58,000
+Graph with this time using the plotly plotting library.
+
+258
+00:31:58,000 --> 00:32:11,000
+So now it's going to be the same thing but here we'll see that it's interactive we consume we can scroll we can hover over things and it tells us that there were 26,000 people who rated between four and four and a half for example.
+
+259
+00:32:12,000 --> 00:32:31,000
+Okay, so third is we were asked to find the average rating of each movie so now one way we might do this is we would first use our indexing knowledge to say okay if we wanted to look at the same movie thirty one.
+
+260
+00:32:31,000 --> 00:32:40,000
+We would get all rows that are of course bonding to movie thirty one we could take the rating column and compute the mean.
+
+261
+00:32:40,000 --> 00:32:45,000
+And we do this we see that for this movie the average rating is about three point one eight.
+
+262
+00:32:45,000 --> 00:32:55,000
+However, instead of having to repeat this either in a loop or by hand for every different movie idea all nine thousand of them.
+
+263
+00:32:55,000 --> 00:33:00,000
+We would actually wait to let pandas do this for us and this is utilizing something called group by.
+
+264
+00:33:00,000 --> 00:33:06,000
+This is something we haven't learned yet and we'll cover in detail in the next two lectures on pandas.
+
+265
+00:33:06,000 --> 00:33:14,000
+So don't worry just for now be a consumer of this and just be.
+
+266
+00:33:14,000 --> 00:33:22,000
+When I first saw it marvel at how great this is so what happens is we can look at just the rating column.
+
+267
+00:33:22,000 --> 00:33:31,000
+And then we're going to group by the movie idea column and compute the mean and what pandas does is it will say for all it'll collect.
+
+268
+00:33:31,000 --> 00:33:39,000
+In one by one through all the different movie ideas it will collect all rows with that particular movie idea.
+
+269
+00:33:39,000 --> 00:33:45,000
+Then it will grab the rating column and compute the average of just those rows.
+
+270
+00:33:45,000 --> 00:33:51,000
+Very similar to what we did up here from movie thirty one but pandas is doing this.
+
+271
+00:33:51,000 --> 00:33:59,000
+Letting movie idea vary from one all the way to the very last movie idea which appears to be one hundred ninety three thousand six hundred nine.
+
+272
+00:33:59,000 --> 00:34:06,000
+So in a matter of a couple seconds or less than a second let's see how long it took pandas on my machine.
+
+273
+00:34:06,000 --> 00:34:15,000
+In a matter of four milliseconds pandas was able to compute to figure out which rows belong to each group of movie ideas.
+
+274
+00:34:15,000 --> 00:34:25,000
+And then compute the average of rating for only those rows and it did that for all nine thousand seven hundred twenty four movie ideas.
+
+275
+00:34:25,000 --> 00:34:39,000
+And so by functionality and pandas is almost a superpower and it's something that we're very excited to teach you but we couldn't resist showing it off a little bit here.
+
+276
+00:34:39,000 --> 00:34:46,000
+The last question was similar to the one just before it so here we asked you to count the number of ratings for each movie.
+
+277
+00:34:46,000 --> 00:34:54,000
+So did you this it's the same code except we're going to replace the movie or sorry the mean method with count.
+
+278
+00:34:54,000 --> 00:35:01,000
+So here we're going to look for a single movie we're going to look at the rating column count how many ratings they were it's like there were thirty eight.
+
+279
+00:35:01,000 --> 00:35:08,000
+And then we're going to use this magical group by and instead of calling the mean method we'll call the count method.
+
+280
+00:35:08,000 --> 00:35:17,000
+And we see that we get back a data frame with all the rows one for each movie idea and then the number of times that movie was rated.
+
+281
+00:35:18,000 --> 00:35:27,000
+Hopefully this is what your appetite a bit for the group by concept and we're going to be talking about it in much more detail in future lectures.
+
+282
+00:35:27,000 --> 00:35:36,000
+The last note we'll offer here is there are more resources for learning how to do merging and cleaning data sets the pandas dox are fairly good.
+
+283
+00:35:36,000 --> 00:35:44,000
+But there are better guides out there we recommend one by data carpentry if you follow this link you can see that there.
+
+284
+00:35:44,000 --> 00:35:45,000
+Thank you.
+

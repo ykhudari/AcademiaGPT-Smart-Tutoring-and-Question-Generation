@@ -1,0 +1,244 @@
+1
+00:00:00.000 --> 00:00:43.000
+Hello, this is Spencer Lion and in this notebook we will be learning about the Altair Library which is used for utilizing the Vega Light, JavaScript, Cherry Library from Python. There are actually multiple Vega or Vega Light wrappers in libraries written in Python. The Altair Library is the most widely used currently and this is what we'll be using now. The purpose of this notebook will be to introduce the core concepts of Altair, not to provide an exhaustive showcase of the all of its features. Further exploration and experimentation
+
+2
+00:00:35.000 --> 00:01:24.000
+exhaustive showcase of the all of its features. Further exploration and experimentation will be left as an exercise. As a note, we do baroquate heavily from the official documentation in parts of this notebook and we strongly encourage you to view this documentation for yourself to get more detail on how you can utilize Altair in your own work. If you haven't installed Altair yet on your machine, you can uncommit the second lion in this code cell and then run this. Let's talk about the core concepts of Altair. There are three main concepts.
+
+3
+00:01:11.000 --> 00:02:02.000
+cell and then run this. Let's talk about the core concepts of Altair. There are three main concepts. First is the chart. You can think of this as a container for our chart specification. Typically when working with Altair, all charts will begin in one form or another by using the Altair dot chart function for instantiating an instance of the chart class and we'll usually pass into it an instance of a pandas dataframe. The main component called a mark. This is a type of visual element that will be displayed on the screen. The examples are a line,
+
+4
+00:01:56.000 --> 00:02:45.000
+This is a type of visual element that will be displayed on the screen. The examples are a line, circle, a bar, a violin, a heatmap, coordinate, etc. The next thing that we, the next main concept is the encoding concept. So an encoding is a mapping or relation between the columns of our data set and what Vega calls the visual encoding channels of the chart. Some of these channels are x, y, color, size, etc. These three components form the basis of the Altair system. We have a chart that is the overall
+
+5
+00:02:38.000 --> 00:03:21.000
+These three components form the basis of the Altair system. We have a chart that is the overall container. We can request that certain type of visual elements be drawn and we can instruct Altair where and how drawing should take place by encoding or mapping between our data and the visual encoding channels that Altair understands. We'll look at a brief example. First we will import Altair as ALT. This is the common prefix or the common way of importing Altair. And then from the Vega data sets package will import the cars data set.
+
+6
+00:03:15.000 --> 00:03:51.000
+Altair. And then from the Vega data sets package will import the cars data set. This is a common and popular data set that's used often in the R programming language. You show examples and it's been made available to us through the Vega data set. We see here that there are a number of columns. We have a name. The year that the car was made, the country of origin and then some statistics about the car. Things like miles per gallon, how many cylinders and things about the power and performance of it.
+
+7
+00:03:46.000 --> 00:04:30.000
+how many cylinders and things about the power and performance of it. Now let's look at one example of a chart and we'll talk through a bit more detail how these the first thing we'll do is we will create an instance of chart by passing in our data frame. We'll then request that Altair use a point or a circle. As the marker, then we will encode the data as follows. We'll say that the x position to come from the horse power column, the y position of each mark to come from the miles per gallon column and that each mark should be colored based on the country of origin.
+
+8
+00:04:26.000 --> 00:05:02.000
+column and that each mark should be colored based on the country of origin. We then will chain on one more method call which makes the chart interact. When we do this, we see here that we do have a chart on the x-axis, we have horse power, the y-axis we have miles per gallon and then we have three different colors. We look here at the legend. It will tell us that the colors correspond to either countries or regions where the car was manufactured. By making it interactive, we can roll around, we can zoom in,
+
+9
+00:04:53.000 --> 00:05:42.000
+regions where the car was manufactured. By making it interactive, we can roll around, we can zoom in, and we can also double-click to reset the scrolling. Let's talk a bit more detail now about marks and encoding. In the examples that we'll be working through, we will have the following data. This is a nine-row data frame where we have columns A, B, and C. FollowMkA is of type object because it has string data, and it has the values CCC, DDDE. FollowMkB is filled with semi-random integer. And then column C is also integer,
+
+10
+00:05:33.000 --> 00:06:28.000
+DDDE. FollowMkB is filled with semi-random integer. And then column C is also integer, but it repeats the pattern 123 times. Now the mark property of a chart tells they go what type element to drop. These are going to be set on the chart object by using a method of a chart instance that looks like mark underscore, followed by the type of mark that we'd like to drop. For example, we created chart and then we asked for the point mark. What we get back is a single, but it looks like single point. We can also ask for a rectangle, or maybe we can ask for a circle.
+
+11
+00:06:18.000 --> 00:07:02.000
+but it looks like single point. We can also ask for a rectangle, or maybe we can ask for a circle. It would be similar to the point, but it's all filled in. So these examples are very uninteresting charts. It looks like we have a single point, single rectangle, single circle. And what we actually have though is we have one mark of the corresponding type, or each of the nine rows in our data set. The issue is that all nine of these marks are plotted exactly on top of one another because we didn't give all terranian information
+
+12
+00:06:56.000 --> 00:07:42.000
+marks are plotted exactly on top of one another because we didn't give all terranian information about where they should be plotted. In order to remedy this, we would need to encode or map from the variables, columns in our data set, into the visual channels of the chart. Do this, who will use the chart dot encode method? You see here, one thing we'll point out is that when we call chart dot mark point or mark rect, that method will actually return to us, our instance mark. So after calling mark point, for example, we can immediately put period encode. We start with the chart,
+
+13
+00:07:35.000 --> 00:08:19.000
+So after calling mark point, for example, we can immediately put period encode. We start with the chart, after we call the mark method, it returns the chart, and we're ready again to call the encode method anyway. So now we'll instruct all terranian to map the column A to the x-downal of the this will set the horizontal position of each of the marks. You'll notice here that A was our column of strings, A, C, D, and E. And now we have marks at each of these locations. You can see that there are three distinct values of A, and that there is at least one mark here,
+
+14
+00:08:14.000 --> 00:08:57.000
+You can see that there are three distinct values of A, and that there is at least one mark here, and it turns out that because of structure of our data frame, there's actually three marks at each of these locations. Again, we can't see all of them because we didn't provide any information for how a terranian layout the data vertically. We only said that in the extra mentioned, we could use the HM. So in order to actually see all nine points, we need to say that x should be taken from A and y should be taken from B. Now you'll see that for each of the x points in the A column,
+
+15
+00:08:48.000 --> 00:09:41.000
+from A and y should be taken from B. Now you'll see that for each of the x points in the A column, here we look at x equals C. We have one two three points from the B column. You'll notice that in addition to setting the position of each mark, the encode method will also set the x's title. Not only are we getting positions at CD&E, but we also label this x's A, because that was the name of the column we gave it. Now if we want to, we can use the C column in a different visual chat. So because, so we talked before about how the mark family of methods returns the chart,
+
+16
+00:09:35.000 --> 00:10:13.000
+So because, so we talked before about how the mark family of methods returns the chart, and that the encode family and that's also that. So here we have our chart. After calling this, we still have our chart. We're calling this, we still have our chart. So now we're ready to chain on more methods. If we're here, we're going to start from C2, and then all we're going to do is add one additional encoding. And we'll say here that the color should be taken from the C column. The only run this, now we'll see that within each of the columns, we have different colors.
+
+17
+00:10:07.000 --> 00:10:56.000
+The only run this, now we'll see that within each of the columns, we have different colors. We have a color bar here, where C is going from one, three, because those were the values that we could also choose to use the third column, do encode to size dimension with a size channel. And here we'll see that we have different sizes of circles or circles with different radii. This is what it means to use the encoding channel of size, map to a particular column. When we specified the encodings for our charts above, we used the encode method,
+
+18
+00:10:49.000 --> 00:11:39.000
+When we specified the encodings for our charts above, we used the encode method, and then set keyword arguments like x and y equal to a string. Above we're using strings that were exactly equal to column names of our data frame. It's our alter has sort of mini language for expressing other types of operations using those strings. We'll demonstrate this using some example. Let's consider the want of plotting the mean of the values in column b or each value in column a. As we are becoming pandas experts, our first idea might be to first do a group by operation.
+
+19
+00:11:28.000 --> 00:12:13.000
+a. As we are becoming pandas experts, our first idea might be to first do a group by operation. We'll group by a, and then we'll compute the mean over the other columns here. This is only b. And then we can reset the index, so we still have columns named a and b. Now that we have this aggregated data, we can construct a part with mark point and encode the channel. You'll see here that we now have three marks one for each value of a and the position here vertically is the average of the b column for each value of a.
+
+20
+00:12:03.000 --> 00:12:51.000
+value of a and the position here vertically is the average of the b column for each value of a. But this satisfied our one. However, there's actually a way to let all tear do the aggregation for us. So notice here that instead of doing data.group by a dot mean that we index, just doing alter dot chart and we're passing data. Again, ask for a point mark. We set the x channel equal to a and now the y channel instead of being just b, we'll set it equal to average. And if you compare this chart with these three marks
+
+21
+00:12:45.000 --> 00:13:27.000
+we'll set it equal to average. And if you compare this chart with these three marks to the previous one, you'll see that the marks are at the same location. So if we get the exact same chart, but doing it, the alter route causes us to learn a whole new syntax. Why would we do this? There are at least three benefits. First, take careful attention. You'll see that the y-axis label changed the average of b. Where when we did the aggregation by hand, we actually labeled was equal to just b. So that was nice. I'll tear remembered the
+
+22
+00:13:21.000 --> 00:14:03.000
+we actually labeled was equal to just b. So that was nice. I'll tear remembered the ration we did and it applied the correct axis title. Second is there may be more visual types of aggregations or operations we'd like to do, but aren't readily expressed as pandas operate. In this case, taking the average across a group, was easily done in either pandas or alter, but there could be situations where pandas doesn't have a good representation for an operation. In this case, we would like to learn how to use aggregations and transformations within a tick.
+
+23
+00:13:58.000 --> 00:14:42.000
+In this case, we would like to learn how to use aggregations and transformations within a tick. Third, the aggregations or transformations of our data, they happen within a context that is aware of the rest. This can allow for additional optimizations or conveniences to be applied for. Similar to what we saw with the y-axis title being set, the average of b that have just been. I know that this is fairly abstract at this point, but if you look over some examples, either in the exercises that will have you do or in the altered accumulation,
+
+24
+00:14:38.000 --> 00:15:32.000
+either in the exercises that will have you do or in the altered accumulation, you'll see how leveraging their aggregation and transformation syntax and lead to more concise or more readable and shareable code. Now, the last thing we'll comment on here is that the fact that we made looked a little bit odd. Usually when we have the summary statistic of some quantitative variable across a discrete base, we will represent these as bars instead of the only thing we need to change now is we will start from the chart, we constructed a minute ago, this C3, and we will just reassign or tweak what the mark
+
+25
+00:15:24.000 --> 00:16:08.000
+from the chart, we constructed a minute ago, this C3, and we will just reassign or tweak what the mark actually is. Instead of mark 0.8, we'll set mark of bar. Now, I'll tell you we'll remember everything else specified as part of this chart and the only thing it will change is the type of mark of the draw. If we wanted to, another tweak we might want to make is to have the bar be horizontal bar. Do this, you only change we really need to make because we just swap x and y. Previously, we were setting the x-channel equal to a and that made the a values appear on the horizontal.
+
+26
+00:16:01.000 --> 00:16:55.000
+Previously, we were setting the x-channel equal to a and that made the a values appear on the horizontal. Now, we'll set y equal to a and now a is laid out on the vertical act and average b is laid out on the horizontal act. The main purpose of all tear is to make it convenient for Python users to make a Vega light I and Json specification starting from a pandas data for. Eventually, Vega light will need to consume Json or consume something that looks like a Python dictionary before it can render the chart and I'll tell you what help us do that.
+
+27
+00:16:50.000 --> 00:17:27.000
+dictionary before it can render the chart and I'll tell you what help us do that. If we want to inspect what it all tear is producing and then handing off to Vega light, we can use the two Json method from our chart. If you're we will take our chart and we'll say we'll ask for the two Json method and then we'll print that out. And we'll see here that we have a schema. This is a way for all tear to say the specific version of Vega light that it would like to be using. Then it will encode our data sets for us. Here,
+
+28
+00:17:20.000 --> 00:18:00.000
+of Vega light that it would like to be using. Then it will encode our data sets for us. Here, you'll see all the rows of our data frame. And then we have this encoding. This is where we specified the channels X and Y and then we also have here that the mark type is bar. If you in the Json output like this, it could be a very useful tool when debugging and trying to figure out exactly what is going on behind the scenes. And it can also be helpful when following examples found either in the Altair or Vega light documentation.
+
+29
+00:17:57.000 --> 00:18:44.000
+found either in the Altair or Vega light documentation. Let's take a closer look at the encoding section for the Json or the fourth chart. Either we had a buck. We'll go ahead and we'll print out. We'll access just the encoding block of our chart and we'll ask for that Json and we'll print it out. You'll notice that the X channel has three properties. It has the field. This is the column name B. It also has aggregate. This average. This comes from, it came from us writing average parentheses B. But then we have this third field called type and it maps into a value of quantity.
+
+30
+00:18:37.000 --> 00:19:21.000
+parentheses B. But then we have this third field called type and it maps into a value of quantity. The Y field for the Y channel also has a type and in this case it's nominal. So this type property of each of these channels is actually very significant and it's a required property for each channel in Vega light. When we're using a pandas data frame, Altair can infer the appropriate value for this type property based on the detail of the data frames column. Well, let's look at it in a little bit more about what Vega light.
+
+31
+00:19:13.000 --> 00:20:02.000
+detail of the data frames column. Well, let's look at it in a little bit more about what Vega light. There are five core types of encoding. And these are summarized below. You could have quantitative ordinal or nominal. These three are all numeric. Actually the first two are numeric. So quantitative is anything that's continuous and real value. Ordinal is anything that is finite set but discrete set and has a specific order. An example of an ordinal set might be good, better and best. This is a discrete set and there is a natural ordering that can be imposed.
+
+32
+00:19:55.000 --> 00:20:41.000
+good, better and best. This is a discrete set and there is a natural ordering that can be imposed. Another type of encoding might be nominal. This would correspond to anything that is unordered. When we passed in the column A which contained strings C, D and E, Altair signed tight for that as nominal. It wasn't quantitative. There were no numbers. It's not obvious out of order C, D and E unless you wanted to do this flexographically as strings or alphabetically. Altair shows nominal as the safety one. These last two types. One is called
+
+33
+00:20:34.000 --> 00:21:19.000
+alphabetically. Altair shows nominal as the safety one. These last two types. One is called temporal. This is anything that has to do with time. It would be a timestamp or a date or anything like that. Then the final one has to do a geography. There is some type in the map and charting world of there's type of data called geojson. Altair knows how to handle this and how to display it. So if you happen to have some you can assign the type of that encoding to geojson. Now this first column is what they like is expecting to see. Third column is kind of our
+
+34
+00:21:10.000 --> 00:21:58.000
+Now this first column is what they like is expecting to see. Third column is kind of our helper description. We know what it is. This middle is an Altair specific feature that is a short hand code. We'll show you what this is here. So if you remember we were using the C column color or marked from before. If we have C, we can specify the type of our encoding as well as we'll have the variable name followed by a colon and then the short hand. Do you remember from the table, you was short hand for quantity.
+
+35
+00:21:50.000 --> 00:22:37.000
+colon and then the short hand. Do you remember from the table, you was short hand for quantity. So when we say that the color channel should come from the C column and interpreted as quantitative, it applied a continuous scale here. Because the interpretation of quantitative means numeric data on a continuous scale. We could have chosen ordinal instead of quantitative. Here this is a discrete scale that has a natural ordering to it. You'll see that the color for one is the lightest of the three and it gets progressively darker as we move from two.
+
+36
+00:22:32.000 --> 00:23:11.000
+one is the lightest of the three and it gets progressively darker as we move from two. Three. This happened because we instructed Altair to treat the C column as discrete as fortimole rather than as continuous. The final option we would have for this column would be nominal. We treat it as nominal. Altair will plot it in three very different colors. The reason for this is nominal variables. Don't necessarily have any ordering to them. They are just discrete unordered collection. So when there's no natural ordering,
+
+37
+00:23:05.000 --> 00:23:49.000
+They are just discrete unordered collection. So when there's no natural ordering, there's no natural progression of shades or of color death. And in this case, Altair will choose three completely different colors. They make it as clear as possible where this section for SQL 3 is, SQL 2 and then C. So the short hand for a specified type. If can also work when you're doing some aggregation and transformation. Here we have average B, which we've seen before, and we also have this Cullin Q at the end, which tells Altair that we want to compute the average of B, then using
+
+38
+00:23:43.000 --> 00:24:23.000
+Cullin Q at the end, which tells Altair that we want to compute the average of B, then using those values interpret them as quantitative and plotting. It would have chosen nominal. And here it would have just done three points, whatever the average is happening to be and same with fortimole. It would just lay out the three points. We've seen examples where in while we're encoding, we often set some channel or keyword equal to a string. This works often, but it is not the most flexible version that Altair offer.
+
+39
+00:24:18.000 --> 00:25:13.000
+This works often, but it is not the most flexible version that Altair offer. You are also able to construct the mappings to an encoding channel using the Altair functions written as Alt dot the name of the channel. The way this works is that when calling the encode method, if you pass in an arbitrary number of Alt dot some channel name objects before any keyword arguments, it will treat this as if I wrote. This is the same as writing. Oh, please me. This would be the same as writing x, A, and then this would be the same as y equal to r and g quantity.
+
+40
+00:25:05.000 --> 00:26:03.000
+A, and then this would be the same as y equal to r and g quantity. And notice that there's no keyword here. These are positional arguments, and they are passed with four the other arguments. If I wanted to add another one, I could either do ALT dot fillers, or I could just do color. These would be equivalent. Let's verify that. Oh, uncommon. Lower. We'll see here that we get the same thing at. Whether we pass a positional argument with the name color or a keyword argument. Okay. The reason we might want to do this is that there are some more advanced features of the encoding.
+
+41
+00:25:56.000 --> 00:26:44.000
+The reason we might want to do this is that there are some more advanced features of the encoding. Some other properties you might want to set that don't have a corresponding door hand in just the channel equal string. Remember you have to reach in to this Altair dot channel name in order to access all of the possible tweaks and properties. Next let's talk about how we can use data from a file. So in the examples of both, we were passing in as the argument to the Altair dot chart that's we were passing in a data frame. In this example, instead of doing that,
+
+42
+00:26:39.000 --> 00:27:14.000
+that's we were passing in a data frame. In this example, instead of doing that, we're going to pass in a URL or where a particular data file could be downloaded on the internet. But here we'll say Altair dot chart. We'll pass the URL to the cars, the other set, and then we'll go through and we'll make the same chart we saw at the we'll have a point mark. The encoding channels will be x this force power, y is miles per gallon, color is origin. And you'll notice here that we specified explicitly the
+
+43
+00:27:07.000 --> 00:27:53.000
+y is miles per gallon, color is origin. And you'll notice here that we specified explicitly the type each of these three encoding channels. This is actually required when we don't use a data frame and we're passing in the URL to some resource. We need to tell Altair what type of data it is because when we had a data frame, look at the D type of the column and apply a reasonable default based on the column D type. But now this isn't a vantage data frame. This string here doesn't have D type. So we need to be more explicit until we're all there what type should these columns change.
+
+44
+00:27:46.000 --> 00:28:33.000
+D type. So we need to be more explicit until we're all there what type should these columns change. We'll look here at one more example. We wanted to show you what a temporal chart would look like. So here we're going to again pass in a URL to a CSV. The last time that you are out, you noticed was to a JSON file. And this time is to a CSV. Altair understands those two file types. We'll do Altair dot chart where we point to that URL. We then want a line mark. We want it to draw a line for us. The x comes from the column apple underscore x. And we want
+
+45
+00:28:26.000 --> 00:29:09.000
+We want it to draw a line for us. The x comes from the column apple underscore x. And we want Altair to treat that as temporal. And then the y comes from the apple dot y. We want it to treat that as quantitative. Now I just added this interactive. So now we can scroll in and you'll see that Altair nicely handles for us, rolling of the dates. Here we now we see that we're Wednesday, now we're April 20th. We scroll more into April. We'll see that we're at April 13th. Thursday to 17th Monday to 21st. Altair does a nice job at handling the time series nature of this
+
+46
+00:29:00.000 --> 00:29:45.000
+Thursday to 17th Monday to 21st. Altair does a nice job at handling the time series nature of this image. So we know that pandas can read in JSON, it can read in CSV. And it wouldn't be that much more work. First, just do a pd dot read CSV. Ask the URL to that data set. And then we'll get a data brain. Once we have a data frame, we can give that straight to Altair. And we can move on. And if we do that, we won't even have to specify the types these call them. So if pandas can do this work for us and
+
+47
+00:29:37.000 --> 00:30:24.000
+we won't even have to specify the types these call them. So if pandas can do this work for us and gives us the added benefit of not needing to think about call them types, why would we do it this well, the real large benefit here is that the JSON spec of fourth chart will actually end up just containing the URL. Then when Altair hands that to Viga light and Viga light starts to process, it will see that there's a URL for the data set. It will go the Viga light library will request the data set from the online resource, download it, process it, and then apply it
+
+48
+00:30:17.000 --> 00:30:59.000
+request the data set from the online resource, download it, process it, and then apply it to the specification when it's rendering the chart. When we have a data frame as the first argument for the argument to Altair dot chart, all of the data for the chart is going to be written out or hard-coded into the JSON spec. This is before Viga light ever seen. Let's make this a little more concrete example. So we have that large block from the very start of this notebook. And let's just print out, we'll first ask for the JSON and this will give us a string containing all the JSON
+
+49
+00:30:53.000 --> 00:31:42.000
+print out, we'll first ask for the JSON and this will give us a string containing all the JSON for this chart specification and then we'll ask for the link. So this would be the number of characters in that string. We'll see here that there are 120,000, 649 characters in the JSON spec for the carousel chart. Then later on, we constructed a URL, sorry, the same carousel chart for the data pointed to a URL instead of passing in a data frame. See how many characters the JSON spec for this? Here we only have 686 characters in this JSON specification. What we can infer from these two numbers
+
+50
+00:31:32.000 --> 00:32:25.000
+Here we only have 686 characters in this JSON specification. What we can infer from these two numbers is that in order to describe the chart, it takes about 690 characters. In order to describe the data set, it took about 120,000. This is going to make the file for the chart specification far larger and bigger than it would need to be. And we can actually just print out the full chart specification for the URL version and we'll see here that in the data section, all we have here is data where we have a URL. This is the URL that we handed it. The only other thing everything else
+
+51
+00:32:17.000 --> 00:33:10.000
+data where we have a URL. This is the URL that we handed it. The only other thing everything else is just having to do with coding, mark, we selected and then how to make it interactive. The benefit of having a smaller spec size is that the Vega-Lite specification can now be more portable. It would be easier to inspect this specification right here, visually, and maybe make some changes or tweaks. It would also be far more efficient to load this much into a website rather than the entire 120,000 character version. It's also possible that we might want to put this
+
+52
+00:33:02.000 --> 00:33:49.000
+rather than the entire 120,000 character version. It's also possible that we might want to put this into a version control system, like yet, and start tracking a version history of our chat. Just to see how this looks fairly reasonable and easy to think about, I am actually going to print out another one or attempt to, and we'll see how this goes. What we'll do is copy this, we'll get rid of the LAN argument and we'll just print the JSON itself. When I tried this earlier, it got quite big. You'll see here, there's a little troll bar by up here, and if we just keep going
+
+53
+00:33:40.000 --> 00:34:34.000
+it got quite big. You'll see here, there's a little troll bar by up here, and if we just keep going down, this is going to take a very long time. This is just data data data data. We haven't talked about, oh, here we go. Finally, at the very bottom, starting here, we get to talk about our chart and its specification, and everything that came before it was just the data. This would be difficult to collaborate on with the colleague. It would be kind of unreasonable to think about in Brazil control, and it would take quite a bit longer to serve a webpage that had this embedded
+
+54
+00:34:27.000 --> 00:35:11.000
+in Brazil control, and it would take quite a bit longer to serve a webpage that had this embedded in it, and then it would just. Now, Altair has many other features that we didn't have a chance to cover. These are things like different types of charts or marks. We can do maps, candlesticks, we can do compound charts, which would be multiple charts, multiple marks within a chart, eat maps, area chart, scatter chart. You could also do compound charts. This would be multiple subplats within one figure. There are other options for interactivity. You can customize things
+
+55
+00:35:05.000 --> 00:35:44.000
+subplats within one figure. There are other options for interactivity. You can customize things and the best way we've found to learn all the different features is by practice. By practice and referring to the documentation. Typically, when I want to learn something, what I'll first do is I'll work through the one operator. I'll say, I know I have a chart, and I'll be as specific as it can for what I want it to look at, for sure. What I want it to look like. Then, I'll go through examples. I'll look around on the internet, read the documentation. There will help me
+
+56
+00:35:38.000 --> 00:36:25.000
+examples. I'll look around on the internet, read the documentation. There will help me kind of one step at a time, start from a blank canvas, we will, and build the chart that I want to end up with. We'll have an opportunity for practice and looking at the documentation in the forthcoming homework from this lecture. The very last thing that we want to show is how you could use an all-terre-produced chart on web page. We saw above how the chart is part-time as a method to Jason. Well, there's actually another, I've had called, to HTML. This will generate an HTML document.
+
+57
+00:36:17.000 --> 00:37:02.000
+Well, there's actually another, I've had called, to HTML. This will generate an HTML document. A min HTML document is a website. This is what your web browser will receive whenever it visits a particular website. I will receive HTML and know how to render that and display it on your web browser's display. We can use the output of 2 HTML, either as a stand-alone web page. We want to just put it somewhere on a web server and send a link to a colleague or we can copy and paste parts of it and put it into an existing website. I'll show you briefly what this will look like.
+
+58
+00:36:55.000 --> 00:37:54.000
+of it and put it into an existing website. I'll show you briefly what this will look like. We can ask to print out the HTML for the Apple Doctor. This is a fully functioning website, or a web page. It has all the main tags. We have HTML, we have a header, we have some body and you'll see here. Our spec, this is the JSON that we generated when we asked for the Apple Doctor chart. This is going to be passed to a Vega method. Now, Vega Lite will take over from this point and render our chart for it. Just to show that this is indeed a fully functioning
+
+59
+00:37:47.000 --> 00:38:33.000
+from this point and render our chart for it. Just to show that this is indeed a fully functioning web page, what we'll do is we'll save this to a file. We'll use a context manager to open a file in right-able mode, and then we will write to that file, all of the string associated with that HTML. Now that we've created this HTML file, we can go out of the presentation into this folder. I'm on a remote Jupyter server, so I'm going to download this in my local computer, and I will open it up. When I click this, I'm opening up a file Apple Altair chart.
+
+60
+00:38:25.000 --> 00:39:14.000
+and I will open it up. When I click this, I'm opening up a file Apple Altair chart. I see here that it is the chart that we constructed up above. This is an file on my computer, and it contains just the chart. We wanted to look at the kind of developer tools for my browser and look at what content is in this HTML page. You'll see here that it has our chart spec that we saw before. I'm going to pass that to Vega embed, so we'll put the chart right here. This is exactly the same text that we saw over in our notebook when we asked out there
+
+61
+00:39:07.000 --> 00:39:16.000
+This is exactly the same text that we saw over in our notebook when we asked out there to generate HTML for it.
+

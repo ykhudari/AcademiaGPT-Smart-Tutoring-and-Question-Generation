@@ -1,0 +1,488 @@
+Hello, this is Spencer Lion and in this lecture we will talk about web scraping.
+Hello, this is Spencer Lion and in this lecture we will talk about web scraping.
+As we know the internet is full of data.
+Much of our lives and livelihoods lives on the internet.
+This includes things like our shopping behavior, our interactions with friends, the contact list,
+with friends, family and other colleagues or associates, as well as other behavior not
+particular, not specific to us, such as asset prices and sporting events scores.
+All of the programming and theoretical tools that we have developed throughout this course
+can allow us to do meaningful analysis of this wealth of data that can be found on the internet.
+However, there is the caveat that we first need to know how to get the data into Python.
+As we have seen in some examples throughout this course, some website data is somewhat easy to access.
+A few examples of easy to access data may be when data is provided as a downloadable file
+that we can use the pandas read CSV function to read into a data frame.
+We have seen examples of passing in the URL to a website where a web location containing the CSV file
+and how pandas handles that just fine.
+Another example of data that is easier than my otherwise V to access would be data that can be made available via an API.
+There may be various options and filters that we can apply so that we specify exactly the type of data that we like.
+But in the end, it's usually just a couple lines of code to make those requests and then read the data to a data frame.
+We have seen other examples where the website itself contains the data, not in any type of file format, but in a nicely formatted table.
+In these examples, we have been able to use the pandas read HTML function to read all of the data from the tables on the website.
+In each of these examples, getting the data into pandas and Python was fairly straightforward.
+But sometimes it's not.
+And today we will focus on learning some skills and techniques for accessing data that may be visible on a public website, but that is not easy to download in any way.
+To begin our study of that topic, we first need to talk about HTML or the language of the web.
+All web pages are written in a special markup language called HTML.
+HTML stands for paper text markup language.
+All HTML documents are composed of a tree of nested elements.
+For example, the bullet point list that we're currently working through may look as follows in a HTML.
+We might see and this less than sign UL greater than sign.
+This is the HTML way of instructing the browser that we are about to begin an unordered list.
+That's what the two letters UL mean.
+We'll see down at the very bottom the letters UL repeat one more time also within these angle brackets.
+But if there is a slash just before the text UL.
+This is the way that we can instruct the web browser that our unordered list is finished and that it's done.
+Inside of the opening marker for our list and then the closing marker for our list, we have some more content.
+Here on this next line, we see that we have an opening marker for something that has type L.I.
+L.I. is the HTML version for the abbreviation for the phrase list item.
+So now we have an unordered list and here is our first item.
+The text contained within this list item begins web pages R. This corresponds to the text over here.
+The bullet point that appears just before the word web is what is drawn when the browser comes across this L.I.
+Now we have the dot dot dot which is a stand in for the rest of this sentence starting at written and closing with HTML.
+So that's finished. We see again the L.I. or list item tag.
+But now we have the slash here which is the pattern that the browser uses for ending a list item.
+So this line that I've highlighted opens the list item establishes the content for the item as well as closes or terminates the list item.
+You'll see that there are three other lines that follow the same structure.
+You have an opening tag for list item which just has L.I. in between angle brackets.
+A closing tag for list item which looks almost the same but has a slash immediately following the open angle bracket.
+And then there's some content.
+We see it for the second bullet point, the third bullet point and the fourth bullet point.
+This text right here if we were to hand this to our web browser would be rendered in very much the same way that this bullet point list is above.
+Notice here that there is some structure that we we outline or we understood.
+The structure includes the angle bracket notation with the name of the type of element in between each of these is called the start of an element.
+And we always have an opening tag and a closing tag for each element in between the opening tag and closing tag.
+There may be some content here inside of the you will we have nested for L.I. items for list items.
+And in this way we say that the HTML document forms a nested free the you L tag for element be the parent and each of these list items are children of the unordered list and they are siblings.
+Below is an image that has been syntax highlighted and annotated to help us understand a little bit more about the key components of an HTML document.
+You'll see here that the text on this document appears with this opening H2 act.
+This instructs the browser that we are trying to create an element of type H2.
+You'll see that down a few lines below we find the closing tag for the H2 element.
+This is the less than slash H2 greater.
+Now inside of the opening tag or the opening of this element we have a property that has been set here we have the word class followed by an equal sign and then a string.
+We've set the class property equal to the string heading space main.
+This structure of a left hand side and equal sign and a right hand side following the name or the tag of an element that's a property on that element.
+Here for this H2 element we are setting the class property equal to heading main.
+The purpose of the class property is to instruct the browser how it should style or make the content appear different.
+If this class property were omitted then the actual content wouldn't change but the styling for how is displayed or rendered by the web browser would likely change.
+Given this example because the class property is very commonly found on most HTML.
+Now inside of the H2 element we have a span and we have another property set here instead of class the property ID is being set.
+It is equal to the string heading.
+The ID property is special in that it is supposed to be a unique identifier or a single element on an entire web page.
+For our use case when we're back to be able to extract data from a web page if the data is contained inside of an element with a specific ID it can be fairly simple to get the data.
+For example if our goal was to extract the text cool heading number one the way we could do this in code would be to instruct the program to find the element with ID equal heading and then return to us the text or content of that element.
+As far as web scraping goes that's the ideal situation and about as easy as it could be.
+However it's fairly uncommon for that to take place.
+The next main part of this document here is just the text cool heading number one and this is the text of the element.
+The word text is not just is actually a technical term that is used within web browser and web technologies for describing the content that would be put on the screen represent this element.
+As we get into writing different web scrapers web scrapers we will often ask for the text of an element.
+So as a quick recap on the in this snippet of code there are three elements first is the h2 element inside of that or as a child is a span element by the heading and then the third element is a sibling of the h2 and it is another span element.
+The next main each of these elements has a particular type or tag the tag is always the first thing to appear inside of these angle bracket.
+The first element tag is h2 and then we have a tag span and then a final tag span at the bottom.
+The next thing that will be helpful for us when we do web scraping is being able to recognize the key value properties on an element.
+We have two examples of that here.
+We have the class property being set to heading main on our h2 and we have the ID property being set to heading on the first span.
+Finally we may also need to know how to access the text that should be rendered or a particular element.
+Now that we know what an h2 element looks like we can think about how the combine or how they can be used together to form a web page.
+Most web pages follow a very common structure. This is somewhat of a standard for how a web browser can receive an HTML document and know how to render it or how to display it.
+The structure is as follows.
+The first line will contain this annotation or this notice that the document type or the type of this file is an html document.
+This is not an element so you see here that there is a left bracket at an exclamation point and there's no closing doc type element or doc type tag.
+This stands alone by itself at the very top to let the browser know that we are giving it HTML.
+Then immediately after that you will usually see the html tag.
+This encompasses the entire rest of the document. You'll see it starts here in the second line and it closes on the very last line.
+The html tag or element typically has two children.
+The first one is called the head and the second one is called the body.
+These each serve a slightly different purpose. The body contains all of the content that will be rendered on the screen.
+This is where we will often look when we're trying to determine how we can extract data from a website.
+If it's on the screen and we know it's there, it will often be contained within the body.
+The other element, called head, contains some meta information about the website.
+This may contain things like the title, which is what would appear at the top of the tab marker for the web page.
+It might contain links to other places on the web or it might contain other information that can help a browser or other environment know what's contained within the web page.
+Without actually having the content.
+As we're doing web scraping, we'll typically look over, look past, be head and we'll focus more on the body.
+We'll see examples of this shortly.
+With our basic html knowledge, fresh in our minds, let's take a look at this in a real example.
+What we'll do is we will navigate our web browser to the following URL.
+We will go to quotes.tuscrape.com slash random.
+The quotes.tuscrape.com website was set up to allow programmers and other developers to learn the basics of web scraping using a fairly friendly and simple web scraping.
+It's a fairly friendly and sandbox environment.
+When we say sandbox, we mean it doesn't worry about the complexities of most websites like user authentication or interactive features.
+This website has a few paths. One of them is the random path.
+This contains, when we go to this random path, we will be presented with a single quote from a book that was chosen at random from some body of quote.
+What we'll do is we will go to this website and we will use our web browser and ask it to show to us the actual html that it received before it rendered the web page.
+While we're looking at the html, we'll try to pay attention to a few things.
+First, let's see if we can identify the main pattern we saw on the previous slide.
+Which, as you remember, is that they have a doc type and then there's an html that wraps everything and then a head and a body.
+We'll look for that pattern on this website.
+Then let's pay attention to how the class property is used throughout the website and we'll want to look at the kind of hierarchy or the nested structure of the web page.
+Okay, let's check it out. We will go here and we will open this in a new tab.
+And over here, I'm going to click the screen a little bigger. We see we have a fairly basic website.
+And what we'll do now is on this page, I will right-click and then I will click the inspect button down here.
+So I'll go ahead and I'll click inspect. And now what gets brought up is the developer tools for the web browser.
+And we can see at the top, we still have our normal web page as we're used to seeing it. But now at the bottom, if we go to the Elements tab, which I'm currently in right now,
+we can see the html structure for the website.
+And let's look for that first thing we're supposed to watch for, the overall structure of the web page.
+So you'll notice here the first line, indeed reads bracket exclamation point, doc type html.
+So here is the line that tells the browser that what follows is an html document.
+Then we have a single html tag or element.
+And inside of that, there are two children. There is head and there is body.
+Inside the head, there is a meta telling us what type of characters should appear on the site.
+We have here a title. Notice here it says quotes to scrape is the content of this title element.
+And if we look at the top and our tab, we see here that that's what it shows up. If we were to go through and edit this, to say quotes to scrape today, immediately we see that the title in the tab gets updated.
+And then these two lines are bringing in some, some styles that allow the author of this website to lay the content out in the fashion we see above.
+If we close the head and now open the body, here we'll see the content of the web page.
+And in my browser, whenever I hover over one of the elements of the html, it will show me what on the website is being shown.
+So for example, if I look inside the body, it looks like if I click the container, this is everything on the site.
+And now if I go down a little more, I'll hover over this div element with a class equal to row header box.
+And now we'll see that my browser is just highlighting the top of the page. This would be the header of the page or the title.
+And if we continue to go down deeper into this, we can see that now we have another div.
+And this is covering the same vertical region as that header row. But now it's only covering a portion of the horizontal space.
+It's only covering until about right here on the web page.
+And this is the reason it's happening is a little beyond the scope of what we're trying to cover here today.
+But it has to do with the class here that's being set in the CSS.
+But if I continue to hover down, I can indeed find the content quotes to scrape, which is what we see up above.
+And so this content, if I were to change this, then we could say instead of quotes to scrape quotes for us to scrape.
+You'll see here that this is actually in the HTML code.
+What is causing the title to be written out up here on the website?
+We can continue to go down a little further and let's focus here on this quote.
+Suppose I wanted to be able to determine who the author of the quote was.
+I could continue to kind of hover over these elements and hopefully find it.
+But there's another tool that the browser offers, which is this one right here.
+It's for me, the top left part of the bottom panel containing the browser tools.
+And it's a square with a little mouse cursor icon on top of it.
+Now it says here if I hover, select an element in the page to inspect it.
+So if I click this, it will turn my mouse now.
+If I hover over anything, it shows me the box around which that element appears.
+And if I click on something, so if I go to the author's name and I click it, watch what happens on the bottom panel.
+I'm going to click right now and immediately the bottom panel went directly into the HTML source code and showed us where this author appears.
+So if we wanted to do this again, let's try it one more time.
+I'm going to activate the select mode.
+You can see that it's active both because this square is now blue and as I hover over things, I see the boxes.
+And now let's see if we can have the site take us to this little heart emoji.
+So I'll go ahead and I'll click that and sure enough, it took us immediately down into the source code where there is a heart character.
+And it's apparently the class here has something to do with the color red.
+Okay, so let's go back to our slides and we'll kind of review at least the main concepts we are supposed to find.
+So as we saw on the previous slide, there is a main outline for most HTML pages,
+doc type, and then a shiml inside of that we have head and body.
+We were able to find that on the book quote page.
+And then we also saw that the class was used in a few instances to apply style to the page.
+And then we also noticed a bit of the hierarchy that inside the body, there were a few nested HTML elements.
+Now that we're kind of warming up a bit at looking at the source of a web page, let's go to the similar web page.
+It's again on the quotes to scrape.com website.
+But this time there's going to be more than one quote.
+And what we want you to look for is again, we want to see that overall structure of an HTML page or a web page.
+And then we really want to look for because there's going to be more than one quote.
+We really want to see how the information for one quote appears in a pattern similar to the information for other quotes.
+Let's take a look and we'll explain more.
+So I'm going to open in a new tab and we'll go over there and we'll see here that we again have this quotes to scrape.
+We have the login. If we scroll down to the bottom, we have this made with love by scraping hub and so on.
+Now instead of having just one box, this bordered box with a quote in it, now we have it looks like about 10 of them.
+So let's go ahead and open up the browser developer tools to see what's going on here.
+We will go, we will right click and I will press inspect.
+And now the browser web tools popped up again.
+If we look at the overall structure, we see that this is an HTML document.
+There is an HTML tag with children head and body.
+Now let's go ahead and look into the body.
+And you'll see here that there appears to be the way this box is drawn, perhaps has to do with the fact that there is a div element with the class equal to quote.
+Because as I look at this and I go down the next one, as I hover over these, it shows me the first quote and this highlights the second quote, the third quote and so on.
+So now we're making a mental note as we look through this source here that if we wanted to extract either the text of the quote or the author or maybe even the tags that appear here, we will need to look for a div element with a class equal to quote.
+Let's keep drilling down and see how once we're inside of this div, how we can figure out the actual text for the quote.
+So we'll open this up and what we'll see here is that there is a span element with class equal the text.
+Now if I look at what's highlighted up above, it shows me exactly that the quote is highlighted.
+So if we open this up, sure enough, we'll see that the text property of this span element is the quote that's being rendered.
+So if I were to try to extract the quote here, what I would do is I would look for a div with class equal quote and then a span with class equal text and I would get the text from inside of it.
+So the first thing you'll notice down here at the very bottom of the screen is those that path through this nested tree or hierarchy is repeated for us.
+Here we have a div and whenever you see some this syntax where you have some letters, a string, a period and a string, you should read this as the tag for an element separated by a period.
+And then the class for that element. So here we have a div with class equal the quote.
+So this is equivalent to this div right up here.
+And then inside of that one of its children is a span with class equal text and then we're at the text property.
+We'll be able to use this thing at the bottom to help us out when we're trying to extract the data using some pipe on code here pretty pretty soon.
+Now, and I hover over.
+So inside the quote div, there are three children.
+The first is a span with the text. The second is another span and based on what's highlighted, this looks like where we find the author.
+So if I open this up, the text here is by and then there's another element called small with the tag small.
+And here we have class author.
+So if we were trying to find the author, what we would need to do is find the quote div and then find a span that also has a child element of tag small with class equal to author.
+Once we've done that, we will eventually arrive here in this example on Albert Einstein.
+But notice the structure, it's a div of class quote and then a span and then a small element with the text Albert Einstein.
+Let's look at the next quote, this one by J.K. Rowley.
+If we open up this, what we should see, if we wanted to get to her name and the website follows the same structure inside of the div quote for her quote, we should be able to find a span and then a small inside of that with class author.
+So we'll go to the J.K. Rowling quote div, open up the span and we'll see here, sure enough, there is a div with class quote and then a span and then a small element with class author.
+We can continue on and if we wanted to see one by Thomas Edison, we could go ahead and find his quote div inside of there, there will be a span that has a child small of class author.
+So each of these 10 quotes on the website have the exact same structure in our HTML code for representing the data.
+There is a div with the quote that will give us the whole box.
+Then there's a span with class equal the text that has the text to the quote.
+There's another span that has a child small with class equal author for the author's name and the next thing we could look at is the tags.
+So if we look here, there's alongside the span for the text and the span for the author line, there's a div.
+So these are the three parent of each of our quote divs.
+Now this div has a class tags and then inside of there, there are a number of elements whose text is the text on the little tag pill that we're seeing here.
+So the second one says deep thoughts.
+So inside the tags div, the second a element with class tag has deep thoughts.
+This corresponds to the second tag pill having the text deep thoughts.
+If we wanted to find this inspirational right here, if the structure is the same, we would have div dot quote.
+And then div dot tags and then it would be the third a dot tag.
+Let's check.
+So sure enough, we have a div dot quote and then inside of that one of the children is a div with a class equal the tags and then the third a child of type a with class equal tag has the text inspirational.
+So now that we've gone through a bit about HTML how it works, we've seen some examples of the HTML that generates a website, we get to the main question that we're after for this lecture, which is how could we scrape the data?
+The key to web scraping is to be able to identify patterns and then teach a program in our case a Python program how to extract data according to those patterns.
+My main strategy when I'm faced with a web scraping task is to follow these steps.
+First, I'm going to look at the website just like normal in my web browser and kind of visually identify the data that I would like to scrape over here in our quotes example as I'm looking at this website, I may want to say I would like to get the text for each quote and the offer.
+And by visually just inspecting this website, I may have seen these two things and then now I've identified what it is from the website that I like to scrape.
+The second step would be to open those browser developer tools and inspect the elements containing the data.
+This is what happened when we did a right click and we did inspect and then if I wanted to get right at this author, I could click the mouse icon over the square and then click on the author.
+And now immediately I'm taken into the source of the web page right to how I can get at that author name.
+So that's step two.
+Step three is I will look at what tag the element has, maybe what its classes are, I will look for an ID if there is one.
+And this will help me know how I can teach a computer to identify that piece of information on the website.
+In our example, the author, the name of the author's name was the text for a element of tag small and class equal author.
+This is enough information that I could construct a computer to find the author name.
+I would first tell it to look for a div with class quote and then a span with a small element of class author and get the text.
+That's a recipe or pattern that I could teach my program.
+And then the next step is I'll kind of look outwards to the other elements on the page and if I would like to scrape them and they are the same type of data.
+For example, another author name on our quotes page or maybe if I'm looking at a shopping website, another price for an item.
+What I'll try to do is I'll find a pattern that's similar across these two distinct instances of the same type of data.
+Hopefully there's a similar structure or pattern and that way I can teach my program one time how to access data using that pattern.
+If it's a different totally different type of data, for example, in the quotes page, maybe this is the actual content or text of the quote instead of the author name.
+Well, then I'll start the process over. I'll look at the browser tools. I'll look at that elements tag and classes and then I'll see what pattern or structure allows me to identify that piece of data on the web page.
+There are many different Python libraries that have been built to assist programmers with scraping websites.
+Perhaps the most widely used and well known of these is a library called Scrapey or Scrapey.
+Who will use the Scrapey library to extract the quote information we saw on the example websites we just visited.
+The first step towards doing this would be to install the Scrapey library.
+I'll bring over my terminal and we'll work through this together.
+So now that my terminal is here on full screen, I will first activate a cond environment.
+Create a cond environment.
+With just Python and we'll do version 3.7 and we'll let condo create this for us.
+And once it's done, we can do conda activate Scrapey.
+Example.
+I'll check really quickly to make sure that it's active by running which pip and it looks like it is. So that's great.
+Now we will do pip, install Scrapey and we're also going to want ipython.
+So I'll add that here.
+We'll let it run for just a moment and we're good to go.
+So now that we have ipython and Scrapey here, what we can do is we can start the Scrapey shell.
+This will be an ipython session that will allow us to interactively determine what Scrapey was able to identify from a website.
+So let's start this. We'll do Scrapey shell and then you pass it a URL to a website that you would like it to load.
+So I'll do the quotes dot to scrape dot com and then we'll go to the random one.
+What I do this, you'll see that there was some logging information that happened up above, but eventually we're greeted with an ipython prompt.
+Here this is normal ipython. We can do our normal ipython stuff.
+One moment. Okay.
+Not sure what that error was, but now we're here and we'll put one more time and we'll see here that Scrapey gives us a message.
+It says that we have a few available Scrapey objects that have been defined for us in the request.
+Sorry in the shell. So if I look here and I look for item, it's defined, but it's empty right now.
+You can also look at things like request and response.
+And these are objects that are associated with Scrapey going out and making a request to get the HTML for this web page.
+And then the response it received in return.
+We're going to work primarily with that response.
+I'm going to leave this open and move it to the side and we're going to go back to the scraping page quotes dot to scrape dot com random.
+So that we can remind ourselves of what we're looking for.
+So we'll go ahead. We'll inspect here and we can see.
+Let's remind ourselves how we might be able to get at this author. So what we're really, if we want an author, the way we can do that is there's a,
+a div element with class quote and then a span and then an author.
+Now the response object has a CSS method.
+This will allow us to surgically go through the HTML document by the element types and then the value of the class property to extract subsets.
+So let's try this. We'll do response dot CSS and then we'll just pass div dot quote.
+This was similar to what we see right here. We'll do this and by default what happens is we get back a list.
+And we'll check the length of this list and here it says that there's a length one and the reason for this is we went to the two scrape dot com slash random page,
+where there's only one quote.
+So it looks like here inside of this list there was one element that was found for us. So let's go ahead and we'll call this quote div and we'll store the output of this.
+And we'll just get the first element of the list. So now we have a quote div.
+What we can do now now that we're inside of this quote div what we would really like to do is get an element of type small with class author.
+So quote div.
+dot CSS small dot author and then we want the text.
+Now once we're getting the text for the author field we can call the get method and it will return to us the text for that quote.
+You'll see here that this quote must have been by Jimmy Hendrix. It's different from what we've seen here because each time somebody visits this particular URL they get greeted with a random quote.
+So if I refresh this a few times we'll get different quotes.
+And so what we see in our web browser on the left doesn't necessarily map into what we see on the right. But now we've gone through and we now are able to get the author.
+So if we do will save this and now we have a variable called author in our Python session that is the author of our quote.
+So this is great. Let's now work on how we can get this text.
+So I'll go back to my web browser and I'll go here and I'll click on the text that I like to extract and I'll look here at the path if you will to finding that.
+So once we're in the quote div which again we have a quote div there should be a span with class text.
+So let's try that quote div dot CSS span dot text and then we want the content or the text for that field.
+So let's go ahead and ask to get that and we'll see the quote.
+So apparently at one point Jimmy Hendrix is quoted as having said I'm the one that is got to die when it's time for me to die.
+So let me live my life the way I want to.
+Okay.
+Jimmy Hendrix.
+For those who don't know Jimmy Hendrix was a famous guitar player often called or thought of as the best guitar player in the history of rock music.
+So the fact that this quote is about partying if you will isn't too surprising knowing the background of Jimmy.
+We were able to work through this example by having our web browser open on the left and working through the items we wanted and then using those CSS paths or selectors to get the data.
+But we found that the data we received inside of our Python session didn't match what we saw on the website.
+If we want to see exactly what spray pie is working with we can actually use the view function.
+So view is a function inside of scrapey.
+And so we do view response.
+It will open up a new page a new tab in our web browser.
+With the content of HTML that scrapey has in the response object.
+So you'll see here this is that quote sure enough it's by Jimmy Hendrix.
+And now we're able to see if we needed to exactly what scrapey has and what we're able to extract from it.
+So this can be helpful in situations when maybe some of the content for the web page gets loaded after the initial structure of the web page.
+For example, if you've ever gone to a shopping website sometimes when you scroll down to the bottom sometimes there are additional items that pop up and they load up after you scroll to a certain point.
+And this scrapey first makes a request to the URL for that shopping website.
+It would only see the items that are immediately visible.
+And it wouldn't see ones that we scroll down to.
+That's an example of how sometimes content is loaded after the initial structure of the website.
+There are ways where scrapey can actually simulate the scrolling down and getting more.
+It's not something that we'll be able to cover quite yet.
+Let's continue on learning more about scrapey.
+So a scrapey can be run using the scrapey shell as we just saw.
+This is often a very useful exercise to do when you're first starting now on a new web scraping project.
+The ability to view exactly what scrapey will be trying to extract data from and then interactively try out different paths or techniques for extracting data can be very useful in helping build a solution.
+However, one of the main benefits or reasons for learning how to scrape websites is to be able to have the scraper run as a program that doesn't need any interaction from us.
+It can be fully automated.
+Scrapey was built exactly for this use case.
+The scrapey shell is more of a convenient add-on and not the core reason for the scrapey library existing.
+Scrapey can provide a scaffolding for helping us keep our scrapers organized.
+This is referred to in the scrapey documentation as a scrapey project.
+We can create a project by running the scrapey start project command followed by a name where the name is the project that we are trying to build.
+Let's try it out.
+I'll go back here to my terminal and I'll leave our ipython session.
+I'll clear this out and I will now run scrapey start project and the one will do quotes example.
+Apparently I didn't follow the rule.
+Scrapey projects are speaking with a letter and contain only letters, numbers and underscores.
+I'll change the minus to an underscore.
+Now we have a project called quotes example.
+I'm going to use the tree command to show us the files that were created for us.
+Inside of the quotes example folder, there is one file called scrapepy.config.
+Spellcfg.
+Then there is a folder.
+The folder is also named quotes example.
+It has a few basic settings that can help us configure how our project should be executed when we tell scrapepy to run it.
+Then we have a spider's directory.
+This is the one we'll talk most about.
+So we're going to need to teach scrapepy exactly how to extract the data from the web pages we tell it to visit.
+The way we do this is by defining or creating a spider.
+A spider is a Python class that we define that has at least the following features.
+First, we need to provide the spider with a list of websites to scrape.
+Second, we need to define a Python function that tells scrapepy how it can extract the data from a single web page.
+Let's create our first spider now.
+So if we saw the output from the previous, so let's go into the quotes example directory.
+And then the output from the previous scrapepy start project command gave us a little hint that we can use scrapepy,
+Jen spider, and then I'll call this quotes.
+And we want the next argument we give it is the URL that we like at the scrape.
+So here we'll do quotes dot to scrape dot com.
+So the commands here are scrapepy Jen spider because that's what we would like it to do.
+Then we name our spider here. I'm going to call it quotes.
+And then we have the URL that we're supposed to be scraping, which here is quotes to scrape dot com.
+I'll execute this and it will create for us a new file.
+So I'll do tree again. And here we see that before the spider's directory had only an init.py.
+And now there is an init.py in addition to a quotes.py file.
+Let's go ahead and we can go into this file and take a look around.
+So we see here that we may have messed up.
+It looks like we shouldn't have passed HTTP with our Jen spider command. So we'll delete that.
+And what should have what we should have done is we should have done Jen spider with just quotes dot to scrape dot com.
+So to rectify the mistake we made, we'll just delete that duplicate HTTP colon slash slash.
+So now it's happening here is scrapepy has created for us the skeleton or the outline for a class.
+The first thing we'll notice is there's a class called quotes spider.
+And there is a name property on this class set equal to quotes.
+This is coming from the argument we passed to the Jen spider command where we said we wanted to create a new spider named quotes.
+So great. I remembered that and applied it both here on this line and on the one above.
+Then we see that this quotes spider class that we are supposed to define has a parent class of scrape pi dot spider.
+Then scrape pi is setting a few properties. These if we wanted to learn more about them, we could look at the scrape by documentation.
+But based on the names, we can kind of gain some intuition or a guess as to what they do.
+The start URLs property is a list of URLs that we would like to send our spider to scrape.
+Here it's only the quotes dot to scrape dot com.
+Then the allowed domains with this one actually does is protect our spider from not leaving the website we intended it to be on.
+And the reason for this is the parse font method here that we'll talk about really soon.
+It can return some results in addition to launching the spider on another web page.
+The reason you might want to do this is perhaps at the bottom of the quotes page, which we'll check out right here.
+There might be a little button that says next.
+And what we want to do is we want to make sure our parse method will click that next button for us so that we can get the next page of quotes and we can continue to go on and on.
+And the reason sometimes there may be links that we think might be a next button but are actually something else and they might cause us to leave the website what we're on.
+But the allowed domains will tell scrape by not to visit any other websites.
+Okay, so this is all defined for us and we don't need to change it.
+What we do need to do is define the body of the parse method and that's what we'll be working on next.
+The parse method that we will be defining will take as an input a scrape by response object similar to the one we were using the CSS method for in our scrape by shell.
+Then its responsibility is to return a Python dictionary containing one row of data at a time.
+Let's work through how we might extract all of the quotes as well as their authors for each of the quotes that appear on this page.
+The first thing we'll do is we will create a quotes object by doing response CSS div dot quotes.
+So if you remember each of our quotes was in a div with class quote.
+Now we will loop over this so that we can produce a dictionary one for each quote.
+So we'll say for q in quotes the data is equal to the following dictionary.
+We can say that the text is q dot CSS where we want to do a span with class text and get the text.
+Then we need to get the author which is a q dot CSS small dot author text.
+And then that's all the data.
+Now what scrape by expects is not to return here if we were to do return data.
+So what would happen just following normal Python control flow is we would enter this loop and we would return a single row and then the function would exit and we wouldn't be able to come back here.
+So instead of return what we'll do here is we will use the keyword yield.
+So what this will do is it has the effect of temporarily pausing the function once we create our first dictionary of data.
+Returning that to whoever's maybe calling it or looping over it.
+And then when that person or that part of the routine is done we can resume executing our function.
+So what will happen is when parse this first call will get our quotes all of the divs that have a class quote and we'll begin to loop over them will set q equal to the zero element of quotes will get the data for that quote and then we will hand that back to the process that called parse.
+And then do what they need to with that data and give control of the program back to us and we'll pick up where we left off.
+This means we'll start back at the top of our loop.
+Q will take on the value of the second item in quotes or the item number one will get the data for that item and then we'll return it.
+Or you will yield execution alongside that data.
+It can be processed and the problem and then that cycle repeats.
+So at this point we have defined the scraper that should be able to extract all of the quotes in the main page.
+So let's go ahead and we'll exit our text editor here and we'll run the scraper.
+So the way we run a scraper is using the scrapey crawl method and we pass it the name of the scraper.
+And if you remember we had that name property on our quotes spider class where we said name is equal to the string quotes.
+So that's what we're showing right here the quotes string.
+And then we can do quotes dot say CSV.
+We wanted to create a CSV file for us containing all that data.
+We'll go ahead and it actually when we hit enter it went through and it shows us the output the logs and it did run.
+And if we look here inside of this folder in addition to the quotes example inner folder we now have a quotes dot CSV file.
+And if we look at quotes dot CSV we will see that it is empty.
+Let's open up our spider one more time and make sure that there's not a mistake.
+Oh turns out we put div dot quotes where the actual CSS class was div dot quote.
+Let's try running it one more time.
+And if we run this again and now check the quotes dot CSV file we'll see here that we have a CSV file with two columns.
+One is text the other is author.
+The value in the first column will be the value of the text and then the second column contains the author.
+So this is great.
+It looks like our attempt to extract and scrape the quotes on that first page was successful.
+Let's carry on with our slides.
+As we just saw once we've defined a spider that will yield one row of data at a time we can have scrape high run it by using the scrap high crawl command and will pass as arguments the name of the scraper.
+And then we can pass dash oh out file dot extension.
+Again the name represents the name of our spider out file dot extension or the name and extension for storing the data.
+Scrape high is pretty intelligent and in our example when we ran our scraper we passed dash oh quotes dot CSV and scraper I created a CSV file for us.
+If instead we did quotes dot JSON what would happen is scrape high would have created a a JSON file containing all of our data.
+So here we have a an array inside of it we have JSON objects where each of these has keys author and text.
+So just by passing a different file extension a scrape high was able to write out our scrapes data to the correct format.
+Now we only scraped one page from the quotes website.
+But scrape high actually is smart enough if we tell it what to do to continue scraping on multiple pages and the way to do this is there's two steps.
+First we need to find the next URL that we would like scrape high to go scrape.
+And then we need to call on our response object that scrape high gives us inside of our pars method we need to call the follow method and give it the URL.
+We'll show you how this is to be done using our quotes scraper we've been working on.
+So back here in our text editor we'll return to our scraper and after the loop is over what we need to do is figure out where to go next.
+If we look back at the web page and scroll down to the bottom we'll see here that there's a next button.
+Let's open up our developer tools to see how we might be able to figure out where the next button is taking us.
+So now it looks like this next button is an element of type a and it points to so the property h ref on an element is where the URL will point to next.
+So in order to extract the next URL what we need to do is we need to if we look down here there we go there will be a list item with class next inside of that there's a child element with a
+with a t ref set to the next URL.
+So let's see if we can get that in our scraper we'll go here and we'll say next page is response dot CSS and what we're looking for is a list item with class equal the next.
+And inside of that there will be hopefully an element and we would like to get from it the attribute or property of h ref.
+I'll make this there we go now fits on one line okay so this right here is how we can extract the next page of of quotes to scrape.
+Let's take a look we call the CSS method on our response we then get the we go and find a list item with class equal to next and inside of that there's a child a element so here we have a list item class equal next and then there's a child element and we would like to not get its text this time like we did up above for the author and the quote.
+But instead we'd like to get the value of the h ref attribute and the way we do that is we do colon colon a ttr which is short for attribute and in parentheses we pass the name of the attribute we would like to obtain.
+This is similar or reminiscent of the colon colon text syntax we used up above but now it's colon colon attribute or a ttr and it's almost as if we're calling a function and we're telling it we would like the value of the h ref attribute.
+Now if we're on this page what we can do sorry if we're on this page eventually we'll get to a point where there's no next page we could maybe there's 10 pages maybe there's 100 I'm not sure but eventually there's probably a last page and it looks like it is 10 so we'll eventually we'll get to a point where there is no l i with class equal next so it's possible that this next.
+So that this next page is empty it's nothing so what we'll do is we'll only continue on to a new page if there is a next page so if next page is not none what we'll do now is that second steps if you remember from our slides we said we first need to find the link then we use the response dot follow method so what we'll do is we will do yield.
+We'll build response dot follow next page and then once we're here we need to say what to do with it and I'll show you let me type this out and then we'll talk about it.
+Okay so what we're doing is we are yielding the return value of the follow method on our response object and this expects us to handle or pass two arguments the first one is the URL that we should go to next and then the second we need to set a callback and the purpose of this callback parameter
+is we need to tell scrape I what it should do or how it should handle the data that it finds on the next page.
+In this example we are saying that the function you should call or you should pass the new response to the response obtained after looking at next page you should send it to self dot parse you send it back to this function.
+Now the reason we chose self dot parse was that we're going to be presented after clicking next with another page of quotes that look just like this.
+It's possible the reason this exists in this great pie API is that it's possible that you might find a link to a different type of web page.
+Let's think of an example.
+Suppose that we are on a web page for shopping let's go to ebay.com.
+Now for on ebay.com what we might be trying to do is let's find the price of all the front page items.
+So we can go through we can have our scraper run it might need to click some of these buttons and each time it does it would need to pass the new data back to itself and back to the price extractor.
+But then we also want to get all the details we can about each item.
+So if we click over here on an item here it's a Nintendo switch then we're taken to a totally different page now this has other information like the number of ratings are spent 55 ratings as well as the average rating.
+We have more and more information like how you might ship what are the shipping costs or what's the return policy.
+All of these things would probably need to be handled by a product detail scraper.
+So if we were to write a scraper to get all of the items on this page we would say okay as we're looking for the prices keep track of those we will yield the prices instead of our price scraper.
+But then we will also do response to follow to the detail page for each of the products and the callback when we follow to a detail page should be the product detail scraper it shouldn't be the price scraper.
+So hopefully that that example makes a little more sense of why this callback exists sometimes we come across links that need to be handled by a different scraper.
+Okay after all that talking let's see what we're able to do so we'll go back out and you'll see here that let's look at our quotes.csp file and we'll see if I just count the number of lines in the file.
+There are 11 lines in this file so when we scraped just the first page we had one line or one row giving the column names and then we had 10 rows of data.
+Let's run our scraper again and this time let's see what data it finds.
+So if we see how long the quotes.csp file is now we see that it's 101 rows long so what's great I did in this one executed program it went through and it found 10 pages worth of quotes.
+Now we can look at quotes.csp and we'll see here that again it has text and author and now there are 100 lines you can see the line number I'm at over here in the bottom right.
+And now we have 100 quotes so this is all the quotes that were available to us on that quotes page.
+Let's review really quickly how we did that so if we look at our scraper we didn't change anything in the first 17 lines we only added three lines and here's what they did the first line.
+Found what the next pages link would be if an x page existed this is the same as this first step over here in our slides.
+Then if we have an x page what we need to do is yield the data that comes when we follow that link and we process the data using the self dot pars method we just defined this is the second step here.
+This is how we can have scraper process one page and then continue processing more pages that it uncovers this is also why to run a scraper we use the scraper crawl command because you can think about what our scrapers doing it will first land on the quotes to scrape dot com main page.
+It will grab this data and then it will move to the next link and the next one and so on and you can think about it as if it were crawling through all of the pages on our on the website that we're looking at.
+If this website were more complicated where there were maybe three different next links that we could follow that take us to different places it's almost as if we're creating a web of connected pages and our spider then is crawling from each node in the web to each other node.
+That's kind of the imagery the scrape high team had when they named things spiders and crawling.
