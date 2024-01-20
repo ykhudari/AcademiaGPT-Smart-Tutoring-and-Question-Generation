@@ -1,4 +1,4 @@
-# Academia-GPT
+# AcademiaGPT: Smart Tutoring and Question Generation 
 
 # Project Overview 
 <p align="left"> 
