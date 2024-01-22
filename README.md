@@ -36,11 +36,13 @@ The purpose of the question generator is to assist the instructors in creating q
 ### Minimum Viable Product (MVP):
 
 **Functionality**: Students ask text-based questions for automated, personalized explanations.
+
 **Emphasis**: Written responses in layman's terms for viability.
 
 ### User Stories:
 
 **Student**: Ask conceptual questions for explanations on foundational topics.
+
 **Instructor**: Use question generator for quiz and exam design.
 
 ### Additional Explanation Formats:
