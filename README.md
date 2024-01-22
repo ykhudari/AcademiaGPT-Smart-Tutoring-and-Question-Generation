@@ -31,7 +31,7 @@ The purpose of the question generator is to assist the instructors in creating q
 
 
 **Objective**: Provide automated, personalized explanations for student questions.
-**Goal**: Reduce confusion, enhance understanding, and improve learning outcomes.
+    **Goal**: Reduce confusion, enhance understanding, and improve learning outcomes.
 **Minimum Viable Product Focus**: Core natural language processing capabilities for a single subject area.
 
 ### Minimum Viable Product (MVP):
